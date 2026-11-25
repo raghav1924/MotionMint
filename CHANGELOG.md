@@ -2,7 +2,7 @@
 
 ## [0.13.0] — 2026-11-25 (Phase 2.10 — Cinematic Homepage & Brand Experience)
 ### Added
-- **Cinematic Hero** (`components/home/cinematic-hero.tsx`): Original MotionMint sculptural emblem, calibrated dot-matrix stage, pointer-parallax orbiting live component specimens, mobile specimen strip, and `prefers-reduced-motion` support.
+- **Cinematic Hero** (`components/home/cinematic-hero.tsx`, `components/home/sculptural-silk.tsx`): Hybrid Sculptural Silk + Living UI Components with 4-stage scroll progression (`useScroll`/`useTransform`), nested non-conflicting pointer parallax (`useMotionValue`/`useSpring`), `IntersectionObserver` + `document.hidden` canvas pause, static SVG fallback, mobile specimen strip, and `prefers-reduced-motion` support.
 - **Homepage Storytelling Sections:** `CapabilityStrip` (`components/home/capability-strip.tsx`), `ThemeDifferentiator` (`components/home/theme-differentiator.tsx`), `MotionSoundShowcase` (`components/home/motion-sound-showcase.tsx`), `FlowShowcase` (`components/home/flow-showcase.tsx`), `DeveloperExperienceShowcase` (`components/home/developer-dx.tsx`), and `PricingSection` (`components/home/pricing-section.tsx` with user-configurable effort estimator).
 - **Homepage test suite** (`tests/homepage.test.tsx`) and **`VISUAL_HOMEPAGE_QA.md`**.
 

@@ -32,6 +32,9 @@ describe("Phase 2.10 — Cinematic Homepage & Brand Experience", () => {
     expect(
       screen.getByRole("heading", { name: "Interfaces should feel alive." })
     ).toBeInTheDocument();
+    expect(screen.getByText(/Beautiful React components\. Extraordinary interactions\./i)).toBeInTheDocument();
+    const heroWrapper = document.querySelector('[data-hero-scroll-stage]');
+    expect(heroWrapper).toHaveAttribute("data-hero-scroll-stage", "reveal");
     expect(screen.getAllByRole("link", { name: /Explore Components/i }).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /Explore Themes/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Discover MotionMint Flow/i })).toBeInTheDocument();
