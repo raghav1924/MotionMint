@@ -55,7 +55,7 @@ const HOMEPAGE_FAQS = [
 
 export default function HomePage() {
   return (
-    <div className="space-y-24 pb-16">
+    <div className="space-y-24 pb-16 overflow-x-clip">
       {/* Section 2: Cinematic Hero */}
       <CinematicHero />
 

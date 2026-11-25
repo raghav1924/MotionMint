@@ -11,18 +11,21 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { ArrowRight, ArrowDown, Workflow, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowDown, Workflow } from "lucide-react";
 import { ThinkingLoader } from "@/registry/components/thinking-loader";
 import { PhysicalKnob } from "@/registry/components/physical-knob";
 import { ProgressRing } from "@/registry/components/progress-ring";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { MotionMintTheme } from "@/components/theme/theme-scope";
 import { SculpturalSilk } from "@/components/home/sculptural-silk";
+import { useMotionMint } from "@/components/site/providers";
 
 export function CinematicHero() {
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
+  const { resolvedAppearance } = useMotionMint();
+  const specimenMode = resolvedAppearance === "dark" ? "dark" : "light";
 
   const [knobVal, setKnobVal] = useState(68);
   const [ringVal, setRingVal] = useState(76);
@@ -32,7 +35,7 @@ export function CinematicHero() {
   // Scroll-driven 4-stage progression (Outer layer)
   const { scrollYProgress } = useScroll({
     target: scrollWrapperRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end end"],
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -40,18 +43,16 @@ export function CinematicHero() {
   });
 
   // Stage 1 -> 2 -> 3 -> 4 scroll transforms
-  const silkScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.08, 0.94]);
-  const silkOpacity = useTransform(scrollYProgress, [0, 0.55, 0.95], [1, 0.9, 0.35]);
-  const markScale = useTransform(scrollYProgress, [0, 0.45, 0.9], [1, 1.12, 0.88]);
-  const markOpacity = useTransform(scrollYProgress, [0, 0.6, 0.95], [0.1, 0.14, 0.04]);
+  const silkScale = useTransform(scrollYProgress, [0, 0.45, 0.9], [1, 1.06, 0.96]);
+  const silkOpacity = useTransform(scrollYProgress, [0, 0.6, 0.95], [1, 0.92, 0.4]);
 
-  const headlineY = useTransform(scrollYProgress, [0, 0.5, 0.95], [0, -18, -36]);
-  const headlineOpacity = useTransform(scrollYProgress, [0, 0.72, 0.98], [1, 1, 0.25]);
+  const headlineY = useTransform(scrollYProgress, [0, 0.5, 0.95], [0, -18, -40]);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.72, 0.98], [1, 1, 0.28]);
 
-  // Orbiting components emerge and step forward in Stages 2 & 3
-  const leftOrbitX = useTransform(scrollYProgress, [0, 0.45, 0.9], [0, 14, 24]);
-  const rightOrbitX = useTransform(scrollYProgress, [0, 0.45, 0.9], [0, -14, -24]);
-  const orbitScale = useTransform(scrollYProgress, [0, 0.45, 0.9], [0.96, 1.04, 1]);
+  // Specimens emerge along the silk curve in Stage 2 & become primary focus in Stage 3
+  const leftOrbitX = useTransform(scrollYProgress, [0, 0.45, 0.9], [0, 16, 26]);
+  const rightOrbitX = useTransform(scrollYProgress, [0, 0.45, 0.9], [0, -16, -26]);
+  const orbitScale = useTransform(scrollYProgress, [0, 0.45, 0.9], [0.95, 1.05, 1]);
 
   // Pointer-driven local parallax (Inner nested layer — never conflicts with Scroll!)
   const pointerX = useMotionValue(0);
@@ -59,9 +60,7 @@ export function CinematicHero() {
   const springX = useSpring(pointerX, { stiffness: 120, damping: 24, mass: 0.6 });
   const springY = useSpring(pointerY, { stiffness: 120, damping: 24, mass: 0.6 });
 
-  const markPX = useTransform(springX, [-0.5, 0.5], [-10, 10]);
-  const markPY = useTransform(springY, [-0.5, 0.5], [-10, 10]);
-  const nearPX = useTransform(springX, [-0.5, 0.5], [16, -16]);
+  const nearPX = useTransform(springX, [-0.5, 0.5], [18, -18]);
   const nearPY = useTransform(springY, [-0.5, 0.5], [14, -14]);
   const farPX = useTransform(springX, [-0.5, 0.5], [-16, 16]);
   const farPY = useTransform(springY, [-0.5, 0.5], [-12, 12]);
@@ -94,9 +93,15 @@ export function CinematicHero() {
     <div
       ref={scrollWrapperRef}
       data-hero-scroll-stage={
-        scrollVal < 0.25 ? "reveal" : scrollVal < 0.55 ? "formation" : scrollVal < 0.85 ? "exhibition" : "transition"
+        scrollVal < 0.25
+          ? "reveal"
+          : scrollVal < 0.55
+            ? "formation"
+            : scrollVal < 0.85
+              ? "exhibition"
+              : "transition"
       }
-      className={prefersReduced ? "relative" : "relative lg:h-[145vh]"}
+      className={prefersReduced ? "relative" : "relative lg:h-[165vh]"}
     >
       <section
         ref={stageRef}
@@ -108,19 +113,7 @@ export function CinematicHero() {
             : "relative isolate flex min-h-[84svh] lg:sticky lg:top-0 lg:h-svh flex-col items-center justify-center overflow-hidden border-b border-[var(--ws-border)] bg-[var(--ws-bg)] px-4 py-16 sm:px-6"
         }
       >
-        {/* Architectural calibrated dot-matrix */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-20 opacity-55"
-          style={{
-            backgroundImage: "radial-gradient(var(--ws-border-strong) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-            maskImage: "radial-gradient(ellipse 75% 65% at 50% 45%, black 20%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 75% 65% at 50% 45%, black 20%, transparent 100%)",
-          }}
-        />
-
-        {/* Layer 1A: Sculptural Flowing Silk Ribbons (Scroll-controlled outer wrapper) */}
+        {/* Layer A: Dominant 3D-Shaded Sculptural Silk Ribbon (Scroll outer + Pointer-reactive Canvas) */}
         <motion.div
           aria-hidden="true"
           style={prefersReduced ? undefined : { scale: silkScale, opacity: silkOpacity }}
@@ -133,99 +126,75 @@ export function CinematicHero() {
           />
         </motion.div>
 
-        {/* Layer 1B: Central Sculptural MotionMint Mark (Scroll outer + Pointer inner) */}
-        <motion.div
+        {/* Soft readability scrim behind center typography */}
+        <div
           aria-hidden="true"
-          style={prefersReduced ? { opacity: 0.08 } : { scale: markScale, opacity: markOpacity }}
-          className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
-        >
-          <motion.div
-            initial={prefersReduced ? false : { opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            style={prefersReduced ? undefined : { x: markPX, y: markPY }}
-          >
-            <svg
-              viewBox="0 0 440 440"
-              className="h-[320px] w-[320px] sm:h-[430px] sm:w-[430px] text-[var(--ws-text-primary)]"
-              fill="none"
-            >
-              <circle cx="220" cy="220" r="200" stroke="currentColor" strokeWidth="1" strokeDasharray="4 6" />
-              <circle cx="220" cy="220" r="148" stroke="currentColor" strokeWidth="1" />
-              <circle cx="220" cy="220" r="92" stroke="currentColor" strokeWidth="1" strokeDasharray="2 4" />
-              <path
-                d="M220 40v360M64 130l312 180M376 130L64 310"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-              <polygon
-                points="220,148 282,184 282,256 220,292 158,256 158,184"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </motion.div>
-        </motion.div>
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background:
+              "radial-gradient(ellipse 46% 42% at 50% 48%, var(--ws-bg) 35%, transparent 100%)",
+            opacity: 0.72,
+          }}
+        />
 
         <div className="relative mx-auto w-full max-w-[1320px]">
-          {/* Layer 2: Desktop Orbiting Living Component Specimens (Scroll outer + Pointer inner) */}
+          {/* Layer B: Living UI Specimens Integrated Along the Sculptural Flow (Desktop) */}
           <div className="hidden lg:block">
-            {/* Top Left: Thinking Loader */}
+            {/* Upper Left along ribbon crest: Thinking Loader */}
             <motion.div
               style={prefersReduced ? undefined : { x: leftOrbitX, scale: orbitScale }}
-              className="absolute left-0 top-2 w-[256px]"
+              className="absolute left-4 -top-6 w-[248px]"
             >
               <motion.div
                 initial={prefersReduced ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 style={prefersReduced ? undefined : { x: farPX, y: farPY }}
-                className="rounded-[20px] border border-[var(--ws-border)] bg-[var(--ws-floating)]/95 p-3.5 shadow-[var(--ws-shadow-floating)] backdrop-blur-md"
+                className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/88 p-3 shadow-[var(--ws-shadow-floating)] backdrop-blur-md"
               >
-                <div className="mb-2 flex items-center justify-between text-[10px] font-mono text-[var(--ws-text-muted)]">
-                  <span>AI · STATUS</span>
+                <div className="mb-1.5 flex items-center justify-between text-[10px] font-mono text-[var(--ws-text-muted)]">
+                  <span>AI · THINKING LOADER</span>
                   <Link href="/components/thinking-loader" className="hover:text-[var(--ws-text-primary)]">
                     Inspect →
                   </Link>
                 </div>
-                <MotionMintTheme theme="minimalism" mode="light" className="rounded-xl p-2">
+                <MotionMintTheme theme="minimalism" mode={specimenMode} className="rounded-xl p-1.5">
                   <ThinkingLoader
-                    stages={["Auditing tokens", "Composing spring", "Ready"]}
+                    stages={["Sculpting silk", "Composing spring", "Ready"]}
                     intervalMs={1800}
                   />
                 </MotionMintTheme>
               </motion.div>
             </motion.div>
 
-            {/* Top Right: Physical Knob */}
+            {/* Upper Right along ribbon curve: Physical Knob */}
             <motion.div
               style={prefersReduced ? undefined : { x: rightOrbitX, scale: orbitScale }}
-              className="absolute right-0 top-0 w-[232px]"
+              className="absolute right-6 -top-8 w-[210px]"
             >
               <motion.div
                 initial={prefersReduced ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
                 style={prefersReduced ? undefined : { x: nearPX, y: farPY }}
-                className="rounded-[20px] border border-[var(--ws-border)] bg-[var(--ws-floating)]/95 p-3.5 shadow-[var(--ws-shadow-floating)] backdrop-blur-md"
+                className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/88 p-3 shadow-[var(--ws-shadow-floating)] backdrop-blur-md"
               >
-                <div className="mb-2 flex items-center justify-between text-[10px] font-mono text-[var(--ws-text-muted)]">
-                  <span>CONTROLS · DIAL</span>
+                <div className="mb-1 flex items-center justify-between text-[10px] font-mono text-[var(--ws-text-muted)]">
+                  <span>ROTARY DIAL</span>
                   <Link href="/components/physical-knob" className="hover:text-[var(--ws-text-primary)]">
                     Inspect →
                   </Link>
                 </div>
-                <MotionMintTheme theme="minimalism" mode="light" className="flex justify-center py-1">
-                  <PhysicalKnob value={knobVal} onValueChange={setKnobVal} label="Damping" />
+                <MotionMintTheme theme="minimalism" mode={specimenMode} className="flex justify-center py-0.5">
+                  <PhysicalKnob value={knobVal} onValueChange={setKnobVal} label="Tension" />
                 </MotionMintTheme>
               </motion.div>
             </motion.div>
 
-            {/* Bottom Left: Flow Node Connection */}
+            {/* Lower Left along ribbon fold: Connected Flow Node */}
             <motion.div
               style={prefersReduced ? undefined : { x: leftOrbitX, scale: orbitScale }}
-              className="absolute left-6 bottom-0 w-[264px]"
+              className="absolute left-10 -bottom-6 w-[256px]"
             >
               <motion.div
                 initial={prefersReduced ? false : { opacity: 0, y: 20 }}
@@ -235,7 +204,7 @@ export function CinematicHero() {
               >
                 <Link
                   href="/flow"
-                  className="block rounded-[20px] border border-[var(--ws-border)] bg-[var(--ws-floating)]/95 p-3.5 shadow-[var(--ws-shadow-floating)] backdrop-blur-md transition-transform hover:-translate-y-0.5"
+                  className="block rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/88 p-3 shadow-[var(--ws-shadow-floating)] backdrop-blur-md transition-transform hover:-translate-y-0.5"
                 >
                   <div className="mb-2 flex items-center justify-between text-[10px] font-mono text-[var(--ws-text-muted)]">
                     <span className="flex items-center gap-1">
@@ -261,20 +230,20 @@ export function CinematicHero() {
               </motion.div>
             </motion.div>
 
-            {/* Bottom Right: Progress Ring + Neo-Brutalism Ripple */}
+            {/* Lower Right along ribbon tail: Progress Ring + Neo-Brutalism Ripple */}
             <motion.div
               style={prefersReduced ? undefined : { x: rightOrbitX, scale: orbitScale }}
-              className="absolute right-6 bottom-0 w-[256px]"
+              className="absolute right-10 -bottom-6 w-[248px]"
             >
               <motion.div
                 initial={prefersReduced ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
                 style={prefersReduced ? undefined : { x: farPX, y: nearPY }}
-                className="rounded-[20px] border border-[var(--ws-border)] bg-[var(--ws-floating)]/95 p-3.5 shadow-[var(--ws-shadow-floating)] backdrop-blur-md"
+                className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/88 p-3 shadow-[var(--ws-shadow-floating)] backdrop-blur-md"
               >
-                <div className="mb-2 flex items-center justify-between text-[10px] font-mono text-[var(--ws-text-muted)]">
-                  <span>58 VARIANTS</span>
+                <div className="mb-1.5 flex items-center justify-between text-[10px] font-mono text-[var(--ws-text-muted)]">
+                  <span>58 THEME VARIANTS</span>
                   <Link href="/themes" className="hover:text-[var(--ws-text-primary)]">
                     Themes →
                   </Link>
@@ -284,7 +253,7 @@ export function CinematicHero() {
                   mode="light"
                   className="flex items-center justify-between gap-3 rounded-xl p-2"
                 >
-                  <ProgressRing value={ringVal} size={52} strokeWidth={5} />
+                  <ProgressRing value={ringVal} size={48} strokeWidth={5} />
                   <RippleButton
                     size="sm"
                     onClick={() => setRingVal((v) => (v >= 100 ? 25 : v + 25))}
@@ -296,46 +265,25 @@ export function CinematicHero() {
             </motion.div>
           </div>
 
-          {/* Center Editorial Headline & CTAs (Scroll-driven y/opacity) */}
+          {/* Center Editorial Headline & CTAs */}
           <motion.div
             style={prefersReduced ? undefined : { y: headlineY, opacity: headlineOpacity }}
-            className="relative z-10 mx-auto max-w-2xl py-6 text-center space-y-6"
+            className="relative z-10 mx-auto max-w-2xl py-8 text-center space-y-6"
           >
-            <motion.div
-              initial={prefersReduced ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3.5 py-1 text-xs font-medium text-[var(--ws-text-secondary)] shadow-xs"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-[var(--ws-text-primary)]" aria-hidden="true" />
-              <span>44 Components · 58 Theme Variants · MotionMint Flow</span>
-            </motion.div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ws-text-secondary)]">
+              MotionMint · 44 Components · 58 Theme Variants · Flow
+            </p>
 
-            <motion.h1
-              initial={prefersReduced ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl font-semibold tracking-[-0.04em] text-[var(--ws-text-primary)] sm:text-6xl lg:text-[72px] lg:leading-[1.03]"
-            >
+            <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[var(--ws-text-primary)] sm:text-6xl lg:text-[72px] lg:leading-[1.03]">
               Interfaces should feel alive.
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={prefersReduced ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto max-w-xl text-base leading-relaxed text-[var(--ws-text-secondary)] sm:text-lg"
-            >
+            <p className="mx-auto max-w-xl text-base leading-relaxed text-[var(--ws-text-secondary)] sm:text-lg">
               Beautiful React components. Extraordinary interactions. Designed to be used,
               not just admired.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={prefersReduced ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-wrap items-center justify-center gap-3 pt-2"
-            >
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <Link
                 href="/components"
                 className="inline-flex h-11 items-center gap-2 rounded-full bg-[var(--ws-text-primary)] px-6 text-sm font-medium text-[var(--ws-bg)] shadow-sm transition-opacity hover:opacity-90"
@@ -345,18 +293,13 @@ export function CinematicHero() {
               </Link>
               <Link
                 href="/themes"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-[var(--ws-border-strong)] bg-[var(--ws-floating)] px-6 text-sm font-medium text-[var(--ws-text-primary)] transition-colors hover:bg-[var(--ws-surface-hover)]"
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-[var(--ws-border-strong)] bg-[var(--ws-floating)]/90 px-6 text-sm font-medium text-[var(--ws-text-primary)] backdrop-blur-sm transition-colors hover:bg-[var(--ws-surface-hover)]"
               >
                 Explore Themes
               </Link>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={prefersReduced ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.32 }}
-              className="pt-1"
-            >
+            <div className="pt-1">
               <Link
                 href="/flow"
                 className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] transition-colors"
@@ -364,20 +307,20 @@ export function CinematicHero() {
                 <Workflow className="h-3.5 w-3.5" aria-hidden="true" />
                 <span>Discover MotionMint Flow →</span>
               </Link>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Mobile / Tablet Compact Live Specimen Strip */}
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden">
-            <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)] p-3.5 flex items-center justify-between gap-3">
-              <MotionMintTheme theme="minimalism" mode="light" className="w-full">
+            <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/90 p-3.5 flex items-center justify-between gap-3 backdrop-blur-md">
+              <MotionMintTheme theme="minimalism" mode={specimenMode} className="w-full">
                 <ThinkingLoader
-                  stages={["Auditing tokens", "Composing spring", "Ready"]}
+                  stages={["Sculpting silk", "Composing spring", "Ready"]}
                   intervalMs={2000}
                 />
               </MotionMintTheme>
             </div>
-            <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)] p-3.5 flex items-center justify-between gap-3">
+            <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/90 p-3.5 flex items-center justify-between gap-3 backdrop-blur-md">
               <MotionMintTheme
                 theme="neo-brutalism"
                 mode="light"

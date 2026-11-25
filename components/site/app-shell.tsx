@@ -21,12 +21,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <>
       <AnnouncementBar />
       <div className="min-h-screen flex flex-col bg-[var(--ws-bg)] text-[var(--ws-text-primary)]">
-        <NavigationToggle />
-        <BrandFloatingButton />
+        {!isHome && <NavigationToggle />}
+        {!isHome && <BrandFloatingButton />}
         {isHome && <Navbar />}
-        <main className={cn("flex-1", isFlow ? "pb-6" : "pb-24")}>{children}</main>
+        <main className={cn("flex-1", isFlow || isHome ? "pb-6" : "pb-24")}>{children}</main>
         {!isFlow && <Footer />}
-        {!isFlow && <FloatingToolbar />}
+        {!isHome && !isFlow && <FloatingToolbar />}
       </div>
       <EditorialSidebar />
       <CommandPalette />
