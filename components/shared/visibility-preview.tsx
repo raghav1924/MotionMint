@@ -16,9 +16,7 @@ export function VisibilityPreview({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [hasEntered, setHasEntered] = useState(
-    () => typeof IntersectionObserver === "undefined"
-  );
+  const [hasEntered, setHasEntered] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
