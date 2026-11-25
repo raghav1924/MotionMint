@@ -2,6 +2,8 @@ import React from "react";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MotionMintProvider } from "@/components/site/providers";
+import { Navbar } from "@/components/site/navbar";
+import { Footer } from "@/components/site/footer";
 import HomePage from "@/app/page";
 
 vi.mock("next/navigation", () => ({
@@ -20,48 +22,60 @@ beforeAll(() => {
   }
 });
 
-describe("Phase 2.10 — Cinematic Homepage & Brand Experience", () => {
-  it("renders all core homepage sections with accurate counts and interactive theme/DX/pricing controls", () => {
+describe("Phase 2.12 — Editorial Brand Identity & Homepage Redesign", () => {
+  it("renders the 6-beat editorial homepage with interactive scoped Themes+Flow split", () => {
     render(
       <MotionMintProvider>
+        <Navbar />
         <HomePage />
+        <Footer />
       </MotionMintProvider>
     );
+
+    // Editorial Navbar (no sound toggle or 29-theme dropdown in header)
+    expect(screen.getByRole("link", { name: /MotionMint home/i })).toBeInTheDocument();
+    expect(screen.queryByText(/Sound Off/i)).not.toBeInTheDocument();
 
     // Hero
     expect(
       screen.getByRole("heading", { name: "Interfaces should feel alive." })
     ).toBeInTheDocument();
-    expect(screen.getByText(/Beautiful React components\. Extraordinary interactions\./i)).toBeInTheDocument();
-    const heroWrapper = document.querySelector('[data-hero-scroll-stage]');
+    expect(
+      screen.getByText(/An expressive collection of React components, motion and interactions/i)
+    ).toBeInTheDocument();
+    const heroWrapper = document.querySelector("[data-hero-scroll-stage]");
     expect(heroWrapper).toHaveAttribute("data-hero-scroll-stage", "reveal");
     expect(screen.getAllByRole("link", { name: /Explore Components/i }).length).toBeGreaterThan(0);
-    expect(screen.getByRole("link", { name: /Explore Themes/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Discover Themes/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Discover MotionMint Flow/i })).toBeInTheDocument();
 
     // Capability strip
     expect(screen.getByText("shadcn-compatible registry (50 items)")).toBeInTheDocument();
 
-    // Theme differentiator — switching component theme never mutates documentElement
+    // Selected Work Exhibition (5 curated pieces)
+    expect(screen.getByRole("heading", { name: "Made to move." })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Explore the library/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Swipe Card Deck" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "AI Prompt Composer" })).toBeInTheDocument();
+
+    // Split Themes + Flow section
+    expect(screen.getByRole("heading", { name: "29 languages. 58 expressions." })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Cyberpunk" }));
     fireEvent.click(screen.getByRole("button", { name: "dark" }));
     expect(document.documentElement.style.getPropertyValue("--mm-bg")).toBe("");
-    expect(screen.getByText(/Cyberpunk · Dark/i)).toBeInTheDocument();
+    expect(screen.getByText(/Cyberpunk · dark/i)).toBeInTheDocument();
 
-    // Flow showcase
-    expect(screen.getByText("Simulated Execution Demo")).toBeInTheDocument();
-    expect(screen.getByText(/Kahn DAG Valid/i)).toBeInTheDocument();
+    expect(screen.getByText("Simulated Demo")).toBeInTheDocument();
+    expect(screen.getByText(/DAG Valid \(/i)).toBeInTheDocument();
 
-    // Developer DX package manager tab switch
-    fireEvent.click(screen.getByRole("tab", { name: "npm" }));
-    expect(screen.getByText(/npx shadcn@latest add @motionmint\/ripple-button/i)).toBeInTheDocument();
+    // Compact Developer CTA
+    expect(
+      screen.getByRole("heading", { name: "Your next interface starts here." })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Browse 44 Components/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Read Installation Docs/i })).toBeInTheDocument();
 
-    // Pricing effort estimator
-    expect(screen.getByText("48 hrs")).toBeInTheDocument();
-    expect(screen.getByText("Open Core")).toBeInTheDocument();
-    expect(screen.getByText("Pro Ecosystem")).toBeInTheDocument();
-
-    // FAQ
-    expect(screen.getByText("What is MotionMint Flow?")).toBeInTheDocument();
-  });
+    // Editorial Footer
+    expect(screen.getByRole("heading", { name: "Make something memorable." })).toBeInTheDocument();
+  }, 15000);
 });

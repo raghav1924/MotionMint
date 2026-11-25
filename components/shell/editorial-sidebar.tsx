@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { PanelLeftClose } from "lucide-react";
 import { BRAND } from "@/lib/brand";
+import { MotionMintMark } from "@/components/brand/motionmint-logo";
 import { CATALOG_ITEMS } from "@/lib/catalog";
 import { useMotionMint } from "@/components/site/providers";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
@@ -146,17 +147,7 @@ export function EditorialSidebar() {
                 className="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-[var(--ws-text-primary)]"
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-[#111111] text-[var(--ws-accent,#dfff00)]">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-3 w-3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9" />
-                  </svg>
+                  <MotionMintMark size={14} />
                 </span>
                 <span>{BRAND.name}</span>
               </Link>

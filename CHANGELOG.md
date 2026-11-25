@@ -1,5 +1,19 @@
 # CHANGELOG.md — MotionMint
 
+## [0.15.0] — 2026-11-25 (Phase 2.12 — Editorial Brand Identity & Homepage Redesign)
+### Added
+- `BRAND_DIRECTION.md` documenting creative direction (Metalab × Marked.dev × Wix Studio × Original MotionMint Identity) and 3 logomark concepts.
+- `components/brand/motionmint-logo.tsx` (`MotionMintMark`, `MotionMintWordmark`, `MotionMintLogo`) featuring the bespoke **Kinetic M** two-ribbon SVG mark.
+- `app/icon.svg` providing a matching `Kinetic M` SVG favicon.
+- `components/home/themes-flow-split.tsx` combining the 29-theme / 58-expression live `RippleButton` demo and the simulated MotionMint Flow DAG excerpt into a single split editorial section.
+
+### Changed
+- **Editorial Header** (`components/site/navbar.tsx`): Replaced floating pill navigation and starburst icon with a full-width editorial hairline bar (`MotionMintLogo`, `Components`, `Themes`, `Flow`, `Docs`, `⌘K` Search, `Light`/`Dark`/`System` switcher, `Explore`), removing sound and component-theme controls from the homepage header.
+- **Brand Mark Adoption** (`components/shell/editorial-sidebar.tsx`, `components/shell/brand-floating-button.tsx`): Replaced generic starburst SVG icons with `MotionMintMark`.
+- **Streamlined Homepage** (`app/page.tsx`, `components/home/cinematic-hero.tsx`, `components/site/exhibition-gallery.tsx`): Trimmed homepage to 6 editorial beats, tightened `CinematicHero` viewport alignment (`calc(100svh - 64px)`), and curated `ExhibitionGallery` to 5 varied interactive specimens.
+- **Oversized Editorial Footer** (`components/site/footer.tsx`): Replaced 4-column SaaS link grid and dot-matrix `ParticleWordmark` with `"Make something memorable."`, oversized `Kinetic M` + `MotionMint` typographic signature, restrained link row, and fine hairline dividers.
+- Updated `tests/homepage.test.tsx`, `ROADMAP.md`, `DESIGN_SYSTEM.md`, and `DECISIONS.md`.
+
 ## [0.14.0] — 2026-11-25 (Phase 2.11 — Unified Application Shell & Workspace Redesign)
 ### Added
 - `WorkspacePage` and `WorkspaceHeader` (`components/workspace/workspace-page.tsx`) unifying page headings, eyebrow labels, max-width, and spacing across `/motion`, `/sounds`, and `/flow`.

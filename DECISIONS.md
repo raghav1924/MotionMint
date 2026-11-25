@@ -86,6 +86,13 @@
 - **Decision:** Defer full theme demo websites to a future phase. The routes (`/themes/scrapbook/demo`, etc.) will be implemented using Next.js dynamic segments (`/themes/[themeId]/demo`) when Wave 3+ component collections are complete enough to populate a full demo page. ROADMAP.md documents the planned architecture; no route files or demo pages are created in Phase 2.9.
 - **Consequences:** No scope creep in Phase 2.9. When ready, a single dynamic route handler with `generateStaticParams` can build all 29 demo pages at once. The `MotionMintTheme` scope wrapper already provides the necessary primitive.
 
+## ADR-010: Bespoke Kinetic M Brand Identity & 6-Beat Editorial Homepage (Phase 2.12)
+- **Date:** 2026-11-25
+- **Status:** Accepted
+- **Context:** Feedback on Phase 2.10/2.11 noted that the homepage read like a multi-section SaaS feature tour, the starburst icon felt generic, and the floating pill navbar / 4-column footer lacked editorial character.
+- **Decision:** Introduce the bespoke **Kinetic M** mark (`components/brand/motionmint-logo.tsx`, `app/icon.svg`), replace the floating pill header with a full-width editorial hairline bar, trim `app/page.tsx` to 6 beats (Hero, CapabilityStrip, 5-piece ExhibitionGallery, split Themes+Flow, Developer CTA, oversized Editorial Footer), and keep deep feature tours on their dedicated routes (`/motion`, `/sounds`, `/docs/installation`, `/themes`, `/flow`).
+- **Consequences:** Stronger brand distinction, balanced first-viewport framing, and clearer separation between editorial homepage storytelling and deep workspace tools.
+
 ## ADR-009: Unified Planes-Inspired Shell, Floating Toolbar & Device Preview Architecture (Phase 2.8)
 - **Date:** 2026-11-25
 - **Status:** Accepted

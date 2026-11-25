@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Sun, Moon, Volume2, VolumeX, LayoutGrid, Play, Sparkles } from "lucide-react";
 import { BRAND } from "@/lib/brand";
+import { MotionMintMark } from "@/components/brand/motionmint-logo";
 import { useMotionMint } from "@/components/site/providers";
 import { cn } from "@/lib/utils";
 
@@ -43,10 +44,8 @@ export function BrandFloatingButton() {
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-accent)]"
         )}
       >
-        {/* Starburst / asterisk brand glyph */}
-        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" aria-hidden="true">
-          <path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9" />
-        </svg>
+        {/* Kinetic M brand mark */}
+        <MotionMintMark size={20} />
       </button>
 
       {open && (

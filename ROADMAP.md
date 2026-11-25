@@ -112,6 +112,12 @@
 - [x] **Redesigned Motion Lab & Sound Lab:** Replaced dashboard cards on `/motion` and `/sounds` with prominent central stages, waveform visualizer, `<MotionMintTheme>` scoped previews, and `DeviceFrames` viewport switching.
 - [x] Wave 3+ component development remains paused.
 
+## Phase 2.12 — Editorial Brand Identity & Homepage Redesign `[COMPLETE]`
+- [x] Created `BRAND_DIRECTION.md`, bespoke `Kinetic M` SVG logomark & tracked wordmark (`components/brand/motionmint-logo.tsx`), and SVG favicon (`app/icon.svg`)
+- [x] Replaced generic starburst glyph across `Navbar`, `Footer`, `EditorialSidebar`, and `BrandFloatingButton`
+- [x] Redesigned `Navbar` into a full-width editorial hairline header (`Components`, `Themes`, `Flow`, `Docs`, `⌘K` search, `Light`/`Dark`/`System` switcher, `Explore`)
+- [x] Streamlined `app/page.tsx` to 6 editorial beats (`CinematicHero`, `CapabilityStrip`, 5-item `ExhibitionGallery`, split `ThemesFlowSplit`, compact Developer CTA, and oversized editorial `Footer`)
+
 ## Phase 5 — Premium Experiences (Pro Validation)
 - [ ] Advanced upload flow (previews, progress, retry)
 - [ ] Payment-success flow

@@ -109,8 +109,8 @@ export function CinematicHero() {
         onPointerLeave={handlePointerLeave}
         className={
           prefersReduced
-            ? "relative isolate flex min-h-[82svh] flex-col items-center justify-center overflow-hidden border-b border-[var(--ws-border)] bg-[var(--ws-bg)] px-4 py-16 sm:px-6"
-            : "relative isolate flex min-h-[84svh] lg:sticky lg:top-0 lg:h-svh flex-col items-center justify-center overflow-hidden border-b border-[var(--ws-border)] bg-[var(--ws-bg)] px-4 py-16 sm:px-6"
+            ? "relative isolate flex min-h-[calc(100svh-64px)] flex-col items-center justify-center overflow-hidden border-b border-[var(--ws-border)] bg-[var(--ws-bg)] px-4 py-8 sm:px-6 sm:py-10"
+            : "relative isolate flex min-h-[calc(100svh-64px)] lg:sticky lg:top-16 lg:h-[calc(100svh-64px)] flex-col items-center justify-center overflow-hidden border-b border-[var(--ws-border)] bg-[var(--ws-bg)] px-4 py-8 sm:px-6 sm:py-10"
         }
       >
         {/* Layer A: Dominant 3D-Shaded Sculptural Silk Ribbon (Scroll outer + Pointer-reactive Canvas) */}
@@ -279,8 +279,8 @@ export function CinematicHero() {
             </h1>
 
             <p className="mx-auto max-w-xl text-base leading-relaxed text-[var(--ws-text-secondary)] sm:text-lg">
-              Beautiful React components. Extraordinary interactions. Designed to be used,
-              not just admired.
+              An expressive collection of React components, motion and interactions
+              for the modern web.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
@@ -295,7 +295,7 @@ export function CinematicHero() {
                 href="/themes"
                 className="inline-flex h-11 items-center gap-2 rounded-full border border-[var(--ws-border-strong)] bg-[var(--ws-floating)]/90 px-6 text-sm font-medium text-[var(--ws-text-primary)] backdrop-blur-sm transition-colors hover:bg-[var(--ws-surface-hover)]"
               >
-                Explore Themes
+                Discover Themes
               </Link>
             </div>
 

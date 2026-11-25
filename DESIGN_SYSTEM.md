@@ -1,9 +1,11 @@
 # DESIGN_SYSTEM.md — MotionMint
 
-## 1. Philosophy
+## 1. Philosophy & Brand Identity
 MotionMint separates two independent visual layers:
 1. **Application Appearance (`data-appearance="light" | "dark"`):** Controls the website and developer workspace chrome (`--ws-bg`, `--ws-surface`, `--ws-surface-elevated`, `--ws-surface-hover`, `--ws-floating`, `--ws-preview-bg`, `--ws-border`, `--ws-text-primary`, `--ws-text-secondary`, `--ws-text-muted`, `--ws-accent: #DFFF00`). Light-first (`#FFFFFF`) primary appearance with full Dark mode inversion (`#050506`), while `--ws-preview-bg` preserves crisp component preview legibility.
 2. **29 Component Design Themes (`data-theme="..."`):** Controls showcased and installed components via `--mm-*` tokens without altering the surrounding workspace chrome.
+
+**Brand Mark (`Kinetic M`):** Centralised in `components/brand/motionmint-logo.tsx` (`MotionMintMark`, `MotionMintWordmark`, `MotionMintLogo`) and `app/icon.svg`, pairing a two-ribbon geometric M with tight-tracked (`-0.035em`) `MotionMint` typography.
 
 ## 2. Launch Skins (4 of 29 Catalogued Styles)
 1. **Dark Mode (`dark`)** — Default site skin. Deep obsidian surfaces (`#09090b`), crisp `1px` hairline borders, subtle emerald/mint accent (`#10b981`), high-contrast typography.
