@@ -9,6 +9,7 @@ import { CATALOG_ITEMS } from "@/lib/catalog";
 import { useMotionMint } from "@/components/site/providers";
 import { MotionMintTheme } from "@/components/theme/theme-scope";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
+import { ComparisonWorkbench } from "@/components/studio/comparison-workbench";
 import {
   DesktopBrowserFrame,
   TabletPreviewFrame,
@@ -180,68 +181,18 @@ export function ThemeStudio() {
 
         {/* Comparison Mode vs Single Active Stage */}
         {compareOpen ? (
-          <div className="space-y-4">
-            <p className="text-xs text-[var(--ws-text-secondary)]">
-              Comparing <strong className="text-[var(--ws-text-primary)]">{previewSlug}</strong> across{" "}
-              <strong className="text-[var(--ws-text-primary)]">{activeTheme.name} (Light vs Dark)</strong> and contrasting theme families:
-            </p>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {/* Active Theme Light vs Dark */}
-              {(["light", "dark"] as ComponentThemeMode[]).map((m) => (
-                <div
-                  key={`active-${m}`}
-                  className="rounded-[18px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-3 space-y-2.5"
-                >
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-medium text-[var(--ws-text-primary)]">
-                      {activeTheme.name}
-                    </span>
-                    <span className="font-mono text-[10px] uppercase text-[var(--ws-text-secondary)]">
-                      {m}
-                    </span>
-                  </div>
-                  <MotionMintTheme
-                    theme={activeTheme.id}
-                    mode={m}
-                    padded
-                    className="flex min-h-[160px] items-center justify-center overflow-hidden"
-                  >
-                    <ComponentLivePreview slug={previewSlug} />
-                  </MotionMintTheme>
-                </div>
-              ))}
-
-              {/* Contrasting Theme Families */}
-              {COMPARE_SET.filter((id) => id !== activeTheme.id)
-                .slice(0, 6)
-                .map((id) => {
-                  const t = getThemeById(id);
-                  return (
-                    <div
-                      key={id}
-                      className="rounded-[18px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-3 space-y-2.5"
-                    >
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-medium text-[var(--ws-text-primary)]">
-                          {t.name}
-                        </span>
-                        <span className="font-mono text-[10px] uppercase text-[var(--ws-text-secondary)]">
-                          {themeMode}
-                        </span>
-                      </div>
-                      <MotionMintTheme
-                        theme={t.id}
-                        mode={themeMode}
-                        padded
-                        className="flex min-h-[160px] items-center justify-center overflow-hidden"
-                      >
-                        <ComponentLivePreview slug={previewSlug} />
-                      </MotionMintTheme>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
+          <ComparisonWorkbench
+            key={`${activeTheme.id}-${previewSlug}`}
+            title={`Comparing "${previewSlug}" across Design Languages`}
+            subtitle="Each specimen renders inside an isolated <MotionMintTheme> scope. Customize themes, switch Light/Dark, and reset all."
+            initialSpecimens={[
+              { id: "ts-1", themeId: activeTheme.id, mode: "light" },
+              { id: "ts-2", themeId: activeTheme.id, mode: "dark" },
+              { id: "ts-3", themeId: "scrapbook", mode: "light" },
+              { id: "ts-4", themeId: "cyberpunk", mode: "dark" },
+            ]}
+            renderSpecimen={() => <ComponentLivePreview slug={previewSlug} />}
+          />
         ) : (
           <div className="rounded-[18px] border border-[var(--ws-border-subtle)] bg-[var(--ws-floating)] p-4 sm:p-6 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2 text-xs">

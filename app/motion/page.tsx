@@ -22,26 +22,31 @@ import { ThinkingLoader } from "@/registry/components/thinking-loader";
 import { ProgressRing } from "@/registry/components/progress-ring";
 import { FlipCard } from "@/registry/components/flip-card";
 import { SwipeCardDeck, type DeckCardItem } from "@/registry/components/swipe-card-deck";
+import { PhysicalKnob } from "@/registry/components/physical-knob";
 import { MotionReveal } from "@/registry/components/motion-reveal";
 import { ParticleWordmark } from "@/components/site/particle-wordmark";
 import { CopyButton } from "@/registry/components/copy-button";
 import { cn } from "@/lib/utils";
 
 type MotionCategory =
-  | "Button Interactions"
-  | "Text Animations"
-  | "Card & Media"
+  | "Hover"
+  | "Drag"
+  | "Press"
+  | "Swipe"
+  | "Scroll"
   | "Loading"
-  | "Background & Visual"
-  | "Layout & Transitions";
+  | "Text"
+  | "Transitions";
 
 const CATEGORIES: MotionCategory[] = [
-  "Button Interactions",
-  "Text Animations",
-  "Card & Media",
+  "Hover",
+  "Drag",
+  "Press",
+  "Swipe",
+  "Scroll",
   "Loading",
-  "Background & Visual",
-  "Layout & Transitions",
+  "Text",
+  "Transitions",
 ];
 
 const DECK_ITEMS: DeckCardItem[] = [
@@ -62,7 +67,7 @@ const DECK_ITEMS: DeckCardItem[] = [
 export default function MotionLabPage() {
   const { skin, setTheme, themeMode, setThemeMode, viewportMode, previewKey } =
     useMotionMint();
-  const [category, setCategory] = useState<MotionCategory>("Button Interactions");
+  const [category, setCategory] = useState<MotionCategory>("Hover");
   const [replayKey, setReplayKey] = useState(0);
   const [disableNonEssential, setDisableNonEssential] = useState(false);
 
@@ -95,31 +100,14 @@ import { MotionReveal } from "@/components/motionmint/motion-reveal";
           key={`${category}-${replayKey}-${previewKey}`}
           className="flex w-full max-w-2xl flex-wrap items-center justify-center gap-6"
         >
-          {category === "Button Interactions" && (
-            <>
-              <RippleButton>Pointer Ripple</RippleButton>
-              <JellyButton>Magnetic Jelly</JellyButton>
-              <CopyButton value="npx shadcn@latest add @motionmint/motion-reveal" />
-            </>
-          )}
-          {category === "Text Animations" && (
-            <div className="space-y-4 text-center">
-              <WiggleText text="Hover or focus these letters" className="text-2xl font-bold" />
-              <MotionReveal variant="blurIn">
-                <p className="text-sm opacity-80">
-                  Blur-in editorial reveal using cubic-bezier [0.22, 1, 0.36, 1]
-                </p>
-              </MotionReveal>
-            </div>
-          )}
-          {category === "Card & Media" && (
-            <div className="grid w-full gap-6 sm:grid-cols-2 items-center">
-              <SwipeCardDeck cards={DECK_ITEMS} />
+          {category === "Hover" && (
+            <div className="flex flex-wrap items-center justify-center gap-6">
+              <JellyButton>Magnetic Hover</JellyButton>
               <FlipCard
                 front={
                   <div className="p-4 text-center space-y-1">
-                    <p className="text-sm font-semibold">Motion Primitive</p>
-                    <p className="text-xs opacity-75">Click any edge to flip along that direction.</p>
+                    <p className="text-sm font-semibold">Hover & Flip</p>
+                    <p className="text-xs opacity-75">Direction-aware 3D flip surface.</p>
                   </div>
                 }
                 back={
@@ -131,6 +119,36 @@ import { MotionReveal } from "@/components/motionmint/motion-reveal";
               />
             </div>
           )}
+          {category === "Drag" && (
+            <div className="flex flex-wrap items-center justify-center gap-8">
+              <PhysicalKnob label="Stiffness" defaultValue={65} unit="%" />
+              <SwipeCardDeck cards={DECK_ITEMS} />
+            </div>
+          )}
+          {category === "Press" && (
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <RippleButton>Pointer Ripple</RippleButton>
+              <JellyButton>Tactile Press</JellyButton>
+              <CopyButton value="npx shadcn@latest add @motionmint/motion-reveal" />
+            </div>
+          )}
+          {category === "Swipe" && <SwipeCardDeck cards={DECK_ITEMS} />}
+          {category === "Scroll" && (
+            <div className="grid w-full max-w-lg gap-4 sm:grid-cols-2">
+              <MotionReveal variant="fadeUp">
+                <div className="rounded-xl border border-current/20 p-4 text-center">
+                  <p className="text-sm font-semibold">MotionReveal · fadeUp</p>
+                  <p className="text-xs opacity-75">Viewport-triggered entrance</p>
+                </div>
+              </MotionReveal>
+              <MotionReveal variant="blurIn">
+                <div className="rounded-xl border border-current/20 p-4 text-center">
+                  <p className="text-sm font-semibold">MotionReveal · blurIn</p>
+                  <p className="text-xs opacity-75">Smooth editorial reveal</p>
+                </div>
+              </MotionReveal>
+            </div>
+          )}
           {category === "Loading" && (
             <div className="flex flex-wrap items-center justify-center gap-8">
               <BounceDotsLoader rhythm="wave" />
@@ -138,15 +156,13 @@ import { MotionReveal } from "@/components/motionmint/motion-reveal";
               <ProgressRing value={72} />
             </div>
           )}
-          {category === "Background & Visual" && (
-            <div className="w-full space-y-2">
+          {category === "Text" && (
+            <div className="space-y-5 text-center w-full">
+              <WiggleText text="Hover or focus these letters" className="text-2xl font-bold" />
               <ParticleWordmark text="MotionMint" />
-              <p className="text-center text-xs opacity-70">
-                Canvas particle wordmark with pointer scatter + offscreen IntersectionObserver pause.
-              </p>
             </div>
           )}
-          {category === "Layout & Transitions" && (
+          {category === "Transitions" && (
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}

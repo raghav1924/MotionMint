@@ -1,3 +1,9 @@
+import {
+  resolveComponentCapabilities,
+  type InteractionType,
+} from "./catalog-interactions";
+
+export type { InteractionType };
 export type ComponentTier = "free" | "pro";
 export type ComponentStatus = "implemented" | "planned";
 export type ComponentCategory =
@@ -41,9 +47,29 @@ export interface CatalogItem {
   sourcePath?: string;
   useCases?: UseCase[];
   props: PropDoc[];
+  interactions: InteractionType[];
+  interactionHint: string;
+  livePreview: boolean;
+  adjustable: boolean;
+  comparisonSupported: boolean;
+  soundSupported: boolean;
+  motionSupported: boolean;
+  isNew?: boolean;
 }
 
-export const CATALOG_ITEMS: CatalogItem[] = [
+type RawCatalogItem = Omit<
+  CatalogItem,
+  | "interactions"
+  | "interactionHint"
+  | "livePreview"
+  | "adjustable"
+  | "comparisonSupported"
+  | "soundSupported"
+  | "motionSupported"
+  | "isNew"
+>;
+
+const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
   {
     slug: "ripple-button",
     name: "Ripple Button",
@@ -1424,6 +1450,15 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     props: [],
   },
 ];
+
+export const CATALOG_ITEMS: CatalogItem[] = RAW_CATALOG_ITEMS.map((item) => ({
+  ...item,
+  ...resolveComponentCapabilities({
+    slug: item.slug,
+    status: item.status,
+    supportsSound: item.supportsSound,
+  }),
+}));
 
 export function getCatalogItem(slug: string): CatalogItem | undefined {
   return CATALOG_ITEMS.find((item) => item.slug === slug);

@@ -11,9 +11,11 @@ import {
   LayoutGrid,
   Folder,
 } from "lucide-react";
-import { CATALOG_ITEMS, type ComponentTier } from "@/lib/catalog";
+import { CATALOG_ITEMS, type ComponentTier, type InteractionType } from "@/lib/catalog";
+import { ALL_INTERACTION_TYPES, INTERACTION_LABELS } from "@/lib/catalog-interactions";
 import { FULL_INVENTORY } from "@/lib/inventory";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
+import { VisibilityPreview } from "@/components/shared/visibility-preview";
 import { cn } from "@/lib/utils";
 
 const LARGE_STAGE_SLUGS = new Set([
@@ -32,10 +34,23 @@ export function CatalogueBrowser() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [tier, setTier] = useState<"all" | ComponentTier>("all");
+  const [onlyNew, setOnlyNew] = useState(false);
+  const [interaction, setInteraction] = useState<"all" | InteractionType>("all");
 
   const implementedAll = useMemo(
     () => CATALOG_ITEMS.filter((c) => c.status === "implemented"),
     []
+  );
+  const supportedInteractions = useMemo(
+    () =>
+      ALL_INTERACTION_TYPES.filter((type) =>
+        implementedAll.some((item) => item.interactions.includes(type))
+      ),
+    [implementedAll]
+  );
+  const newCount = useMemo(
+    () => implementedAll.filter((c) => c.isNew).length,
+    [implementedAll]
   );
   const freeCount = useMemo(
     () => implementedAll.filter((c) => c.tier === "free").length,
@@ -52,17 +67,20 @@ export function CatalogueBrowser() {
       if (item.status !== "implemented") return false;
       if (category !== "All" && item.category !== category) return false;
       if (tier !== "all" && item.tier !== tier) return false;
+      if (onlyNew && !item.isNew) return false;
+      if (interaction !== "all" && !item.interactions.includes(interaction)) return false;
       if (
         q &&
         !item.name.toLowerCase().includes(q) &&
         !item.description.toLowerCase().includes(q) &&
-        !item.category.toLowerCase().includes(q)
+        !item.category.toLowerCase().includes(q) &&
+        !item.interactions.some((i) => i.includes(q))
       ) {
         return false;
       }
       return true;
     });
-  }, [query, category, tier]);
+  }, [query, category, tier, onlyNew, interaction]);
 
   const roadmapItems = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -168,6 +186,26 @@ export function CatalogueBrowser() {
               type="button"
               onClick={() => {
                 switchView("available");
+                setTier("all");
+                setOnlyNew((prev) => !prev);
+              }}
+              aria-pressed={onlyNew}
+              className={cn(
+                "hidden md:inline-flex items-center gap-1 rounded-full px-2.5 py-1.5 text-xs font-medium cursor-pointer transition-colors",
+                onlyNew
+                  ? "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
+                  : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+              )}
+            >
+              <span>New</span>
+              <span className="text-[var(--ws-text-muted)]">{newCount}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                switchView("available");
+                setOnlyNew(false);
                 setTier("free");
               }}
               aria-pressed={tier === "free"}
@@ -260,6 +298,48 @@ export function CatalogueBrowser() {
           </div>
         </div>
 
+        {/* Gesture / Interaction Taxonomy Filter Strip */}
+        {viewMode === "available" && (
+          <div
+            role="group"
+            aria-label="Filter by interaction type"
+            className="mt-4 flex flex-wrap items-center justify-center gap-1.5"
+          >
+            <button
+              type="button"
+              onClick={() => setInteraction("all")}
+              aria-pressed={interaction === "all"}
+              className={cn(
+                "rounded-full border px-3 py-1 text-[11px] font-medium transition-colors cursor-pointer",
+                interaction === "all"
+                  ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                  : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+              )}
+            >
+              All Interactions
+            </button>
+            {supportedInteractions.map((type) => {
+              const active = interaction === type;
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setInteraction(active ? "all" : type)}
+                  aria-pressed={active}
+                  className={cn(
+                    "rounded-full border px-3 py-1 text-[11px] font-medium transition-colors cursor-pointer",
+                    active
+                      ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                      : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                  )}
+                >
+                  {INTERACTION_LABELS[type]}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         {/* Active Category Reset Pill */}
         {category !== "All" && (
           <div className="mt-3 flex justify-center">
@@ -338,31 +418,51 @@ export function CatalogueBrowser() {
                       >
                         <div
                           className={cn(
-                            "flex items-center justify-center overflow-hidden rounded-[14px] border border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] p-5",
+                            "relative flex items-center justify-center overflow-hidden rounded-[14px] border border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] p-5",
                             largeStage ? "min-h-[245px]" : "min-h-[205px]"
                           )}
                         >
-                          <ComponentLivePreview slug={item.slug} />
+                          <VisibilityPreview className="flex w-full items-center justify-center">
+                            <ComponentLivePreview slug={item.slug} />
+                          </VisibilityPreview>
+                          <span className="pointer-events-none absolute bottom-2 left-2.5 rounded-full bg-[var(--ws-floating)]/90 px-2 py-0.5 text-[10px] text-[var(--ws-text-muted)] opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+                            {item.interactionHint}
+                          </span>
                         </div>
 
-                        <Link
-                          href={`/components/${item.slug}`}
-                          className="flex items-center justify-between gap-2 px-2.5 pt-3 pb-1.5 text-[14px] font-medium text-[var(--ws-text-primary)]"
-                        >
-                          <span className="flex items-center gap-1.5 truncate">
-                            <span className="truncate">{item.name}</span>
-                            {item.tier === "pro" && (
-                              <Lock
-                                className="h-3 w-3 shrink-0 text-[var(--ws-text-muted)]"
-                                aria-label="Pro"
-                              />
-                            )}
-                          </span>
-                          <ArrowUpRight
-                            className="h-4 w-4 shrink-0 text-[var(--ws-text-secondary)] transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--ws-text-primary)]"
-                            aria-hidden="true"
-                          />
-                        </Link>
+                        <div className="flex items-start justify-between gap-2 px-2.5 pt-3 pb-1.5">
+                          <div className="min-w-0 space-y-1">
+                            <Link
+                              href={`/components/${item.slug}`}
+                              className="flex items-center gap-1.5 text-[14px] font-medium text-[var(--ws-text-primary)] hover:underline"
+                            >
+                              <span className="truncate">{item.name}</span>
+                              {item.tier === "pro" && (
+                                <Lock
+                                  className="h-3 w-3 shrink-0 text-[var(--ws-text-muted)]"
+                                  aria-label="Pro"
+                                />
+                              )}
+                            </Link>
+                            <div className="flex flex-wrap items-center gap-1">
+                              {item.interactions.slice(0, 3).map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="rounded-md bg-[var(--ws-bg)] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[var(--ws-text-muted)]"
+                                >
+                                  {INTERACTION_LABELS[tag]}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <Link
+                            href={`/components/${item.slug}`}
+                            aria-label={`Inspect ${item.name}`}
+                            className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[var(--ws-border)] text-[var(--ws-text-secondary)] transition-colors group-hover:bg-[var(--ws-text-primary)] group-hover:text-[var(--ws-bg)]"
+                          >
+                            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                          </Link>
+                        </div>
                       </div>
                     );
                   })}

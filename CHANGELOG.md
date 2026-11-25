@@ -1,5 +1,18 @@
 # CHANGELOG.md — MotionMint
 
+## [0.16.0] — 2026-11-25 (Phase 2.13 — Bencho-Inspired Interactive Component Experience)
+### Added
+- `docs/research/BENCHO_UI_RESEARCH.md` recording live audit findings from `bencho.dev` and MotionMint adaptation decisions.
+- `lib/catalog-interactions.ts` defining `InteractionType`, `ComponentCapabilities`, and verified capability metadata for all 44 implemented components.
+- `components/shared/visibility-preview.tsx` (`IntersectionObserver` lazy preview mounting for catalogue & exhibition cards).
+- `components/studio/comparison-workbench.tsx` shared side-by-side `<MotionMintTheme>` comparison workbench embedded in Component Studio and Theme Studio.
+- `tests/phase213-bencho.test.tsx` testing interaction taxonomy, live inspector tuning, Code/Compare tabs, and ThemeStudio comparison isolation.
+
+### Changed
+- **Component Catalogue** (`/components`, `components/site/catalogue-browser.tsx`): Added `"Explore interactions."` discovery header, `New` filter, 12-gesture taxonomy filter bar, `VisibilityPreview` cards, and verified interaction badges.
+- **Component Studio** (`/components/[slug]`, `components/studio/component-studio.tsx`): Added `Preview | Code | Compare` stage switcher, contextual right-side inspector controls (including `RippleButton` label/disabled, `PhysicalKnob` min/max/step/value, `SwipeCardDeck` count, `ThinkingLoader` interval), `Replay` / `Reset` / `Reduced Motion` simulation, and embedded `ComparisonWorkbench`.
+- **Motion Lab & Theme Studio** (`app/motion/page.tsx`, `components/theme/theme-studio.tsx`, `components/site/exhibition-gallery.tsx`): Reorganized Motion Lab by interaction (`Hover`, `Drag`, `Press`, `Swipe`, `Scroll`, `Loading`, `Text`, `Transitions`), upgraded Theme Studio compare mode to `ComparisonWorkbench`, and added verified interaction tags to Homepage Exhibition.
+
 ## [0.15.0] — 2026-11-25 (Phase 2.12 — Editorial Brand Identity & Homepage Redesign)
 ### Added
 - `BRAND_DIRECTION.md` documenting creative direction (Metalab × Marked.dev × Wix Studio × Original MotionMint Identity) and 3 logomark concepts.

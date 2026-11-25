@@ -6,6 +6,9 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { MotionMintTheme } from "@/components/theme/theme-scope";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
+import { VisibilityPreview } from "@/components/shared/visibility-preview";
+import { getCatalogItem } from "@/lib/catalog";
+import { INTERACTION_LABELS } from "@/lib/catalog-interactions";
 import { useMotionMint } from "./providers";
 import type { ThemeId } from "@/lib/themes/types";
 import { cn } from "@/lib/utils";
@@ -75,7 +78,9 @@ export function ExhibitionGallery() {
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-      {EXHIBITION_ITEMS.map((item, idx) => (
+      {EXHIBITION_ITEMS.map((item, idx) => {
+        const meta = getCatalogItem(item.slug);
+        return (
         <motion.article
           key={item.slug}
           initial={prefersReduced ? false : { opacity: 0, y: 14 }}
@@ -93,26 +98,38 @@ export function ExhibitionGallery() {
               theme={item.theme}
               mode={previewMode}
               className={cn(
-                "flex w-full items-center justify-center overflow-hidden rounded-[16px] border border-[var(--mm-border)] bg-[var(--mm-bg)] p-6",
+                "relative flex w-full items-center justify-center overflow-hidden rounded-[16px] border border-[var(--mm-border)] bg-[var(--mm-bg)] p-6",
                 item.stageHeightClass
               )}
             >
-              <ComponentLivePreview slug={item.slug} />
+              <VisibilityPreview className="flex w-full items-center justify-center">
+                <ComponentLivePreview slug={item.slug} />
+              </VisibilityPreview>
+              {meta?.interactionHint && (
+                <span className="pointer-events-none absolute bottom-2.5 left-3 rounded-full bg-[var(--ws-floating)]/90 px-2.5 py-0.5 text-[10px] text-[var(--ws-text-muted)] opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+                  {meta.interactionHint}
+                </span>
+              )}
             </MotionMintTheme>
           </div>
 
           {/* Minimal Editorial Caption */}
           <div className="flex items-center justify-between gap-4 border-t border-[var(--ws-border-subtle)] px-5 py-4">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
+            <div className="min-w-0 space-y-1">
+              <div className="flex flex-wrap items-center gap-2">
                 <h3 className="text-sm font-medium tracking-[-0.01em] text-[var(--ws-text-primary)]">
                   {item.title}
                 </h3>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--ws-text-muted)]">
-                  {item.category}
-                </span>
+                {meta?.interactions.slice(0, 3).map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-md bg-[var(--ws-bg)] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[var(--ws-text-muted)]"
+                  >
+                    {INTERACTION_LABELS[tag]}
+                  </span>
+                ))}
               </div>
-              <p className="mt-0.5 truncate text-xs text-[var(--ws-text-secondary)]">
+              <p className="truncate text-xs text-[var(--ws-text-secondary)]">
                 {item.hint}
               </p>
             </div>
@@ -126,7 +143,8 @@ export function ExhibitionGallery() {
             </Link>
           </div>
         </motion.article>
-      ))}
+        );
+      })}
     </div>
   );
 }

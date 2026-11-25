@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { MotionConfig } from "motion/react";
 import {
   Monitor,
   Tablet,
@@ -13,9 +14,15 @@ import {
   Code2,
   Volume2,
   VolumeX,
+  Play,
+  Columns2,
+  Copy,
+  Check,
 } from "lucide-react";
 import { CATALOG_ITEMS, type CatalogItem } from "@/lib/catalog";
+import { INTERACTION_LABELS } from "@/lib/catalog-interactions";
 import { ALL_THEMES } from "@/lib/themes/registry";
+import { ComparisonWorkbench } from "./comparison-workbench";
 import { themeToInlineStyle } from "@/lib/themes/theme-utils";
 import {
   getInstallCommand,
@@ -128,9 +135,11 @@ export function ComponentStudio({
     return () => setActiveComponentSlug(null);
   }, [item.slug, setActiveComponentSlug]);
 
-  const [inspectorOpen, setInspectorOpen] = useState(false);
+  const [inspectorOpen, setInspectorOpen] = useState(true);
   const [mobileInspectorOpen, setMobileInspectorOpen] = useState(false);
-  const [showSource, setShowSource] = useState(false);
+  const [stageTab, setStageTab] = useState<"preview" | "code" | "compare">("preview");
+  const [simReducedMotion, setSimReducedMotion] = useState(false);
+  const [copiedSource, setCopiedSource] = useState(false);
   const [pkg, setPkg] = useState<PackageManager>("npm");
   const resolvedInstall = getInstallCommand(item.slug, pkg);
   const isProdRegistry = isProductionRegistryConfigured();
@@ -138,6 +147,8 @@ export function ComponentStudio({
   // Live Inspector State
   const [variant, setVariant] = useState<"primary" | "secondary" | "outline">("primary");
   const [size, setSize] = useState<"sm" | "md" | "lg">("md");
+  const [buttonLabel, setButtonLabel] = useState("Primary Action");
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [rhythm, setRhythm] = useState<"wave" | "elastic" | "pulse">("elastic");
   const [magneticStrength, setMagneticStrength] = useState(0.25);
   const [copyText, setCopyText] = useState(item.installCommand);
@@ -151,6 +162,12 @@ export function ComponentStudio({
   const [skeletonAnimate, setSkeletonAnimate] = useState(true);
   const [dropMultiple, setDropMultiple] = useState(true);
   const [thinkingVariant, setThinkingVariant] = useState<"orbit" | "pulse-grid" | "wave">("orbit");
+  const [thinkingSpeedMs, setThinkingSpeedMs] = useState(1800);
+  const [deckCount, setDeckCount] = useState(3);
+  const [knobValue, setKnobValue] = useState(65);
+  const [knobMin, setKnobMin] = useState(0);
+  const [knobMax, setKnobMax] = useState(100);
+  const [knobStep, setKnobStep] = useState(5);
   const [aiStreamStatus, setAiStreamStatus] = useState<"streaming" | "complete" | "error">("streaming");
   const [orbState, setOrbState] = useState<"idle" | "listening" | "speaking">("listening");
   const [pixelProgress, setPixelProgress] = useState(72);
@@ -165,10 +182,10 @@ export function ComponentStudio({
       case "ripple-button":
         return (
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <RippleButton variant={variant} size={size}>
-              Primary Action
+            <RippleButton variant={variant} size={size} disabled={buttonDisabled}>
+              {buttonLabel || "Primary Action"}
             </RippleButton>
-            <RippleButton variant="outline" size={size}>
+            <RippleButton variant="outline" size={size} disabled={buttonDisabled}>
               Secondary
             </RippleButton>
           </div>
@@ -230,9 +247,9 @@ export function ComponentStudio({
           </div>
         );
       case "swipe-card-deck":
-        return <SwipeCardDeck cards={STUDIO_CARDS} />;
+        return <SwipeCardDeck cards={STUDIO_CARDS.slice(0, deckCount)} />;
       case "thinking-loader":
-        return <ThinkingLoader variant={thinkingVariant} />;
+        return <ThinkingLoader variant={thinkingVariant} intervalMs={thinkingSpeedMs} />;
       case "ai-prompt-composer":
         return (
           <div className="w-full max-w-lg">
@@ -438,7 +455,17 @@ export function ComponentStudio({
           />
         );
       case "physical-knob":
-        return <PhysicalKnob label="Resonance" defaultValue={65} unit="%" />;
+        return (
+          <PhysicalKnob
+            label="Resonance"
+            value={knobValue}
+            onValueChange={setKnobValue}
+            min={knobMin}
+            max={knobMax}
+            step={knobStep}
+            unit="%"
+          />
+        );
       case "reaction-arc":
         return <ReactionArc />;
       case "receipt-printer":
@@ -537,8 +564,17 @@ export function ComponentStudio({
       case "ripple-button":
         return (
           <div className="space-y-4 text-xs">
+            <label className="block space-y-1.5">
+              <span className="text-[var(--ws-text-secondary)]">Label</span>
+              <input
+                type="text"
+                value={buttonLabel}
+                onChange={(e) => setButtonLabel(e.target.value)}
+                className="h-8 w-full rounded-md border border-[var(--ws-border)] bg-[var(--ws-bg)] px-2.5 text-xs text-[var(--ws-text-primary)]"
+              />
+            </label>
             <div className="space-y-1.5">
-              <p className="text-[var(--mm-fg-muted)]">Variant</p>
+              <p className="text-[var(--ws-text-secondary)]">Variant</p>
               <div className="flex flex-wrap gap-1.5">
                 {(["primary", "secondary", "outline"] as const).map((v) => (
                   <button
@@ -546,10 +582,10 @@ export function ComponentStudio({
                     type="button"
                     onClick={() => setVariant(v)}
                     className={cn(
-                      "px-2.5 py-1 rounded-[var(--mm-radius-sm)] border cursor-pointer",
+                      "px-2.5 py-1 rounded-md border cursor-pointer",
                       variant === v
-                        ? "border-[var(--mm-accent)] bg-[var(--mm-accent-soft)] text-[var(--mm-accent)]"
-                        : "border-[var(--mm-border)] text-[var(--mm-fg-muted)]"
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
                     )}
                   >
                     {v}
@@ -558,7 +594,7 @@ export function ComponentStudio({
               </div>
             </div>
             <div className="space-y-1.5">
-              <p className="text-[var(--mm-fg-muted)]">Size</p>
+              <p className="text-[var(--ws-text-secondary)]">Size</p>
               <div className="flex gap-1.5">
                 {(["sm", "md", "lg"] as const).map((sz) => (
                   <button
@@ -566,10 +602,10 @@ export function ComponentStudio({
                     type="button"
                     onClick={() => setSize(sz)}
                     className={cn(
-                      "px-2.5 py-1 rounded-[var(--mm-radius-sm)] border cursor-pointer",
+                      "px-2.5 py-1 rounded-md border cursor-pointer",
                       size === sz
-                        ? "border-[var(--mm-accent)] bg-[var(--mm-accent-soft)] text-[var(--mm-accent)]"
-                        : "border-[var(--mm-border)] text-[var(--mm-fg-muted)]"
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
                     )}
                   >
                     {sz}
@@ -577,6 +613,14 @@ export function ComponentStudio({
                 ))}
               </div>
             </div>
+            <label className="flex items-center gap-2 text-[var(--ws-text-secondary)] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={buttonDisabled}
+                onChange={(e) => setButtonDisabled(e.target.checked)}
+              />
+              <span>Disabled state</span>
+            </label>
           </div>
         );
       case "bounce-dots-loader":
@@ -775,27 +819,102 @@ export function ComponentStudio({
             <span>Allow multiple files</span>
           </label>
         );
+      case "swipe-card-deck":
+        return (
+          <label className="block space-y-2 text-xs text-[var(--ws-text-secondary)]">
+            <span>Card Count ({deckCount})</span>
+            <input
+              type="range"
+              min="1"
+              max="3"
+              value={deckCount}
+              onChange={(e) => setDeckCount(Number(e.target.value))}
+              className="w-full"
+            />
+          </label>
+        );
+      case "physical-knob":
+        return (
+          <div className="space-y-3 text-xs text-[var(--ws-text-secondary)]">
+            <label className="block space-y-1">
+              <span>Value ({knobValue}%)</span>
+              <input
+                type="range"
+                min={knobMin}
+                max={knobMax}
+                step={knobStep}
+                value={knobValue}
+                onChange={(e) => setKnobValue(Number(e.target.value))}
+                className="w-full"
+              />
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              <label className="space-y-1">
+                <span>Min</span>
+                <input
+                  type="number"
+                  value={knobMin}
+                  onChange={(e) => setKnobMin(Number(e.target.value))}
+                  className="h-7 w-full rounded border border-[var(--ws-border)] bg-[var(--ws-bg)] px-2 text-xs text-[var(--ws-text-primary)]"
+                />
+              </label>
+              <label className="space-y-1">
+                <span>Max</span>
+                <input
+                  type="number"
+                  value={knobMax}
+                  onChange={(e) => setKnobMax(Number(e.target.value))}
+                  className="h-7 w-full rounded border border-[var(--ws-border)] bg-[var(--ws-bg)] px-2 text-xs text-[var(--ws-text-primary)]"
+                />
+              </label>
+              <label className="space-y-1">
+                <span>Step</span>
+                <input
+                  type="number"
+                  min={1}
+                  value={knobStep}
+                  onChange={(e) => setKnobStep(Math.max(1, Number(e.target.value)))}
+                  className="h-7 w-full rounded border border-[var(--ws-border)] bg-[var(--ws-bg)] px-2 text-xs text-[var(--ws-text-primary)]"
+                />
+              </label>
+            </div>
+          </div>
+        );
       case "thinking-loader":
         return (
-          <div className="space-y-1.5 text-xs">
-            <p className="text-[var(--mm-fg-muted)]">Visual Style</p>
-            <div className="flex flex-wrap gap-1.5">
-              {(["orbit", "pulse-grid", "wave"] as const).map((v) => (
-                <button
-                  key={v}
-                  type="button"
-                  onClick={() => setThinkingVariant(v)}
-                  className={cn(
-                    "px-2.5 py-1 rounded-[var(--mm-radius-sm)] border cursor-pointer",
-                    thinkingVariant === v
-                      ? "border-[var(--mm-accent)] bg-[var(--mm-accent-soft)] text-[var(--mm-accent)]"
-                      : "border-[var(--mm-border)] text-[var(--mm-fg-muted)]"
-                  )}
-                >
-                  {v}
-                </button>
-              ))}
+          <div className="space-y-3 text-xs">
+            <div className="space-y-1.5">
+              <p className="text-[var(--ws-text-secondary)]">Visual Style</p>
+              <div className="flex flex-wrap gap-1.5">
+                {(["orbit", "pulse-grid", "wave"] as const).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setThinkingVariant(v)}
+                    className={cn(
+                      "px-2.5 py-1 rounded-md border cursor-pointer",
+                      thinkingVariant === v
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
+                    )}
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
             </div>
+            <label className="block space-y-1 text-[var(--ws-text-secondary)]">
+              <span>Stage Interval ({thinkingSpeedMs}ms)</span>
+              <input
+                type="range"
+                min="700"
+                max="3000"
+                step="100"
+                value={thinkingSpeedMs}
+                onChange={(e) => setThinkingSpeedMs(Number(e.target.value))}
+                className="w-full"
+              />
+            </label>
           </div>
         );
       case "streaming-message":
@@ -914,12 +1033,86 @@ export function ComponentStudio({
             <p className="text-sm text-[var(--ws-text-secondary)] max-w-xl">
               {item.description}
             </p>
+            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-0.5">
+              <span className="rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--ws-text-secondary)]">
+                {item.category}
+              </span>
+              {item.interactions.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-[var(--ws-border-subtle)] bg-[var(--ws-bg)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--ws-text-muted)]"
+                >
+                  {INTERACTION_LABELS[tag]}
+                </span>
+              ))}
+            </div>
 
-            <div className="pt-1 flex items-center gap-2">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
+              {/* Stage Mode Switcher: Preview | Code | Compare */}
+              <div
+                role="tablist"
+                aria-label="Studio stage mode"
+                className="inline-flex h-8 items-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] p-0.5 text-xs"
+              >
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={stageTab === "preview"}
+                  onClick={() => setStageTab("preview")}
+                  className={cn(
+                    "rounded-full px-3 py-1 font-medium transition-colors cursor-pointer",
+                    stageTab === "preview"
+                      ? "bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                      : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                  )}
+                >
+                  Preview
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={stageTab === "code"}
+                  onClick={() => setStageTab("code")}
+                  className={cn(
+                    "inline-flex items-center gap-1 rounded-full px-3 py-1 font-medium transition-colors cursor-pointer",
+                    stageTab === "code"
+                      ? "bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                      : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                  )}
+                >
+                  <Code2 className="h-3 w-3" aria-hidden="true" />
+                  Code
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={stageTab === "compare"}
+                  onClick={() => setStageTab("compare")}
+                  className={cn(
+                    "inline-flex items-center gap-1 rounded-full px-3 py-1 font-medium transition-colors cursor-pointer",
+                    stageTab === "compare"
+                      ? "bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                      : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                  )}
+                >
+                  <Columns2 className="h-3 w-3" aria-hidden="true" />
+                  Compare
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setResetKey((k) => k + 1)}
+                className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+              >
+                <Play className="h-3 w-3" aria-hidden="true" />
+                Replay
+              </button>
+
               <button
                 type="button"
                 onClick={() => setMobileInspectorOpen(true)}
-                className="inline-flex xl:hidden items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 py-1 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+                className="inline-flex xl:hidden items-center gap-1.5 h-8 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
               >
                 <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden="true" />
                 Inspector
@@ -928,7 +1121,7 @@ export function ComponentStudio({
                 type="button"
                 onClick={() => setInspectorOpen((v) => !v)}
                 aria-expanded={inspectorOpen}
-                className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 py-1 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+                className="hidden xl:inline-flex items-center gap-1.5 h-8 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
               >
                 <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden="true" />
                 {inspectorOpen ? "Hide Inspector" : "Inspector"}
@@ -937,7 +1130,7 @@ export function ComponentStudio({
                 aria-label="Select studio theme"
                 value={skin}
                 onChange={(e) => setTheme(e.target.value)}
-                className="h-7 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-2.5 text-xs text-[var(--ws-text-primary)] cursor-pointer"
+                className="h-8 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-2.5 text-xs text-[var(--ws-text-primary)] cursor-pointer"
               >
                 {ALL_THEMES.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -948,7 +1141,7 @@ export function ComponentStudio({
               <div
                 role="group"
                 aria-label="Component theme mode"
-                className="inline-flex h-7 items-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] p-0.5 text-[11px]"
+                className="inline-flex h-8 items-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] p-0.5 text-[11px]"
               >
                 {(["light", "dark"] as const).map((m) => (
                   <button
@@ -957,7 +1150,7 @@ export function ComponentStudio({
                     onClick={() => setThemeMode(m)}
                     aria-pressed={themeMode === m}
                     className={cn(
-                      "rounded-full px-2 py-0.5 capitalize transition-colors cursor-pointer",
+                      "rounded-full px-2.5 py-0.5 capitalize transition-colors cursor-pointer",
                       themeMode === m
                         ? "bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
                         : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
@@ -974,65 +1167,112 @@ export function ComponentStudio({
           <div
             className={cn(
               "grid gap-5 items-start",
-              inspectorOpen ? "xl:grid-cols-[1fr_280px]" : "grid-cols-1"
+              inspectorOpen && stageTab === "preview" ? "xl:grid-cols-[1fr_290px]" : "grid-cols-1"
             )}
           >
-            {/* Central Device Frame Stage */}
-            <div className="flex flex-col items-center w-full">
-              <ContextMenu
-                className="flex w-full justify-center"
-                items={[
-                  {
-                    id: "ctx-reset",
-                    label: "Reset Preview",
-                    onSelect: () => setResetKey((k) => k + 1),
-                  },
-                  {
-                    id: "ctx-inspector",
-                    label: inspectorOpen ? "Hide Inspector" : "Show Inspector",
-                    onSelect: () => setInspectorOpen((v) => !v),
-                  },
-                  {
-                    id: "ctx-fullscreen",
-                    label: fullscreen ? "Exit Fullscreen" : "Enter Fullscreen",
-                    onSelect: () => setFullscreen((f) => !f),
-                  },
-                  {
-                    id: "ctx-copy-cli",
-                    label: "Copy CLI Command",
-                    onSelect: () => void navigator.clipboard?.writeText(resolvedInstall),
-                  },
-                ]}
-              >
-                <div key={combinedResetKey} className="w-full flex justify-center">
-                  {viewport === "mobile" ? (
-                    <MobileDeviceFrame slug={item.slug}>
-                      <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
-                        {renderStage()}
-                      </MotionMintTheme>
-                    </MobileDeviceFrame>
-                  ) : viewport === "tablet" ? (
-                    <TabletPreviewFrame slug={item.slug}>
-                      <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-lg flex justify-center">
-                        {renderStage()}
-                      </MotionMintTheme>
-                    </TabletPreviewFrame>
-                  ) : (
-                    <DesktopBrowserFrame slug={item.slug}>
-                      <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-xl flex justify-center">
-                        {renderStage()}
-                      </MotionMintTheme>
-                    </DesktopBrowserFrame>
-                  )}
+            {stageTab === "compare" ? (
+              <ComparisonWorkbench
+                title={`Compare ${item.name}`}
+                renderSpecimen={() => (
+                  <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
+                    {renderStage()}
+                  </MotionConfig>
+                )}
+              />
+            ) : stageTab === "code" ? (
+              <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ws-border)] pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs text-[var(--ws-text-primary)]">
+                      {item.sourcePath ?? `registry/components/${item.slug}.tsx`}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (sourceCode) {
+                        void navigator.clipboard?.writeText(sourceCode);
+                        setCopiedSource(true);
+                        setTimeout(() => setCopiedSource(false), 1500);
+                      }
+                    }}
+                    className="inline-flex h-7 items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-bg)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+                  >
+                    {copiedSource ? (
+                      <Check className="h-3 w-3 text-emerald-500" aria-hidden="true" />
+                    ) : (
+                      <Copy className="h-3 w-3" aria-hidden="true" />
+                    )}
+                    <span>{copiedSource ? "Copied" : "Copy Source"}</span>
+                  </button>
                 </div>
-              </ContextMenu>
-              <p className="mt-3 text-center text-[11px] text-[var(--ws-text-muted)]">
-                {item.accessibilityNotes} · Right-click stage for quick actions
-              </p>
-            </div>
+                <pre className="max-h-[520px] overflow-auto rounded-xl border border-[var(--ws-border)] bg-[var(--ws-bg)] p-4 font-mono text-xs leading-relaxed text-[var(--ws-text-primary)]">
+                  <code>{sourceCode ?? `// Install via CLI:\n${resolvedInstall}`}</code>
+                </pre>
+              </div>
+            ) : (
+              /* Central Device Frame Stage */
+              <div className="flex flex-col items-center w-full">
+                <ContextMenu
+                  className="flex w-full justify-center"
+                  items={[
+                    {
+                      id: "ctx-reset",
+                      label: "Reset Preview",
+                      onSelect: () => setResetKey((k) => k + 1),
+                    },
+                    {
+                      id: "ctx-inspector",
+                      label: inspectorOpen ? "Hide Inspector" : "Show Inspector",
+                      onSelect: () => setInspectorOpen((v) => !v),
+                    },
+                    {
+                      id: "ctx-fullscreen",
+                      label: fullscreen ? "Exit Fullscreen" : "Enter Fullscreen",
+                      onSelect: () => setFullscreen((f) => !f),
+                    },
+                    {
+                      id: "ctx-copy-cli",
+                      label: "Copy CLI Command",
+                      onSelect: () => void navigator.clipboard?.writeText(resolvedInstall),
+                    },
+                  ]}
+                >
+                  <div key={combinedResetKey} className="w-full flex flex-col items-center">
+                    <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
+                      {viewport === "mobile" ? (
+                        <MobileDeviceFrame slug={item.slug}>
+                          <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
+                            {renderStage()}
+                          </MotionMintTheme>
+                        </MobileDeviceFrame>
+                      ) : viewport === "tablet" ? (
+                        <TabletPreviewFrame slug={item.slug}>
+                          <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-lg flex justify-center">
+                            {renderStage()}
+                          </MotionMintTheme>
+                        </TabletPreviewFrame>
+                      ) : (
+                        <DesktopBrowserFrame slug={item.slug}>
+                          <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-xl flex justify-center">
+                            {renderStage()}
+                          </MotionMintTheme>
+                        </DesktopBrowserFrame>
+                      )}
+                    </MotionConfig>
+                  </div>
+                </ContextMenu>
+                <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[11px] text-[var(--ws-text-muted)]">
+                  <span className="rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-0.5 text-[var(--ws-text-secondary)]">
+                    {item.interactionHint}
+                  </span>
+                  <span>· {item.accessibilityNotes}</span>
+                </div>
+              </div>
+            )}
 
             {/* Collapsible Right Inspector */}
-            {inspectorOpen && (
+            {inspectorOpen && stageTab === "preview" && (
               <aside
                 aria-label="Component Inspector"
                 className="hidden xl:block rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 space-y-4"
@@ -1041,11 +1281,46 @@ export function ComponentStudio({
                   <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ws-text-secondary)]">
                     Inspector
                   </span>
-                  <span className="font-mono text-[10px] text-[var(--ws-accent)]">
-                    {theme.shortLabel}
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setResetKey((k) => k + 1)}
+                    className="inline-flex items-center gap-1 text-[11px] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] cursor-pointer"
+                  >
+                    <RotateCcw className="h-3 w-3" aria-hidden="true" />
+                    Reset
+                  </button>
                 </div>
                 {renderInspectorControls()}
+
+                <div className="border-t border-[var(--ws-border)] pt-3 space-y-2.5 text-xs">
+                  <label className="flex items-center justify-between gap-2 text-[var(--ws-text-secondary)] cursor-pointer">
+                    <span>Reduced Motion</span>
+                    <input
+                      type="checkbox"
+                      checked={simReducedMotion}
+                      onChange={(e) => setSimReducedMotion(e.target.checked)}
+                    />
+                  </label>
+                  {item.soundSupported && (
+                    <div className="flex items-center justify-between gap-2 text-[var(--ws-text-secondary)]">
+                      <span>Sound Feedback</span>
+                      <button
+                        type="button"
+                        onClick={toggleSound}
+                        aria-pressed={soundEnabled}
+                        className="inline-flex items-center gap-1 rounded-full border border-[var(--ws-border)] bg-[var(--ws-bg)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--ws-text-primary)] cursor-pointer"
+                      >
+                        {soundEnabled ? (
+                          <Volume2 className="h-3 w-3" aria-hidden="true" />
+                        ) : (
+                          <VolumeX className="h-3 w-3" aria-hidden="true" />
+                        )}
+                        {soundEnabled ? "On" : "Off"}
+                      </button>
+                    </div>
+                  )}
+                </div>
+
                 <div className="border-t border-[var(--ws-border)] pt-3 space-y-1.5 text-[11px] text-[var(--ws-text-muted)]">
                   <p className="font-medium text-[var(--ws-text-secondary)]">Dependencies</p>
                   <p className="font-mono text-[10px]">

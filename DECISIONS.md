@@ -86,6 +86,13 @@
 - **Decision:** Defer full theme demo websites to a future phase. The routes (`/themes/scrapbook/demo`, etc.) will be implemented using Next.js dynamic segments (`/themes/[themeId]/demo`) when Wave 3+ component collections are complete enough to populate a full demo page. ROADMAP.md documents the planned architecture; no route files or demo pages are created in Phase 2.9.
 - **Consequences:** No scope creep in Phase 2.9. When ready, a single dynamic route handler with `generateStaticParams` can build all 29 demo pages at once. The `MotionMintTheme` scope wrapper already provides the necessary primitive.
 
+## ADR-011: Embedded Comparison Workbench & Typed Interaction Taxonomy (Phase 2.13)
+- **Date:** 2026-11-25
+- **Status:** Accepted
+- **Context:** Incorporating interactive component discovery and side-by-side experimentation patterns inspired by `bencho.dev` without introducing standalone `/bench`, `/playground`, or `/canvas` routes.
+- **Decision:** Extend `CatalogItem` via `lib/catalog-interactions.ts` with typed `InteractionType[]` and capability flags, gate offscreen card previews with `VisibilityPreview` (`IntersectionObserver`), and embed `ComparisonWorkbench` directly inside Component Studio (`/components/[slug]`) and Theme Studio (`/themes`) using isolated `<MotionMintTheme>` scopes.
+- **Consequences:** Developers can filter by interaction gesture, tune real props live, inspect code, and compare scoped theme expressions in one unified studio without route sprawl.
+
 ## ADR-010: Bespoke Kinetic M Brand Identity & 6-Beat Editorial Homepage (Phase 2.12)
 - **Date:** 2026-11-25
 - **Status:** Accepted

@@ -112,6 +112,13 @@
 - [x] **Redesigned Motion Lab & Sound Lab:** Replaced dashboard cards on `/motion` and `/sounds` with prominent central stages, waveform visualizer, `<MotionMintTheme>` scoped previews, and `DeviceFrames` viewport switching.
 - [x] Wave 3+ component development remains paused.
 
+## Phase 2.13 — Bencho-Inspired Interactive Component Experience `[COMPLETE]`
+- [x] Audited `bencho.dev` and documented findings in `docs/research/BENCHO_UI_RESEARCH.md`
+- [x] Extended `CatalogItem` (`lib/catalog.ts`, `lib/catalog-interactions.ts`) with typed `InteractionType[]`, `interactionHint`, `livePreview`, `adjustable`, `comparisonSupported`, `soundSupported`, `motionSupported`, and `isNew`
+- [x] Upgraded `/components` discovery lab with `"Explore interactions."`, `All / New / Free / Pro` filters, interaction taxonomy pills, and `VisibilityPreview` (`IntersectionObserver`) lazy mounting
+- [x] Upgraded Component Studio (`/components/[slug]`) with `Preview | Code | Compare` stage tabs, contextual live property inspector, `Replay` / `Reset` / `Reduced Motion` / `Sound` controls, and embedded `ComparisonWorkbench`
+- [x] Upgraded Motion Lab (`/motion`) to interaction-first categories, Theme Studio (`/themes`) to shared `ComparisonWorkbench`, and Homepage Exhibition (`ExhibitionGallery`) with verified interaction tags
+
 ## Phase 2.12 — Editorial Brand Identity & Homepage Redesign `[COMPLETE]`
 - [x] Created `BRAND_DIRECTION.md`, bespoke `Kinetic M` SVG logomark & tracked wordmark (`components/brand/motionmint-logo.tsx`), and SVG favicon (`app/icon.svg`)
 - [x] Replaced generic starburst glyph across `Navbar`, `Footer`, `EditorialSidebar`, and `BrandFloatingButton`
