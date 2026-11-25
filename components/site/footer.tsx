@@ -11,7 +11,6 @@ const FOOTER_LINKS = [
   { href: "/motion", label: "Motion" },
   { href: "/sounds", label: "Sounds" },
   { href: "/docs/installation", label: "Documentation" },
-  { href: "/changelog", label: "Changelog" },
 ];
 
 export function Footer() {
@@ -42,6 +41,14 @@ export function Footer() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href={`${BRAND.githubUrl}/releases`}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-[var(--ws-text-primary)]"
+            >
+              Changelog
+            </a>
             <a
               href={BRAND.githubUrl}
               target="_blank"
