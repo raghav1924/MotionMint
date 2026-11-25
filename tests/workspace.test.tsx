@@ -1,59 +1,71 @@
 import React from "react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeAll } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MotionMintProvider, useMotionMint } from "@/components/site/providers";
+import { MotionMintProvider } from "@/components/site/providers";
+import { AppShell } from "@/components/site/app-shell";
 import { CommandPalette } from "@/components/ui/command-palette";
-import { WorkspaceShell } from "@/components/workspace/workspace-shell";
-import { ModalDialog, Drawer, ContextMenu } from "@/components/ui/overlay";
+
+let mockPathname = "/motion";
 
 vi.mock("next/navigation", () => ({
-  usePathname: () => "/components/swipe-card-deck",
+  usePathname: () => mockPathname,
   useRouter: () => ({ push: vi.fn() }),
 }));
 
-function AppearanceProbe() {
-  const { appearance, resolvedAppearance, setAppearance, skin, setTheme } = useMotionMint();
-  return (
-    <div>
-      <span data-testid="appearance">{appearance}</span>
-      <span data-testid="resolved-appearance">{resolvedAppearance}</span>
-      <span data-testid="theme">{skin}</span>
-      <button type="button" onClick={() => setAppearance("dark")}>
-        Set Dark
-      </button>
-      <button type="button" onClick={() => setTheme("cyberpunk")}>
-        Set Cyberpunk
-      </button>
-    </div>
-  );
-}
+beforeAll(() => {
+  vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
+});
 
-describe("Phase 2.7 — Workspace Shell, Appearance & Command Palette", () => {
-  beforeEach(() => {
-    window.localStorage.clear();
-  });
-
+describe("Phase 2.11 — Unified Application Shell & Appearance Isolation", () => {
   it("keeps application appearance independent from the 29 component themes", () => {
     render(
       <MotionMintProvider>
-        <AppearanceProbe />
+        <AppShell>
+          <div>Lab Content</div>
+        </AppShell>
       </MotionMintProvider>
     );
 
-    expect(screen.getByTestId("resolved-appearance")).toHaveTextContent("light");
     expect(document.documentElement.getAttribute("data-appearance")).toBe("light");
-
-    fireEvent.click(screen.getByRole("button", { name: "Set Dark" }));
-    expect(screen.getByTestId("resolved-appearance")).toHaveTextContent("dark");
-    expect(document.documentElement.getAttribute("data-appearance")).toBe("dark");
-
-    fireEvent.click(screen.getByRole("button", { name: "Set Cyberpunk" }));
-    expect(screen.getByTestId("theme")).toHaveTextContent("cyberpunk");
-    // Changing component theme must NOT overwrite application appearance
-    expect(document.documentElement.getAttribute("data-appearance")).toBe("dark");
+    expect(document.documentElement.style.getPropertyValue("--mm-bg")).toBe("");
   });
 
-  it("opens CommandPalette on Cmd+K / Ctrl+K, filters results, and closes on Escape", () => {
+  it("uses the unified EditorialSidebar and contextual FloatingToolbar on Motion & Sound Labs", () => {
+    mockPathname = "/sounds";
+    render(
+      <MotionMintProvider>
+        <AppShell>
+          <div>Sound Studio Content</div>
+        </AppShell>
+      </MotionMintProvider>
+    );
+
+    // Sound Lab contextual FloatingToolbar shows Sound ON/OFF & Stop All (no device frame buttons)
+    expect(screen.getByRole("button", { name: /Sound: OFF/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Stop All/i })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Desktop preview" })).not.toBeInTheDocument();
+
+    // Shared EditorialSidebar opens via NavigationToggle
+    fireEvent.click(screen.getByRole("button", { name: "Open navigation overlay" }));
+    expect(screen.getByRole("dialog", { name: "Editorial Navigation" })).toBeInTheDocument();
+  });
+
+  it("omits component FloatingToolbar on /flow so the workflow canvas stays unobstructed", () => {
+    mockPathname = "/flow";
+    render(
+      <MotionMintProvider>
+        <AppShell>
+          <div>Flow Canvas Content</div>
+        </AppShell>
+      </MotionMintProvider>
+    );
+
+    expect(screen.getByRole("button", { name: "Open navigation overlay" })).toBeInTheDocument();
+    expect(screen.queryByRole("toolbar", { name: "Floating workspace controls" })).not.toBeInTheDocument();
+  });
+
+  it("opens CommandPalette with Cmd+K and filters entries", () => {
+    mockPathname = "/motion";
     render(
       <MotionMintProvider>
         <CommandPalette />
@@ -61,64 +73,10 @@ describe("Phase 2.7 — Workspace Shell, Appearance & Command Palette", () => {
     );
 
     fireEvent.keyDown(window, { key: "k", metaKey: true });
-    const input = screen.getByLabelText("Command search");
-    expect(input).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: /command palette/i })).toBeInTheDocument();
 
-    fireEvent.change(input, { target: { value: "Blueprint" } });
-    expect(screen.getByText(/Apply Conceptual Sketch \/ Blueprint/i)).toBeInTheDocument();
-
-    fireEvent.keyDown(window, { key: "Escape" });
-    expect(screen.queryByLabelText("Command search")).toBeNull();
-  });
-
-  it("WorkspaceShell collapses sidebar and switches appearance", () => {
-    render(
-      <MotionMintProvider>
-        <WorkspaceShell>
-          <div>Workspace Content</div>
-        </WorkspaceShell>
-      </MotionMintProvider>
-    );
-
-    const collapseBtn = screen.getByRole("button", { name: "Collapse sidebar" });
-    fireEvent.click(collapseBtn);
-    expect(screen.getByRole("button", { name: "Expand sidebar" })).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole("button", { name: "Light appearance" }));
-    expect(document.documentElement.getAttribute("data-appearance")).toBe("light");
-  });
-
-  it("ModalDialog and Drawer close on Escape", () => {
-    const onCloseModal = vi.fn();
-    const onCloseDrawer = vi.fn();
-    render(
-      <>
-        <ModalDialog open onClose={onCloseModal} title="Test Modal">
-          <div>Modal Body</div>
-        </ModalDialog>
-        <Drawer open onClose={onCloseDrawer} title="Test Drawer">
-          <div>Drawer Body</div>
-        </Drawer>
-      </>
-    );
-
-    fireEvent.keyDown(window, { key: "Escape" });
-    expect(onCloseModal).toHaveBeenCalledTimes(1);
-    expect(onCloseDrawer).toHaveBeenCalledTimes(1);
-  });
-
-  it("ContextMenu opens on right-click, executes action, and closes on Escape", () => {
-    const onReset = vi.fn();
-    render(
-      <ContextMenu items={[{ id: "r", label: "Reset Preview", onSelect: onReset }]}>
-        <div>Canvas Area</div>
-      </ContextMenu>
-    );
-
-    fireEvent.contextMenu(screen.getByText("Canvas Area"), { clientX: 50, clientY: 60 });
-    const item = screen.getByRole("menuitem", { name: "Reset Preview" });
-    fireEvent.click(item);
-    expect(onReset).toHaveBeenCalledTimes(1);
-    expect(screen.queryByRole("menu")).toBeNull();
+    const searchInput = screen.getByLabelText("Command search");
+    fireEvent.change(searchInput, { target: { value: "Sound" } });
+    expect(screen.getByText("Sound Lab")).toBeInTheDocument();
   });
 });

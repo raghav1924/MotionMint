@@ -105,6 +105,13 @@
 - [x] **Developer DX, Pricing Preview & 2-Column FAQ** (`components/home/developer-dx.tsx`, `components/home/pricing-section.tsx`, `components/site/faq-accordion.tsx`, `components/site/footer.tsx`)
 - [x] Wave 3+ component waves remain paused per Phase 2.10
 
+## Phase 2.11 — Unified Application Shell & Workspace Redesign `[COMPLETE]`
+- [x] **Removed Legacy `WorkspaceShell`:** Eliminated `isWorkspaceRoute()` branching and `components/workspace/workspace-shell.tsx`; all 5 experiences (`/components/[slug]`, `/themes`, `/motion`, `/sounds`, `/flow`) share one `AppShell` (`AnnouncementBar`, `NavigationToggle`, `BrandFloatingButton`, `EditorialSidebar`, `CommandPalette`).
+- [x] **Shared Workspace Primitives:** Created `WorkspacePage` & `WorkspaceHeader` (`components/workspace/workspace-page.tsx`) for consistent typography, spacing, and headers across `/motion`, `/sounds`, and `/flow`.
+- [x] **Contextual `FloatingToolbar` Modes:** Added route-aware modes (`component`, `themes`, `motion`, `sounds`, `default`) — Sound Lab displays `Sound: ON/OFF` & `Stop All`; `/flow` omits `FloatingToolbar` so its own node-editor toolbar & canvas remain unobstructed.
+- [x] **Redesigned Motion Lab & Sound Lab:** Replaced dashboard cards on `/motion` and `/sounds` with prominent central stages, waveform visualizer, `<MotionMintTheme>` scoped previews, and `DeviceFrames` viewport switching.
+- [x] Wave 3+ component development remains paused.
+
 ## Phase 5 — Premium Experiences (Pro Validation)
 - [ ] Advanced upload flow (previews, progress, retry)
 - [ ] Payment-success flow

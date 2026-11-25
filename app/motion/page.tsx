@@ -3,11 +3,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { RotateCcw, Zap } from "lucide-react";
+import { RotateCcw, Sun, Moon } from "lucide-react";
 import { ALL_THEMES } from "@/lib/themes/registry";
-import { themeToInlineStyle } from "@/lib/themes/theme-utils";
 import { MOTION_SPRINGS } from "@/lib/motion/presets";
 import { useMotionMint } from "@/components/site/providers";
+import { WorkspacePage, WorkspaceHeader } from "@/components/workspace/workspace-page";
+import { MotionMintTheme } from "@/components/theme/theme-scope";
+import {
+  DesktopBrowserFrame,
+  TabletPreviewFrame,
+  MobileDeviceFrame,
+} from "@/components/preview/device-frames";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { JellyButton } from "@/registry/components/jelly-button";
 import { WiggleText } from "@/registry/components/wiggle-text";
@@ -39,12 +45,23 @@ const CATEGORIES: MotionCategory[] = [
 ];
 
 const DECK_ITEMS: DeckCardItem[] = [
-  { id: "m1", tag: "Spring", title: "Stiffness 320 / Damping 28", subtitle: "Balanced studio spring preset for panels and decks." },
-  { id: "m2", tag: "Gesture", title: "Drag & Keyboard", subtitle: "Supports pointer drag, ArrowLeft/Right, and Cmd+Z undo." },
+  {
+    id: "m1",
+    tag: "Spring",
+    title: "Stiffness 320 / Damping 28",
+    subtitle: "Balanced studio spring preset for panels and decks.",
+  },
+  {
+    id: "m2",
+    tag: "Gesture",
+    title: "Drag & Keyboard",
+    subtitle: "Supports pointer drag, ArrowLeft/Right, and Cmd+Z undo.",
+  },
 ];
 
 export default function MotionLabPage() {
-  const { skin, theme, setTheme } = useMotionMint();
+  const { skin, setTheme, themeMode, setThemeMode, viewportMode, previewKey } =
+    useMotionMint();
   const [category, setCategory] = useState<MotionCategory>("Button Interactions");
   const [replayKey, setReplayKey] = useState(0);
   const [disableNonEssential, setDisableNonEssential] = useState(false);
@@ -56,48 +73,158 @@ import { MotionReveal } from "@/components/motionmint/motion-reveal";
   <YourComponent />
 </MotionReveal>`;
 
-  return (
-    <div className="p-4 sm:p-6 space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[var(--ws-accent)]">
-            <Zap className="h-3.5 w-3.5" aria-hidden="true" />
-            <span>Motion Lab</span>
-          </div>
-          <h1 className="text-2xl font-bold tracking-tight text-[var(--ws-text-primary)] sm:text-3xl">
-            Reusable Motion &amp; Interaction Primitives
-          </h1>
-          <p className="text-sm text-[var(--ws-text-secondary)] max-w-2xl">
-            CSS/WAAPI for lightweight transitions and <code className="font-mono text-xs">motion/react</code>{" "}
-            for spring physics. Every primitive respects <code className="font-mono text-xs">prefers-reduced-motion</code>.
+  const stageBody = (
+    <MotionMintTheme
+      theme={skin}
+      mode={themeMode}
+      padded
+      className="flex min-h-[320px] w-full flex-col items-center justify-center gap-6"
+    >
+      {disableNonEssential ? (
+        <div className="max-w-md space-y-2 text-center">
+          <p className="text-xs font-mono uppercase tracking-wider opacity-70">
+            Reduced Motion Simulated
+          </p>
+          <p className="text-sm font-medium">
+            Spring physics and continuous keyframes settle immediately while preserving
+            state transitions, contrast, and keyboard usability.
           </p>
         </div>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <label className="inline-flex items-center gap-2 rounded-lg border border-[var(--ws-border)] bg-[var(--ws-surface)] px-3 py-1.5 text-xs text-[var(--ws-text-secondary)] cursor-pointer">
-            <input
-              type="checkbox"
-              checked={disableNonEssential}
-              onChange={(e) => setDisableNonEssential(e.target.checked)}
-              className="accent-[var(--ws-accent)]"
-            />
-            <span>Simulate Reduced Motion</span>
-          </label>
-
-          <select
-            aria-label="Preview theme"
-            value={skin}
-            onChange={(e) => setTheme(e.target.value)}
-            className="h-8 rounded-lg border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 text-xs text-[var(--ws-text-primary)] cursor-pointer"
-          >
-            {ALL_THEMES.map((t) => (
-              <option key={t.id} value={t.id}>
-                {t.name}
-              </option>
-            ))}
-          </select>
+      ) : (
+        <div
+          key={`${category}-${replayKey}-${previewKey}`}
+          className="flex w-full max-w-2xl flex-wrap items-center justify-center gap-6"
+        >
+          {category === "Button Interactions" && (
+            <>
+              <RippleButton>Pointer Ripple</RippleButton>
+              <JellyButton>Magnetic Jelly</JellyButton>
+              <CopyButton value="npx shadcn@latest add @motionmint/motion-reveal" />
+            </>
+          )}
+          {category === "Text Animations" && (
+            <div className="space-y-4 text-center">
+              <WiggleText text="Hover or focus these letters" className="text-2xl font-bold" />
+              <MotionReveal variant="blurIn">
+                <p className="text-sm opacity-80">
+                  Blur-in editorial reveal using cubic-bezier [0.22, 1, 0.36, 1]
+                </p>
+              </MotionReveal>
+            </div>
+          )}
+          {category === "Card & Media" && (
+            <div className="grid w-full gap-6 sm:grid-cols-2 items-center">
+              <SwipeCardDeck cards={DECK_ITEMS} />
+              <FlipCard
+                front={
+                  <div className="p-4 text-center space-y-1">
+                    <p className="text-sm font-semibold">Motion Primitive</p>
+                    <p className="text-xs opacity-75">Click any edge to flip along that direction.</p>
+                  </div>
+                }
+                back={
+                  <div className="p-4 text-center space-y-1">
+                    <p className="text-sm font-semibold">Spring Physics</p>
+                    <p className="text-xs opacity-75">GPU-composited rotateX/Y transforms.</p>
+                  </div>
+                }
+              />
+            </div>
+          )}
+          {category === "Loading" && (
+            <div className="flex flex-wrap items-center justify-center gap-8">
+              <BounceDotsLoader rhythm="wave" />
+              <ThinkingLoader stages={["Analysing", "Composing", "Ready"]} />
+              <ProgressRing value={72} />
+            </div>
+          )}
+          {category === "Background & Visual" && (
+            <div className="w-full space-y-2">
+              <ParticleWordmark text="MotionMint" />
+              <p className="text-center text-xs opacity-70">
+                Canvas particle wordmark with pointer scatter + offscreen IntersectionObserver pause.
+              </p>
+            </div>
+          )}
+          {category === "Layout & Transitions" && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={MOTION_SPRINGS.elastic}
+              className="rounded-2xl border border-current/20 p-6 text-center space-y-2"
+            >
+              <p className="text-sm font-semibold">MOTION_SPRINGS.elastic</p>
+              <p className="text-xs opacity-75">
+                Shared spring presets across Component Studio, drawers, and cards.
+              </p>
+            </motion.div>
+          )}
         </div>
-      </div>
+      )}
+    </MotionMintTheme>
+  );
+
+  return (
+    <WorkspacePage>
+      <WorkspaceHeader
+        eyebrow="MOTION LAB"
+        title="Motion and interaction primitives"
+        description="Explore expressive interactions, reusable animation patterns, and spring presets inside scoped component themes."
+        actions={
+          <>
+            <label className="inline-flex h-8 items-center gap-2 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs text-[var(--ws-text-secondary)] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={disableNonEssential}
+                onChange={(e) => setDisableNonEssential(e.target.checked)}
+                className="accent-[var(--ws-text-primary)]"
+              />
+              <span>Reduced Motion</span>
+            </label>
+
+            <select
+              aria-label="Preview theme"
+              value={skin}
+              onChange={(e) => setTheme(e.target.value)}
+              className="h-8 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs text-[var(--ws-text-primary)] cursor-pointer"
+            >
+              {ALL_THEMES.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name}
+                </option>
+              ))}
+            </select>
+
+            <div
+              role="group"
+              aria-label="Component preview mode"
+              className="inline-flex h-8 items-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] p-0.5 text-xs"
+            >
+              {(["light", "dark"] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setThemeMode(m)}
+                  aria-pressed={themeMode === m}
+                  className={cn(
+                    "inline-flex items-center gap-1 rounded-full px-2.5 py-1 capitalize cursor-pointer",
+                    themeMode === m
+                      ? "bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                      : "text-[var(--ws-text-secondary)]"
+                  )}
+                >
+                  {m === "light" ? (
+                    <Sun className="h-3 w-3" aria-hidden="true" />
+                  ) : (
+                    <Moon className="h-3 w-3" aria-hidden="true" />
+                  )}
+                  {m}
+                </button>
+              ))}
+            </div>
+          </>
+        }
+      />
 
       {/* Category Navigation */}
       <div role="group" aria-label="Motion categories" className="flex flex-wrap gap-1.5">
@@ -110,8 +237,8 @@ import { MotionReveal } from "@/components/motionmint/motion-reveal";
             className={cn(
               "rounded-full border px-3.5 py-1.5 text-xs font-medium cursor-pointer transition-colors",
               category === cat
-                ? "border-[var(--ws-accent)] bg-[var(--ws-accent-soft)] text-[var(--ws-accent)]"
-                : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                : "border-[var(--ws-border)] bg-[var(--ws-floating)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
             )}
           >
             {cat}
@@ -119,139 +246,67 @@ import { MotionReveal } from "@/components/motionmint/motion-reveal";
         ))}
       </div>
 
-      {/* Interactive Stage */}
-      <div
-        key={replayKey}
-        style={themeToInlineStyle(theme)}
-        data-theme={theme.id}
-        className={cn(
-          "ws-dot-grid rounded-xl border border-[var(--ws-border)] bg-[var(--mm-bg)] text-[var(--mm-fg)] p-8 sm:p-12 min-h-[320px] flex flex-col items-center justify-center gap-6",
-          disableNonEssential && "[&_*]:!animate-none [&_*]:!transition-none"
-        )}
-      >
-        {category === "Button Interactions" && (
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <RippleButton variant="primary">Pointer Ripple</RippleButton>
-            <RippleButton variant="outline">Outline Ripple</RippleButton>
-            <JellyButton magneticStrength={0.3}>Magnetic Jelly</JellyButton>
-          </div>
-        )}
-
-        {category === "Text Animations" && (
-          <div className="space-y-5 text-center">
-            <WiggleText text="Character Wiggle" splitBy="char" variant="accent" className="text-2xl" />
-            <div>
-              <WiggleText text="Word Stagger Rhythm" splitBy="word" intensity="playful" className="text-xl" />
-            </div>
-            <MotionReveal variant="blurIn">
-              <p className="text-sm text-[var(--mm-fg-muted)]">
-                Blur-in entrance powered by MotionReveal
-              </p>
-            </MotionReveal>
-          </div>
-        )}
-
-        {category === "Card & Media" && (
-          <div className="grid gap-8 md:grid-cols-2 items-center w-full max-w-3xl justify-items-center">
-            <SwipeCardDeck cards={DECK_ITEMS} />
-            <FlipCard
-              front={
-                <div className="flex h-full flex-col justify-between">
-                  <span className="font-mono text-[10px] uppercase text-[var(--mm-accent)]">Front</span>
-                  <p className="text-base font-bold">Direction-Aware Flip</p>
-                </div>
-              }
-              back={
-                <div className="flex h-full flex-col justify-between">
-                  <span className="font-mono text-[10px] uppercase text-[var(--mm-accent)]">Back</span>
-                  <p className="text-xs text-[var(--mm-fg-muted)]">Keyboard &amp; touch ready.</p>
-                </div>
-              }
-            />
-          </div>
-        )}
-
-        {category === "Loading" && (
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <BounceDotsLoader size="md" rhythm="elastic" />
-            <ThinkingLoader variant="orbit" />
-            <ThinkingLoader variant="pulse-grid" />
-            <ProgressRing value={78} size={68} />
-          </div>
-        )}
-
-        {category === "Background & Visual" && (
-          <div className="w-full space-y-3 text-center">
-            <ParticleWordmark text="MotionMint" />
-            <p className="text-xs text-[var(--mm-fg-muted)]">
-              Hover to scatter points, click for radial shockwave.
-            </p>
-          </div>
-        )}
-
-        {category === "Layout & Transitions" && (
-          <div className="w-full max-w-md space-y-3">
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                initial={disableNonEssential ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={
-                  disableNonEssential
-                    ? { duration: 0 }
-                    : { ...MOTION_SPRINGS.smooth, delay: i * 0.08 }
-                }
-                className="rounded-[var(--mm-radius-sm)] border border-[var(--mm-border)] bg-[var(--mm-surface)] px-4 py-3 text-xs font-medium"
-              >
-                Staggered Spring Item #{i + 1}
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Presets & Usage */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-3">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
-              Shared Motion Presets
-            </h2>
-            <button
-              type="button"
-              onClick={() => setReplayKey((k) => k + 1)}
-              className="inline-flex items-center gap-1.5 rounded-md border border-[var(--ws-border)] px-2.5 py-1 text-xs text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] cursor-pointer"
-            >
-              <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
-              Replay
-            </button>
-          </div>
-          <p className="text-xs text-[var(--ws-text-secondary)] leading-relaxed">
-            Use <code className="font-mono">MOTION_SPRINGS</code> (<code className="font-mono">snappy</code>,{" "}
-            <code className="font-mono">smooth</code>, <code className="font-mono">elastic</code>,{" "}
-            <code className="font-mono">gentle</code>) and <code className="font-mono">MotionReveal</code>{" "}
-            for consistent, interruptible transitions.
-          </p>
-          <Link
-            href="/components/swipe-card-deck"
-            className="inline-block text-xs font-medium text-[var(--ws-accent)] hover:underline"
+      {/* Prominent Central Preview Stage */}
+      <section className="rounded-[24px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 sm:p-6 space-y-4">
+        <div className="flex items-center justify-between gap-2">
+          <span className="font-mono text-xs text-[var(--ws-text-secondary)]">{category}</span>
+          <button
+            type="button"
+            onClick={() => setReplayKey((k) => k + 1)}
+            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
           >
-            Inspect full primitives in Component Studio →
-          </Link>
+            <RotateCcw className="h-3 w-3" aria-hidden="true" />
+            Replay
+          </button>
         </div>
 
-        <div className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-3">
+        {viewportMode === "mobile" ? (
+          <MobileDeviceFrame slug="motion-reveal">{stageBody}</MobileDeviceFrame>
+        ) : viewportMode === "tablet" ? (
+          <TabletPreviewFrame slug="motion-reveal">{stageBody}</TabletPreviewFrame>
+        ) : (
+          <DesktopBrowserFrame slug="motion-reveal">{stageBody}</DesktopBrowserFrame>
+        )}
+      </section>
+
+      {/* Spring Reference & Install Code */}
+      <section className="grid gap-6 md:grid-cols-2">
+        <div className="rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6 space-y-4">
+          <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
+            Shared Spring Presets
+          </h2>
+          <dl className="grid grid-cols-2 gap-3 text-xs">
+            {Object.entries(MOTION_SPRINGS).map(([name, cfg]) => (
+              <div
+                key={name}
+                className="rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] p-3"
+              >
+                <dt className="font-mono font-semibold text-[var(--ws-text-primary)]">{name}</dt>
+                <dd className="mt-1 font-mono text-[11px] text-[var(--ws-text-secondary)]">
+                  {`stiffness: ${cfg.stiffness}, damping: ${cfg.damping}`}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
-              Usage Example
+              Portable Usage (`@motionmint/motion-reveal`)
             </h2>
-            <CopyButton value={springCode} label="Copy Snippet" />
+            <Link
+              href="/docs/installation"
+              className="text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+            >
+              Install CLI →
+            </Link>
           </div>
-          <pre className="overflow-x-auto rounded-lg border border-[var(--ws-border)] bg-[var(--ws-bg)] p-3 font-mono text-[11px] text-[var(--ws-text-secondary)]">
+          <pre className="overflow-x-auto rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] p-4 font-mono text-xs text-[var(--ws-text-primary)]">
             <code>{springCode}</code>
           </pre>
         </div>
-      </div>
-    </div>
+      </section>
+    </WorkspacePage>
   );
 }

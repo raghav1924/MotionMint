@@ -97,10 +97,13 @@ describe("Phase 4 — Motion Lab, Sound Lab & Interaction Engine", () => {
         <MotionLabPage />
       </MotionMintProvider>
     );
-    expect(screen.getByText("Reusable Motion & Interaction Primitives")).toBeInTheDocument();
+    expect(screen.getByText("Motion and interaction primitives")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Loading" }));
-    expect(screen.getAllByText("Connecting to workspace...").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Analysing").length).toBeGreaterThan(0);
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Reduced Motion" }));
+    expect(screen.getByText("Reduced Motion Simulated")).toBeInTheDocument();
   });
 
   it("SoundsPage switches sound groups and presets", () => {

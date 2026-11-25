@@ -17,11 +17,17 @@ import {
   Minimize2,
   Sun,
   Moon,
+  Volume2,
+  VolumeX,
+  Square,
 } from "lucide-react";
 import { BRAND } from "@/lib/brand";
 import { useMotionMint } from "@/components/site/providers";
 import { PromptMenu } from "@/components/shell/prompt-menu";
+import { stopAllSounds } from "@/lib/audio/sound-engine";
 import { cn } from "@/lib/utils";
+
+type ToolbarMode = "component" | "themes" | "motion" | "sounds" | "default";
 
 export function FloatingToolbar() {
   const pathname = usePathname();
@@ -37,15 +43,29 @@ export function FloatingToolbar() {
     fullscreenPreview,
     setFullscreenPreview,
     activeComponentSlug,
+    soundEnabled,
+    toggleSound,
   } = useMotionMint();
 
   const [copiedPkg, setCopiedPkg] = useState(false);
   const [promptOpen, setPromptOpen] = useState(false);
 
+  const mode: ToolbarMode = pathname.startsWith("/sounds")
+    ? "sounds"
+    : pathname.startsWith("/motion")
+      ? "motion"
+      : pathname.startsWith("/themes")
+        ? "themes"
+        : pathname.startsWith("/components/") && pathname !== "/components"
+          ? "component"
+          : "default";
+
   const slugFromPath =
-    pathname.startsWith("/components/") && pathname !== "/components"
+    mode === "component"
       ? pathname.replace("/components/", "").split("/")[0]
-      : activeComponentSlug;
+      : mode === "motion"
+        ? "motion-reveal"
+        : activeComponentSlug;
 
   const packageId = slugFromPath
     ? `${BRAND.registryNamespace}/${slugFromPath}`
@@ -74,7 +94,7 @@ export function FloatingToolbar() {
       className="fixed bottom-3 sm:bottom-4 inset-x-0 z-50 flex justify-center px-2 sm:px-3 pointer-events-none"
     >
       <div className="relative pointer-events-auto flex max-w-full items-center gap-1.5 sm:gap-2 py-1">
-        {/* Left Capsule: Navigation & Command Palette */}
+        {/* Group A: Navigation & Command Palette */}
         <div className={pillClass}>
           <button
             type="button"
@@ -99,127 +119,146 @@ export function FloatingToolbar() {
           </button>
         </div>
 
-        {/* Middle Capsule: Component Identification & Copy Prompt */}
-        <div className={cn(pillClass, "relative")}>
-          <div className="flex items-center gap-1 sm:gap-1.5 pl-1.5 sm:pl-2 pr-0.5 sm:pr-1 text-xs">
-            <Package className="hidden sm:block h-3.5 w-3.5 shrink-0 text-[var(--ws-text-secondary)]" aria-hidden="true" />
-            <span className="hidden sm:inline font-mono text-[11px] text-[var(--ws-text-primary)] whitespace-nowrap">
-              {packageId}
-            </span>
+        {/* Group B: Contextual Actions */}
+        {mode === "sounds" ? (
+          <div className={pillClass}>
+            <button
+              type="button"
+              onClick={toggleSound}
+              aria-pressed={soundEnabled}
+              className="inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+            >
+              {soundEnabled ? (
+                <Volume2 className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+              ) : (
+                <VolumeX className="h-3.5 w-3.5 text-[var(--ws-text-secondary)]" aria-hidden="true" />
+              )}
+              <span>Sound: {soundEnabled ? "ON" : "OFF"}</span>
+            </button>
+            <div className="mx-0.5 h-4 w-px bg-[var(--ws-border-subtle)]" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={() => stopAllSounds()}
+              className="inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium text-[var(--ws-text-secondary)] hover:bg-[var(--ws-surface-hover)] hover:text-[var(--ws-text-primary)] cursor-pointer"
+            >
+              <Square className="h-3 w-3" aria-hidden="true" />
+              <span>Stop All</span>
+            </button>
+          </div>
+        ) : (
+          <div className={pillClass}>
             <button
               type="button"
               onClick={copyPackage}
-              aria-label={`Copy ${packageId}`}
-              title={`Copy ${packageId}`}
-              className={iconBtnClass}
+              aria-label={`Copy package identifier ${packageId}`}
+              className="hidden sm:inline-flex h-7 items-center gap-2 rounded-full px-2.5 text-xs text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] transition-colors cursor-pointer"
             >
+              <Package className="h-3.5 w-3.5 text-rose-500 shrink-0" aria-hidden="true" />
+              <span className="font-mono text-[11px] truncate max-w-[170px]">{packageId}</span>
               {copiedPkg ? (
-                <Check className="h-3 w-3 text-emerald-500" aria-hidden="true" />
+                <Check className="h-3 w-3 text-emerald-500 shrink-0" aria-hidden="true" />
               ) : (
-                <Copy className="h-3 w-3" aria-hidden="true" />
+                <Copy className="h-3 w-3 text-[var(--ws-text-secondary)] shrink-0" aria-hidden="true" />
               )}
             </button>
+
+            <div className="mx-0.5 hidden sm:block h-4 w-px bg-[var(--ws-border-subtle)]" aria-hidden="true" />
+
+            <button
+              type="button"
+              onClick={() => setPromptOpen((v) => !v)}
+              aria-expanded={promptOpen}
+              aria-label="Copy prompt options"
+              className="inline-flex h-7 items-center gap-1.5 rounded-full px-2 sm:px-2.5 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] transition-colors cursor-pointer"
+            >
+              <Copy className="h-3.5 w-3.5 text-[var(--ws-text-secondary)]" aria-hidden="true" />
+              <span className="hidden xs:inline sm:inline">Copy prompt</span>
+              <ChevronDown className="h-3 w-3 text-[var(--ws-text-secondary)]" aria-hidden="true" />
+            </button>
           </div>
+        )}
 
-          <div className="mx-0.5 h-4 w-px bg-[var(--ws-border-subtle)]" aria-hidden="true" />
-
-          <button
-            type="button"
-            onClick={() => setPromptOpen((o) => !o)}
-            aria-expanded={promptOpen}
-            aria-label="Copy prompt options"
-            className="inline-flex h-7 items-center gap-1 sm:gap-1.5 rounded-full px-2 sm:px-2.5 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] transition-colors cursor-pointer whitespace-nowrap"
-          >
-            <Copy className="hidden sm:block h-3 w-3 text-[var(--ws-text-secondary)]" aria-hidden="true" />
-            <span>Copy prompt</span>
-            <ChevronDown
-              className={cn(
-                "h-3 w-3 text-[var(--ws-text-secondary)] transition-transform duration-150",
-                promptOpen && "rotate-180"
-              )}
-              aria-hidden="true"
-            />
-          </button>
-
-          <PromptMenu open={promptOpen} onClose={() => setPromptOpen(false)} slug={slugFromPath} />
-        </div>
-
-        {/* Right Capsule: Viewport, Refresh, Fullscreen & Theme */}
+        {/* Group C: Preview & Appearance */}
         <div className={pillClass}>
-          <button
-            type="button"
-            onClick={() => setViewportMode("desktop")}
-            aria-label="Desktop preview"
-            aria-pressed={viewportMode === "desktop"}
-            title="Desktop preview"
-            className={cn(
-              iconBtnClass,
-              viewportMode === "desktop" && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
-            )}
-          >
-            <Monitor className="h-3.5 w-3.5" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            onClick={() => setViewportMode("tablet")}
-            aria-label="Tablet preview"
-            aria-pressed={viewportMode === "tablet"}
-            title="Tablet preview"
-            className={cn(
-              iconBtnClass,
-              viewportMode === "tablet" && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
-            )}
-          >
-            <Tablet className="h-3.5 w-3.5" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            onClick={() => setViewportMode("mobile")}
-            aria-label="Mobile preview"
-            aria-pressed={viewportMode === "mobile"}
-            title="Mobile preview"
-            className={cn(
-              iconBtnClass,
-              viewportMode === "mobile" && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
-            )}
-          >
-            <Smartphone className="h-3.5 w-3.5" aria-hidden="true" />
-          </button>
+          {mode !== "sounds" && (
+            <>
+              <div className="hidden md:flex items-center gap-0.5">
+                <button
+                  type="button"
+                  onClick={() => setViewportMode("desktop")}
+                  aria-label="Desktop preview"
+                  aria-pressed={viewportMode === "desktop"}
+                  title="Desktop"
+                  className={cn(
+                    iconBtnClass,
+                    viewportMode === "desktop" && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
+                  )}
+                >
+                  <Monitor className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewportMode("tablet")}
+                  aria-label="Tablet preview"
+                  aria-pressed={viewportMode === "tablet"}
+                  title="Tablet"
+                  className={cn(
+                    iconBtnClass,
+                    viewportMode === "tablet" && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
+                  )}
+                >
+                  <Tablet className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewportMode("mobile")}
+                  aria-label="Mobile preview"
+                  aria-pressed={viewportMode === "mobile"}
+                  title="Mobile"
+                  className={cn(
+                    iconBtnClass,
+                    viewportMode === "mobile" && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
+                  )}
+                >
+                  <Smartphone className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+                <div className="mx-0.5 h-4 w-px bg-[var(--ws-border-subtle)]" aria-hidden="true" />
+              </div>
 
-          <div className="mx-0.5 hidden sm:block h-4 w-px bg-[var(--ws-border-subtle)]" aria-hidden="true" />
-
-          <button
-            type="button"
-            onClick={refreshPreview}
-            aria-label="Refresh preview"
-            title="Refresh preview"
-            className={cn(iconBtnClass, "hidden sm:inline-flex")}
-          >
-            <RotateCw className="h-3.5 w-3.5" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            onClick={() => setFullscreenPreview(!fullscreenPreview)}
-            aria-label={fullscreenPreview ? "Exit fullscreen" : "Fullscreen preview"}
-            aria-pressed={fullscreenPreview}
-            title={fullscreenPreview ? "Exit fullscreen" : "Fullscreen preview"}
-            className={cn(
-              iconBtnClass,
-              "hidden sm:inline-flex",
-              fullscreenPreview && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
-            )}
-          >
-            {fullscreenPreview ? (
-              <Minimize2 className="h-3.5 w-3.5" aria-hidden="true" />
-            ) : (
-              <Maximize2 className="h-3.5 w-3.5" aria-hidden="true" />
-            )}
-          </button>
+              <button
+                type="button"
+                onClick={refreshPreview}
+                aria-label="Refresh preview"
+                title="Refresh preview"
+                className={iconBtnClass}
+              >
+                <RotateCw className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setFullscreenPreview(!fullscreenPreview)}
+                aria-label={fullscreenPreview ? "Exit fullscreen" : "Enter fullscreen"}
+                aria-pressed={fullscreenPreview}
+                title={fullscreenPreview ? "Exit fullscreen" : "Fullscreen"}
+                className={cn(
+                  iconBtnClass,
+                  "hidden sm:inline-flex",
+                  fullscreenPreview && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
+                )}
+              >
+                {fullscreenPreview ? (
+                  <Minimize2 className="h-3.5 w-3.5" aria-hidden="true" />
+                ) : (
+                  <Maximize2 className="h-3.5 w-3.5" aria-hidden="true" />
+                )}
+              </button>
+            </>
+          )}
           <button
             type="button"
             onClick={() => setAppearance(resolvedAppearance === "dark" ? "light" : "dark")}
-            aria-label={resolvedAppearance === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            title={resolvedAppearance === "dark" ? "Light mode" : "Dark mode"}
+            aria-label={`Switch to ${resolvedAppearance === "dark" ? "light" : "dark"} mode`}
+            title={resolvedAppearance === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             className={iconBtnClass}
           >
             {resolvedAppearance === "dark" ? (
@@ -229,6 +268,12 @@ export function FloatingToolbar() {
             )}
           </button>
         </div>
+
+        <PromptMenu
+          open={promptOpen}
+          onClose={() => setPromptOpen(false)}
+          slug={slugFromPath}
+        />
       </div>
     </div>
   );

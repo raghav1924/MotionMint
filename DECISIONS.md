@@ -56,6 +56,13 @@
 - **Decision:** Introduce `--ws-*` semantic tokens on `[data-appearance="dark" | "light"]` for the site & workspace shell (`WorkspaceShell`, `Navbar`, `CommandPalette`, `Drawer`), and scope `--mm-*` theme tokens to component preview canvases.
 - **Consequences:** Dark/Light/System appearance works consistently across all workspace chrome while preserving 100% of the 29-theme component preview engine.
 
+## ADR-013: Eliminate Legacy WorkspaceShell & Unify All Five Experiences Under AppShell (Phase 2.11)
+- **Date:** 2026-11-25
+- **Status:** Accepted
+- **Context:** Motion Lab (`/motion`), Sound Lab (`/sounds`), and Flow (`/flow`) previously routed through `WorkspaceShell`, creating a disjointed permanent left icon rail and 56px dashboard header that differed from Component Studio and Theme Studio.
+- **Decision:** Remove `WorkspaceShell` and `isWorkspaceRoute()`, route all five experiences through the unified `AppShell` (`AnnouncementBar`, `NavigationToggle`, `BrandFloatingButton`, `EditorialSidebar`, `CommandPalette`), introduce `WorkspacePage`/`WorkspaceHeader`, and add contextual modes to `FloatingToolbar` (while omitting `FloatingToolbar` on `/flow` so the node editor toolbar & graph remain unobstructed).
+- **Consequences:** All five MotionMint workspaces share identical outer chrome, Light/Dark/System appearance, and navigation while preserving domain-specific inner canvases.
+
 ## ADR-012: Consolidate Preview on Component Studio & Integrate POC Node Pipeline Orchestrator (Integration Sprint)
 - **Date:** 2026-11-25
 - **Status:** Accepted

@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Volume2, Square, Smartphone } from "lucide-react";
+import { Play, Square, Smartphone, Volume2 } from "lucide-react";
 import { useMotionMint } from "@/components/site/providers";
+import { WorkspacePage, WorkspaceHeader } from "@/components/workspace/workspace-page";
+import { MotionMintTheme } from "@/components/theme/theme-scope";
 import {
   getAudioCapabilities,
   playSoundEffect,
@@ -60,16 +62,20 @@ const HAPTICS: { id: HapticPreset; label: string; pattern: string }[] = [
   { id: "error", label: "Error", pattern: "[30, 35, 30]ms" },
 ];
 
+const WAVEFORM_BARS = [24, 48, 72, 38, 86, 60, 92, 54, 78, 42, 66, 30];
+
 export default function SoundsPage() {
   const { soundEnabled, toggleSound, hapticsEnabled, setHapticsEnabled } = useMotionMint();
   const [group, setGroup] = useState<SoundGroup>("UI Feedback");
   const [preset, setPreset] = useState<SoundPreset>("minimal");
   const [volume, setVolume] = useState(0.8);
+  const [selectedEffect, setSelectedEffect] = useState<SoundEffect>("click");
   const [lastPlayed, setLastPlayed] = useState<string | null>(null);
 
   const capabilities = getAudioCapabilities();
 
   const handleAudition = (effect: SoundEffect) => {
+    setSelectedEffect(effect);
     playSoundEffect(effect, { volume, preset });
     setLastPlayed(effect);
     if (hapticsEnabled) {
@@ -87,187 +93,244 @@ const { play, stop, setVolume } = useSound({
   preset: "${preset}",
 });
 
-play("success");`;
+play("${selectedEffect}");`;
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[var(--ws-accent)]">
-            <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />
-            <span>Sound &amp; Haptics Lab</span>
+    <WorkspacePage>
+      <WorkspaceHeader
+        eyebrow="SOUND & HAPTICS LAB"
+        title="Sound that gives interfaces personality."
+        description="Zero-asset Web Audio synthesis and progressive haptics. Sound defaults to OFF globally and never auto-plays."
+        actions={
+          <button
+            type="button"
+            onClick={() => {
+              stopAllSounds();
+              setLastPlayed(null);
+            }}
+            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3.5 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+          >
+            <Square className="h-3 w-3" aria-hidden="true" />
+            Stop All
+          </button>
+        }
+      />
+
+      {/* Dominant Interactive Sound Studio Stage */}
+      <section className="rounded-[24px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 sm:p-7 space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)]">
+              <Volume2 className="h-4 w-4 text-[var(--ws-text-primary)]" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[var(--ws-text-primary)]">
+                Audition Studio · {selectedEffect}
+              </p>
+              <p className="font-mono text-[11px] text-[var(--ws-text-muted)]">
+                Preset: {preset} · Volume: {Math.round(volume * 100)}%
+                {lastPlayed ? ` · Last cue: ${lastPlayed}` : ""}
+              </p>
+            </div>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-[var(--ws-text-primary)] sm:text-3xl">
-            Synthesized Web Audio &amp; Progressive Haptics
-          </h1>
-          <p className="text-sm text-[var(--ws-text-secondary)] max-w-2xl">
-            Zero-asset Web Audio synthesis. Global component sound defaults to{" "}
-            <strong>OFF</strong> and never auto-plays on page load.
-          </p>
-        </div>
 
-        <button
-          type="button"
-          onClick={() => {
-            stopAllSounds();
-            setLastPlayed(null);
-          }}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--ws-border)] bg-[var(--ws-surface)] px-3 py-1.5 text-xs font-medium text-[var(--ws-text-primary)] hover:border-[var(--ws-accent)] cursor-pointer"
-        >
-          <Square className="h-3 w-3" aria-hidden="true" />
-          Stop All
-        </button>
-      </div>
-
-      {/* Global Controls & Capabilities */}
-      <div className="grid gap-4 lg:grid-cols-3">
-        <div className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 flex items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold text-[var(--ws-text-primary)]">
-              Global Sound: {soundEnabled ? "ON" : "OFF"}
-            </p>
-            <p className="text-[11px] text-[var(--ws-text-muted)]">Off by default</p>
-          </div>
-          <SoundToggle checked={soundEnabled} onCheckedChange={toggleSound} showWaveform label="Global Sound" />
-        </div>
-
-        <div className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 flex items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold text-[var(--ws-text-primary)]">
-              Haptics: {hapticsEnabled ? "ON" : "OFF"}
-            </p>
-            <p className="text-[11px] text-[var(--ws-text-muted)]">
-              {capabilities.supportsHaptics ? "Vibration API detected" : "Fallback mode (iOS/Desktop)"}
-            </p>
-          </div>
-          <SoundToggle checked={hapticsEnabled} onCheckedChange={setHapticsEnabled} label="Global Haptics" />
-        </div>
-
-        <div className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 space-y-2">
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-[var(--ws-text-primary)]">Audition Volume</span>
-            <span className="font-mono text-[var(--ws-accent)]">{Math.round(volume * 100)}%</span>
-          </div>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.05"
-            aria-label="Sound volume"
-            value={volume}
-            onChange={(e) => setVolume(Number(e.target.value))}
-            className="w-full accent-[var(--ws-accent)]"
-          />
-        </div>
-      </div>
-
-      {/* Presets & Group Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div role="group" aria-label="Sound categories" className="flex flex-wrap gap-1.5">
-          {(["UI Feedback", "Status Feedback", "Transitions"] as const).map((g) => (
+          <div className="flex flex-wrap items-center gap-2">
+            <MotionMintTheme theme="minimalism" mode="light" className="rounded-full">
+              <SoundToggle />
+            </MotionMintTheme>
             <button
-              key={g}
               type="button"
-              onClick={() => setGroup(g)}
-              aria-pressed={group === g}
-              className={cn(
-                "rounded-full border px-3.5 py-1.5 text-xs font-medium cursor-pointer",
-                group === g
-                  ? "border-[var(--ws-accent)] bg-[var(--ws-accent-soft)] text-[var(--ws-accent)]"
-                  : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)]"
-              )}
+              onClick={() => handleAudition(selectedEffect)}
+              className="inline-flex h-9 items-center gap-1.5 rounded-full bg-[var(--ws-text-primary)] px-4 text-xs font-medium text-[var(--ws-bg)] hover:opacity-90 cursor-pointer"
             >
-              {g}
+              <Play className="h-3.5 w-3.5" aria-hidden="true" />
+              Play {selectedEffect}
             </button>
-          ))}
+          </div>
         </div>
 
-        <div role="group" aria-label="Sound preset" className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs text-[var(--ws-text-muted)]">Preset:</span>
-          {PRESETS.map((p) => (
-            <button
-              key={p}
-              type="button"
-              onClick={() => setPreset(p)}
-              aria-pressed={preset === p}
-              className={cn(
-                "rounded-md border px-2.5 py-1 text-xs capitalize cursor-pointer",
-                preset === p
-                  ? "border-[var(--ws-accent)] bg-[var(--ws-accent-soft)] text-[var(--ws-accent)]"
-                  : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)]"
-              )}
-            >
-              {p}
-            </button>
-          ))}
-        </div>
-      </div>
+        {/* Waveform Visualization & Master Controls */}
+        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-center rounded-2xl border border-[var(--ws-border-subtle)] bg-[var(--ws-floating)] p-5">
+          <div
+            aria-hidden="true"
+            className="flex h-24 items-center justify-center gap-2 rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] px-4"
+          >
+            {WAVEFORM_BARS.map((height, idx) => (
+              <span
+                key={idx}
+                className={cn(
+                  "w-2 rounded-full transition-all duration-300",
+                  lastPlayed
+                    ? "bg-[var(--ws-text-primary)]"
+                    : "bg-[var(--ws-border-strong)]"
+                )}
+                style={{
+                  height: `${lastPlayed ? height : Math.max(18, Math.round(height * 0.4))}%`,
+                }}
+              />
+            ))}
+          </div>
 
-      {/* Sound Audition Grid */}
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {visibleEffects.map((item) => {
-          const isRecent = lastPlayed === item.id;
-          return (
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-[var(--ws-text-secondary)]">Master Volume</span>
+                <span className="font-mono text-[var(--ws-text-primary)]">
+                  {Math.round(volume * 100)}%
+                </span>
+              </div>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={volume}
+                onChange={(e) => setVolume(Number(e.target.value))}
+                aria-label="Master volume"
+                className="w-full accent-[var(--ws-text-primary)] cursor-pointer"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <span className="block text-xs font-medium text-[var(--ws-text-secondary)]">
+                Synthesis Preset (6)
+              </span>
+              <div className="flex flex-wrap gap-1.5" role="group" aria-label="Sound presets">
+                {PRESETS.map((p) => (
+                  <button
+                    key={p}
+                    type="button"
+                    onClick={() => setPreset(p)}
+                    aria-pressed={preset === p}
+                    className={cn(
+                      "rounded-full border px-3 py-1 text-xs capitalize transition-colors cursor-pointer",
+                      preset === p
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                    )}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sound Cue Explorer */}
+      <section className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div role="group" aria-label="Sound categories" className="flex flex-wrap gap-1.5">
+            {(["UI Feedback", "Status Feedback", "Transitions"] as const).map((g) => (
+              <button
+                key={g}
+                type="button"
+                onClick={() => setGroup(g)}
+                aria-pressed={group === g}
+                className={cn(
+                  "rounded-full border px-3.5 py-1.5 text-xs font-medium cursor-pointer transition-colors",
+                  group === g
+                    ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                    : "border-[var(--ws-border)] bg-[var(--ws-floating)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                )}
+              >
+                {g}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={toggleSound}
+            className="text-xs font-mono text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] cursor-pointer"
+          >
+            Global Component Sound: <strong>{soundEnabled ? "ON" : "OFF"}</strong>
+          </button>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {visibleEffects.map((item) => (
             <button
               key={item.id}
               type="button"
               onClick={() => handleAudition(item.id)}
               className={cn(
-                "rounded-xl border p-4 text-left flex flex-col justify-between gap-3 cursor-pointer transition-colors",
-                isRecent
-                  ? "border-[var(--ws-accent)] bg-[var(--ws-accent-soft)]"
-                  : "border-[var(--ws-border)] bg-[var(--ws-surface)] hover:border-[var(--ws-border-strong)]"
+                "flex items-center justify-between gap-3 rounded-2xl border p-4 text-left transition-all cursor-pointer",
+                lastPlayed === item.id
+                  ? "border-[var(--ws-text-primary)] bg-[var(--ws-surface)]"
+                  : "border-[var(--ws-border)] bg-[var(--ws-floating)] hover:border-[var(--ws-border-strong)]"
               )}
             >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-[var(--ws-text-primary)]">{item.label}</span>
-                <Volume2 className="h-4 w-4 text-[var(--ws-accent)]" aria-hidden="true" />
+              <div className="space-y-0.5 min-w-0">
+                <p className="text-sm font-semibold text-[var(--ws-text-primary)]">{item.label}</p>
+                <p className="text-xs text-[var(--ws-text-secondary)] truncate">
+                  {item.description}
+                </p>
               </div>
-              <p className="text-xs text-[var(--ws-text-secondary)]">{item.description}</p>
-              <span className="font-mono text-[11px] text-[var(--ws-accent)]">
-                play(&quot;{item.id}&quot;)
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)]">
+                <Play className="h-3.5 w-3.5 text-[var(--ws-text-primary)]" aria-hidden="true" />
               </span>
             </button>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      </section>
 
-      {/* Haptic Presets + Developer Hook */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-3">
-          <div className="flex items-center gap-2 text-xs font-semibold text-[var(--ws-text-primary)]">
-            <Smartphone className="h-4 w-4 text-[var(--ws-accent)]" aria-hidden="true" />
-            <span>Progressive Haptic Patterns</span>
+      {/* Haptics, Capabilities & Developer API */}
+      <section className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6 space-y-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Smartphone className="h-4 w-4 text-[var(--ws-text-secondary)]" aria-hidden="true" />
+              <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
+                Progressive Haptics
+              </h2>
+            </div>
+            <label className="inline-flex items-center gap-2 text-xs text-[var(--ws-text-secondary)] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={hapticsEnabled}
+                onChange={(e) => setHapticsEnabled(e.target.checked)}
+                className="accent-[var(--ws-text-primary)]"
+              />
+              <span>Enabled</span>
+            </label>
           </div>
-          <p className="text-xs text-[var(--ws-text-secondary)]">
-            Supported on Android Chromium with user activation. iOS Safari does not
-            natively expose <code className="font-mono">navigator.vibrate</code> and
-            degrades silently.
-          </p>
+
           <div className="flex flex-wrap gap-2">
             {HAPTICS.map((h) => (
               <button
                 key={h.id}
                 type="button"
                 onClick={() => triggerHapticPreset(h.id)}
-                className="rounded-lg border border-[var(--ws-border)] bg-[var(--ws-bg)] px-3 py-1.5 text-xs text-[var(--ws-text-primary)] hover:border-[var(--ws-accent)] cursor-pointer"
+                className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] px-3 py-2 text-left text-xs hover:border-[var(--ws-border-strong)] cursor-pointer"
               >
-                {h.label} <span className="font-mono text-[10px] text-[var(--ws-text-muted)]">({h.pattern})</span>
+                <div className="font-medium text-[var(--ws-text-primary)]">{h.label}</div>
+                <div className="font-mono text-[10px] text-[var(--ws-text-muted)]">
+                  {h.pattern}
+                </div>
               </button>
             ))}
           </div>
+
+          <div className="flex flex-wrap gap-3 border-t border-[var(--ws-border-subtle)] pt-3 font-mono text-[11px] text-[var(--ws-text-muted)]">
+            <span>Web Audio: {capabilities.supportsWebAudio ? "Supported" : "Unavailable"}</span>
+            <span>Vibration: {capabilities.supportsHaptics ? "Supported" : "Fallback"}</span>
+          </div>
         </div>
 
-        <div className="rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-3">
+        <div className="rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6 space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">Portable useSound() Hook</h2>
-            <CopyButton value={hookSnippet} label="Copy Hook" />
+            <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
+              useSound() Developer API
+            </h2>
+            <CopyButton value={hookSnippet} />
           </div>
-          <pre className="overflow-x-auto rounded-lg border border-[var(--ws-border)] bg-[var(--ws-bg)] p-3 font-mono text-[11px] text-[var(--ws-text-secondary)]">
+          <pre className="overflow-x-auto rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] p-4 font-mono text-xs text-[var(--ws-text-primary)]">
             <code>{hookSnippet}</code>
           </pre>
         </div>
-      </div>
-    </div>
+      </section>
+    </WorkspacePage>
   );
 }

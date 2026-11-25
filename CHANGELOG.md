@@ -1,5 +1,19 @@
 # CHANGELOG.md — MotionMint
 
+## [0.14.0] — 2026-11-25 (Phase 2.11 — Unified Application Shell & Workspace Redesign)
+### Added
+- `WorkspacePage` and `WorkspaceHeader` (`components/workspace/workspace-page.tsx`) unifying page headings, eyebrow labels, max-width, and spacing across `/motion`, `/sounds`, and `/flow`.
+- Contextual modes in `FloatingToolbar` (`components/shell/floating-toolbar.tsx`): Sound Lab mode (`Sound: ON/OFF`, `Stop All`, Appearance) and Motion Lab mode (`@motionmint/motion-reveal`, PromptMenu, DeviceFrames, Replay, Appearance).
+
+### Changed
+- **Unified `AppShell`** (`components/site/app-shell.tsx`): Removed `isWorkspaceRoute()` branching so `/components`, `/themes`, `/motion`, `/sounds`, and `/flow` share `AnnouncementBar`, `NavigationToggle`, `BrandFloatingButton`, `EditorialSidebar`, and `CommandPalette`. `/flow` keeps its dedicated editor toolbar without `FloatingToolbar` overlap.
+- **Redesigned Motion Lab** (`app/motion/page.tsx`): Replaced legacy dashboard layout with `WorkspaceHeader`, category pills, prominent `DeviceFrames` + `<MotionMintTheme>` central stage, `Replay`, `Reduced Motion` toggle, and spring presets.
+- **Redesigned Sound Lab** (`app/sounds/page.tsx`): Replaced legacy dashboard cards with a dominant **Audition Studio** stage, animated waveform visualizer, 6 synthesis presets, volume slider, all 17 sound cues, progressive haptics, and `useSound()` snippet.
+- **Updated `EditorialSidebar`** (`components/shell/editorial-sidebar.tsx`) and `tests/workspace.test.tsx`.
+
+### Removed
+- Removed legacy `components/workspace/workspace-shell.tsx` (permanent left icon rail and separate 56px workspace header).
+
 ## [0.13.0] — 2026-11-25 (Phase 2.10 — Cinematic Homepage & Brand Experience)
 ### Added
 - **Cinematic Hero** (`components/home/cinematic-hero.tsx`, `components/home/sculptural-silk.tsx`): Hybrid Sculptural Silk + Living UI Components with 4-stage scroll progression (`useScroll`/`useTransform`), nested non-conflicting pointer parallax (`useMotionValue`/`useSpring`), `IntersectionObserver` + `document.hidden` canvas pause, static SVG fallback, mobile specimen strip, and `prefers-reduced-motion` support.

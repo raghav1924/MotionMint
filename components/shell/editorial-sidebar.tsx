@@ -31,11 +31,18 @@ const SECTIONS: NavSection[] = [
     items: [
       { label: "Home", href: "/" },
       { label: "Components", href: "/components" },
+      { label: "Installation", href: "/docs/installation" },
+      { label: "Documentation", href: "/docs" },
+    ],
+  },
+  {
+    heading: "Design & Labs",
+    href: "/themes",
+    items: [
       { label: "Themes (29)", href: "/themes" },
       { label: "Motion Lab", href: "/motion" },
       { label: "Sound Lab", href: "/sounds" },
       { label: "Flow Orchestrator", href: "/flow" },
-      { label: "Installation", href: "/docs/installation" },
     ],
   },
   {
