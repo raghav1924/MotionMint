@@ -294,3 +294,22 @@ h1, h2, h3, .mm-display {
 [data-mm-scope="true"][data-mm-card-style="organic"] {
   border-radius: 22px 18px 24px 16px;
 }
+
+/* Custom subtle scrollbar for Planes-style EditorialSidebar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ws-border-strong) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--ws-border-strong);
+  border-radius: 9999px;
+}

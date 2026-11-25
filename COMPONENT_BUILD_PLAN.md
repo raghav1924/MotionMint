@@ -1,6 +1,6 @@
 # COMPONENT_BUILD_PLAN.md — MotionMint Full Catalogue Roadmap
 
-*Last updated: 2026-11-25 (Phase 2.8 UI Alignment complete; Wave 3+ paused)*
+*Last updated: 2026-11-25 (Phase 2.9 Component-Level Design System Rebuild complete; Wave 3+ paused)*
 
 ## Dependency Graph & Shared Foundations
 - **Theme Foundation:** `lib/themes/` (29 `--mm-*` token profiles, standalone fallbacks)

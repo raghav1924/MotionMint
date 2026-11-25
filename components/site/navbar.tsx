@@ -10,12 +10,13 @@ import { useMotionMint, type AppearanceMode } from "@/components/site/providers"
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { href: "/#features", label: "Features" },
   { href: "/components", label: "Components" },
-  { href: "/playground", label: "Playground" },
   { href: "/themes", label: "Themes" },
+  { href: "/motion", label: "Motion" },
+  { href: "/sounds", label: "Sounds" },
+  { href: "/flow", label: "Flow" },
+  { href: "/docs/installation", label: "Docs" },
   { href: "/#pricing", label: "Pricing" },
-  { href: "/docs/installation", label: "Install" },
 ];
 
 export function Navbar() {

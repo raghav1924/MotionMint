@@ -11,48 +11,60 @@ import { useMotionMint } from "@/components/site/providers";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
 import { cn } from "@/lib/utils";
 
+interface NavItem {
+  label: string;
+  href: string;
+  slug?: string;
+  badge?: string;
+}
+
 interface NavSection {
   heading: string;
-  items: { label: string; href: string; slug?: string }[];
+  href: string;
+  items: NavItem[];
 }
 
 const SECTIONS: NavSection[] = [
   {
-    heading: "EXPLORE",
+    heading: "Getting started",
+    href: "/components",
     items: [
       { label: "Home", href: "/" },
       { label: "Components", href: "/components" },
-      { label: "Infinity Canvas", href: "/canvas" },
-      { label: "Playground", href: "/playground" },
       { label: "Themes (29)", href: "/themes" },
       { label: "Motion Lab", href: "/motion" },
       { label: "Sound Lab", href: "/sounds" },
-      { label: "Flow Kit", href: "/flow" },
+      { label: "Flow Orchestrator", href: "/flow" },
       { label: "Installation", href: "/docs/installation" },
     ],
   },
   {
-    heading: "CONTROLS",
-    items: CATALOG_ITEMS.filter((c) => c.status === "implemented" && c.category === "Controls")
-      .slice(0, 12)
-      .map((c) => ({
+    heading: "AI",
+    href: "/components?category=AI",
+    items: CATALOG_ITEMS.filter((c) => c.status === "implemented" && c.category === "AI").map(
+      (c) => ({
         label: c.name,
         href: `/components/${c.slug}`,
         slug: c.slug,
-      })),
+        badge: c.tier === "pro" ? "Pro" : undefined,
+      })
+    ),
   },
   {
-    heading: "AI SYSTEM",
-    items: CATALOG_ITEMS.filter((c) => c.status === "implemented" && c.category === "AI")
-      .slice(0, 10)
-      .map((c) => ({
-        label: c.name,
-        href: `/components/${c.slug}`,
-        slug: c.slug,
-      })),
+    heading: "Controls",
+    href: "/components?category=Controls",
+    items: CATALOG_ITEMS.filter(
+      (c) => c.status === "implemented" && c.category === "Controls"
+    ).map((c) => ({
+      label: c.name,
+      href: `/components/${c.slug}`,
+      slug: c.slug,
+      badge: c.tier === "pro" ? "Pro" : undefined,
+    })),
   },
   {
-    heading: "ESSENTIALS",
+    heading: "Essentials",
+    href: "/components",
     items: CATALOG_ITEMS.filter(
       (c) =>
         c.status === "implemented" &&
@@ -62,15 +74,20 @@ const SECTIONS: NavSection[] = [
       label: c.name,
       href: `/components/${c.slug}`,
       slug: c.slug,
+      badge: c.tier === "pro" ? "Pro" : undefined,
     })),
   },
 ];
 
+const EASE_OUT_EXPO = "ease-[cubic-bezier(0.22,1,0.36,1)]";
+
 export function EditorialSidebar() {
   const pathname = usePathname();
-  const { sidebarOpen, setSidebarOpen } = useMotionMint();
+  const { sidebarOpen, setSidebarOpen, resolvedAppearance } = useMotionMint();
   const prefersReduced = useReducedMotion();
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+
+  const isDark = resolvedAppearance === "dark";
 
   useEffect(() => {
     if (!sidebarOpen) {
@@ -87,7 +104,7 @@ export function EditorialSidebar() {
   return (
     <AnimatePresence>
       {sidebarOpen && (
-        <div className="fixed inset-0 z-[60] flex">
+        <div className="fixed inset-0 z-[60] flex p-2.5 sm:p-3">
           {/* Translucent backdrop */}
           <motion.div
             initial={prefersReduced ? false : { opacity: 0 }}
@@ -99,30 +116,38 @@ export function EditorialSidebar() {
             aria-hidden="true"
           />
 
-          {/* Large Editorial Overlay Panel */}
+          {/* Floating Editorial Sidebar Card */}
           <motion.aside
             role="dialog"
             aria-modal="true"
             aria-label="Editorial Navigation"
-            initial={prefersReduced ? false : { x: "-100%", opacity: 0.6 }}
+            initial={prefersReduced ? false : { x: "-104%", opacity: 0.6 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={prefersReduced ? undefined : { x: "-100%", opacity: 0.6 }}
+            exit={prefersReduced ? undefined : { x: "-104%", opacity: 0.6 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              "relative z-10 flex h-full w-[88vw] sm:w-[62vw] lg:w-[38vw] max-w-[520px] flex-col",
-              "rounded-r-[34px] border-r border-[var(--ws-border)] bg-[var(--ws-bg)] text-[var(--ws-text-primary)]",
-              "shadow-[var(--ws-shadow-menu)] overflow-hidden"
+              "relative z-10 flex h-full w-[280px] sm:w-[296px] flex-col overflow-hidden rounded-[24px]",
+              "border border-[var(--ws-border-subtle)] bg-[var(--ws-floating)] text-[var(--ws-text-primary)]",
+              "shadow-[0_2px_24px_-12px_rgba(0,0,0,0.25)]"
             )}
           >
-            {/* Top compact header */}
-            <div className="flex items-center justify-between px-7 pt-6 pb-4">
+            {/* Compact header */}
+            <div className="flex items-center justify-between px-4 pt-4 pb-2 shrink-0">
               <Link
                 href="/"
                 onClick={() => setSidebarOpen(false)}
-                className="flex items-center gap-2.5 text-sm font-semibold tracking-tight text-[var(--ws-text-primary)]"
+                className="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-[var(--ws-text-primary)]"
               >
-                <span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#111111] text-[var(--ws-accent,#dfff00)]">
-                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+                <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-[#111111] text-[var(--ws-accent,#dfff00)]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-3 w-3"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    aria-hidden="true"
+                  >
                     <path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9" />
                   </svg>
                 </span>
@@ -132,61 +157,117 @@ export function EditorialSidebar() {
                 type="button"
                 onClick={() => setSidebarOpen(false)}
                 aria-label="Close navigation overlay"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-[10px] text-[var(--ws-text-secondary)] hover:bg-[var(--ws-surface-hover)] hover:text-[var(--ws-text-primary)] cursor-pointer"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] text-[var(--ws-text-secondary)] hover:bg-[var(--ws-surface-hover)] hover:text-[var(--ws-text-primary)] cursor-pointer transition-colors"
               >
-                <PanelLeftClose className="h-4 w-4" aria-hidden="true" />
+                <PanelLeftClose className="h-3.5 w-3.5" aria-hidden="true" />
               </button>
             </div>
 
-            {/* Scrollable hierarchy with horizontal-line index */}
-            <nav aria-label="Editorial Sections" className="flex-1 overflow-y-auto px-7 pb-24 pt-2 space-y-8">
-              {SECTIONS.map((section) => (
-                <div key={section.heading} className="space-y-3">
-                  <div className="flex items-center gap-4">
-                    <span className="h-[1px] w-4 bg-[var(--ws-border-strong)]" aria-hidden="true" />
-                    <h2 className="text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--ws-text-secondary)]">
-                      {section.heading}
-                    </h2>
-                  </div>
+            {/* Scrollable ruler-indexed navigation */}
+            <div className="relative flex min-h-0 flex-1 flex-col">
+              <div className="relative min-h-0 flex-1">
+                <nav
+                  aria-label="Editorial Sections"
+                  className="h-full overflow-y-auto custom-scrollbar pb-24"
+                  style={{
+                    maskImage:
+                      "linear-gradient(transparent, black 28px, black calc(100% - 72px), transparent)",
+                    WebkitMaskImage:
+                      "linear-gradient(transparent, black 28px, black calc(100% - 72px), transparent)",
+                  }}
+                >
+                  <div className="h-6" aria-hidden="true" />
+                  <div className="bg-[repeating-linear-gradient(to_bottom,var(--ws-border)_0_1px,transparent_1px_10px)] bg-[length:24px_30px] bg-[position:12px_15px] bg-repeat-y bg-local">
+                    {SECTIONS.map((section, sectionIdx) => (
+                      <React.Fragment key={section.heading}>
+                        {sectionIdx > 0 && <div className="h-[30px]" aria-hidden="true" />}
 
-                  <ul className="space-y-1.5">
-                    {section.items.map((item) => {
-                      const active = pathname === item.href;
-                      return (
-                        <li key={item.href}>
-                          <Link
-                            href={item.href}
-                            onClick={() => setSidebarOpen(false)}
-                            onMouseEnter={() => setHoveredSlug(item.slug ?? null)}
-                            onFocus={() => setHoveredSlug(item.slug ?? null)}
-                            className={cn(
-                              "group flex items-center gap-4 py-1 transition-colors duration-150",
-                              active
-                                ? "text-[var(--ws-text-primary)] font-medium"
-                                : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
-                            )}
+                        {/* Category / Section header row */}
+                        <Link
+                          href={section.href}
+                          onClick={() => setSidebarOpen(false)}
+                          className="group relative flex items-center gap-2 pr-4 text-[13px] transition-colors h-[30px] text-[var(--ws-text-primary)] font-medium"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="relative ml-3 h-full w-8 shrink-0"
                           >
-                            {/* Horizontal line indicator */}
                             <span
-                              aria-hidden="true"
                               className={cn(
-                                "block h-[1.5px] shrink-0 rounded-full transition-all duration-150",
-                                active
-                                  ? "w-7 bg-[var(--ws-text-primary)]"
-                                  : "w-3 bg-[var(--ws-border-strong)] group-hover:w-5 group-hover:bg-[var(--ws-text-secondary)]"
+                                "absolute left-0 top-[15px] h-px transition-[width,background-color] duration-300 w-6 bg-[var(--ws-text-primary)]",
+                                EASE_OUT_EXPO
                               )}
                             />
-                            <span className="text-[22px] sm:text-[25px] leading-tight tracking-tight truncate">
-                              {item.label}
-                            </span>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </nav>
+                          </span>
+                          <span
+                            className={cn(
+                              "flex min-w-0 items-center gap-1.5 transition-transform duration-300",
+                              EASE_OUT_EXPO
+                            )}
+                          >
+                            <span className="truncate">{section.heading}</span>
+                          </span>
+                        </Link>
+
+                        {/* Section items */}
+                        {section.items.map((item) => {
+                          const active = pathname === item.href;
+                          return (
+                            <Link
+                              key={`${section.heading}-${item.href}`}
+                              href={item.href}
+                              aria-current={active ? "page" : undefined}
+                              onClick={() => setSidebarOpen(false)}
+                              onMouseEnter={() => setHoveredSlug(item.slug ?? null)}
+                              onFocus={() => setHoveredSlug(item.slug ?? null)}
+                              className={cn(
+                                "group relative flex items-center gap-2 pr-4 text-[13px] transition-colors h-[30px]",
+                                active
+                                  ? isDark
+                                    ? "text-indigo-400"
+                                    : "text-indigo-600"
+                                  : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+                              )}
+                            >
+                              <span
+                                aria-hidden="true"
+                                className="relative ml-3 h-full w-8 shrink-0"
+                              >
+                                <span
+                                  className={cn(
+                                    "absolute left-0 top-[15px] h-px transition-[width,background-color] duration-300",
+                                    EASE_OUT_EXPO,
+                                    active
+                                      ? isDark
+                                        ? "w-10 bg-indigo-400"
+                                        : "w-10 bg-indigo-600"
+                                      : "w-0 bg-transparent group-hover:w-8 group-hover:bg-[var(--ws-text-primary)]/50"
+                                  )}
+                                />
+                              </span>
+                              <span
+                                className={cn(
+                                  "flex min-w-0 items-center gap-1.5 transition-transform duration-300",
+                                  EASE_OUT_EXPO,
+                                  active && "translate-x-3"
+                                )}
+                              >
+                                <span className="truncate">{item.label}</span>
+                                {item.badge && (
+                                  <span className="shrink-0 text-[9px] leading-none text-[var(--ws-text-muted)]">
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </nav>
+              </div>
+            </div>
           </motion.aside>
 
           {/* Floating miniature live preview card beside hovered component link (desktop) */}
@@ -198,11 +279,13 @@ export function EditorialSidebar() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={prefersReduced ? undefined : { opacity: 0, x: -6, scale: 0.97 }}
                 transition={{ duration: 0.16 }}
-                className="pointer-events-none hidden lg:flex items-center pl-6 z-10"
+                className="pointer-events-none hidden lg:flex items-center pl-4 z-10"
               >
                 <div className="w-[340px] rounded-[24px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-4 shadow-[var(--ws-shadow-menu)]">
                   <div className="mb-2.5 flex items-center justify-between text-[11px] font-mono text-[var(--ws-text-secondary)]">
-                    <span>@motionmint/{hoveredSlug}</span>
+                    <span>
+                      {BRAND.registryNamespace}/{hoveredSlug}
+                    </span>
                     <span>Live Preview</span>
                   </div>
                   <div className="flex min-h-[200px] items-center justify-center overflow-hidden rounded-[16px] border border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] p-4">

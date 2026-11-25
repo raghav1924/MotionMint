@@ -59,6 +59,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       "Native <button> semantics, visible focus-visible ring, respects prefers-reduced-motion, and never relies on audio alone.",
     installCommand: "npx shadcn add @motionmint/ripple-button",
     sourcePath: "registry/components/ripple-button.tsx",
+    useCases: [
+      { title: "CTA buttons", description: "Primary calls-to-action where tactile confirmation reinforces each click." },
+      { title: "Form submission", description: "Submit or confirm actions with satisfying pointer-origin ripple feedback." },
+    ],
     props: [
       {
         name: "variant",
@@ -101,6 +105,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       "Disables magnetic/spring transforms automatically when prefers-reduced-motion is enabled.",
     installCommand: "npx shadcn add @motionmint/jelly-button",
     sourcePath: "registry/components/jelly-button.tsx",
+    useCases: [
+      { title: "Playful interfaces", description: "Consumer apps, games, or onboarding flows where delight matters." },
+      { title: "Mobile-first UIs", description: "Touch targets that spring back and reward finger taps naturally." },
+    ],
     props: [
       {
         name: "magneticStrength",
@@ -137,6 +145,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       "Updates aria-label on copy state change and communicates success visually without requiring sound.",
     installCommand: "npx shadcn add @motionmint/copy-button",
     sourcePath: "registry/components/copy-button.tsx",
+    useCases: [
+      { title: "Code snippets", description: "One-click copy on install commands, API keys, and code blocks." },
+      { title: "Share links", description: "Copy referral links or shareable URLs without leaving the page." },
+    ],
     props: [
       {
         name: "value",
@@ -191,6 +203,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       'Uses role="switch" with aria-checked, aria-label, and keyboard Enter/Space support.',
     installCommand: "npx shadcn add @motionmint/sound-toggle",
     sourcePath: "registry/components/sound-toggle.tsx",
+    useCases: [
+      { title: "Media-rich apps", description: "Let users mute ambient sounds, notifications, or interaction audio globally." },
+      { title: "Game UIs", description: "Classic mute/unmute control styled to match branded game interfaces." },
+    ],
     props: [
       {
         name: "checked",
@@ -251,6 +267,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       'Exposes role="status" and screen-reader-only text; respects prefers-reduced-motion.',
     installCommand: "npx shadcn add @motionmint/bounce-dots-loader",
     sourcePath: "registry/components/bounce-dots-loader.tsx",
+    useCases: [
+      { title: "Chat interfaces", description: "Typing indicator while an AI or remote user composes a reply." },
+      { title: "Async content", description: "Non-blocking loading state for feed items, media, or remote data." },
+    ],
     props: [
       {
         name: "size",
@@ -281,6 +301,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       'Uses role="progressbar" with aria-valuenow, aria-valuemin, and aria-valuemax.',
     installCommand: "npx shadcn add @motionmint/progress-ring",
     sourcePath: "registry/components/progress-ring.tsx",
+    useCases: [
+      { title: "File upload progress", description: "Show upload or processing completion as a satisfying ring fill." },
+      { title: "Skill or score meters", description: "Profile pages, assessments, and dashboards displaying percentage values." },
+    ],
     props: [
       {
         name: "value",
@@ -335,6 +359,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       "Sets aria-label on the semantic wrapper and aria-hidden on split segments so screen readers read full words naturally; respects prefers-reduced-motion.",
     installCommand: "npx shadcn add @motionmint/wiggle-text",
     sourcePath: "registry/components/wiggle-text.tsx",
+    useCases: [
+      { title: "Error labels", description: "Shake a field label or message to draw attention after validation failure." },
+      { title: "Promotional callouts", description: "Animate headline words to create lively, eye-catching marketing copy." },
+    ],
     props: [
       {
         name: "text",
@@ -395,6 +423,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       'Exposes role="status" with screen-reader label while marking visual shimmer blocks aria-hidden; disables shimmer under prefers-reduced-motion.',
     installCommand: "npx shadcn add @motionmint/skeleton-shimmer",
     sourcePath: "registry/components/skeleton-shimmer.tsx",
+    useCases: [
+      { title: "List loading states", description: "Placeholder cards while feed items, search results, or posts load." },
+      { title: "Profile previews", description: "Avatar and name shimmer before user data resolves from an API." },
+    ],
     props: [
       {
         name: "variant",
@@ -443,6 +475,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       'Keyboard Enter/Space activation, aria-disabled support, and role="alert" validation messages; strictly handles file selection without faking server uploads.',
     installCommand: "npx shadcn add @motionmint/dropzone",
     sourcePath: "registry/components/dropzone.tsx",
+    useCases: [
+      { title: "File upload", description: "Drag-and-drop or click-to-browse for images, documents, and assets." },
+      { title: "Media import", description: "Creative tools where users drop photos, videos, or audio into a workspace." },
+    ],
     props: [
       {
         name: "accept",
@@ -497,6 +533,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       "Supports ArrowLeft/ArrowRight keyboard swiping, Cmd/Ctrl+Z undo, and prefers-reduced-motion instant transitions.",
     installCommand: "npx shadcn add @motionmint/swipe-card-deck",
     sourcePath: "registry/components/swipe-card-deck.tsx",
+    useCases: [
+      { title: "Onboarding slides", description: "Walk new users through feature highlights one card at a time." },
+      { title: "Tinder-style decisions", description: "Swipe left/right to accept or dismiss options, recommendations, or tasks." },
+    ],
     props: [
       {
         name: "cards",
@@ -533,6 +573,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       'Uses role="status" and aria-live="polite" to announce application stage transitions cleanly.',
     installCommand: "npx shadcn add @motionmint/thinking-loader",
     sourcePath: "registry/components/thinking-loader.tsx",
+    useCases: [
+      { title: "AI response wait", description: "Show the model is working while generating a streamed or batch response." },
+      { title: "Background processing", description: "Long-running server tasks where a simple spinner feels too passive." },
+    ],
     props: [
       {
         name: "stages",
@@ -569,6 +613,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
       'Button semantics with aria-pressed state, keyboard Enter/Space flip, and instant crossfade under prefers-reduced-motion.',
     installCommand: "npx shadcn add @motionmint/flip-card",
     sourcePath: "registry/components/flip-card.tsx",
+    useCases: [
+      { title: "Flashcards", description: "Educational apps where flipping reveals an answer, translation, or definition." },
+      { title: "Product cards", description: "E-commerce tiles that flip to show size guides, specs, or related items." },
+    ],
     props: [
       {
         name: "front",
@@ -603,6 +651,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Keyboard Enter submission, aria-label on textarea/buttons, disabled & streaming states.",
     installCommand: "npx shadcn@latest add @motionmint/ai-prompt-composer",
     sourcePath: "registry/components/ai-prompt-composer.tsx",
+    useCases: [
+      { title: "Prompt builder", description: "Let users craft, refine, and submit structured prompts with live token count." },
+      { title: "AI sidebar", description: "Collapsible composer attached to a document editor or creative workspace." },
+    ],
     props: [
       { name: "onSubmit", type: "(prompt: string) => void", defaultValue: "undefined", description: "Called when prompt is submitted." },
       { name: "isStreaming", type: "boolean", defaultValue: "false", description: "Switches send button to stop button." },
@@ -621,6 +673,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Uses aria-live="polite" during streaming and article role.',
     installCommand: "npx shadcn@latest add @motionmint/streaming-message",
     sourcePath: "registry/components/streaming-message.tsx",
+    useCases: [
+      { title: "AI chat replies", description: "Stream token-by-token output from LLMs with a smooth cursor blink." },
+      { title: "Live feed updates", description: "Progressively reveal news items, logs, or notifications as they arrive." },
+    ],
     props: [
       { name: "message", type: "AIMessage", defaultValue: "required", description: "Message object with role, content, and status." },
       { name: "onRetry", type: "() => void", defaultValue: "undefined", description: "Retry handler when status is error." },
@@ -639,6 +695,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Uses aria-expanded on the collapsible header.",
     installCommand: "npx shadcn@latest add @motionmint/tool-call-card",
     sourcePath: "registry/components/tool-call-card.tsx",
+    useCases: [
+      { title: "AI agent trace", description: "Display function calls an agent made alongside inputs, outputs, and status." },
+      { title: "Debug panel", description: "Developer tools that surface tool execution details during AI runs." },
+    ],
     props: [
       { name: "toolCall", type: "AIToolCall", defaultValue: "required", description: "Tool call metadata and status." },
       { name: "defaultExpanded", type: "boolean", defaultValue: "false", description: "Initial expanded state." },
@@ -657,6 +717,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Semantic ordered list with progress counter.",
     installCommand: "npx shadcn@latest add @motionmint/agent-plan",
     sourcePath: "registry/components/agent-plan.tsx",
+    useCases: [
+      { title: "AI task planner", description: "Show the step-by-step plan an agent will follow before it executes." },
+      { title: "Workflow preview", description: "Pre-flight checklist UI for multi-step automation pipelines." },
+    ],
     props: [
       { name: "steps", type: "AgentPlanStep[]", defaultValue: "required", description: "Ordered list of plan steps." },
       { name: "title", type: "string", defaultValue: '"Execution Plan"', description: "Header title." },
@@ -675,6 +739,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Uses region landmark and role="status" after decision.',
     installCommand: "npx shadcn@latest add @motionmint/approval-card",
     sourcePath: "registry/components/approval-card.tsx",
+    useCases: [
+      { title: "Human-in-the-loop", description: "Pause AI execution and present the action for a human to approve or reject." },
+      { title: "Dangerous action confirm", description: "Destructive or irreversible operations that require an explicit sign-off." },
+    ],
     props: [
       { name: "title", type: "string", defaultValue: "required", description: "Action title." },
       { name: "description", type: "string", defaultValue: "required", description: "Explanation of the pending action." },
@@ -693,6 +761,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Monospace readable diff with +/- prefixes (never color-only).",
     installCommand: "npx shadcn@latest add @motionmint/inline-diff",
     sourcePath: "registry/components/inline-diff.tsx",
+    useCases: [
+      { title: "AI code suggestions", description: "Display proposed code changes inline with added/removed line highlighting." },
+      { title: "Document edits", description: "Track changes in collaborative writing or AI-assisted content generation." },
+    ],
     props: [
       { name: "filename", type: "string", defaultValue: "required", description: "Target file path." },
       { name: "lines", type: "DiffLine[]", defaultValue: "required", description: "Diff lines array." },
@@ -711,6 +783,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Collapsible button with aria-expanded and numbered list.",
     installCommand: "npx shadcn@latest add @motionmint/reasoning-trace",
     sourcePath: "registry/components/reasoning-trace.tsx",
+    useCases: [
+      { title: "Chain-of-thought display", description: "Unfold the step-by-step reasoning an AI model produced for a decision." },
+      { title: "Explainability panel", description: "Show users why an AI made a particular recommendation or classification." },
+    ],
     props: [
       { name: "entries", type: "string[]", defaultValue: "required", description: "Trace entries to display." },
       { name: "defaultOpen", type: "boolean", defaultValue: "false", description: "Initial open state." },
@@ -729,6 +805,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Clearly labels demo mode and supports full keyboard submission.",
     installCommand: "npx shadcn@latest add @motionmint/ai-chat",
     sourcePath: "registry/components/ai-chat.tsx",
+    useCases: [
+      { title: "In-product assistant", description: "Embedded conversation UI for a product copilot or support chatbot." },
+      { title: "Playground interface", description: "Full-featured chat surface for experimenting with LLM API responses." },
+    ],
     props: [
       { name: "initialMessages", type: "AIMessage[]", defaultValue: "[]", description: "Initial conversation messages." },
       { name: "isLoading", type: "boolean", defaultValue: "false", description: "Shows ThinkingLoader." },
@@ -747,6 +827,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Uses role="status" for progress and role="alert" for failure.',
     installCommand: "npx shadcn@latest add @motionmint/image-generation",
     sourcePath: "registry/components/image-generation.tsx",
+    useCases: [
+      { title: "AI creative studio", description: "Prompt → image workflow with loading state, seed display, and retry." },
+      { title: "Asset generator", description: "Design tools that produce icons, backgrounds, or illustrations on demand." },
+    ],
     props: [
       { name: "prompt", type: "string", defaultValue: "required", description: "Prompt caption." },
       { name: "status", type: '"idle" | "generating" | "complete" | "error"', defaultValue: "required", description: "Current generation state." },
@@ -765,6 +849,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Button semantics with aria-pressed and motion-safe pulse.",
     installCommand: "npx shadcn@latest add @motionmint/chat-orb",
     sourcePath: "registry/components/chat-orb.tsx",
+    useCases: [
+      { title: "Floating AI assistant", description: "Persistent orb button that expands into a chat panel from any page." },
+      { title: "Voice interface", description: "Pulsing orb visualiser for voice input or wake-word listening state." },
+    ],
     props: [
       { name: "state", type: '"idle" | "listening" | "speaking"', defaultValue: '"idle"', description: "Current orb state." },
     ],
@@ -782,6 +870,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Exposes role="img" with descriptive progress aria-label.',
     installCommand: "npx shadcn@latest add @motionmint/pixel-image-generation",
     sourcePath: "registry/components/pixel-image-generation.tsx",
+    useCases: [
+      { title: "Retro AI generator", description: "Produce pixel-art sprites or scenes from text prompts in a game aesthetic." },
+      { title: "404 or empty state", description: "A small, friendly pixel scene for pages with no content yet." },
+    ],
     props: [
       { name: "progress", type: "number", defaultValue: "75", description: "Completion percentage (0–100)." },
       { name: "gridSize", type: "number", defaultValue: "8", description: "Grid dimensions (N×N)." },
@@ -800,6 +892,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Uses role="radiogroup" and role="radio" with ArrowLeft/ArrowRight navigation.',
     installCommand: "npx shadcn@latest add @motionmint/segmented-control",
     sourcePath: "registry/components/segmented-control.tsx",
+    useCases: [
+      { title: "View switcher", description: "Toggle between Grid, List, and Map views or comparable layout options." },
+      { title: "Filter tabs", description: "Switch between All, Active, and Archived states in a list or dashboard." },
+    ],
     props: [
       { name: "options", type: "SegmentedOption[]", defaultValue: "required", description: "Selectable options." },
       { name: "value", type: "string", defaultValue: "undefined", description: "Controlled selected value." },
@@ -819,6 +915,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Keyboard ArrowUp/Down support, disabled boundary buttons, and aria-label.",
     installCommand: "npx shadcn@latest add @motionmint/number-stepper",
     sourcePath: "registry/components/number-stepper.tsx",
+    useCases: [
+      { title: "Quantity selector", description: "Increment or decrement item counts in a cart, seat picker, or booking form." },
+      { title: "Settings input", description: "Adjust numeric preferences like font size, columns, or retry attempts." },
+    ],
     props: [
       { name: "min", type: "number", defaultValue: "0", description: "Minimum value." },
       { name: "max", type: "number", defaultValue: "100", description: "Maximum value." },
@@ -839,6 +939,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Associates label, helper/error text via aria-describedby and sets aria-invalid.",
     installCommand: "npx shadcn@latest add @motionmint/glow-input",
     sourcePath: "registry/components/glow-input.tsx",
+    useCases: [
+      { title: "Search bar", description: "Prominent search field with an ambient glow to draw user focus." },
+      { title: "AI prompt input", description: "Single-line entry point for AI queries with an energised focused state." },
+    ],
     props: [
       { name: "label", type: "string", defaultValue: "undefined", description: "Accessible input label." },
       { name: "error", type: "string", defaultValue: "undefined", description: "Validation error message." },
@@ -858,6 +962,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Sets aria-invalid and role="alert" on invalid email submission.',
     installCommand: "npx shadcn@latest add @motionmint/email-capture",
     sourcePath: "registry/components/email-capture.tsx",
+    useCases: [
+      { title: "Waitlist signup", description: "Pre-launch landing pages where capturing an email is the primary CTA." },
+      { title: "Newsletter footer", description: "Lightweight inline form in a site footer or marketing section." },
+    ],
     props: [
       { name: "onSubmit", type: "(email: string) => Promise<void> | void", defaultValue: "undefined", description: "Explicit submission callback." },
       { name: "submitLabel", type: "string", defaultValue: '"Subscribe"', description: "Button label." },
@@ -876,6 +984,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Escape & outside-click dismissal, aria-haspopup dialog, and formatted day labels.",
     installCommand: "npx shadcn@latest add @motionmint/date-picker",
     sourcePath: "registry/components/date-picker.tsx",
+    useCases: [
+      { title: "Booking forms", description: "Hotel, restaurant, or appointment scheduling with calendar selection." },
+      { title: "Filter by date", description: "Dashboard date-range filters for reports, analytics, or activity feeds." },
+    ],
     props: [
       { name: "minDate", type: "Date", defaultValue: "undefined", description: "Earliest selectable date." },
       { name: "maxDate", type: "Date", defaultValue: "undefined", description: "Latest selectable date." },
@@ -895,6 +1007,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Uses combobox/listbox ARIA roles with ArrowUp/ArrowDown/Enter/Escape support.',
     installCommand: "npx shadcn@latest add @motionmint/animated-select",
     sourcePath: "registry/components/animated-select.tsx",
+    useCases: [
+      { title: "Country or currency picker", description: "Select from long lists with smooth open/close animation and keyboard nav." },
+      { title: "Preference dropdowns", description: "Theme, language, or timezone selectors with elevated visual polish." },
+    ],
     props: [
       { name: "options", type: "SelectOption[]", defaultValue: "required", description: "Select options." },
       { name: "searchable", type: "boolean", defaultValue: "true", description: "Enables inline search." },
@@ -913,6 +1029,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Per-cell aria-labels, ArrowLeft/Right navigation, and numeric/alphanumeric modes.",
     installCommand: "npx shadcn@latest add @motionmint/otp-input",
     sourcePath: "registry/components/otp-input.tsx",
+    useCases: [
+      { title: "Two-factor auth", description: "Verification code entry for SMS or authenticator app 2FA flows." },
+      { title: "Email confirmation", description: "One-time code sent to email during signup or account recovery." },
+    ],
     props: [
       { name: "length", type: "number", defaultValue: "6", description: "Number of code cells." },
       { name: "alphanumeric", type: "boolean", defaultValue: "false", description: "Allows letters and digits." },
@@ -932,6 +1052,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: 'Uses aria-multiselectable="true" and removable chip buttons with aria-label.',
     installCommand: "npx shadcn@latest add @motionmint/multi-select",
     sourcePath: "registry/components/multi-select.tsx",
+    useCases: [
+      { title: "Tag assignment", description: "Let users attach multiple labels, categories, or skills to a record." },
+      { title: "Filter combination", description: "Advanced search panels where several values may be active simultaneously." },
+    ],
     props: [
       { name: "options", type: "MultiSelectOption[]", defaultValue: "required", description: "Selectable options." },
       { name: "maxSelected", type: "number", defaultValue: "undefined", description: "Maximum number of selected items." },
@@ -950,6 +1074,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Never auto-loads scripts; exposes explicit onSavePreferences callback.",
     installCommand: "npx shadcn@latest add @motionmint/cookie-consent",
     sourcePath: "registry/components/cookie-consent.tsx",
+    useCases: [
+      { title: "GDPR compliance", description: "Collect and record user consent for analytics, marketing, and functional cookies." },
+      { title: "Privacy-first launch", description: "Satisfy EU and CCPA requirements before enabling third-party scripts." },
+    ],
     props: [
       { name: "onSavePreferences", type: "(prefs: CookiePreferences) => void", defaultValue: "undefined", description: "Callback fired on consent save." },
       { name: "storageKey", type: "string", defaultValue: "undefined", description: "Optional localStorage key." },
@@ -968,6 +1096,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Keyboard Left/Right arrows cycle cards; includes explicit previous, next, and reset buttons.",
     installCommand: "npx shadcn@latest add @motionmint/card-stack",
     sourcePath: "registry/components/card-stack.tsx",
+    useCases: [
+      { title: "Feature showcase", description: "Layer product screenshots or feature cards in a tactile depth stack." },
+      { title: "Testimonials", description: "Stackable quote cards users can browse by dragging or pressing arrow keys." },
+    ],
     props: [
       { name: "cards", type: "StackCardItem[]", defaultValue: "required", description: "Array of cards rendered in the stack." },
       { name: "maxVisibleDepth", type: "number", defaultValue: "3", description: "Maximum visible depth layers behind the front card." },
@@ -987,6 +1119,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Dialog role with aria-modal, Escape key dismissal, and explicit detent snap buttons.",
     installCommand: "npx shadcn@latest add @motionmint/detent-drawer",
     sourcePath: "registry/components/detent-drawer.tsx",
+    useCases: [
+      { title: "Mobile bottom sheet", description: "iOS-style drawer that snaps to 25 %, 60 %, and 100 % height positions." },
+      { title: "Filter panel", description: "Slide-up filter or sort controls on mobile with detented height steps." },
+    ],
     props: [
       { name: "detent", type: "'peek' | 'half' | 'full'", defaultValue: "'half'", description: "Controlled snap detent height." },
       { name: "side", type: "'bottom' | 'right'", defaultValue: "'bottom'", description: "Drawer anchor edge." },
@@ -1006,6 +1142,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Toggle button exposes aria-expanded state and aria-live status announcements.",
     installCommand: "npx shadcn@latest add @motionmint/notch",
     sourcePath: "registry/components/notch.tsx",
+    useCases: [
+      { title: "Dynamic Island-style notifications", description: "Pill-shaped notch that expands to reveal activity, timers, or alerts." },
+      { title: "Live activity bar", description: "Persistent status strip showing music playback, navigation, or call state." },
+    ],
     props: [
       { name: "state", type: "'idle' | 'active' | 'success' | 'alert'", defaultValue: "'idle'", description: "Visual status tone." },
       { name: "message", type: "string", defaultValue: "required", description: "Primary pill label." },
@@ -1025,6 +1165,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Implements role='slider' with aria-valuemin/max/now and Arrow/Home/End keyboard steps.",
     installCommand: "npx shadcn@latest add @motionmint/physical-knob",
     sourcePath: "registry/components/physical-knob.tsx",
+    useCases: [
+      { title: "Audio controls", description: "Rotatable knob for volume, pan, EQ gain, or any continuous parameter." },
+      { title: "Creative tool parameter", description: "Tactile dial input in a synthesizer, generative art, or visualiser UI." },
+    ],
     props: [
       { name: "min", type: "number", defaultValue: "0", description: "Minimum dial value." },
       { name: "max", type: "number", defaultValue: "100", description: "Maximum dial value." },
@@ -1044,6 +1188,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Toolbar/button semantics with aria-expanded, aria-pressed, and Escape key closure.",
     installCommand: "npx shadcn@latest add @motionmint/reaction-arc",
     sourcePath: "registry/components/reaction-arc.tsx",
+    useCases: [
+      { title: "Post reactions", description: "Emoji picker arc that fans out on hover or long-press above a feed item." },
+      { title: "Quick actions radial", description: "Context-sensitive arc menu providing shortcuts without cluttering the UI." },
+    ],
     props: [
       { name: "reactions", type: "ReactionItem[]", defaultValue: "DEFAULT_REACTIONS", description: "Custom emoji/label reactions." },
       { name: "value", type: "string", defaultValue: "undefined", description: "Controlled selected reaction id." },
@@ -1062,6 +1210,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Semantic line item table with Reprint button and reduced-motion instant reveal.",
     installCommand: "npx shadcn@latest add @motionmint/receipt-printer",
     sourcePath: "registry/components/receipt-printer.tsx",
+    useCases: [
+      { title: "Order confirmation", description: "Thermal-print animation reveals order details with satisfying line-by-line reveal." },
+      { title: "AI summary printout", description: "Style structured output as a receipt to reinforce a lightweight, ephemeral feel." },
+    ],
     props: [
       { name: "items", type: "ReceiptLineItem[]", defaultValue: "required", description: "Line items with qty and unitPrice." },
       { name: "currency", type: "string", defaultValue: "'$'", description: "Currency prefix symbol." },
@@ -1081,6 +1233,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Listbox role with aria-multiselectable, aria-selected, and click/keyboard toggling.",
     installCommand: "npx shadcn@latest add @motionmint/rubber-band-select",
     sourcePath: "registry/components/rubber-band-select.tsx",
+    useCases: [
+      { title: "Canvas multi-select", description: "Drag a selection rectangle across items in a spatial or grid canvas." },
+      { title: "Image gallery picker", description: "Let users lasso multiple thumbnails before applying a batch action." },
+    ],
     props: [
       { name: "options", type: "RubberBandOption[]", defaultValue: "required", description: "Selectable options." },
       { name: "multiple", type: "boolean", defaultValue: "true", description: "Allow multiple selections." },
@@ -1099,6 +1255,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Exposes aria-expanded toggle and collapses on Escape key.",
     installCommand: "npx shadcn@latest add @motionmint/morphing-tray",
     sourcePath: "registry/components/morphing-tray.tsx",
+    useCases: [
+      { title: "Context menu", description: "Tray that reshapes to match the actions available for the selected object." },
+      { title: "Adaptive toolbar", description: "Floating toolbar that morphs between compact and expanded states." },
+    ],
     props: [
       { name: "title", type: "string", defaultValue: "required", description: "Tray header title." },
       { name: "compactSummary", type: "string", defaultValue: "undefined", description: "Summary shown while collapsed." },
@@ -1118,6 +1278,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Every key cap is a native button with keyboard focus ring and aria-pressed state.",
     installCommand: "npx shadcn@latest add @motionmint/keyboard",
     sourcePath: "registry/components/keyboard.tsx",
+    useCases: [
+      { title: "Shortcut reference", description: "Interactive keyboard diagram that highlights active modifier combinations." },
+      { title: "Typing game", description: "Visual keyboard for educational or gamified typing practice interfaces." },
+    ],
     props: [
       { name: "rows", type: "string[][]", defaultValue: "DEFAULT_ROWS", description: "Custom key rows." },
       { name: "trackPhysicalKeys", type: "boolean", defaultValue: "true", description: "Mirror physical keyboard presses." },
@@ -1136,6 +1300,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Toolbar exposes Zoom In, Zoom Out, Add Node, and Reset View buttons.",
     installCommand: "npx shadcn@latest add @motionmint/infinity-canvas",
     sourcePath: "registry/components/infinity-canvas.tsx",
+    useCases: [
+      { title: "Spatial component gallery", description: "Pan and zoom across a freeform grid of component previews or design assets." },
+      { title: "Whiteboard surface", description: "Infinite workspace for diagrams, sticky notes, or creative brainstorming." },
+    ],
     props: [
       { name: "items", type: "CanvasObject[]", defaultValue: "DEFAULT_ITEMS", description: "Initial positioned canvas nodes." },
       { name: "onItemsChange", type: "(items: CanvasObject[]) => void", defaultValue: "undefined", description: "Callback when nodes move or are added." },
@@ -1154,6 +1322,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Includes accessible Reveal and Reset buttons for keyboard and assistive technology users.",
     installCommand: "npx shadcn@latest add @motionmint/scratch-card",
     sourcePath: "registry/components/scratch-card.tsx",
+    useCases: [
+      { title: "Promotional reward reveal", description: "Gamified discount or prize reveal that users uncover by scratching." },
+      { title: "Onboarding surprise", description: "Hidden welcome message or feature unlock that rewards user action." },
+    ],
     props: [
       { name: "threshold", type: "number", defaultValue: "45", description: "Scratch percentage required to auto-reveal." },
       { name: "onReveal", type: "() => void", defaultValue: "undefined", description: "Fired once the hidden reward is revealed." },
@@ -1172,6 +1344,10 @@ export const CATALOG_ITEMS: CatalogItem[] = [
     accessibilityNotes: "Trigger exposes aria-expanded/aria-haspopup; dialog closes on Escape or outside pointer down.",
     installCommand: "npx shadcn@latest add @motionmint/halftone-popover",
     sourcePath: "registry/components/halftone-popover.tsx",
+    useCases: [
+      { title: "Tooltip with character", description: "Rich informational popover with a halftone-print aesthetic for creative tools." },
+      { title: "Contextual help", description: "Explain a UI element inline without modal interruption using print-inspired style." },
+    ],
     props: [
       { name: "triggerLabel", type: "string", defaultValue: "'Open Halftone'", description: "Trigger button text." },
       { name: "dotSpacing", type: "number", defaultValue: "10", description: "SVG halftone pattern grid spacing in pixels." },

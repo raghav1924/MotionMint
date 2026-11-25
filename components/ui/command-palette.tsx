@@ -28,11 +28,10 @@ export function CommandPalette() {
     const nav: CommandEntry[] = [
       { id: "nav-home", group: "Navigation", label: "Home", hint: "/", href: "/" },
       { id: "nav-comp", group: "Navigation", label: "Components", hint: "/components", href: "/components" },
-      { id: "nav-canvas", group: "Navigation", label: "Infinity Canvas", hint: "/canvas", href: "/canvas" },
-      { id: "nav-play", group: "Navigation", label: "Playground", hint: "/playground", href: "/playground" },
       { id: "nav-themes", group: "Navigation", label: "Themes (29)", hint: "/themes", href: "/themes" },
       { id: "nav-motion", group: "Navigation", label: "Motion Lab", hint: "/motion", href: "/motion" },
       { id: "nav-sounds", group: "Navigation", label: "Sound Lab", hint: "/sounds", href: "/sounds" },
+      { id: "nav-flow", group: "Navigation", label: "Flow Orchestrator", hint: "/flow", href: "/flow" },
       { id: "nav-install", group: "Navigation", label: "Installation", hint: "/docs/installation", href: "/docs/installation" },
     ];
 

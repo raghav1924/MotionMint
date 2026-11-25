@@ -1,13 +1,19 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { Search, Columns2, RotateCcw, Sun, Moon, Sparkles } from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { Search, Columns2, RotateCcw, Sun, Moon, Sparkles, ArrowUpRight } from "lucide-react";
 import { ALL_THEMES, DEFAULT_THEME_ID, getThemeById } from "@/lib/themes/registry";
 import type { ComponentThemeMode, ThemeCategory, ThemeId } from "@/lib/themes/types";
 import { CATALOG_ITEMS } from "@/lib/catalog";
 import { useMotionMint } from "@/components/site/providers";
 import { MotionMintTheme } from "@/components/theme/theme-scope";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
+import {
+  DesktopBrowserFrame,
+  TabletPreviewFrame,
+  MobileDeviceFrame,
+} from "@/components/preview/device-frames";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +36,15 @@ const COMPARE_SET: ThemeId[] = [
 ];
 
 export function ThemeStudio() {
-  const { skin, setTheme, themeMode, setThemeMode } = useMotionMint();
+  const {
+    skin,
+    setTheme,
+    themeMode,
+    setThemeMode,
+    viewportMode,
+    previewKey,
+    setActiveComponentSlug,
+  } = useMotionMint();
   const implemented = useMemo(
     () => CATALOG_ITEMS.filter((c) => c.status === "implemented"),
     []
@@ -40,6 +54,11 @@ export function ThemeStudio() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"All" | ThemeCategory>("All");
   const [compareOpen, setCompareOpen] = useState(false);
+
+  useEffect(() => {
+    setActiveComponentSlug(previewSlug);
+    return () => setActiveComponentSlug(null);
+  }, [previewSlug, setActiveComponentSlug]);
 
   const activeTheme = getThemeById(skin);
 
@@ -237,19 +256,54 @@ export function ThemeStudio() {
                   button:{activeTheme.recipes.buttonStyle} · card:{activeTheme.recipes.cardStyle}
                 </span>
               </div>
-              <code className="font-mono text-[11px] text-[var(--ws-text-secondary)]">
-                &lt;MotionMintTheme theme=&quot;{activeTheme.id}&quot; mode=&quot;{themeMode}&quot;&gt;
-              </code>
+              <div className="flex items-center gap-3">
+                <code className="hidden sm:inline font-mono text-[11px] text-[var(--ws-text-secondary)]">
+                  &lt;MotionMintTheme theme=&quot;{activeTheme.id}&quot; mode=&quot;{themeMode}&quot;&gt;
+                </code>
+                <Link
+                  href={`/components/${previewSlug}`}
+                  className="inline-flex items-center gap-1 rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)]"
+                >
+                  Open Docs
+                  <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                </Link>
+              </div>
             </div>
 
-            <MotionMintTheme
-              theme={activeTheme.id}
-              mode={themeMode}
-              padded
-              className="flex min-h-[240px] w-full items-center justify-center overflow-hidden"
-            >
-              <ComponentLivePreview slug={previewSlug} />
-            </MotionMintTheme>
+            {viewportMode === "mobile" ? (
+              <MobileDeviceFrame key={`m-${previewSlug}-${previewKey}`} slug={previewSlug}>
+                <MotionMintTheme
+                  theme={activeTheme.id}
+                  mode={themeMode}
+                  padded
+                  className="flex min-h-[380px] w-full items-center justify-center overflow-hidden"
+                >
+                  <ComponentLivePreview slug={previewSlug} />
+                </MotionMintTheme>
+              </MobileDeviceFrame>
+            ) : viewportMode === "tablet" ? (
+              <TabletPreviewFrame key={`t-${previewSlug}-${previewKey}`} slug={previewSlug}>
+                <MotionMintTheme
+                  theme={activeTheme.id}
+                  mode={themeMode}
+                  padded
+                  className="flex min-h-[300px] w-full items-center justify-center overflow-hidden"
+                >
+                  <ComponentLivePreview slug={previewSlug} />
+                </MotionMintTheme>
+              </TabletPreviewFrame>
+            ) : (
+              <DesktopBrowserFrame key={`d-${previewSlug}-${previewKey}`} slug={previewSlug}>
+                <MotionMintTheme
+                  theme={activeTheme.id}
+                  mode={themeMode}
+                  padded
+                  className="flex min-h-[260px] w-full items-center justify-center overflow-hidden"
+                >
+                  <ComponentLivePreview slug={previewSlug} />
+                </MotionMintTheme>
+              </DesktopBrowserFrame>
+            )}
           </div>
         )}
       </section>

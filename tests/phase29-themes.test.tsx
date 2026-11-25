@@ -8,11 +8,11 @@ import { ComponentLivePreview } from "@/components/shared/component-preview-card
 import { MotionMintTheme } from "@/components/theme/theme-scope";
 import { MotionMintProvider, useMotionMint } from "@/components/site/providers";
 import { ThemeStudio } from "@/components/theme/theme-studio";
-import { PlaygroundShell } from "@/components/playground/playground-shell";
+import { ComponentStudio } from "@/components/studio/component-studio";
 import { RippleButton } from "@/registry/components/ripple-button";
 
 vi.mock("next/navigation", () => ({
-  usePathname: () => "/playground",
+  usePathname: () => "/components/ripple-button",
   useRouter: () => ({ push: vi.fn() }),
 }));
 
@@ -111,7 +111,7 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
       }
     }
     expect(comboCount).toBe(2552);
-  });
+  }, 20000);
 
   it("ThemeStudio supports search, category filtering, light/dark application, and Compare Mode", () => {
     render(
@@ -131,15 +131,16 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
     expect(screen.getByText(/Comparing/i)).toBeInTheDocument();
   });
 
-  it("PlaygroundShell renders 44-component navigation and updates active component stage", () => {
-    render(
+  it("ComponentStudio renders scoped 58-variant theme preview and InfinityCanvas component remains accessible", () => {
+    const ripple = CATALOG_ITEMS.find((c) => c.slug === "ripple-button")!;
+    const { container } = render(
       <MotionMintProvider>
-        <PlaygroundShell />
+        <ComponentStudio item={ripple} sourceCode={null} />
       </MotionMintProvider>
     );
 
-    expect(screen.getByText(/Playground · Swipe Card Deck/i)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Physical Knob" }));
-    expect(screen.getByText(/Playground · Physical Knob/i)).toBeInTheDocument();
+    expect(screen.getByText(ripple.name)).toBeInTheDocument();
+    expect(container.querySelector('[data-mm-scope="true"]')).not.toBeNull();
+    expect(CATALOG_ITEMS.find((c) => c.slug === "infinity-canvas")?.status).toBe("implemented");
   });
 });

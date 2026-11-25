@@ -731,6 +731,49 @@
           "target": "components/motionmint/halftone-popover.tsx"
         }
       ]
+    },
+    {
+      "name": "flow-base-node",
+      "type": "registry:component",
+      "title": "Flow Base Node",
+      "description": "Portable @xyflow/react BaseNode wrapper with auto-spaced multi-handles, execution status badges, lock mode, and accessible deletion.",
+      "dependencies": ["@xyflow/react", "lucide-react", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/flow/base-node.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/flow/base-node.tsx"
+        }
+      ]
+    },
+    {
+      "name": "flow-pipeline-nodes",
+      "type": "registry:component",
+      "title": "Flow Pipeline Nodes",
+      "description": "Nine typed workflow nodes (Input, Output, auto-resizing Text with {{var}} handles, LLM, Webhook, HTTP Request, JSON Transform, Condition, Merge).",
+      "dependencies": ["@xyflow/react", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/flow-base-node"],
+      "files": [
+        {
+          "path": "registry/flow/pipeline-nodes.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/flow/pipeline-nodes.tsx"
+        }
+      ]
+    },
+    {
+      "name": "flow-canvas",
+      "type": "registry:component",
+      "title": "Flow Canvas",
+      "description": "Reusable @xyflow/react workflow canvas with dot grid, minimap, zoom/fit/lock controls, and drag-and-drop support.",
+      "dependencies": ["@xyflow/react", "lucide-react", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/flow/flow-canvas.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/flow/flow-canvas.tsx"
+        }
+      ]
     }
   ]
 }

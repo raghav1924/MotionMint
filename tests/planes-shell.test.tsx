@@ -8,7 +8,6 @@ import { EditorialSidebar } from "@/components/shell/editorial-sidebar";
 import { BrandFloatingButton } from "@/components/shell/brand-floating-button";
 import { FloatingToolbar } from "@/components/shell/floating-toolbar";
 import { DesktopBrowserFrame, TabletPreviewFrame, MobileDeviceFrame } from "@/components/preview/device-frames";
-import { SpatialGallery } from "@/components/canvas/spatial-gallery";
 import { ComponentDocs } from "@/components/documentation/component-docs";
 import { CatalogueBrowser } from "@/components/site/catalogue-browser";
 import { CATALOG_ITEMS } from "@/lib/catalog";
@@ -35,7 +34,8 @@ describe("Planes UI Design & Interaction Specification", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Open navigation overlay" }));
     expect(screen.getByRole("dialog", { name: "Editorial Navigation" })).toBeInTheDocument();
-    expect(screen.getByText("EXPLORE")).toBeInTheDocument();
+    expect(screen.getByText("Getting started")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Card Stack" })).toHaveAttribute("aria-current", "page");
 
     fireEvent.keyDown(window, { key: "Escape" });
     await waitFor(() => {
@@ -102,15 +102,6 @@ describe("Planes UI Design & Interaction Specification", () => {
     fireEvent.click(catBtn);
     expect(catBtn).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("button", { name: /Controls/i })).toBeInTheDocument();
-  });
-
-  it("SpatialGallery supports zoom in/out and reset", () => {
-    render(<SpatialGallery />);
-    expect(screen.getByText("100%")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Zoom in" }));
-    expect(screen.getByText("115%")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Reset canvas" }));
-    expect(screen.getByText("100%")).toBeInTheDocument();
   });
 
   it("ComponentDocs switches package managers, Usage/Props tabs, and omits Pro notice for free items", () => {

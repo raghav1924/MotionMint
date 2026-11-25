@@ -1,5 +1,42 @@
 # CHANGELOG.md — MotionMint
 
+## [0.12.0] — 2026-11-25 (Focused Product Integration Sprint — Flow Orchestrator & Studio Consolidation)
+### Added
+- **Portable Flow UI Kit** (`registry/flow/`): `BaseNode` (`flow-base-node`), 9 POC-derived typed nodes (`flow-pipeline-nodes`: `InputNode`, `OutputNode`, `TextNode` with `{{ var }}` dynamic handles, `LLMNode`, `WebhookNode`, `HTTPRequestNode`, `JSONTransformNode`, `ConditionNode`, `MergeNode`), and `FlowCanvas` (`flow-canvas`) built on `@xyflow/react`. Registry expanded to **50** validated items.
+- **Node Pipeline Orchestrator** (`/flow`, `components/flow/`): Dedicated top toolbar (presets, Undo/Redo, Validate DAG, Run/Stop, Export JSON), searchable left `NodePalette` (drag-and-drop + click-to-add), `@xyflow/react` canvas, right `NodeInspector`, and collapsible `ExecutionConsole` with a clearly labelled **Simulated Execution Adapter** + real **Kahn's DAG validator** (`lib/flow/dag.ts`, ported from POC `backend/main.py`).
+- **Ruler-indexed `EditorialSidebar`**: Floating card with `30px` tick-mark track, top/bottom scroll fade mask, and active `aria-current="page"` indicator.
+- **`ThemeStudio` DeviceFrames integration**: `/themes` active stage now uses shared `DesktopBrowserFrame`, `TabletPreviewFrame`, `MobileDeviceFrame`, and `FloatingToolbar` context.
+- **Flow Orchestrator tests** (`tests/flow-orchestrator.test.tsx`): Covers Kahn's DAG validation, cycle detection, `{{ var }}` extraction, preset switching, node insertion, and simulated execution.
+
+### Removed
+- Removed standalone `/playground` route (`app/playground`, `components/playground`) and consolidated all previewing into `ComponentStudio` (`/components/[slug]`).
+- Removed standalone `/canvas` product route (`app/canvas`, `components/canvas`); `InfinityCanvas` remains installable and documented at `/components/infinity-canvas`.
+
+## [0.11.0] — 2026-11-25 (Phase 2.9 — Component-Level Design System Rebuild)
+### Added
+- **Dual-mode theme palettes** (`lib/themes/definitions/mode-palettes.ts`): all 29 themes now have art-directed `light` and `dark` `ThemeModeTokens` with distinct colors, shadows, and gradients — dark mode is deliberate, not mechanically inverted.
+- **Component theme recipes** (`lib/themes/recipes.ts`): `ComponentThemeRecipes` maps all 29 themes to `buttonStyle`, `cardStyle`, `inputStyle`, `controlStyle`, `aiStyle`, and `mediaStyle` recipe tokens.
+- **`<MotionMintTheme>` scope wrapper** (`components/theme/theme-scope.tsx`): applies `--mm-*` vars as inline `style` attribute, sets `data-mm-scope`, `data-mm-theme`, `data-mm-mode`, `data-mm-button-style`, `data-mm-card-style`. Never touches `document.documentElement`. Supports nested scopes.
+- **Rebuilt Theme Studio** (`components/theme/theme-studio.tsx`): 29 theme cards each with live Light and Dark specimens, compare mode (active theme light/dark + 6 contrasting families), search, 5-category filter, component selector dropdown.
+- **Rebuilt Playground shell** (`components/playground/playground-shell.tsx`): three-region layout — collapsible left category nav (240px), central `ComponentStudio`, mobile `Drawer` for nav.
+- **`themeMode` / `setThemeMode`** exposed from `useMotionMint()` context (`components/site/providers.tsx`).
+- **29 visual theme research docs** (`docs/theme-research/01-minimalism.md` → `29-wabi-sabi.md`) + `docs/THEME_DESIGN_RESEARCH.md` 29-row summary table.
+- **Component-specific use cases**: `useCases?: UseCase[]` field added to `CatalogItem` interface; all 44 implemented components now have 2 curated use case entries; `ComponentDocs` renders them under a "Use cases" heading (matches Planes component detail layout).
+- **Phase 2.9 test suite** (`tests/phase29-themes.test.tsx`): 5 tests covering 2,552-combination smoke render, nested scope isolation, ThemeStudio search/filter/compare, PlaygroundShell navigation — all pass in 4.3s.
+
+### Changed
+- `applyThemeToDocument()` (`lib/themes/theme-utils.ts`) stubbed to no-op — component themes are exclusively scoped via `<MotionMintTheme>` and never injected into the document root.
+- `lib/themes/types.ts` extended with `ComponentThemeMode`, `ThemeColorTokens`, `ThemeModeTokens`, `ComponentThemeRecipes`; `ThemeDefinition` gains `modes` and `recipes`; `BaseThemeDefinition` added for backward compat.
+- `lib/themes/registry.ts` `enrichTheme()` function merges `BaseThemeDefinition` + modes + recipes; `QUICK_THEMES` updated to `[minimalism, neo-brutalism, scrapbook, blueprint, cyberpunk, victorian]`.
+- `ComponentStudio` preview stage wrapped in `<MotionMintTheme theme mode padded>` for all 3 device frames; Light/Dark toggle buttons added next to theme selector.
+- `app/globals.css` Phase 2.9 recipe CSS block added (`.mm-theme-scope`, `[data-mm-button-style]`, `[data-mm-card-style]`).
+- `/themes` route now uses main application chrome (not `WorkspaceShell`).
+- `tests/components.test.tsx` `ComponentDetailWorkbench` test updated: checks `aria-pressed` on theme button instead of `data-theme` on `documentElement`.
+
+### Fixed
+- Scope isolation: `--mm-bg` confirmed empty on `documentElement` after all 2,552 theme/mode combinations.
+- `core-themes.ts` and `expressive-themes.ts` array types changed to `BaseThemeDefinition[]` to match enrichment pattern.
+
 ## [0.10.0] — 2026-11-25 (Phase 2.8 — Planes-Inspired Final UI Alignment)
 ### Changed
 - Set Light mode (`#FFFFFF`) as the primary default appearance with full Dark mode (`#050506`) inversion and `#DFFF00` brand accent, while preserving crisp `--ws-preview-bg` contrast for component previews.

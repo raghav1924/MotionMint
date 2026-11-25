@@ -205,25 +205,24 @@ export function ComponentDocs({
               </pre>
             </div>
 
-            {/* 10.8 Use Cases (2 columns) */}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-[16px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 space-y-1">
-                <h3 className="text-xs font-semibold text-[var(--ws-text-primary)]">
-                  Token-Driven Styling
-                </h3>
-                <p className="text-xs text-[var(--ws-text-secondary)] leading-relaxed">
-                  Adapts automatically across all 29 MotionMint themes using `--mm-*` CSS custom properties.
-                </p>
+            {/* 10.8 Use Cases (2 columns) — component-specific */}
+            {item.useCases && item.useCases.length > 0 && (
+              <div className="space-y-3">
+                <h2 className="text-base font-semibold text-[var(--ws-text-primary)]">Use cases</h2>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {item.useCases.map((uc) => (
+                    <div key={uc.title} className="rounded-[16px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 space-y-1">
+                      <h3 className="text-xs font-semibold text-[var(--ws-text-primary)]">
+                        {uc.title}
+                      </h3>
+                      <p className="text-xs text-[var(--ws-text-secondary)] leading-relaxed">
+                        {uc.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="rounded-[16px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 space-y-1">
-                <h3 className="text-xs font-semibold text-[var(--ws-text-primary)]">
-                  WCAG 2.2 AA &amp; Reduced Motion
-                </h3>
-                <p className="text-xs text-[var(--ws-text-secondary)] leading-relaxed">
-                  {item.accessibilityNotes}
-                </p>
-              </div>
-            </div>
+            )}
           </div>
         ) : (
           <div className="overflow-x-auto rounded-[18px] border border-[var(--ws-border)] bg-[var(--ws-floating)]">

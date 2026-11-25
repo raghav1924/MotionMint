@@ -42,8 +42,9 @@ npx shadcn@latest add @motionmint/<slug>
 
 ## Key Routes
 - `/components` — Catalogue (defaults to Available Now, plus Full Inventory tab)
-- `/playground` — Interactive Playground
+- `/components/[slug]` — Component Studio (58-variant theme preview, DeviceFrames, docs, install CLI)
 - `/motion` — Motion Lab & shared presets
-- `/themes` — 29-Theme Gallery
+- `/themes` — 29-Theme Studio (58 Light/Dark variants, Compare Mode)
 - `/sounds` — Web Audio & Haptics Sound Lab
+- `/flow` — Node Pipeline Orchestrator (built on MotionMint Flow UI Kit & `@xyflow/react`)
 - `/docs/installation` — Registry installation guide

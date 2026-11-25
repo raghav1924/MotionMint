@@ -29,11 +29,11 @@ import { Drawer } from "@/components/ui/overlay";
 import { cn } from "@/lib/utils";
 
 const WORKSPACE_NAV = [
-  { href: "/playground", label: "Playground", icon: Play },
+  { href: "/components", label: "Components", icon: Play },
   { href: "/motion", label: "Motion Lab", icon: Zap },
   { href: "/sounds", label: "Sound Lab", icon: Volume2 },
   { href: "/themes", label: "29 Themes", icon: Palette },
-  { href: "/flow", label: "Flow (Phase 6)", icon: Workflow },
+  { href: "/flow", label: "Flow Orchestrator", icon: Workflow },
   { href: "/docs/installation", label: "Install Docs", icon: BookOpen },
 ];
 
@@ -56,15 +56,13 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
   const currentComp = implemented.find((c) => pathname === `/components/${c.slug}`);
   const sectionLabel = currentComp
     ? currentComp.name
-    : pathname.startsWith("/playground")
-      ? "Playground"
-      : pathname.startsWith("/themes")
-        ? "29-Theme Studio"
-        : pathname.startsWith("/sounds")
-          ? "Sound & Haptics Lab"
-          : pathname.startsWith("/flow")
-            ? "Flow Architecture"
-            : "Workspace";
+    : pathname.startsWith("/themes")
+      ? "29-Theme Studio"
+      : pathname.startsWith("/sounds")
+        ? "Sound & Haptics Lab"
+        : pathname.startsWith("/flow")
+          ? "Node Pipeline Orchestrator"
+          : "Workspace";
 
   const sidebarContent = (isCollapsed: boolean, onNavigate?: () => void) => (
     <div className="flex h-full flex-col justify-between gap-6 py-4">

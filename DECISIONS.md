@@ -56,6 +56,29 @@
 - **Decision:** Introduce `--ws-*` semantic tokens on `[data-appearance="dark" | "light"]` for the site & workspace shell (`WorkspaceShell`, `Navbar`, `CommandPalette`, `Drawer`), and scope `--mm-*` theme tokens to component preview canvases.
 - **Consequences:** Dark/Light/System appearance works consistently across all workspace chrome while preserving 100% of the 29-theme component preview engine.
 
+## ADR-012: Consolidate Preview on Component Studio & Integrate POC Node Pipeline Orchestrator (Integration Sprint)
+- **Date:** 2026-11-25
+- **Status:** Accepted
+- **Context:** Standalone `/playground` duplicated `ComponentStudio` (`/components/[slug]`), and standalone `/canvas` created confusion between the reusable `InfinityCanvas` UI component and the Node Pipeline Orchestrator. Meanwhile, the user supplied their VectorShift POC (`https://github.com/raghav1924/frontend_technical_assessment`) for Phase 6.
+- **Decision:**
+  1. Remove `/playground` and `/canvas` routes; consolidate component previewing into `ComponentStudio` + `ThemeStudio` using shared `FloatingToolbar`, `PromptMenu`, and `DeviceFrames`. Keep `InfinityCanvas` exclusively as an installable component at `/components/infinity-canvas`.
+  2. Audit the user-owned POC and port its 9 node abstractions, auto-resizing `TextNode` (`{{ var }}` handle extraction), `BaseNode` multi-handle spacing, and Kahn's DAG validation into MotionMint's 3-layer Flow architecture: portable `registry/flow/` UI Kit (`@xyflow/react`), `lib/flow/` workflow model/DAG/simulator, and `/flow` Orchestrator workspace with its own dedicated toolbar, palette, inspector, and clearly labelled **Simulated Execution Adapter**.
+- **Consequences:** Clear product boundaries, zero duplicate preview shells, 50 validated registry items, and honest labelling of simulated pipeline execution (since the POC backend only validates DAG topology without a runtime runner).
+
+## ADR-010: Component Theme Isolation via MotionMintTheme Scope Wrapper (Phase 2.9)
+- **Date:** 2026-11-25
+- **Status:** Accepted
+- **Context:** The existing `applyThemeToDocument()` function injected `--mm-*` CSS vars onto `document.documentElement`, causing component theme switches to unintentionally re-texture the entire workspace chrome (navbar, sidebar, toolbar). The 29 MotionMint themes are designed for components only — the main site uses `--ws-*` tokens and a separate appearance system.
+- **Decision:** Stub `applyThemeToDocument()` to a no-op. Introduce `<MotionMintTheme theme mode>` scope wrapper (`components/theme/theme-scope.tsx`) that applies `--mm-*` vars exclusively via inline `style` attribute on a wrapping `<div>`. All component preview stages (ComponentStudio, ThemeStudio, PlaygroundShell) wrap their previews in this scope. The `themeId` in providers is now only the "currently selected theme for preview" state.
+- **Consequences:** Global workspace chrome (navbar, sidebar, toolbar, backgrounds) is 100% isolated from component theme switches. 29 themes + 2 modes = 58 variants are exclusively component-scoped. Future `MotionMintTheme` nesting is supported — inner scopes override outer scope `--mm-*` vars via CSS cascade.
+
+## ADR-011: Future Theme Demo Websites (Planned, Not Implemented in Phase 2.9)
+- **Date:** 2026-11-25
+- **Status:** Accepted (pending implementation — Wave 3+ prerequisite)
+- **Context:** Each of the 29 component themes (Scrapbook, Cyberpunk, Blueprint, etc.) is visually distinctive enough to warrant a full website demo showing what a product built entirely with that theme would look like. This would be a powerful marketing and showcase feature.
+- **Decision:** Defer full theme demo websites to a future phase. The routes (`/themes/scrapbook/demo`, etc.) will be implemented using Next.js dynamic segments (`/themes/[themeId]/demo`) when Wave 3+ component collections are complete enough to populate a full demo page. ROADMAP.md documents the planned architecture; no route files or demo pages are created in Phase 2.9.
+- **Consequences:** No scope creep in Phase 2.9. When ready, a single dynamic route handler with `generateStaticParams` can build all 29 demo pages at once. The `MotionMintTheme` scope wrapper already provides the necessary primitive.
+
 ## ADR-009: Unified Planes-Inspired Shell, Floating Toolbar & Device Preview Architecture (Phase 2.8)
 - **Date:** 2026-11-25
 - **Status:** Accepted

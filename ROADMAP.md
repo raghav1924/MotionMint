@@ -81,6 +81,20 @@
 - [x] Verified in headless Google Chrome via `playwright-core` at `1440×900`, `1280×800`, `768×1024`, and `390×844` (Wave 3+ remains paused per Phase 2.8)
 - [ ] Wave 3 (Media), Wave 4 (Carousels), Wave 5 (Physics & Text), Wave 6 (WebGL & Voxel), Wave 7 (Sections & Blocks), Wave 8 (Docs)
 
+## Phase 2.9 — Component-Level Design System Rebuild `[COMPLETE]`
+- [x] **Architectural isolation:** `applyThemeToDocument()` stubbed to no-op — component themes NEVER touch `document.documentElement`
+- [x] **Dual-mode palettes:** `lib/themes/definitions/mode-palettes.ts` — all 29 themes with art-directed `light` & `dark` `ThemeModeTokens` (distinct colors, shadows, gradients per mode)
+- [x] **Recipe system:** `lib/themes/recipes.ts` — `ComponentThemeRecipes` (buttonStyle, cardStyle, inputStyle, controlStyle, aiStyle, mediaStyle) for all 29 themes
+- [x] **Scope isolation:** `components/theme/theme-scope.tsx` — `<MotionMintTheme theme mode>` wrapper applies `--mm-*` vars as inline `style`, never to `documentElement`
+- [x] **Rebuilt Theme Studio** (`/themes`): 29 theme cards each with live Light & Dark specimens, compare mode, search, 5-category filter
+- [x] **Rebuilt Playground** (`/playground`): collapsible left category nav, central `ComponentStudio`, mobile drawer
+- [x] **Provider update:** `themeMode` / `setThemeMode` exposed from `useMotionMint()`; `setTheme` alias preserved
+- [x] **Component-specific use cases:** `useCases` field added to `CatalogItem` interface; all 44 implemented components have 2 use cases each; `ComponentDocs` renders them with section heading
+- [x] **29 visual research docs** (`docs/theme-research/01-minimalism.md` → `29-wabi-sabi.md`) + `docs/THEME_DESIGN_RESEARCH.md` summary table
+- [x] **Automated smoke test:** 44 components × 29 themes × 2 modes = 2,552 combinations verified in `tests/phase29-themes.test.tsx`
+- [x] **Scope isolation test:** Verifies `--mm-bg` stays empty on `documentElement` after theme switches
+- [x] All 82 tests pass; `npm run typecheck` exit 0; `npm run registry:validate` ✅ 47 items; `npm run build` exit 0
+
 ## Phase 5 — Premium Experiences (Pro Validation)
 - [ ] Advanced upload flow (previews, progress, retry)
 - [ ] Payment-success flow
@@ -88,11 +102,12 @@
 - [ ] Animated charts (gauge, donut, bars)
 - [ ] Bento dashboard block
 
-## Phase 6 — MotionMint Flow & Node Pipeline Orchestrator
-- [ ] Inspect user-provided Node Pipeline Orchestrator source archive
-- [ ] Evaluate & integrate `@xyflow/react`
-- [ ] Build reusable Flow UI Kit (`registry/flow/`)
-- [ ] Build Node Pipeline Orchestrator demo (`Document Upload → Extraction → Validation → Discrepancy Detection → Human Review → Structured Output`) with simulated execution adapter
+## Phase 6 — MotionMint Flow & Node Pipeline Orchestrator `[COMPLETE — DEMO / SIMULATED ADAPTER]`
+- [x] Inspected user-owned POC (`https://github.com/raghav1924/frontend_technical_assessment` — React Flow 11 + Zustand + 9 nodes + FastAPI Kahn's DAG `POST /pipelines/parse`)
+- [x] Evaluated & integrated `@xyflow/react` (MIT, React 19 compatible)
+- [x] Built portable Flow UI Kit (`registry/flow/`: `BaseNode`, 9 POC-derived `pipeline-nodes`, `FlowCanvas`) & registered `flow-base-node`, `flow-pipeline-nodes`, `flow-canvas` (`50` total registry items)
+- [x] Built Node Pipeline Orchestrator at `/flow` with Top Toolbar (presets, Undo/Redo, Validate DAG, Run/Stop, Export JSON), Left Node Palette (drag-and-drop + click-to-add), Center `@xyflow/react` Canvas, Right Node Inspector, and Bottom Execution Console (clearly labelled **Simulated Execution Adapter**; real client-side Kahn's DAG validation)
+- [x] Removed standalone `/playground` and `/canvas` product routes; retained `InfinityCanvas` as an installable component at `/components/infinity-canvas`
 
 ## Phase 7 — Pro Infrastructure & Launch
 - [ ] Merchant-of-record research (verifying India onboarding & payouts)
@@ -102,3 +117,9 @@
 ## Phase 8 — Continuous Growth
 - [ ] Additional skins from the 29-style catalogue (Blueprint, Cybercore, Neumorphism, etc.)
 - [ ] Additional blocks, templates, and AI-agent tooling
+
+## Future Phase — Full Theme Demo Websites *(Planned, Not Implemented)*
+- [ ] Dynamic route architecture (`/themes/[themeId]/demo` with `generateStaticParams` for all 29 themes)
+- [ ] Initial flagship demos (Scrapbook, Cyberpunk, Blueprint) wrapped in `<MotionMintTheme>`
+- [ ] Remaining 26 theme demo websites once Wave 3+ component collections are available
+- [ ] Shareable `?mode=light|dark` demo URLs and back-to-Theme-Studio navigation

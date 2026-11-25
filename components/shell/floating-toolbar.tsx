@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   PanelLeft,
-  LayoutGrid,
   Search,
   Package,
   Copy,
@@ -87,18 +85,6 @@ export function FloatingToolbar() {
           >
             <PanelLeft className="h-3.5 w-3.5" aria-hidden="true" />
           </button>
-          <Link
-            href="/canvas"
-            aria-label="Open Infinity Canvas"
-            title="Infinity Canvas"
-            className={cn(
-              iconBtnClass,
-              "hidden sm:inline-flex",
-              pathname === "/canvas" && "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)]"
-            )}
-          >
-            <LayoutGrid className="h-3.5 w-3.5" aria-hidden="true" />
-          </Link>
           <div className="mx-0.5 hidden sm:block h-4 w-px bg-[var(--ws-border-subtle)]" aria-hidden="true" />
           <button
             type="button"

@@ -93,22 +93,22 @@ export function BrandFloatingButton() {
           </button>
           <div className="my-1.5 h-px bg-[var(--ws-border-subtle)]" />
           <Link
-            href="/canvas"
+            href="/flow"
             role="menuitem"
             onClick={() => setOpen(false)}
             className="flex w-full items-center gap-2 rounded-[12px] px-2.5 py-2 text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)]"
           >
             <LayoutGrid className="h-3.5 w-3.5" aria-hidden="true" />
-            Infinity Canvas
+            Node Pipeline Orchestrator
           </Link>
           <Link
-            href="/playground"
+            href="/components"
             role="menuitem"
             onClick={() => setOpen(false)}
             className="flex w-full items-center gap-2 rounded-[12px] px-2.5 py-2 text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)]"
           >
             <Play className="h-3.5 w-3.5" aria-hidden="true" />
-            Interactive Playground
+            Component Studio
           </Link>
           <Link
             href="/themes"
