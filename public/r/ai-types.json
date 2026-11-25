@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-types",
+  "title": "MotionMint AI Component Types",
+  "description": "Shared TypeScript interfaces for AIMessage, AIToolCall, and AgentPlanStep.",
+  "files": [
+    {
+      "path": "lib/ai/types.ts",
+      "content": "export interface AIMessage {\n  id: string;\n  role: \"user\" | \"assistant\" | \"system\";\n  content: string;\n  status?: \"streaming\" | \"complete\" | \"error\";\n  timestamp?: string;\n}\n\nexport interface AIToolCall {\n  id: string;\n  name: string;\n  status: \"pending\" | \"running\" | \"success\" | \"error\";\n  durationMs?: number;\n  input?: unknown;\n  output?: unknown;\n}\n\nexport interface AgentPlanStep {\n  id: string;\n  title: string;\n  status: \"pending\" | \"in_progress\" | \"completed\" | \"failed\" | \"skipped\";\n  detail?: string;\n}\n",
+      "type": "registry:lib",
+      "target": "lib/ai/types.ts"
+    }
+  ],
+  "type": "registry:lib"
+}

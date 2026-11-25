@@ -1,0 +1,29 @@
+# MotionMint — Full Agent Reference
+
+## Overview
+MotionMint is a Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 component ecosystem focused on tactile interaction, spring motion (`motion/react`), opt-in Web Audio synthesis (`sound` off by default), and a 29-theme semantic CSS variable system (`--mm-*`).
+
+## Registry Architecture
+- Authoritative root manifest: `registry.json`
+- Generated shadcn-compatible manifests: `public/r/registry.json` and `public/r/<name>.json`
+- Shared audio library item: `@motionmint/sound-engine` (`lib/audio/sound-engine.ts`, `lib/audio/feedback-store.ts`)
+- Only implemented components and shared primitives are published to `public/r/` (currently 47 registry items: 44 components + `sound-engine`, `ai-types`, `motion-reveal`). Planned items are never published as working code.
+
+## Implemented Components & Dependencies
+1. `bounce-dots-loader` — Deps: `clsx`, `tailwind-merge`. Injects `@keyframes mm-bounce-dot`.
+2. `wiggle-text` — Deps: `clsx`, `tailwind-merge`. Injects `@keyframes mm-wiggle`.
+3. `jelly-button` — Deps: `motion`, `clsx`, `tailwind-merge`. Registry dep: `@motionmint/sound-engine`.
+4. `ripple-button` — Deps: `clsx`, `tailwind-merge`. Registry dep: `@motionmint/sound-engine`.
+5. `copy-button` — Deps: `lucide-react`, `clsx`, `tailwind-merge`. Registry dep: `@motionmint/sound-engine`.
+6. `sound-toggle` — Deps: `motion`, `clsx`, `tailwind-merge`. Registry dep: `@motionmint/sound-engine`.
+7. `progress-ring` — Deps: `clsx`, `tailwind-merge`. Exports `ProgressRing` and `ProgressBar`.
+8. `skeleton-shimmer` — Deps: `clsx`, `tailwind-merge`. Injects `@keyframes mm-shimmer`.
+9. `dropzone` — Deps: `lucide-react`, `clsx`, `tailwind-merge`. Registry dep: `@motionmint/sound-engine`.
+10. `swipe-card-deck` — Deps: `motion`, `lucide-react`, `clsx`, `tailwind-merge`. Registry dep: `@motionmint/sound-engine`.
+11. `thinking-loader` — Deps: `clsx`, `tailwind-merge`. Injects `@keyframes mm-bounce-dot`.
+12. `flip-card` — Deps: `motion`, `clsx`, `tailwind-merge`. Registry dep: `@motionmint/sound-engine`.
+
+## Accessibility & Audio Rules
+- Sound is OFF by default globally and requires user gesture.
+- All components support `prefers-reduced-motion: reduce`.
+- Interactive components expose keyboard navigation and ARIA roles (`switch`, `status`, `progressbar`, `alert`, `button`).

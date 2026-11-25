@@ -1,0 +1,736 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "motionmint",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "sound-engine",
+      "type": "registry:lib",
+      "title": "MotionMint Sound & Haptic Engine",
+      "description": "Zero-asset Web Audio API synthesizer and navigator.vibrate feedback store (off by default).",
+      "files": [
+        {
+          "path": "lib/audio/sound-engine.ts",
+          "type": "registry:lib",
+          "target": "lib/audio/sound-engine.ts"
+        },
+        {
+          "path": "lib/audio/feedback-store.ts",
+          "type": "registry:lib",
+          "target": "lib/audio/feedback-store.ts"
+        },
+        {
+          "path": "lib/audio/use-sound.ts",
+          "type": "registry:lib",
+          "target": "lib/audio/use-sound.ts"
+        }
+      ]
+    },
+    {
+      "name": "bounce-dots-loader",
+      "type": "registry:component",
+      "title": "Bounce Dots Loader",
+      "description": "Lightweight CSS-keyframe three-dot loader with wave, elastic, and pulse rhythm presets.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/bounce-dots-loader.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/bounce-dots-loader.tsx"
+        }
+      ],
+      "css": {
+        "@keyframes mm-bounce-dot": {
+          "0%, 80%, 100%": { "transform": "translateY(0)", "opacity": "0.45" },
+          "40%": { "transform": "translateY(-6px)", "opacity": "1" }
+        }
+      }
+    },
+    {
+      "name": "wiggle-text",
+      "type": "registry:component",
+      "title": "Wiggle Text",
+      "description": "Lightweight CSS-animated character or word wiggle typography primitive with configurable intensity and trigger.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/wiggle-text.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/wiggle-text.tsx"
+        }
+      ],
+      "css": {
+        "@keyframes mm-wiggle": {
+          "0%, 100%": { "transform": "translateY(0) rotate(0deg)" },
+          "25%": { "transform": "translateY(var(--mm-wiggle-y, -3px)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -1))" },
+          "50%": { "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.5)) rotate(var(--mm-wiggle-rot, 6deg))" },
+          "75%": { "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.25)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -0.5))" }
+        }
+      }
+    },
+    {
+      "name": "jelly-button",
+      "type": "registry:component",
+      "title": "Jelly / Magnetic Button",
+      "description": "Spring-physics magnetic button with subtle cursor attraction and squash-and-stretch press feedback.",
+      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/jelly-button.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/jelly-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ripple-button",
+      "type": "registry:component",
+      "title": "Ripple Button",
+      "description": "Tactile button with pointer-origin ripple expansion, keyboard support, and optional Web Audio + haptic feedback.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/ripple-button.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/ripple-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:component",
+      "title": "Animated Copy Button",
+      "description": "Clipboard copy button with immediate icon/label confirmation, error fallback, and optional success chime.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/copy-button.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/copy-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sound-toggle",
+      "type": "registry:component",
+      "title": "Sound & Haptic Toggle",
+      "description": "Accessible switch with spring thumb transition, optional animated waveform, and synthesized audio cues.",
+      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/sound-toggle.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/sound-toggle.tsx"
+        }
+      ]
+    },
+    {
+      "name": "progress-ring",
+      "type": "registry:component",
+      "title": "Progress Ring & Bar",
+      "description": "Crisp SVG progress ring and linear progress bar with smooth easing and tabular percentage readout.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/progress-ring.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/progress-ring.tsx"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-shimmer",
+      "type": "registry:component",
+      "title": "Skeleton Shimmer",
+      "description": "Composable CSS shimmer placeholders for text, avatars, cards, and rectangles with reduced-motion fallback.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/skeleton-shimmer.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/skeleton-shimmer.tsx"
+        }
+      ],
+      "css": {
+        "@keyframes mm-shimmer": {
+          "0%": { "transform": "translateX(-100%)" },
+          "100%": { "transform": "translateX(100%)" }
+        }
+      }
+    },
+    {
+      "name": "dropzone",
+      "type": "registry:component",
+      "title": "Basic Dropzone",
+      "description": "Accessible click-and-drag file selection dropzone with type/size validation, file list removal, and optional audio/haptic cues.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/dropzone.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/dropzone.tsx"
+        }
+      ]
+    },
+    {
+      "name": "swipe-card-deck",
+      "type": "registry:component",
+      "title": "Swipe Card Deck",
+      "description": "Layered tactile card stack with spring drag/swipe gestures, card rotation, undo history, and keyboard arrow navigation.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/swipe-card-deck.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/swipe-card-deck.tsx"
+        }
+      ]
+    },
+    {
+      "name": "thinking-loader",
+      "type": "registry:component",
+      "title": "Thinking Loader",
+      "description": "Expressive multi-stage status indicator with orbit, pulse-grid, and wave styles for async application states.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/thinking-loader.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/thinking-loader.tsx"
+        }
+      ],
+      "css": {
+        "@keyframes mm-bounce-dot": {
+          "0%, 80%, 100%": { "transform": "translateY(0)", "opacity": "0.45" },
+          "40%": { "transform": "translateY(-6px)", "opacity": "1" }
+        }
+      }
+    },
+    {
+      "name": "flip-card",
+      "type": "registry:component",
+      "title": "Direction-Aware Flip Card",
+      "description": "3D perspective card that detects pointer entry direction and flips along the natural axis with keyboard and reduced-motion fallbacks.",
+      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/flip-card.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/flip-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-types",
+      "type": "registry:lib",
+      "title": "MotionMint AI Component Types",
+      "description": "Shared TypeScript interfaces for AIMessage, AIToolCall, and AgentPlanStep.",
+      "files": [
+        {
+          "path": "lib/ai/types.ts",
+          "type": "registry:lib",
+          "target": "lib/ai/types.ts"
+        }
+      ]
+    },
+    {
+      "name": "motion-reveal",
+      "type": "registry:component",
+      "title": "Motion Reveal",
+      "description": "Accessible scroll and entrance reveal wrapper (fadeUp, blurIn, scaleIn, slideLeft) with prefers-reduced-motion fallback.",
+      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/motion-reveal.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/motion-reveal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-prompt-composer",
+      "type": "registry:component",
+      "title": "AI Prompt Composer",
+      "description": "Accessible prompt input with Enter-to-send, Shift+Enter newline, mode selector, and stop-streaming state.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/ai-prompt-composer.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/ai-prompt-composer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "streaming-message",
+      "type": "registry:component",
+      "title": "Streaming Message",
+      "description": "Role-aware message bubble with streaming cursor, error state, and retry callback.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/ai-types"],
+      "files": [
+        {
+          "path": "registry/components/streaming-message.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/streaming-message.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tool-call-card",
+      "type": "registry:component",
+      "title": "Tool Call Card",
+      "description": "Collapsible tool execution card displaying status, duration, and formatted input/output JSON.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/ai-types"],
+      "files": [
+        {
+          "path": "registry/components/tool-call-card.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/tool-call-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "agent-plan",
+      "type": "registry:component",
+      "title": "Agent Plan",
+      "description": "Ordered multi-step execution plan showing pending, in-progress, completed, failed, and skipped steps.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/ai-types"],
+      "files": [
+        {
+          "path": "registry/components/agent-plan.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/agent-plan.tsx"
+        }
+      ]
+    },
+    {
+      "name": "approval-card",
+      "type": "registry:component",
+      "title": "Approval Card",
+      "description": "Human-in-the-loop confirmation gate with approve/reject callbacks and audio/haptic cues.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/approval-card.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/approval-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "inline-diff",
+      "type": "registry:component",
+      "title": "Inline Diff",
+      "description": "Code diff viewer with line-level add/remove highlighting, counts, and accept/discard actions.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/inline-diff.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/inline-diff.tsx"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-trace",
+      "type": "registry:component",
+      "title": "Reasoning Trace",
+      "description": "Collapsible execution trace log for developer-supplied step summaries.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/reasoning-trace.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/reasoning-trace.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-chat",
+      "type": "registry:component",
+      "title": "AI Chat",
+      "description": "Composable conversation container combining StreamingMessage, ThinkingLoader, and AIPromptComposer.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@motionmint/ai-types",
+        "@motionmint/streaming-message",
+        "@motionmint/ai-prompt-composer",
+        "@motionmint/thinking-loader"
+      ],
+      "files": [
+        {
+          "path": "registry/components/ai-chat.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/ai-chat.tsx"
+        }
+      ]
+    },
+    {
+      "name": "image-generation",
+      "type": "registry:component",
+      "title": "Image Generation",
+      "description": "State-driven media generation preview supporting idle, generating progress, complete, and error states.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/image-generation.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/image-generation.tsx"
+        }
+      ]
+    },
+    {
+      "name": "chat-orb",
+      "type": "registry:component",
+      "title": "Chat Orb",
+      "description": "Interactive voice-state orb button with idle, listening, and speaking states.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/chat-orb.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/chat-orb.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pixel-image-generation",
+      "type": "registry:component",
+      "title": "Pixel Image Generation",
+      "description": "Progressive pixel-grid synthesis preview driven by numeric progress.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/pixel-image-generation.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/pixel-image-generation.tsx"
+        }
+      ]
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:component",
+      "title": "Segmented Control",
+      "description": "Single-selection pill control with animated indicator, disabled options, and keyboard arrow navigation.",
+      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/segmented-control.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/segmented-control.tsx"
+        }
+      ]
+    },
+    {
+      "name": "number-stepper",
+      "type": "registry:component",
+      "title": "Number Stepper",
+      "description": "Numeric stepper with increment/decrement buttons, direct input, min/max clamping, and ArrowUp/Down support.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/number-stepper.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/number-stepper.tsx"
+        }
+      ]
+    },
+    {
+      "name": "glow-input",
+      "type": "registry:component",
+      "title": "Glow Input",
+      "description": "Focus-responsive input with optional pointer-tracking radial border glow, prefix/suffix slots, and error states.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/glow-input.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/glow-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "email-capture",
+      "type": "registry:component",
+      "title": "Email Capture",
+      "description": "Validated email capture form with loading, success, and error states via explicit onSubmit callback.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/email-capture.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/email-capture.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:component",
+      "title": "Date Picker",
+      "description": "Zero-dependency calendar date picker with min/max bounds, month navigation, and Intl formatting.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/date-picker.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/date-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "animated-select",
+      "type": "registry:component",
+      "title": "Animated Select",
+      "description": "Searchable combobox select with animated dropdown, grouped options, disabled items, and keyboard navigation.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/animated-select.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/animated-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "otp-input",
+      "type": "registry:component",
+      "title": "OTP Input",
+      "description": "Multi-cell verification code input with auto-focus progression, backspace navigation, and clipboard paste.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/otp-input.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/otp-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "multi-select",
+      "type": "registry:component",
+      "title": "Multi Select",
+      "description": "Multi-value selector with removable chips, search, select/clear all, and maxSelected limit.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/multi-select.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/multi-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "cookie-consent",
+      "type": "registry:component",
+      "title": "Cookie Consent",
+      "description": "Configurable consent panel with Accept All, Reject Optional, and category customisation callbacks.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/cookie-consent.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/cookie-consent.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card-stack",
+      "type": "registry:component",
+      "title": "Card Stack",
+      "description": "Layered interactive card stack with drag/swipe cycling, configurable depth and rotation, and keyboard navigation.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/card-stack.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/card-stack.tsx"
+        }
+      ]
+    },
+    {
+      "name": "detent-drawer",
+      "type": "registry:component",
+      "title": "Detent Drawer",
+      "description": "Snap-point drawer with Peek, Half, and Full detents, drag snapping, and keyboard Escape dismissal.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/detent-drawer.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/detent-drawer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "notch",
+      "type": "registry:component",
+      "title": "Notch",
+      "description": "Dynamic Island-inspired morphing status pill with idle, active, success, and alert states.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/notch.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/notch.tsx"
+        }
+      ]
+    },
+    {
+      "name": "physical-knob",
+      "type": "registry:component",
+      "title": "Physical Knob",
+      "description": "Tactile rotary dial with pointer drag rotation, tick marks, detent snapping, and double-click reset.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/physical-knob.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/physical-knob.tsx"
+        }
+      ]
+    },
+    {
+      "name": "reaction-arc",
+      "type": "registry:component",
+      "title": "Reaction Arc",
+      "description": "Radial fan-out reaction picker with spring-staggered arc geometry and keyboard selection.",
+      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/reaction-arc.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/reaction-arc.tsx"
+        }
+      ]
+    },
+    {
+      "name": "receipt-printer",
+      "type": "registry:component",
+      "title": "Receipt Printer",
+      "description": "Thermal-style animated receipt feed with line-by-line printing, totals, and serrated edge.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/receipt-printer.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/receipt-printer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "rubber-band-select",
+      "type": "registry:component",
+      "title": "Rubber Band Select",
+      "description": "Elastic drag-to-select list with rubber-band resistance, single/multi select, and keyboard fallback.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/rubber-band-select.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/rubber-band-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "morphing-tray",
+      "type": "registry:component",
+      "title": "Morphing Tray",
+      "description": "Compact-to-expanded contextual surface morphing seamlessly between summary and full controls.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/morphing-tray.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/morphing-tray.tsx"
+        }
+      ]
+    },
+    {
+      "name": "keyboard",
+      "type": "registry:component",
+      "title": "Keyboard",
+      "description": "Interactive visual mechanical keyboard with physical keystroke highlights, click triggers, and key-cap depth.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/keyboard.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/keyboard.tsx"
+        }
+      ]
+    },
+    {
+      "name": "infinity-canvas",
+      "type": "registry:component",
+      "title": "Infinity Canvas",
+      "description": "Pan-and-zoom spatial workspace with draggable nodes, dot grid, zoom controls, and viewport reset.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/infinity-canvas.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/infinity-canvas.tsx"
+        }
+      ]
+    },
+    {
+      "name": "scratch-card",
+      "type": "registry:component",
+      "title": "Scratch Card",
+      "description": "HTML5 canvas scratch-to-reveal foil surface with automatic threshold completion and accessible reveal fallback.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@motionmint/sound-engine"],
+      "files": [
+        {
+          "path": "registry/components/scratch-card.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/scratch-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "halftone-popover",
+      "type": "registry:component",
+      "title": "Halftone Popover",
+      "description": "Expressive popover featuring an SVG halftone dot matrix backdrop, click-outside handling, and Escape dismissal.",
+      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "registry/components/halftone-popover.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/halftone-popover.tsx"
+        }
+      ]
+    }
+  ]
+}

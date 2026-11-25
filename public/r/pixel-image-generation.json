@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pixel-image-generation",
+  "title": "Pixel Image Generation",
+  "description": "Progressive pixel-grid synthesis preview driven by numeric progress.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/pixel-image-generation.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface PixelImageGenerationProps {\n  progress?: number;\n  gridSize?: number;\n  label?: string;\n  className?: string;\n}\n\nexport function PixelImageGeneration({\n  progress = 75,\n  gridSize = 8,\n  label = \"Pixel synthesis preview\",\n  className,\n}: PixelImageGenerationProps) {\n  const total = gridSize * gridSize;\n  const filled = Math.round((Math.min(Math.max(progress, 0), 100) / 100) * total);\n\n  return (\n    <div\n      role=\"img\"\n      aria-label={`${label} (${progress}%)`}\n      className={cn(\n        \"inline-flex flex-col items-center gap-2.5 rounded-[var(--mm-radius,14px)] border border-[var(--mm-border,rgba(255,255,255,0.12))] bg-[var(--mm-surface,#111114)] p-4\",\n        className\n      )}\n    >\n      <div\n        className=\"grid gap-1\"\n        style={{ gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))` }}\n      >\n        {Array.from({ length: total }).map((_, i) => {\n          const active = i < filled;\n          return (\n            <span\n              key={i}\n              aria-hidden=\"true\"\n              className={cn(\n                \"h-3 w-3 rounded-[2px] transition-colors duration-200\",\n                active\n                  ? \"bg-[var(--mm-accent,#10b981)]\"\n                  : \"bg-[var(--mm-surface-elevated,#18181c)]\"\n              )}\n              style={{ opacity: active ? 0.45 + ((i % 5) * 0.12) : 0.4 }}\n            />\n          );\n        })}\n      </div>\n      <span className=\"font-mono text-[11px] text-[var(--mm-fg-muted,#a1a1aa)]\">\n        {label} · {progress}%\n      </span>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/motionmint/pixel-image-generation.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

@@ -1,0 +1,49 @@
+# MotionMint — UI with Feel
+
+> Interaction-first React & Next.js UI toolkit with optional Web Audio & haptic feedback and a 29-theme design token system.
+
+## Status
+- Implemented Free Components: 44 (+ `motion-reveal`, `sound-engine`, `ai-types` = 47 registry items)
+- Planned Roadmap Inventory: 160+ items across 22 categories
+- Themes: 29 complete token profiles
+
+## Registry Installation
+Namespace: `@motionmint`
+Local registry endpoint: `http://localhost:3000/r/{name}.json`
+
+Configure `components.json`:
+```json
+{
+  "registries": {
+    "@motionmint": "http://localhost:3000/r/{name}.json"
+  }
+}
+```
+
+Install any available component:
+```bash
+npx shadcn@latest add @motionmint/<slug>
+```
+
+## Available Components (12)
+- `bounce-dots-loader` — CSS-keyframe three-dot loader (`/components/bounce-dots-loader`)
+- `wiggle-text` — Character/word wiggle typography (`/components/wiggle-text`)
+- `jelly-button` — Magnetic spring button (`/components/jelly-button`)
+- `ripple-button` — Pointer-origin ripple button (`/components/ripple-button`)
+- `copy-button` — Clipboard copy button with error fallback (`/components/copy-button`)
+- `sound-toggle` — Accessible switch with waveform & audio cues (`/components/sound-toggle`)
+- `progress-ring` — SVG progress ring & linear bar (`/components/progress-ring`)
+- `skeleton-shimmer` — Composable CSS shimmer placeholders (`/components/skeleton-shimmer`)
+- `dropzone` — Click & drag-and-drop file selector (`/components/dropzone`)
+- `swipe-card-deck` — Layered spring swipe card stack (`/components/swipe-card-deck`)
+- `thinking-loader` — Multi-stage async status indicator (`/components/thinking-loader`)
+- `flip-card` — Direction-aware 3D flip card (`/components/flip-card`)
+- `motion-reveal` — Accessible scroll & entrance reveal wrapper (`/motion`)
+
+## Key Routes
+- `/components` — Catalogue (defaults to Available Now, plus Full Inventory tab)
+- `/playground` — Interactive Playground
+- `/motion` — Motion Lab & shared presets
+- `/themes` — 29-Theme Gallery
+- `/sounds` — Web Audio & Haptics Sound Lab
+- `/docs/installation` — Registry installation guide

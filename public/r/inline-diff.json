@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "inline-diff",
+  "title": "Inline Diff",
+  "description": "Code diff viewer with line-level add/remove highlighting, counts, and accept/discard actions.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/inline-diff.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface DiffLine {\n  type: \"context\" | \"add\" | \"remove\";\n  content: string;\n}\n\nexport interface InlineDiffProps {\n  filename: string;\n  lines: DiffLine[];\n  onAccept?: () => void;\n  onReject?: () => void;\n  className?: string;\n}\n\nexport function InlineDiff({\n  filename,\n  lines,\n  onAccept,\n  onReject,\n  className,\n}: InlineDiffProps) {\n  const added = lines.filter((l) => l.type === \"add\").length;\n  const removed = lines.filter((l) => l.type === \"remove\").length;\n\n  return (\n    <div\n      className={cn(\n        \"w-full overflow-hidden rounded-[var(--mm-radius,14px)] border border-[var(--mm-border,rgba(255,255,255,0.12))] bg-[var(--mm-surface,#111114)] text-[var(--mm-fg,#fafafa)]\",\n        className\n      )}\n    >\n      <div className=\"flex flex-wrap items-center justify-between gap-2 border-b border-[var(--mm-border,rgba(255,255,255,0.08))] bg-[var(--mm-surface-subtle,#141418)] px-3.5 py-2 text-xs\">\n        <span className=\"font-mono font-medium\">{filename}</span>\n        <div className=\"flex items-center gap-3\">\n          <span className=\"font-mono text-[11px]\">\n            <span className=\"text-emerald-400\">+{added}</span>{\" \"}\n            <span className=\"text-red-400\">-{removed}</span>\n          </span>\n          {(onAccept || onReject) && (\n            <div className=\"flex items-center gap-1.5\">\n              {onReject && (\n                <button\n                  type=\"button\"\n                  onClick={onReject}\n                  className=\"rounded px-2 py-0.5 text-[11px] border border-[var(--mm-border)] hover:border-red-400 cursor-pointer\"\n                >\n                  Discard\n                </button>\n              )}\n              {onAccept && (\n                <button\n                  type=\"button\"\n                  onClick={onAccept}\n                  className=\"rounded bg-[var(--mm-accent,#10b981)] px-2 py-0.5 text-[11px] font-semibold text-[var(--mm-accent-fg,#03150e)] cursor-pointer\"\n                >\n                  Accept\n                </button>\n              )}\n            </div>\n          )}\n        </div>\n      </div>\n\n      <div className=\"overflow-x-auto font-mono text-xs leading-relaxed\">\n        {lines.map((line, i) => (\n          <div\n            key={i}\n            className={cn(\n              \"flex px-3 py-0.5\",\n              line.type === \"add\" && \"bg-emerald-500/12 text-emerald-300\",\n              line.type === \"remove\" && \"bg-red-500/12 text-red-300\",\n              line.type === \"context\" && \"text-[var(--mm-fg-muted,#a1a1aa)]\"\n            )}\n          >\n            <span className=\"w-6 shrink-0 select-none opacity-60\">\n              {line.type === \"add\" ? \"+\" : line.type === \"remove\" ? \"-\" : \" \"}\n            </span>\n            <span className=\"whitespace-pre\">{line.content}</span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/motionmint/inline-diff.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

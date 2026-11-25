@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "reasoning-trace",
+  "title": "Reasoning Trace",
+  "description": "Collapsible execution trace log for developer-supplied step summaries.",
+  "dependencies": [
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/reasoning-trace.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { ChevronDown, ListChecks } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface ReasoningTraceProps {\n  title?: string;\n  durationLabel?: string;\n  entries: string[];\n  defaultOpen?: boolean;\n  className?: string;\n}\n\nexport function ReasoningTrace({\n  title = \"Execution Trace\",\n  durationLabel,\n  entries,\n  defaultOpen = false,\n  className,\n}: ReasoningTraceProps) {\n  const [open, setOpen] = useState(defaultOpen);\n\n  return (\n    <div\n      className={cn(\n        \"w-full rounded-[var(--mm-radius,14px)] border border-[var(--mm-border,rgba(255,255,255,0.1))] bg-[var(--mm-surface,#111114)] text-[var(--mm-fg,#fafafa)] overflow-hidden\",\n        className\n      )}\n    >\n      <button\n        type=\"button\"\n        onClick={() => setOpen((o) => !o)}\n        aria-expanded={open}\n        className=\"flex w-full items-center justify-between gap-2 px-4 py-2.5 text-left text-xs hover:bg-[var(--mm-surface-subtle,#141418)] cursor-pointer\"\n      >\n        <span className=\"flex items-center gap-2 font-medium\">\n          <ListChecks className=\"h-3.5 w-3.5 text-[var(--mm-accent,#10b981)]\" aria-hidden=\"true\" />\n          <span>{title}</span>\n          {durationLabel && (\n            <span className=\"font-mono text-[10px] text-[var(--mm-fg-subtle,#71717a)]\">\n              ({durationLabel})\n            </span>\n          )}\n        </span>\n        <ChevronDown\n          className={cn(\"h-3.5 w-3.5 text-[var(--mm-fg-muted)] transition-transform\", open && \"rotate-180\")}\n          aria-hidden=\"true\"\n        />\n      </button>\n\n      {open && (\n        <ul className=\"border-t border-[var(--mm-border,rgba(255,255,255,0.08))] bg-[var(--mm-surface-subtle,#141418)] px-4 py-3 space-y-1.5 text-xs text-[var(--mm-fg-muted,#a1a1aa)]\">\n          {entries.map((entry, idx) => (\n            <li key={idx} className=\"flex gap-2\">\n              <span className=\"font-mono text-[10px] text-[var(--mm-fg-subtle,#71717a)]\">\n                {String(idx + 1).padStart(2, \"0\")}\n              </span>\n              <span>{entry}</span>\n            </li>\n          ))}\n        </ul>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/motionmint/reasoning-trace.tsx"
+    }
+  ],
+  "type": "registry:component"
+}
