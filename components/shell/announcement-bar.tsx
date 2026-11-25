@@ -16,7 +16,7 @@ export function AnnouncementBar() {
           aria-hidden="true"
         />
         <span className="truncate">
-          {BRAND.name} Wave 2B: 44 interactive components &amp; 29 themes live now
+          {BRAND.name} · 44 components · 58 theme variants · Flow Orchestrator live
         </span>
         <span
           className="inline-block transition-transform duration-150 group-hover:translate-x-0.5 text-white/75"

@@ -34,14 +34,14 @@ export function Navbar() {
 
   return (
     <header className="sticky top-3 z-40 mx-auto max-w-6xl px-3 sm:px-6">
-      <div className="flex h-13 items-center justify-between gap-3 rounded-full border border-[var(--mm-border-strong)] bg-[var(--mm-surface)]/85 px-4 shadow-[var(--mm-shadow)] backdrop-blur-md">
+      <div className="flex h-13 items-center justify-between gap-3 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)]/85 px-4 shadow-[var(--ws-shadow-floating)] backdrop-blur-md">
         <div className="flex items-center gap-5">
           <Link
             href="/"
             onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-2 font-semibold tracking-tight text-[var(--mm-fg)]"
+            className="flex items-center gap-2 font-semibold tracking-tight text-[var(--ws-text-primary)]"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--mm-accent)] text-[var(--mm-accent-fg)]">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--ws-text-primary)] text-[var(--ws-bg)]">
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
             </span>
             <span className="text-sm">{BRAND.name}</span>
@@ -59,8 +59,8 @@ export function Navbar() {
                   className={cn(
                     "px-2.5 py-1 text-xs rounded-full transition-colors",
                     active
-                      ? "bg-[var(--mm-accent-soft)] text-[var(--mm-accent)] font-medium"
-                      : "text-[var(--mm-fg-muted)] hover:text-[var(--mm-fg)]"
+                      ? "bg-[var(--ws-surface-active)] text-[var(--ws-text-primary)] font-medium"
+                      : "text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
                   )}
                 >
                   {link.label}

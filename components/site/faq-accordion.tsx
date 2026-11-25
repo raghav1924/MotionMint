@@ -4,52 +4,66 @@ import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const FAQS = [
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const DEFAULT_FAQS: FaqItem[] = [
   {
-    q: "How do I install MotionMint components?",
-    a: "Every implemented component is authored as self-contained TypeScript under registry/components/ and can be copied directly from the Component Studio. Automated npx shadcn add registry endpoints are scheduled in Phase 3.",
+    question: "How do I install MotionMint components?",
+    answer:
+      "Install components via the shadcn-compatible registry (`pnpm dlx shadcn@latest add @motionmint/<slug>`) or copy the TypeScript source from Component Studio.",
   },
   {
-    q: "Why is sound off by default?",
-    a: "Respecting user attention and browser autoplay policies is a core rule. Web Audio synthesis only plays after an explicit user toggle or inside the Sound Lab audition pad.",
+    question: "Why is sound off by default?",
+    answer:
+      "Respecting user attention and browser autoplay policies is a core rule. Web Audio synthesis only plays after an explicit user toggle or inside Sound Lab.",
   },
   {
-    q: "Do all components support all 29 themes?",
-    a: "Yes. Every implemented component consumes semantic --mm-* CSS variables and is tested across all 29 theme profiles in our automated matrix.",
+    question: "Do all components support all 29 themes?",
+    answer:
+      "Yes. Every implemented component consumes scoped --mm-* CSS variables and supports all 29 themes in both Light and Dark modes (58 variants).",
   },
   {
-    q: "Are the 200+ inventory items already built?",
-    a: "No. Twelve core and signature components are implemented and live today; the rest of the inventory is transparently labelled as Planned in the Full Inventory view.",
+    question: "Are the 200+ inventory items already built?",
+    answer:
+      "No. 44 core, signature, AI, and control components are implemented today; future waves are transparently labelled as Planned in the Full Inventory view.",
   },
 ];
 
-export function FaqAccordion() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+export function FaqAccordion({ items = DEFAULT_FAQS }: { items?: FaqItem[] }) {
+  const [openQuestion, setOpenQuestion] = useState<string | null>(
+    items[0]?.question ?? null
+  );
 
   return (
-    <div className="divide-y divide-[var(--mm-border)] mm-card overflow-hidden">
-      {FAQS.map((item, idx) => {
-        const isOpen = openIndex === idx;
+    <div className="grid gap-4 md:grid-cols-2">
+      {items.map((item) => {
+        const isOpen = openQuestion === item.question;
         return (
-          <div key={item.q}>
+          <div
+            key={item.question}
+            className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)] overflow-hidden self-start"
+          >
             <button
               type="button"
-              onClick={() => setOpenIndex(isOpen ? null : idx)}
+              onClick={() => setOpenQuestion(isOpen ? null : item.question)}
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-[var(--mm-fg)] hover:bg-[var(--mm-surface-subtle)] cursor-pointer"
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-sm font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer transition-colors"
             >
-              <span>{item.q}</span>
+              <span>{item.question}</span>
               <ChevronDown
                 className={cn(
-                  "h-4 w-4 shrink-0 text-[var(--mm-fg-muted)] transition-transform duration-200",
+                  "h-4 w-4 shrink-0 text-[var(--ws-text-muted)] transition-transform duration-200",
                   isOpen && "rotate-180"
                 )}
                 aria-hidden="true"
               />
             </button>
             {isOpen && (
-              <div className="px-5 pb-4 text-xs sm:text-sm leading-relaxed text-[var(--mm-fg-muted)]">
-                {item.a}
+              <div className="border-t border-[var(--ws-border-subtle)] px-5 py-3.5 text-xs sm:text-sm leading-relaxed text-[var(--ws-text-secondary)]">
+                {item.answer}
               </div>
             )}
           </div>

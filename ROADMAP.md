@@ -95,6 +95,16 @@
 - [x] **Scope isolation test:** Verifies `--mm-bg` stays empty on `documentElement` after theme switches
 - [x] All 82 tests pass; `npm run typecheck` exit 0; `npm run registry:validate` ✅ 47 items; `npm run build` exit 0
 
+## Phase 2.10 — Cinematic Homepage & Premium Brand Experience `[COMPLETE]`
+- [x] **Cinematic Hero** (`components/home/cinematic-hero.tsx`): Architectural dot-matrix stage, sculptural central MotionMint mark, pointer parallax, and spatial orbiting live specimens (`ThinkingLoader`, `PhysicalKnob`, `Flow` mini-pipeline, `ProgressRing` + `RippleButton`), with mobile & `prefers-reduced-motion` fallbacks
+- [x] **Verified Capability Strip** (`components/home/capability-strip.tsx`): React 19, TypeScript, Tailwind CSS v4, Motion, 50-item shadcn-compatible registry, `llms.txt` discovery, Web Audio API
+- [x] **Asymmetric Product Exhibition** (`components/site/exhibition-gallery.tsx`): 10 live implemented components across Signature, AI, and Controls collections
+- [x] **58-Variant Theme Differentiator** (`components/home/theme-differentiator.tsx`): Live `RippleButton` inside `<MotionMintTheme>` across 7 signature patterns × Light/Dark without touching global chrome
+- [x] **Motion & Sound Showcase** (`components/home/motion-sound-showcase.tsx`): Spring preset switcher + opt-in `SoundToggle` & Web Audio / haptic audition (off by default)
+- [x] **MotionMint Flow Showcase** (`components/home/flow-showcase.tsx`): Live excerpt of `Document Verification Pipeline` with Kahn's DAG badge & clearly labelled simulated execution
+- [x] **Developer DX, Pricing Preview & 2-Column FAQ** (`components/home/developer-dx.tsx`, `components/home/pricing-section.tsx`, `components/site/faq-accordion.tsx`, `components/site/footer.tsx`)
+- [x] Wave 3+ component waves remain paused per Phase 2.10
+
 ## Phase 5 — Premium Experiences (Pro Validation)
 - [ ] Advanced upload flow (previews, progress, retry)
 - [ ] Payment-success flow

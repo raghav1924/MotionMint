@@ -1,5 +1,15 @@
 # CHANGELOG.md — MotionMint
 
+## [0.13.0] — 2026-11-25 (Phase 2.10 — Cinematic Homepage & Brand Experience)
+### Added
+- **Cinematic Hero** (`components/home/cinematic-hero.tsx`): Original MotionMint sculptural emblem, calibrated dot-matrix stage, pointer-parallax orbiting live component specimens, mobile specimen strip, and `prefers-reduced-motion` support.
+- **Homepage Storytelling Sections:** `CapabilityStrip` (`components/home/capability-strip.tsx`), `ThemeDifferentiator` (`components/home/theme-differentiator.tsx`), `MotionSoundShowcase` (`components/home/motion-sound-showcase.tsx`), `FlowShowcase` (`components/home/flow-showcase.tsx`), `DeveloperExperienceShowcase` (`components/home/developer-dx.tsx`), and `PricingSection` (`components/home/pricing-section.tsx` with user-configurable effort estimator).
+- **Homepage test suite** (`tests/homepage.test.tsx`) and **`VISUAL_HOMEPAGE_QA.md`**.
+
+### Changed
+- Updated `ExhibitionGallery` (`components/site/exhibition-gallery.tsx`) to showcase 10 live implemented Signature, AI, and Controls components using `--ws-*` minimalist framing and `<MotionMintTheme>`.
+- Updated `Navbar` (`components/site/navbar.tsx`), `AnnouncementBar` (`components/shell/announcement-bar.tsx`), `FaqAccordion` (`components/site/faq-accordion.tsx`), `Footer` (`components/site/footer.tsx`), and `lib/pricing.ts` with accurate counts (`44` components, `50` registry items, `58` theme variants) and `--ws-*` tokens.
+
 ## [0.12.0] — 2026-11-25 (Focused Product Integration Sprint — Flow Orchestrator & Studio Consolidation)
 ### Added
 - **Portable Flow UI Kit** (`registry/flow/`): `BaseNode` (`flow-base-node`), 9 POC-derived typed nodes (`flow-pipeline-nodes`: `InputNode`, `OutputNode`, `TextNode` with `{{ var }}` dynamic handles, `LLMNode`, `WebhookNode`, `HTTPRequestNode`, `JSONTransformNode`, `ConditionNode`, `MergeNode`), and `FlowCanvas` (`flow-canvas`) built on `@xyflow/react`. Registry expanded to **50** validated items.

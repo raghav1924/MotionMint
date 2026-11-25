@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
+import { MotionMintTheme } from "@/components/theme/theme-scope";
 import { cn } from "@/lib/utils";
 
 interface ExhibitionItem {
@@ -14,80 +15,92 @@ interface ExhibitionItem {
   hint: string;
   spanClass: string;
   stageClass: string;
+  theme?: "minimalism" | "dark-mode-ui";
+  mode?: "light" | "dark";
 }
 
 const EXHIBITION_ITEMS: ExhibitionItem[] = [
   {
     slug: "swipe-card-deck",
     title: "Swipe Card Deck",
-    category: "Signature · Media",
-    hint: "Drag cards left/right or use Arrow keys",
+    category: "Signature · Interactive",
+    hint: "Drag cards left/right or press Arrow keys",
     spanClass: "md:col-span-7",
-    stageClass: "min-h-[320px] bg-[var(--mm-surface-subtle)]",
+    stageClass: "min-h-[310px]",
   },
   {
     slug: "thinking-loader",
     title: "Thinking Loader",
-    category: "Signature · AI Status",
-    hint: "Live-region multi-stage status indicator",
+    category: "AI · Status",
+    hint: "Multi-stage live-region reasoning indicator",
     spanClass: "md:col-span-5",
-    stageClass: "min-h-[320px] bg-[#0a0c10] text-zinc-100",
+    stageClass: "min-h-[310px]",
+    theme: "dark-mode-ui",
+    mode: "dark",
   },
   {
-    slug: "flip-card",
-    title: "Direction-Aware Flip Card",
-    category: "Signature · 3D",
-    hint: "Click any edge to flip along that axis",
-    spanClass: "md:col-span-5",
-    stageClass: "min-h-[280px] bg-[var(--mm-surface-subtle)]",
-  },
-  {
-    slug: "dropzone",
-    title: "File Dropzone",
-    category: "Inputs · Validation",
-    hint: "Drag-and-drop or Enter/Space file picker",
-    spanClass: "md:col-span-7",
-    stageClass: "min-h-[280px] bg-[var(--mm-surface-subtle)]",
-  },
-  {
-    slug: "wiggle-text",
-    title: "Wiggle Text",
-    category: "Typography",
-    hint: "Hover characters for staggered spring",
-    spanClass: "md:col-span-4",
-    stageClass: "min-h-[160px] bg-[var(--mm-surface-subtle)]",
-  },
-  {
-    slug: "sound-toggle",
-    title: "Sound & Haptic Toggle",
-    category: "Controls · Audio",
-    hint: "Spring switch + synthesized cue",
-    spanClass: "md:col-span-4",
-    stageClass: "min-h-[160px] bg-[var(--mm-surface-subtle)]",
-  },
-  {
-    slug: "progress-ring",
-    title: "Progress Ring & Bar",
-    category: "Data Viz",
-    hint: "Click to advance tabular progress",
-    spanClass: "md:col-span-4",
-    stageClass: "min-h-[160px] bg-[var(--mm-surface-subtle)]",
-  },
-  {
-    slug: "ripple-button",
-    title: "Ripple & Jelly Buttons",
-    category: "Tactile Buttons",
-    hint: "Pointer-origin ripple feedback",
+    slug: "ai-prompt-composer",
+    title: "AI Prompt Composer",
+    category: "AI · Input",
+    hint: "Structured prompt bar with model & token cues",
     spanClass: "md:col-span-6",
-    stageClass: "min-h-[150px] bg-[var(--mm-surface-subtle)]",
+    stageClass: "min-h-[260px]",
   },
   {
-    slug: "skeleton-shimmer",
-    title: "Skeleton Shimmer",
-    category: "Loaders",
-    hint: "CSS shimmer with reduced-motion fallback",
+    slug: "physical-knob",
+    title: "Physical Knob",
+    category: "Controls · Rotary",
+    hint: "Tactile dial with pointer drag & keyboard steps",
+    spanClass: "md:col-span-3",
+    stageClass: "min-h-[260px]",
+  },
+  {
+    slug: "reaction-arc",
+    title: "Reaction Arc",
+    category: "Controls · Radial",
+    hint: "Curved emoji reaction arc on trigger",
+    spanClass: "md:col-span-3",
+    stageClass: "min-h-[260px]",
+  },
+  {
+    slug: "date-picker",
+    title: "Date Picker",
+    category: "Controls · Scheduling",
+    hint: "Spring-animated calendar popover",
+    spanClass: "md:col-span-4",
+    stageClass: "min-h-[250px]",
+  },
+  {
+    slug: "receipt-printer",
+    title: "Receipt Printer",
+    category: "Controls · Thermal",
+    hint: "Line-by-line thermal receipt reveal",
+    spanClass: "md:col-span-4",
+    stageClass: "min-h-[250px]",
+  },
+  {
+    slug: "scratch-card",
+    title: "Scratch Card",
+    category: "Controls · Canvas",
+    hint: "HTML5 canvas foil reveal with threshold",
+    spanClass: "md:col-span-4",
+    stageClass: "min-h-[250px]",
+  },
+  {
+    slug: "image-generation",
+    title: "Image Generation",
+    category: "AI · Creative",
+    hint: "Prompt-to-preview generation card",
     spanClass: "md:col-span-6",
-    stageClass: "min-h-[150px] bg-[var(--mm-surface-subtle)]",
+    stageClass: "min-h-[240px]",
+  },
+  {
+    slug: "infinity-canvas",
+    title: "Infinity Canvas",
+    category: "Controls · Spatial",
+    hint: "Pan & zoom spatial surface component",
+    spanClass: "md:col-span-6",
+    stageClass: "min-h-[240px]",
   },
 ];
 
@@ -100,45 +113,49 @@ export function ExhibitionGallery() {
         <motion.article
           key={item.slug}
           initial={prefersReduced ? false : { opacity: 0, y: 18 }}
-          whileInView={prefersReduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
-          transition={{ duration: 0.35, delay: Math.min(idx * 0.04, 0.2) }}
-          className={cn("mm-card flex flex-col justify-between p-5 gap-4", item.spanClass)}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{
+            duration: 0.42,
+            delay: prefersReduced ? 0 : (idx % 3) * 0.06,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className={cn(
+            "group flex flex-col justify-between overflow-hidden rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] transition-all hover:border-[var(--ws-border-strong)] hover:shadow-[var(--ws-shadow-floating)]",
+            item.spanClass
+          )}
         >
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--mm-accent)]">
-                {item.category}
-              </p>
-              <h3 className="mt-0.5 text-base font-bold text-[var(--mm-fg)]">
-                {item.title}
-              </h3>
-            </div>
-            <Link
-              href={`/components/${item.slug}`}
-              aria-label={`Open ${item.title} in Component Studio`}
-              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--mm-border-strong)] bg-[var(--mm-surface-elevated)] text-[var(--mm-fg)] hover:border-[var(--mm-accent)] hover:text-[var(--mm-accent)] transition-colors"
-            >
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div
+          <MotionMintTheme
+            theme={item.theme ?? "minimalism"}
+            mode={item.mode ?? "light"}
+            padded
             className={cn(
-              "flex items-center justify-center rounded-[var(--mm-radius-sm)] border border-[var(--mm-border)] p-5",
+              "flex w-full items-center justify-center overflow-hidden rounded-none border-0 border-b border-[var(--ws-border-subtle)] p-6",
               item.stageClass
             )}
           >
             <ComponentLivePreview slug={item.slug} />
-          </div>
+          </MotionMintTheme>
 
-          <div className="flex items-center justify-between text-xs text-[var(--mm-fg-subtle)]">
-            <span>{item.hint}</span>
+          <div className="flex items-center justify-between gap-3 px-5 py-4">
+            <div className="min-w-0 space-y-0.5">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--ws-text-muted)]">
+                  {item.category}
+                </span>
+              </div>
+              <h3 className="truncate text-sm font-semibold text-[var(--ws-text-primary)]">
+                {item.title}
+              </h3>
+              <p className="truncate text-xs text-[var(--ws-text-secondary)]">{item.hint}</p>
+            </div>
+
             <Link
               href={`/components/${item.slug}`}
-              className="font-medium text-[var(--mm-accent)] hover:underline"
+              aria-label={`Open ${item.title} in Component Studio`}
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-primary)] transition-colors group-hover:bg-[var(--ws-text-primary)] group-hover:text-[var(--ws-bg)]"
             >
-              Open Studio →
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
         </motion.article>
