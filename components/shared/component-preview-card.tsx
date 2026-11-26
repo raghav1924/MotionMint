@@ -45,7 +45,7 @@ import { VisualKeyboard } from "@/registry/components/keyboard";
 import { InfinityCanvas } from "@/registry/components/infinity-canvas";
 import { ScratchCard } from "@/registry/components/scratch-card";
 import { HalftonePopover } from "@/registry/components/halftone-popover";
-import { ShaderBackground } from "@/registry/components/shader-background";
+import { ShaderBackground, SHADER_PRESETS, type ShaderPresetId } from "@/registry/components/shader-background";
 
 const DEMO_CARDS: DeckCardItem[] = [
   {
@@ -68,7 +68,13 @@ const DEMO_CARDS: DeckCardItem[] = [
   },
 ];
 
-export function ComponentLivePreview({ slug }: { slug: string }) {
+export function ComponentLivePreview({
+  slug,
+  shaderPreset = "silk",
+}: {
+  slug: string;
+  shaderPreset?: ShaderPresetId;
+}) {
   const [toggleOn, setToggleOn] = useState(true);
   const [progress, setProgress] = useState(68);
 
@@ -350,25 +356,27 @@ export function ComponentLivePreview({ slug }: { slug: string }) {
           <p className="text-xs text-[var(--mm-muted)]">Expressive SVG dot-matrix backdrop.</p>
         </HalftonePopover>
       );
-    case "shader-background":
+    case "shader-background": {
+      const meta = SHADER_PRESETS[shaderPreset] ?? SHADER_PRESETS.silk;
       return (
         <ShaderBackground
-          preset="silk"
+          preset={meta.id}
           speed={0.7}
           intensity={1}
           interactive
-          className="flex h-[180px] w-full items-center justify-center rounded-xl border border-white/10 p-4 text-center text-white"
+          className={`flex h-[180px] w-full items-center justify-center rounded-xl border border-white/10 p-4 text-center ${
+            meta.id === "pastel" ? "text-slate-900" : "text-white"
+          }`}
         >
           <div className="flex h-full flex-col items-center justify-center gap-1">
             <span className="font-mono text-[10px] uppercase tracking-widest opacity-80">
-              WebGL · 6 Presets
+              {meta.look} · WebGL
             </span>
-            <p className="text-sm font-semibold tracking-tight">
-              Generative Shader Canvas
-            </p>
+            <p className="text-sm font-semibold tracking-tight">{meta.label}</p>
           </div>
         </ShaderBackground>
       );
+    }
     case "flip-card":
       return (
         <FlipCard

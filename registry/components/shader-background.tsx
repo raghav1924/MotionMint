@@ -4,17 +4,24 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 export type ShaderPresetId =
   | "silk"
-  | "aurora"
+  | "liquid-gold"
+  | "contour"
   | "mercury"
+  | "pastel"
+  | "aurora"
   | "flow"
   | "noise"
-  | "energy";
+  | "energy"
+  | "fluted-glass"
+  | "topography";
 
+export type ShaderLookCategory = "premium" | "simple" | "modern";
 export type ShaderQuality = "low" | "medium" | "high";
 
 export interface ShaderPresetMeta {
   id: ShaderPresetId;
   label: string;
+  look: ShaderLookCategory;
   description: string;
   defaultColors: [string, string, string];
   index: number;
@@ -24,34 +31,63 @@ export const SHADER_PRESETS: Record<ShaderPresetId, ShaderPresetMeta> = {
   silk: {
     id: "silk",
     label: "Silk",
+    look: "premium",
     description: "Flowing organic ribbons with soft specular highlights.",
     defaultColors: ["#6366F1", "#EC4899", "#0F172A"],
     index: 0,
   },
-  aurora: {
-    id: "aurora",
-    label: "Aurora",
-    description: "Soft flowing northern-lights color fields with gentle drift.",
-    defaultColors: ["#10B981", "#06B6D4", "#090D16"],
-    index: 1,
+  "liquid-gold": {
+    id: "liquid-gold",
+    label: "Liquid Satin",
+    look: "premium",
+    description: "Glossy royal-violet and amber-gold 3D liquid folds.",
+    defaultColors: ["#4F2BFF", "#F59E0B", "#160B38"],
+    index: 6,
+  },
+  contour: {
+    id: "contour",
+    label: "Liquid Contour",
+    look: "premium",
+    description: "High-contrast cobalt and amber swirling topographic bands.",
+    defaultColors: ["#1D4ED8", "#F59E0B", "#05070E"],
+    index: 7,
   },
   mercury: {
     id: "mercury",
     label: "Mercury",
+    look: "premium",
     description: "Chrome reflections and liquid metallic ridges.",
     defaultColors: ["#E2E8F0", "#64748B", "#0F172A"],
     index: 2,
   },
+  pastel: {
+    id: "pastel",
+    label: "Soft Pastel",
+    look: "simple",
+    description: "Airy directional sweep of rose, pure white, and violet.",
+    defaultColors: ["#FF7EB6", "#FFFFFF", "#8B5CF6"],
+    index: 8,
+  },
+  aurora: {
+    id: "aurora",
+    label: "Aurora",
+    look: "simple",
+    description: "Soft flowing northern-lights color fields with gentle drift.",
+    defaultColors: ["#10B981", "#06B6D4", "#090D16"],
+    index: 1,
+  },
   flow: {
     id: "flow",
     label: "Flow",
-    description: "Soft waves, gradients, and evolving fluid fields.",
+    look: "simple",
+    description: "Clean, calm fluid gradients for editorial surfaces.",
     defaultColors: ["#3B82F6", "#8B5CF6", "#0B1120"],
     index: 3,
   },
   noise: {
     id: "noise",
     label: "Noise",
+    look: "modern",
     description: "Procedural FBM noise, subtle grain, and organic distortion.",
     defaultColors: ["#F59E0B", "#EF4444", "#18181B"],
     index: 4,
@@ -59,9 +95,26 @@ export const SHADER_PRESETS: Record<ShaderPresetId, ShaderPresetMeta> = {
   energy: {
     id: "energy",
     label: "Energy",
+    look: "modern",
     description: "Grid distortion, luminous interference fields, and pulse.",
     defaultColors: ["#22D3EE", "#A855F7", "#050510"],
     index: 5,
+  },
+  "fluted-glass": {
+    id: "fluted-glass",
+    label: "Fluted Glass",
+    look: "modern",
+    description: "Vertical ribbed glass refraction with subtle chromatic edges.",
+    defaultColors: ["#F8FAFC", "#64748B", "#09090B"],
+    index: 9,
+  },
+  topography: {
+    id: "topography",
+    label: "Topography",
+    look: "simple",
+    description: "Crisp flat vector-style organic contour bands in motion.",
+    defaultColors: ["#1EA7D8", "#38BDF8", "#1446A0"],
+    index: 10,
   },
 };
 
@@ -164,6 +217,14 @@ float fbm(vec2 p) {
   return value;
 }
 
+float liquidHeight(vec2 p, float t, float dist) {
+  vec2 q = vec2(
+    fbm(p + vec2(t * 0.14, -t * 0.1)),
+    fbm(p + vec2(5.2, 1.3) + vec2(-t * 0.11, t * 0.13))
+  );
+  return fbm(p + q * (1.75 * dist) + vec2(t * 0.09, -t * 0.08));
+}
+
 void main() {
   vec2 aspect = vec2(u_resolution.x / max(u_resolution.y, 1.0), 1.0);
   vec2 uv = (v_uv - 0.5) * aspect;
@@ -213,7 +274,7 @@ void main() {
     col = mix(u_color2, u_color0, smoothstep(0.2, 0.8, n) * u_intensity);
     col = mix(col, u_color1, smoothstep(0.45, 0.95, n) * 0.75 * u_intensity);
     col += grain;
-  } else {
+  } else if (u_preset == 5) {
     // 06 — Energy: luminous interference grid
     vec2 warped = p + vec2(fbm(p + t * 0.2), fbm(p - t * 0.2)) * 0.55 * u_distortion;
     float gridX = abs(sin(warped.x * 4.5));
@@ -222,6 +283,66 @@ void main() {
     float pulse = 0.5 + 0.5 * sin(t * 0.9 - length(uv) * 3.0);
     col = mix(u_color2, u_color0, clamp(field * 0.75, 0.0, 1.0));
     col = mix(col, u_color1, clamp(field * pulse, 0.0, 1.0));
+  } else if (u_preset == 6) {
+    // 07 — Liquid Satin: glossy 3D folds with finite-difference normal shading
+    float e = 0.025;
+    float h = liquidHeight(p * 0.85, t, u_distortion);
+    float hx = liquidHeight((p + vec2(e, 0.0)) * 0.85, t, u_distortion);
+    float hy = liquidHeight((p + vec2(0.0, e)) * 0.85, t, u_distortion);
+    vec3 normal = normalize(vec3((h - hx) / e, (h - hy) / e, 1.2));
+    vec3 lightDir = normalize(vec3(0.45, 0.65, 1.0));
+    float diff = clamp(dot(normal, lightDir), 0.0, 1.0);
+    float spec = pow(clamp(dot(normal, normalize(lightDir + vec3(0.0, 0.0, 1.0))), 0.0, 1.0), 14.0);
+    float fold = smoothstep(0.32, 0.68, h);
+    col = mix(u_color2, u_color0, smoothstep(0.18, 0.72, diff) * u_intensity);
+    col = mix(col, u_color1, smoothstep(0.46, 0.82, fold + spec * 0.35) * 0.9);
+    col += u_color1 * spec * 0.28 * u_intensity;
+  } else if (u_preset == 7) {
+    // 08 — Liquid Contour: bold swirling topographic bands
+    float h = liquidHeight(p * 1.05, t * 0.85, u_distortion);
+    float bands = sin(h * 18.0);
+    float primaryMask = smoothstep(-0.15, 0.35, bands);
+    float goldMask = smoothstep(0.65, 0.96, bands);
+    float crevice = smoothstep(-0.85, -0.35, bands);
+    col = mix(u_color2, u_color0, primaryMask * crevice * u_intensity);
+    col = mix(col, u_color1, goldMask * 0.95 * u_intensity);
+  } else if (u_preset == 8) {
+    // 09 — Soft Pastel: airy modern brushed directional sweep
+    vec2 dir = vec2(p.x * 0.7 + p.y * 0.45, p.y * 0.85 - p.x * 0.25);
+    float brush = fbm(vec2(dir.x * 0.7 + t * 0.08, dir.y * 2.4 - t * 0.05) * u_distortion);
+    float sweep = smoothstep(-0.7, 0.75, uv.x * 0.85 + (brush - 0.5) * 0.65);
+    float coreGlow = smoothstep(0.72, 0.08, length(uv - vec2(-0.08, -0.15)) - (brush - 0.5) * 0.25);
+    col = mix(u_color0, u_color2, sweep);
+    col = mix(col, u_color1, clamp(coreGlow * 0.88 * u_intensity, 0.0, 1.0));
+  } else if (u_preset == 9) {
+    // 10 — Fluted Glass: vertical cylindrical glass ribs with chromatic refraction
+    float ribCount = 16.0 + u_distortion * 6.0;
+    float ribPos = v_uv.x * ribCount;
+    float ribPhase = fract(ribPos) - 0.5;
+    float lensOffset = sin(ribPhase * 3.14159265) * (0.09 + 0.05 * u_distortion);
+
+    vec2 baseUv = uv * 1.15 + vec2(pointerWarp * 0.25, u_scroll * 0.25);
+    float hR = liquidHeight(baseUv + vec2(lensOffset * 1.25, 0.0), t * 0.85, 0.9);
+    float hG = liquidHeight(baseUv + vec2(lensOffset * 1.0, 0.0), t * 0.85, 0.9);
+    float hB = liquidHeight(baseUv + vec2(lensOffset * 0.75, 0.0), t * 0.85, 0.9);
+
+    vec3 glassSample = vec3(
+      smoothstep(0.24, 0.78, hR),
+      smoothstep(0.24, 0.78, hG),
+      smoothstep(0.24, 0.78, hB)
+    );
+    vec3 tinted = mix(u_color2, mix(u_color1, u_color0, glassSample), clamp(glassSample * u_intensity, 0.0, 1.0));
+    float ridge = pow(clamp(abs(ribPhase) * 2.0, 0.0, 1.0), 5.0);
+    float groove = smoothstep(0.42, 0.5, abs(ribPhase));
+    col = mix(tinted, u_color2 * 0.6, groove * 0.55);
+    col += u_color0 * ridge * 0.18 * u_intensity;
+  } else {
+    // 11 — Topography: crisp flat vector-style organic contour bands
+    float elev = fbm(p * 0.85 + vec2(t * 0.09, -t * 0.07))
+               + 0.45 * fbm(p * 0.55 - vec2(t * 0.06, t * 0.08));
+    float wave = sin(elev * (11.0 + u_distortion * 5.0));
+    float bandMask = smoothstep(0.14, 0.21, wave);
+    col = mix(u_color2, u_color0, bandMask * clamp(u_intensity, 0.4, 1.0));
   }
 
   gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);

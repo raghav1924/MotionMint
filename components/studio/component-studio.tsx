@@ -141,6 +141,16 @@ export function ComponentStudio({
     return () => setActiveComponentSlug(null);
   }, [item.slug, setActiveComponentSlug]);
 
+  React.useEffect(() => {
+    if (item.slug !== "shader-background" || typeof window === "undefined") return;
+    const presetParam = new URLSearchParams(window.location.search).get("preset") as ShaderPresetId | null;
+    if (presetParam && SHADER_PRESETS[presetParam]) {
+      setShaderPreset(presetParam);
+      setShaderColors(SHADER_PRESETS[presetParam].defaultColors);
+      setShaderBgColor(SHADER_PRESETS[presetParam].defaultColors[2]);
+    }
+  }, [item.slug]);
+
   const [inspectorOpen, setInspectorOpen] = useState(true);
   const [mobileInspectorOpen, setMobileInspectorOpen] = useState(false);
   const [stageTab, setStageTab] = useState<"preview" | "code" | "compare">("preview");
@@ -553,16 +563,31 @@ export function ComponentStudio({
             quality={shaderQuality}
             backgroundColor={shaderBgColor}
             reducedMotion={simReducedMotion}
-            className="flex min-h-[280px] w-full flex-col items-center justify-center rounded-2xl border border-white/10 p-6 text-center text-white"
+            className={cn(
+              "flex min-h-[280px] w-full flex-col items-center justify-center rounded-2xl border border-white/10 p-6 text-center",
+              shaderPreset === "pastel" ? "text-slate-900" : "text-white"
+            )}
           >
             <div className="flex h-full flex-col items-center justify-center gap-2.5">
-              <span className="rounded-full border border-white/20 bg-black/25 px-3 py-0.5 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm">
-                {SHADER_PRESETS[shaderPreset].label} · WebGL
+              <span
+                className={cn(
+                  "rounded-full border px-3 py-0.5 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm",
+                  shaderPreset === "pastel"
+                    ? "border-slate-900/15 bg-white/60 text-slate-800"
+                    : "border-white/20 bg-black/25 text-white"
+                )}
+              >
+                {SHADER_PRESETS[shaderPreset].label} · {SHADER_PRESETS[shaderPreset].look}
               </span>
               <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
                 Build something extraordinary.
               </h3>
-              <p className="max-w-sm text-xs text-white/80">
+              <p
+                className={cn(
+                  "max-w-sm text-xs",
+                  shaderPreset === "pastel" ? "text-slate-700" : "text-white/80"
+                )}
+              >
                 Your content, surrounded by generative motion.
               </p>
             </div>

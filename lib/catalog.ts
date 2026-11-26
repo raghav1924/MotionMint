@@ -1457,7 +1457,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     tier: "free",
     status: "implemented",
     description:
-      "Raw WebGL GPU-powered generative canvas background with 6 presets (Silk, Aurora, Mercury, Flow, Noise, Energy), pointer/scroll reactivity, DPR capping, visibility pause, and CSS gradient fallback.",
+      "Raw WebGL GPU-powered generative canvas background with 9 presets across Premium (Silk, Liquid Satin, Liquid Contour, Mercury), Simple (Soft Pastel, Aurora, Flow), and Modern (Noise, Energy) looks.",
     dependencies: ["react"],
     supportsSound: false,
     supportsHaptics: false,

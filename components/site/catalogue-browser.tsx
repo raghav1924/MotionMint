@@ -16,6 +16,7 @@ import { ALL_INTERACTION_TYPES, INTERACTION_LABELS } from "@/lib/catalog-interac
 import { FULL_INVENTORY } from "@/lib/inventory";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
 import { VisibilityPreview } from "@/components/shared/visibility-preview";
+import { SHADER_PRESETS, type ShaderPresetId } from "@/registry/components/shader-background";
 import { cn } from "@/lib/utils";
 
 const LARGE_STAGE_SLUGS = new Set([
@@ -410,9 +411,61 @@ export function CatalogueBrowser() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                  {items.map((item) => {
+                  {items.flatMap((item) => {
+                    if (item.slug === "shader-background") {
+                      return (Object.keys(SHADER_PRESETS) as ShaderPresetId[]).map((presetId) => {
+                        const meta = SHADER_PRESETS[presetId];
+                        return (
+                          <div
+                            key={`${item.slug}-${presetId}`}
+                            className="group flex flex-col rounded-[20px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-2 transition-all duration-150 hover:-translate-y-0.5 hover:border-[var(--ws-border-strong)] hover:shadow-[var(--ws-shadow-floating)]"
+                          >
+                            <div className="relative flex min-h-[220px] items-center justify-center overflow-hidden rounded-[14px] border border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] p-3">
+                              <VisibilityPreview className="flex w-full items-center justify-center">
+                                <ComponentLivePreview slug={item.slug} shaderPreset={presetId} />
+                              </VisibilityPreview>
+                              <span className="pointer-events-none absolute bottom-2 left-2.5 rounded-full bg-[var(--ws-floating)]/90 px-2 py-0.5 text-[10px] text-[var(--ws-text-muted)] opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+                                {item.interactionHint}
+                              </span>
+                            </div>
+
+                            <div className="flex items-start justify-between gap-2 px-2.5 pt-3 pb-1.5">
+                              <div className="min-w-0 space-y-1">
+                                <Link
+                                  href={`/components/shader-background?preset=${presetId}`}
+                                  className="flex items-center gap-1.5 text-[14px] font-medium text-[var(--ws-text-primary)] hover:underline"
+                                >
+                                  <span className="truncate">{meta.label}</span>
+                                </Link>
+                                <div className="flex flex-wrap items-center gap-1">
+                                  <span className="rounded-md bg-[var(--ws-bg)] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[var(--ws-text-secondary)]">
+                                    {meta.look}
+                                  </span>
+                                  {item.interactions.slice(0, 2).map((tag) => (
+                                    <span
+                                      key={tag}
+                                      className="rounded-md bg-[var(--ws-bg)] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[var(--ws-text-muted)]"
+                                    >
+                                      {INTERACTION_LABELS[tag]}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                              <Link
+                                href={`/components/shader-background?preset=${presetId}`}
+                                aria-label={`Inspect ${meta.label} shader`}
+                                className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[var(--ws-border)] text-[var(--ws-text-secondary)] transition-colors group-hover:bg-[var(--ws-text-primary)] group-hover:text-[var(--ws-bg)]"
+                              >
+                                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                              </Link>
+                            </div>
+                          </div>
+                        );
+                      });
+                    }
+
                     const largeStage = LARGE_STAGE_SLUGS.has(item.slug);
-                    return (
+                    return [(
                       <div
                         key={item.slug}
                         className="group flex flex-col rounded-[20px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-2 transition-all duration-150 hover:-translate-y-0.5 hover:border-[var(--ws-border-strong)] hover:shadow-[var(--ws-shadow-floating)]"
@@ -465,7 +518,7 @@ export function CatalogueBrowser() {
                           </Link>
                         </div>
                       </div>
-                    );
+                    )];
                   })}
                 </div>
               </section>

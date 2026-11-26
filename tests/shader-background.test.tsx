@@ -24,7 +24,19 @@ describe("ShaderBackground — Raw WebGL Generative Canvas", () => {
     vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
 
     const presets = Object.keys(SHADER_PRESETS) as ShaderPresetId[];
-    expect(presets).toEqual(["silk", "aurora", "mercury", "flow", "noise", "energy"]);
+    expect(presets).toEqual([
+      "silk",
+      "liquid-gold",
+      "contour",
+      "mercury",
+      "pastel",
+      "aurora",
+      "flow",
+      "noise",
+      "energy",
+      "fluted-glass",
+      "topography",
+    ]);
 
     for (const preset of presets) {
       const { container, unmount } = render(
