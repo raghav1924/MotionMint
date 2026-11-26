@@ -15,7 +15,8 @@ export type ShaderPresetId =
   | "fluted-glass"
   | "topography"
   | "prism"
-  | "kinetic-torus";
+  | "kinetic-torus"
+  | "particle-helix";
 
 export type ShaderLookCategory = "premium" | "simple" | "modern";
 export type ShaderQuality = "low" | "medium" | "high";
@@ -133,6 +134,14 @@ export const SHADER_PRESETS: Record<ShaderPresetId, ShaderPresetMeta> = {
     description: "3D sculpted radial-ribbed torus rotating with studio rim lighting.",
     defaultColors: ["#8B5CF6", "#E2E8F0", "#070709"],
     index: 12,
+  },
+  "particle-helix": {
+    id: "particle-helix",
+    label: "Particle Helix",
+    look: "modern",
+    description: "Dotted 3D double-helix particle strand with depth shading.",
+    defaultColors: ["#F8FAFC", "#94A3B8", "#06070A"],
+    index: 13,
   },
 };
 
@@ -397,7 +406,7 @@ void main() {
     vec3 prismGlow = mix(caustic, spectrum, 0.38) * edgeMask * u_intensity;
     col = mix(u_color2, u_color0, caustic.g * 0.92 * u_intensity);
     col += prismGlow * 0.65;
-  } else {
+  } else if (u_preset == 12) {
     // 13 — Kinetic Torus: 3D sculpted radial-ribbed torus with studio rim lighting
     vec2 tilt = (u_mouse - 0.5) * u_pointerStrength * 0.9;
     vec3 ro = vec3(0.0, 0.0, 2.05);
@@ -442,6 +451,38 @@ void main() {
           + u_color0 * (diffA * 0.72 + fresnel * 0.55) * u_intensity
           + u_color1 * (diffB * 0.55 + pow(diffA, 6.0) * 0.45) * u_intensity;
     }
+  } else {
+    // 14 — Particle Helix: dotted 3D double-helix strand on deep obsidian
+    float a = -0.52;
+    mat2 rot = mat2(cos(a), -sin(a), sin(a), cos(a));
+    vec2 huv = rot * (uv + (u_mouse - 0.5) * u_pointerStrength * 0.14);
+
+    float density = 42.0 + u_distortion * 12.0;
+    vec2 cellId = floor(huv * density);
+    vec2 cellUv = fract(huv * density) - 0.5;
+    vec2 cp = cellId / density;
+
+    float phase = cp.x * (4.6 + u_distortion * 1.4) + t * 1.1;
+    float s1 = sin(phase) * 0.24;
+    float s2 = sin(phase + 3.14159265) * 0.24;
+    float z1 = 0.55 + 0.45 * cos(phase);
+    float z2 = 0.55 + 0.45 * cos(phase + 3.14159265);
+
+    float strand1 = smoothstep(0.11, 0.015, abs(cp.y - s1));
+    float strand2 = smoothstep(0.11, 0.015, abs(cp.y - s2));
+    float spanMask = smoothstep(max(abs(s1), abs(s2)) + 0.02, max(abs(s1), abs(s2)) - 0.02, abs(cp.y));
+    float rungWave = smoothstep(0.55, 0.92, cos(cp.x * 24.0 + t * 1.1));
+    float rung = spanMask * rungWave * 0.75;
+
+    float jitter = hash(cellId);
+    float densityMask = max(max(strand1, strand2), rung);
+    float dotRadius = (0.14 + 0.24 * densityMask) * (0.65 + 0.35 * jitter);
+    float dot = smoothstep(dotRadius, dotRadius * 0.35, length(cellUv));
+
+    float depth = mix(z2, z1, step(abs(cp.y - s1), abs(cp.y - s2)));
+    float alpha = dot * densityMask * step(0.15, jitter + densityMask * 0.65);
+    vec3 particleCol = mix(u_color1, u_color0, clamp(depth * u_intensity, 0.0, 1.0));
+    col = mix(u_color2, particleCol, clamp(alpha * (0.45 + 0.55 * depth), 0.0, 1.0));
   }
 
   gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
