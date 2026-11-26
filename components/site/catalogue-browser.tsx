@@ -26,6 +26,7 @@ const LARGE_STAGE_SLUGS = new Set([
   "card-stack",
   "receipt-printer",
   "swipe-card-deck",
+  "shader-background",
 ]);
 
 export function CatalogueBrowser() {

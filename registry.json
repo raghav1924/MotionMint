@@ -774,6 +774,20 @@
           "target": "components/motionmint/flow/flow-canvas.tsx"
         }
       ]
+    },
+    {
+      "name": "shader-background",
+      "type": "registry:component",
+      "title": "Shader Background",
+      "description": "Raw WebGL GPU-powered generative canvas background with 6 presets, pointer/scroll reactivity, DPR capping, visibility pause, and CSS gradient fallback.",
+      "dependencies": ["react"],
+      "files": [
+        {
+          "path": "registry/components/shader-background.tsx",
+          "type": "registry:component",
+          "target": "components/motionmint/shader-background.tsx"
+        }
+      ]
     }
   ]
 }

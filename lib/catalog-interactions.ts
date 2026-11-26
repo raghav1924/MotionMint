@@ -284,6 +284,12 @@ const CAPABILITY_MAP: Record<string, CapabilityOverride> = {
     interactionHint: "Click or hover trigger to open popover",
     adjustable: true,
   },
+  "shader-background": {
+    interactions: ["hover", "scroll"],
+    interactionHint: "Move pointer across canvas to distort",
+    adjustable: true,
+    isNew: true,
+  },
 };
 
 export function resolveComponentCapabilities(params: {

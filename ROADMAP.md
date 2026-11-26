@@ -112,6 +112,9 @@
 - [x] **Redesigned Motion Lab & Sound Lab:** Replaced dashboard cards on `/motion` and `/sounds` with prominent central stages, waveform visualizer, `<MotionMintTheme>` scoped previews, and `DeviceFrames` viewport switching.
 - [x] Wave 3+ component development remains paused.
 
+## Backgrounds Category — Flagship Component `[COMPLETE]`
+- [x] `shader-background` (`registry/components/shader-background.tsx`): Raw WebGL GPU-powered generative canvas with 6 presets (`silk`, `aurora`, `mercury`, `flow`, `noise`, `energy`), pointer/scroll reactivity, DPR capping, visibility pause, reduced-motion static frame, CSS gradient fallback, and full Component Studio integration (`51` registry items).
+
 ## Phase 2.13 — Bencho-Inspired Interactive Component Experience `[COMPLETE]`
 - [x] Audited `bencho.dev` and documented findings in `docs/research/BENCHO_UI_RESEARCH.md`
 - [x] Extended `CatalogItem` (`lib/catalog.ts`, `lib/catalog-interactions.ts`) with typed `InteractionType[]`, `interactionHint`, `livePreview`, `adjustable`, `comparisonSupported`, `soundSupported`, `motionSupported`, and `isNew`

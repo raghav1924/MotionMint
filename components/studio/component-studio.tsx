@@ -76,6 +76,12 @@ import { InfinityCanvas } from "@/registry/components/infinity-canvas";
 import { ScratchCard } from "@/registry/components/scratch-card";
 import { HalftonePopover } from "@/registry/components/halftone-popover";
 import {
+  ShaderBackground,
+  SHADER_PRESETS,
+  type ShaderPresetId,
+  type ShaderQuality,
+} from "@/registry/components/shader-background";
+import {
   DesktopBrowserFrame,
   TabletPreviewFrame,
   MobileDeviceFrame,
@@ -172,6 +178,19 @@ export function ComponentStudio({
   const [orbState, setOrbState] = useState<"idle" | "listening" | "speaking">("listening");
   const [pixelProgress, setPixelProgress] = useState(72);
   const [imageGenStatus, setImageGenStatus] = useState<"idle" | "generating" | "complete" | "error">("complete");
+  const [shaderPreset, setShaderPreset] = useState<ShaderPresetId>("silk");
+  const [shaderColors, setShaderColors] = useState<[string, string, string]>(
+    SHADER_PRESETS.silk.defaultColors
+  );
+  const [shaderSpeed, setShaderSpeed] = useState(0.7);
+  const [shaderIntensity, setShaderIntensity] = useState(1);
+  const [shaderDistortion, setShaderDistortion] = useState(1);
+  const [shaderOpacity, setShaderOpacity] = useState(1);
+  const [shaderInteractive, setShaderInteractive] = useState(true);
+  const [shaderPointerStrength, setShaderPointerStrength] = useState(0.6);
+  const [shaderScrollReactive, setShaderScrollReactive] = useState(false);
+  const [shaderQuality, setShaderQuality] = useState<ShaderQuality>("medium");
+  const [shaderBgColor, setShaderBgColor] = useState("#0F172A");
 
   const categories = Array.from(new Set(CATALOG_ITEMS.map((c) => c.category)));
 
@@ -518,6 +537,36 @@ export function ComponentStudio({
               SVG dot-matrix backdrop with outside-click and Escape handling.
             </p>
           </HalftonePopover>
+        );
+      case "shader-background":
+        return (
+          <ShaderBackground
+            preset={shaderPreset}
+            colors={shaderColors}
+            speed={shaderSpeed}
+            intensity={shaderIntensity}
+            distortion={shaderDistortion}
+            opacity={shaderOpacity}
+            interactive={shaderInteractive}
+            pointerStrength={shaderPointerStrength}
+            scrollReactive={shaderScrollReactive}
+            quality={shaderQuality}
+            backgroundColor={shaderBgColor}
+            reducedMotion={simReducedMotion}
+            className="flex min-h-[280px] w-full flex-col items-center justify-center rounded-2xl border border-white/10 p-6 text-center text-white"
+          >
+            <div className="flex h-full flex-col items-center justify-center gap-2.5">
+              <span className="rounded-full border border-white/20 bg-black/25 px-3 py-0.5 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm">
+                {SHADER_PRESETS[shaderPreset].label} · WebGL
+              </span>
+              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                Build something extraordinary.
+              </h3>
+              <p className="max-w-sm text-xs text-white/80">
+                Your content, surrounded by generative motion.
+              </p>
+            </div>
+          </ShaderBackground>
         );
       case "flip-card":
         return (
@@ -995,6 +1044,186 @@ export function ComponentStudio({
                 value={pixelProgress}
                 onChange={(e) => setPixelProgress(Number(e.target.value))}
                 className="w-full accent-[var(--ws-accent)]"
+              />
+            </label>
+          </div>
+        );
+      case "shader-background":
+        return (
+          <div className="space-y-3.5 text-xs text-[var(--ws-text-secondary)]">
+            <div className="space-y-1.5">
+              <p>Shader Preset</p>
+              <div className="grid grid-cols-3 gap-1.5">
+                {(Object.keys(SHADER_PRESETS) as ShaderPresetId[]).map((id) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => {
+                      setShaderPreset(id);
+                      setShaderColors(SHADER_PRESETS[id].defaultColors);
+                      setShaderBgColor(SHADER_PRESETS[id].defaultColors[2]);
+                    }}
+                    className={cn(
+                      "rounded-md border px-2 py-1 text-[11px] font-medium capitalize cursor-pointer",
+                      shaderPreset === id
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
+                    )}
+                  >
+                    {SHADER_PRESETS[id].label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span>Palette</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShaderColors(SHADER_PRESETS[shaderPreset].defaultColors);
+                    setShaderBgColor(SHADER_PRESETS[shaderPreset].defaultColors[2]);
+                  }}
+                  className="text-[10px] underline cursor-pointer"
+                >
+                  Reset palette
+                </button>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {shaderColors.map((c, idx) => (
+                  <label key={idx} className="flex flex-col items-center gap-1">
+                    <input
+                      type="color"
+                      aria-label={`Shader color ${idx + 1}`}
+                      value={c}
+                      onChange={(e) => {
+                        const next = [...shaderColors] as [string, string, string];
+                        next[idx] = e.target.value;
+                        setShaderColors(next);
+                      }}
+                      className="h-7 w-full cursor-pointer rounded border border-[var(--ws-border)] bg-transparent p-0.5"
+                    />
+                    <span className="font-mono text-[9px]">{c}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <label className="block space-y-1">
+              <span>Speed ({shaderSpeed.toFixed(2)})</span>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="0.05"
+                value={shaderSpeed}
+                onChange={(e) => setShaderSpeed(Number(e.target.value))}
+                className="w-full"
+              />
+            </label>
+
+            <label className="block space-y-1">
+              <span>Intensity ({shaderIntensity.toFixed(2)})</span>
+              <input
+                type="range"
+                min="0.2"
+                max="1.8"
+                step="0.05"
+                value={shaderIntensity}
+                onChange={(e) => setShaderIntensity(Number(e.target.value))}
+                className="w-full"
+              />
+            </label>
+
+            <label className="block space-y-1">
+              <span>Distortion ({shaderDistortion.toFixed(2)})</span>
+              <input
+                type="range"
+                min="0.2"
+                max="2"
+                step="0.05"
+                value={shaderDistortion}
+                onChange={(e) => setShaderDistortion(Number(e.target.value))}
+                className="w-full"
+              />
+            </label>
+
+            <label className="block space-y-1">
+              <span>Opacity ({Math.round(shaderOpacity * 100)}%)</span>
+              <input
+                type="range"
+                min="0.1"
+                max="1"
+                step="0.05"
+                value={shaderOpacity}
+                onChange={(e) => setShaderOpacity(Number(e.target.value))}
+                className="w-full"
+              />
+            </label>
+
+            <label className="flex items-center justify-between gap-2 cursor-pointer">
+              <span>Pointer Reactive</span>
+              <input
+                type="checkbox"
+                checked={shaderInteractive}
+                onChange={(e) => setShaderInteractive(e.target.checked)}
+              />
+            </label>
+
+            {shaderInteractive && (
+              <label className="block space-y-1">
+                <span>Pointer Strength ({shaderPointerStrength.toFixed(2)})</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="1.5"
+                  step="0.05"
+                  value={shaderPointerStrength}
+                  onChange={(e) => setShaderPointerStrength(Number(e.target.value))}
+                  className="w-full"
+                />
+              </label>
+            )}
+
+            <label className="flex items-center justify-between gap-2 cursor-pointer">
+              <span>Scroll Reactive</span>
+              <input
+                type="checkbox"
+                checked={shaderScrollReactive}
+                onChange={(e) => setShaderScrollReactive(e.target.checked)}
+              />
+            </label>
+
+            <div className="space-y-1.5">
+              <p>Quality (DPR Cap)</p>
+              <div className="flex gap-1.5">
+                {(["low", "medium", "high"] as ShaderQuality[]).map((q) => (
+                  <button
+                    key={q}
+                    type="button"
+                    onClick={() => setShaderQuality(q)}
+                    className={cn(
+                      "flex-1 rounded-md border py-1 capitalize cursor-pointer",
+                      shaderQuality === q
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
+                    )}
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <label className="flex items-center justify-between gap-2">
+              <span>Background Color</span>
+              <input
+                type="color"
+                aria-label="Shader background color"
+                value={shaderBgColor}
+                onChange={(e) => setShaderBgColor(e.target.value)}
+                className="h-7 w-12 cursor-pointer rounded border border-[var(--ws-border)] bg-transparent p-0.5"
               />
             </label>
           </div>

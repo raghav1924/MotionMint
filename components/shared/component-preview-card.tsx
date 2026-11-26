@@ -45,6 +45,7 @@ import { VisualKeyboard } from "@/registry/components/keyboard";
 import { InfinityCanvas } from "@/registry/components/infinity-canvas";
 import { ScratchCard } from "@/registry/components/scratch-card";
 import { HalftonePopover } from "@/registry/components/halftone-popover";
+import { ShaderBackground } from "@/registry/components/shader-background";
 
 const DEMO_CARDS: DeckCardItem[] = [
   {
@@ -348,6 +349,25 @@ export function ComponentLivePreview({ slug }: { slug: string }) {
         <HalftonePopover triggerLabel="Inspect" title="Halftone Layer">
           <p className="text-xs text-[var(--mm-muted)]">Expressive SVG dot-matrix backdrop.</p>
         </HalftonePopover>
+      );
+    case "shader-background":
+      return (
+        <ShaderBackground
+          preset="silk"
+          speed={0.7}
+          intensity={1}
+          interactive
+          className="flex h-[180px] w-full items-center justify-center rounded-xl border border-white/10 p-4 text-center text-white"
+        >
+          <div className="flex h-full flex-col items-center justify-center gap-1">
+            <span className="font-mono text-[10px] uppercase tracking-widest opacity-80">
+              WebGL · 6 Presets
+            </span>
+            <p className="text-sm font-semibold tracking-tight">
+              Generative Shader Canvas
+            </p>
+          </div>
+        </ShaderBackground>
       );
     case "flip-card":
       return (

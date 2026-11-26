@@ -1,0 +1,615 @@
+"use client";
+
+import React, { useEffect, useMemo, useRef, useState } from "react";
+
+export type ShaderPresetId =
+  | "silk"
+  | "aurora"
+  | "mercury"
+  | "flow"
+  | "noise"
+  | "energy";
+
+export type ShaderQuality = "low" | "medium" | "high";
+
+export interface ShaderPresetMeta {
+  id: ShaderPresetId;
+  label: string;
+  description: string;
+  defaultColors: [string, string, string];
+  index: number;
+}
+
+export const SHADER_PRESETS: Record<ShaderPresetId, ShaderPresetMeta> = {
+  silk: {
+    id: "silk",
+    label: "Silk",
+    description: "Flowing organic ribbons with soft specular highlights.",
+    defaultColors: ["#6366F1", "#EC4899", "#0F172A"],
+    index: 0,
+  },
+  aurora: {
+    id: "aurora",
+    label: "Aurora",
+    description: "Soft flowing northern-lights color fields with gentle drift.",
+    defaultColors: ["#10B981", "#06B6D4", "#090D16"],
+    index: 1,
+  },
+  mercury: {
+    id: "mercury",
+    label: "Mercury",
+    description: "Chrome reflections and liquid metallic ridges.",
+    defaultColors: ["#E2E8F0", "#64748B", "#0F172A"],
+    index: 2,
+  },
+  flow: {
+    id: "flow",
+    label: "Flow",
+    description: "Soft waves, gradients, and evolving fluid fields.",
+    defaultColors: ["#3B82F6", "#8B5CF6", "#0B1120"],
+    index: 3,
+  },
+  noise: {
+    id: "noise",
+    label: "Noise",
+    description: "Procedural FBM noise, subtle grain, and organic distortion.",
+    defaultColors: ["#F59E0B", "#EF4444", "#18181B"],
+    index: 4,
+  },
+  energy: {
+    id: "energy",
+    label: "Energy",
+    description: "Grid distortion, luminous interference fields, and pulse.",
+    defaultColors: ["#22D3EE", "#A855F7", "#050510"],
+    index: 5,
+  },
+};
+
+export interface ShaderBackgroundProps {
+  preset?: ShaderPresetId;
+  colors?: string[];
+  speed?: number;
+  intensity?: number;
+  distortion?: number;
+  opacity?: number;
+  interactive?: boolean;
+  pointerStrength?: number;
+  scrollReactive?: boolean;
+  quality?: ShaderQuality;
+  maxDpr?: number;
+  backgroundColor?: string;
+  reducedMotion?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+}
+
+const QUALITY_MAX_DPR: Record<ShaderQuality, number> = {
+  low: 1,
+  medium: 1.5,
+  high: 2,
+};
+
+function parseHexToRgb(hex: string, fallback: [number, number, number]): [number, number, number] {
+  const cleaned = hex.trim().replace(/^#/, "");
+  if (cleaned.length === 3) {
+    const r = parseInt(cleaned[0] + cleaned[0], 16);
+    const g = parseInt(cleaned[1] + cleaned[1], 16);
+    const b = parseInt(cleaned[2] + cleaned[2], 16);
+    if (!Number.isNaN(r) && !Number.isNaN(g) && !Number.isNaN(b)) {
+      return [r / 255, g / 255, b / 255];
+    }
+  } else if (cleaned.length === 6) {
+    const r = parseInt(cleaned.slice(0, 2), 16);
+    const g = parseInt(cleaned.slice(2, 4), 16);
+    const b = parseInt(cleaned.slice(4, 6), 16);
+    if (!Number.isNaN(r) && !Number.isNaN(g) && !Number.isNaN(b)) {
+      return [r / 255, g / 255, b / 255];
+    }
+  }
+  return fallback;
+}
+
+const VERTEX_SHADER = `
+attribute vec2 a_position;
+varying vec2 v_uv;
+
+void main() {
+  v_uv = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}
+`;
+
+const FRAGMENT_SHADER = `
+precision highp float;
+
+varying vec2 v_uv;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_scroll;
+uniform float u_intensity;
+uniform float u_distortion;
+uniform float u_pointerStrength;
+uniform vec3 u_color0;
+uniform vec3 u_color1;
+uniform vec3 u_color2;
+uniform int u_preset;
+
+float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+    mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+}
+
+float fbm(vec2 p) {
+  float value = 0.0;
+  float amp = 0.5;
+  mat2 rot = mat2(0.8, 0.6, -0.6, 0.8);
+  for (int i = 0; i < 4; i++) {
+    value += amp * noise(p);
+    p = rot * p * 2.02;
+    amp *= 0.5;
+  }
+  return value;
+}
+
+void main() {
+  vec2 aspect = vec2(u_resolution.x / max(u_resolution.y, 1.0), 1.0);
+  vec2 uv = (v_uv - 0.5) * aspect;
+  vec2 mouse = (u_mouse - 0.5) * aspect;
+
+  float distToMouse = length(uv - mouse);
+  float pointerWarp = exp(-distToMouse * 2.4) * u_pointerStrength;
+  vec2 p = uv * (1.8 + u_distortion * 0.8);
+  p += normalize(uv - mouse + 0.0001) * pointerWarp * 0.45;
+  p.y += u_scroll * 0.35;
+
+  float t = u_time;
+  vec3 col = u_color2;
+
+  if (u_preset == 0) {
+    // 01 — Silk: flowing ribbons with soft highlights
+    float q = fbm(p + vec2(t * 0.14, -t * 0.1));
+    float r = fbm(p + q * (1.4 * u_distortion) + vec2(t * 0.18, t * 0.12));
+    float ribbon = smoothstep(0.2, 0.85, sin((p.x * 1.4 + r * 3.2) + t * 0.3) * 0.5 + 0.5);
+    col = mix(u_color2, u_color0, clamp(r * 1.15, 0.0, 1.0));
+    col = mix(col, u_color1, ribbon * 0.72 * u_intensity);
+  } else if (u_preset == 1) {
+    // 02 — Aurora: vertical curtain waves
+    float wave = sin(p.x * 2.2 + t * 0.28 + fbm(p * 1.2) * 2.5 * u_distortion);
+    float curtain = smoothstep(-0.4, 0.9, wave) * smoothstep(0.95, -0.35, uv.y + 0.25);
+    float glow = fbm(vec2(p.x * 0.9, p.y * 0.4 - t * 0.12));
+    col = mix(u_color2, u_color0, curtain * 0.85 * u_intensity);
+    col = mix(col, u_color1, glow * curtain * 0.9 * u_intensity);
+  } else if (u_preset == 2) {
+    // 03 — Mercury: liquid chrome reflections
+    float n1 = fbm(p * 1.3 + t * 0.15);
+    float n2 = fbm(p * 2.1 - t * 0.18 + n1 * u_distortion);
+    float ridge = 1.0 - abs(sin((n1 + n2) * 4.2));
+    float spec = pow(clamp(ridge, 0.0, 1.0), 3.0) * u_intensity;
+    col = mix(u_color2, u_color1, clamp(n2 * 1.1, 0.0, 1.0));
+    col = mix(col, u_color0, clamp(spec, 0.0, 1.0));
+  } else if (u_preset == 3) {
+    // 04 — Flow: evolving fluid gradients
+    float f1 = fbm(p * 0.9 + vec2(t * 0.1, t * 0.08));
+    float f2 = fbm(p * 1.4 + vec2(-t * 0.12, f1 * 1.6 * u_distortion));
+    col = mix(u_color2, u_color0, smoothstep(0.15, 0.85, f1) * u_intensity);
+    col = mix(col, u_color1, smoothstep(0.3, 0.9, f2) * 0.8 * u_intensity);
+  } else if (u_preset == 4) {
+    // 05 — Noise: organic FBM + subtle grain
+    float n = fbm(p * 1.6 + vec2(t * 0.09, -t * 0.07) * u_distortion);
+    float grain = (hash(v_uv * u_resolution + fract(t) * 100.0) - 0.5) * 0.09;
+    col = mix(u_color2, u_color0, smoothstep(0.2, 0.8, n) * u_intensity);
+    col = mix(col, u_color1, smoothstep(0.45, 0.95, n) * 0.75 * u_intensity);
+    col += grain;
+  } else {
+    // 06 — Energy: luminous interference grid
+    vec2 warped = p + vec2(fbm(p + t * 0.2), fbm(p - t * 0.2)) * 0.55 * u_distortion;
+    float gridX = abs(sin(warped.x * 4.5));
+    float gridY = abs(sin(warped.y * 4.5));
+    float field = pow(1.0 - min(gridX, gridY), 4.0) * u_intensity;
+    float pulse = 0.5 + 0.5 * sin(t * 0.9 - length(uv) * 3.0);
+    col = mix(u_color2, u_color0, clamp(field * 0.75, 0.0, 1.0));
+    col = mix(col, u_color1, clamp(field * pulse, 0.0, 1.0));
+  }
+
+  gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+}
+`;
+
+function compileShader(
+  gl: WebGLRenderingContext,
+  type: number,
+  source: string
+): WebGLShader | null {
+  const shader = gl.createShader(type);
+  if (!shader) return null;
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    gl.deleteShader(shader);
+    return null;
+  }
+  return shader;
+}
+
+export function ShaderBackground({
+  preset = "silk",
+  colors,
+  speed = 0.7,
+  intensity = 1,
+  distortion = 1,
+  opacity = 1,
+  interactive = true,
+  pointerStrength = 0.6,
+  scrollReactive = false,
+  quality = "medium",
+  maxDpr = 1.5,
+  backgroundColor,
+  reducedMotion,
+  className = "",
+  style,
+  children,
+}: ShaderBackgroundProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [webglFailed, setWebglFailed] = useState(false);
+
+  const presetMeta = SHADER_PRESETS[preset] ?? SHADER_PRESETS.silk;
+  const resolvedColors = useMemo<[string, string, string]>(() => {
+    const base = presetMeta.defaultColors;
+    return [
+      colors?.[0] ?? base[0],
+      colors?.[1] ?? base[1],
+      colors?.[2] ?? base[2],
+    ];
+  }, [colors, presetMeta]);
+
+  // Live uniform refs so RAF loop reads updated props without recreating WebGL context
+  const propsRef = useRef({
+    presetIndex: presetMeta.index,
+    colors: resolvedColors,
+    speed,
+    intensity,
+    distortion,
+    interactive,
+    pointerStrength,
+    scrollReactive,
+    quality,
+    maxDpr,
+    reducedMotion,
+  });
+
+  propsRef.current = {
+    presetIndex: presetMeta.index,
+    colors: resolvedColors,
+    speed,
+    intensity,
+    distortion,
+    interactive,
+    pointerStrength,
+    scrollReactive,
+    quality,
+    maxDpr,
+    reducedMotion,
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas || typeof window === "undefined") return;
+
+    const gl =
+      canvas.getContext("webgl", {
+        alpha: true,
+        antialias: false,
+        depth: false,
+        stencil: false,
+        powerPreference: "low-power",
+        preserveDrawingBuffer: false,
+      }) || null;
+
+    if (!gl) {
+      setWebglFailed(true);
+      return;
+    }
+
+    const vs = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
+    const fs = compileShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
+    if (!vs || !fs) {
+      if (vs) gl.deleteShader(vs);
+      if (fs) gl.deleteShader(fs);
+      setWebglFailed(true);
+      return;
+    }
+
+    const program = gl.createProgram();
+    if (!program) {
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+      setWebglFailed(true);
+      return;
+    }
+
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      gl.deleteProgram(program);
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+      setWebglFailed(true);
+      return;
+    }
+
+    gl.useProgram(program);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+      gl.STATIC_DRAW
+    );
+
+    const posLoc = gl.getAttribLocation(program, "a_position");
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const uniforms = {
+      time: gl.getUniformLocation(program, "u_time"),
+      resolution: gl.getUniformLocation(program, "u_resolution"),
+      mouse: gl.getUniformLocation(program, "u_mouse"),
+      scroll: gl.getUniformLocation(program, "u_scroll"),
+      intensity: gl.getUniformLocation(program, "u_intensity"),
+      distortion: gl.getUniformLocation(program, "u_distortion"),
+      pointerStrength: gl.getUniformLocation(program, "u_pointerStrength"),
+      color0: gl.getUniformLocation(program, "u_color0"),
+      color1: gl.getUniformLocation(program, "u_color1"),
+      color2: gl.getUniformLocation(program, "u_color2"),
+      preset: gl.getUniformLocation(program, "u_preset"),
+    };
+
+    let rafId: number | null = null;
+    let isVisible = true;
+    let isTabVisible = typeof document === "undefined" ? true : !document.hidden;
+    let contextLost = false;
+    let elapsed = 0;
+    let lastNow = performance.now();
+
+    const targetMouse = { x: 0.5, y: 0.5 };
+    const currentMouse = { x: 0.5, y: 0.5 };
+    let scrollProgress = 0;
+
+    const mediaQuery =
+      typeof window.matchMedia === "function"
+        ? window.matchMedia("(prefers-reduced-motion: reduce)")
+        : null;
+
+    const isReducedMotion = () =>
+      Boolean(propsRef.current.reducedMotion ?? mediaQuery?.matches);
+
+    const resize = () => {
+      const rect = container.getBoundingClientRect();
+      const dprCap = Math.min(
+        window.devicePixelRatio || 1,
+        QUALITY_MAX_DPR[propsRef.current.quality],
+        propsRef.current.maxDpr
+      );
+      const width = Math.max(1, Math.floor(rect.width * dprCap));
+      const height = Math.max(1, Math.floor(rect.height * dprCap));
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+      }
+      gl.viewport(0, 0, width, height);
+    };
+
+    const drawFrame = (now: number) => {
+      if (contextLost) return;
+
+      const dt = Math.min(0.1, (now - lastNow) / 1000);
+      lastNow = now;
+
+      const cur = propsRef.current;
+      if (!isReducedMotion()) {
+        elapsed += dt * cur.speed;
+      }
+
+      currentMouse.x += (targetMouse.x - currentMouse.x) * 0.08;
+      currentMouse.y += (targetMouse.y - currentMouse.y) * 0.08;
+
+      const c0 = parseHexToRgb(cur.colors[0], [0.39, 0.4, 0.95]);
+      const c1 = parseHexToRgb(cur.colors[1], [0.93, 0.28, 0.6]);
+      const c2 = parseHexToRgb(cur.colors[2], [0.06, 0.09, 0.16]);
+
+      gl.uniform1f(uniforms.time, elapsed);
+      gl.uniform2f(uniforms.resolution, canvas.width, canvas.height);
+      gl.uniform2f(
+        uniforms.mouse,
+        cur.interactive ? currentMouse.x : 0.5,
+        cur.interactive ? currentMouse.y : 0.5
+      );
+      gl.uniform1f(uniforms.scroll, cur.scrollReactive ? scrollProgress : 0);
+      gl.uniform1f(uniforms.intensity, cur.intensity);
+      gl.uniform1f(uniforms.distortion, cur.distortion);
+      gl.uniform1f(
+        uniforms.pointerStrength,
+        cur.interactive ? cur.pointerStrength : 0
+      );
+      gl.uniform3f(uniforms.color0, c0[0], c0[1], c0[2]);
+      gl.uniform3f(uniforms.color1, c1[0], c1[1], c1[2]);
+      gl.uniform3f(uniforms.color2, c2[0], c2[1], c2[2]);
+      gl.uniform1i(uniforms.preset, cur.presetIndex);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    };
+
+    const stopLoop = () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+
+    const startLoop = () => {
+      if (rafId !== null || contextLost || !isVisible || !isTabVisible) return;
+      if (isReducedMotion()) {
+        drawFrame(performance.now());
+        return;
+      }
+      lastNow = performance.now();
+      const tick = (now: number) => {
+        drawFrame(now);
+        if (!contextLost && isVisible && isTabVisible && !isReducedMotion()) {
+          rafId = requestAnimationFrame(tick);
+        } else {
+          rafId = null;
+        }
+      };
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!propsRef.current.interactive) return;
+      const rect = container.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+      targetMouse.x = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      targetMouse.y = Math.min(
+        1,
+        Math.max(0, 1 - (e.clientY - rect.top) / rect.height)
+      );
+      if (isReducedMotion()) {
+        drawFrame(performance.now());
+      }
+    };
+
+    const onScroll = () => {
+      if (!propsRef.current.scrollReactive) return;
+      const maxScroll = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+      scrollProgress = window.scrollY / maxScroll;
+      if (isReducedMotion()) {
+        drawFrame(performance.now());
+      }
+    };
+
+    const onVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+      if (isTabVisible) {
+        startLoop();
+      } else {
+        stopLoop();
+      }
+    };
+
+    const onContextLost = (e: Event) => {
+      e.preventDefault();
+      contextLost = true;
+      stopLoop();
+      setWebglFailed(true);
+    };
+
+    const onContextRestored = () => {
+      contextLost = false;
+      setWebglFailed(false);
+      resize();
+      startLoop();
+    };
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => {
+            resize();
+            drawFrame(performance.now());
+          })
+        : null;
+    resizeObserver?.observe(container);
+
+    const intersectionObserver =
+      typeof IntersectionObserver !== "undefined"
+        ? new IntersectionObserver((entries) => {
+            for (const entry of entries) {
+              isVisible = entry.isIntersecting;
+              if (isVisible) {
+                startLoop();
+              } else {
+                stopLoop();
+              }
+            }
+          })
+        : null;
+    intersectionObserver?.observe(container);
+
+    container.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
+
+    resize();
+    drawFrame(performance.now());
+    startLoop();
+
+    return () => {
+      stopLoop();
+      resizeObserver?.disconnect();
+      intersectionObserver?.disconnect();
+      container.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
+
+      if (buffer) gl.deleteBuffer(buffer);
+      gl.deleteProgram(program);
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+    };
+  }, []);
+
+  const fallbackBackground = useMemo(() => {
+    const [c0, c1, c2] = resolvedColors;
+    return `radial-gradient(circle at 24% 30%, ${c0}cc 0%, transparent 56%), radial-gradient(circle at 78% 72%, ${c1}b8 0%, transparent 60%), linear-gradient(135deg, ${c2} 0%, ${c2} 100%)`;
+  }, [resolvedColors]);
+
+  return (
+    <div
+      ref={containerRef}
+      data-shader-preset={preset}
+      data-fallback={webglFailed ? "css" : "webgl"}
+      className={`relative overflow-hidden ${className}`.trim()}
+      style={{
+        backgroundColor: backgroundColor ?? resolvedColors[2],
+        backgroundImage: webglFailed ? fallbackBackground : undefined,
+        ...style,
+      }}
+    >
+      {!webglFailed && (
+        <canvas
+          ref={canvasRef}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full block"
+          style={{ opacity }}
+        />
+      )}
+      {children ? (
+        <div className="relative z-10 h-full w-full">{children}</div>
+      ) : null}
+    </div>
+  );
+}

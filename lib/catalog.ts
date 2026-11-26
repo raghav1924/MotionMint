@@ -8,6 +8,7 @@ export type ComponentTier = "free" | "pro";
 export type ComponentStatus = "implemented" | "planned";
 export type ComponentCategory =
   | "Signature"
+  | "Backgrounds"
   | "AI"
   | "Buttons"
   | "Controls"
@@ -1448,6 +1449,41 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     accessibilityNotes: "Semantic landmarks and keyboard-accessible widgets.",
     installCommand: "npx shadcn add @motionmint-pro/bento-dashboard-block",
     props: [],
+  },
+  {
+    slug: "shader-background",
+    name: "Shader Background",
+    category: "Backgrounds",
+    tier: "free",
+    status: "implemented",
+    description:
+      "Raw WebGL GPU-powered generative canvas background with 6 presets (Silk, Aurora, Mercury, Flow, Noise, Energy), pointer/scroll reactivity, DPR capping, visibility pause, and CSS gradient fallback.",
+    dependencies: ["react"],
+    supportsSound: false,
+    supportsHaptics: false,
+    accessibilityNotes:
+      "Canvas marked aria-hidden; respects prefers-reduced-motion with static frame rendering, pauses offscreen and on hidden tabs, and falls back to CSS gradients if WebGL is unavailable.",
+    installCommand: "npx shadcn add @motionmint/shader-background",
+    sourcePath: "registry/components/shader-background.tsx",
+    useCases: [
+      { title: "Hero & Landing Sections", description: "Layer generative fluid motion behind editorial headlines and CTAs." },
+      { title: "Interactive Feature Cards", description: "Add subtle pointer-reactive depth inside cards, modals, or empty states." },
+    ],
+    props: [
+      { name: "preset", type: '"silk" | "aurora" | "mercury" | "flow" | "noise" | "energy"', defaultValue: '"silk"', description: "Built-in GLSL shader preset." },
+      { name: "colors", type: "string[]", defaultValue: "preset palette", description: "Three hex colors [primary, secondary, background] for the shader." },
+      { name: "speed", type: "number", defaultValue: "0.7", description: "Animation time multiplier." },
+      { name: "intensity", type: "number", defaultValue: "1", description: "Color luminance and highlight intensity." },
+      { name: "distortion", type: "number", defaultValue: "1", description: "Domain warp and turbulence scale." },
+      { name: "opacity", type: "number", defaultValue: "1", description: "Canvas opacity (0 to 1)." },
+      { name: "interactive", type: "boolean", defaultValue: "true", description: "Enables pointer-position distortion." },
+      { name: "pointerStrength", type: "number", defaultValue: "0.6", description: "Strength of pointer displacement." },
+      { name: "scrollReactive", type: "boolean", defaultValue: "false", description: "Shifts shader phase with page scroll." },
+      { name: "quality", type: '"low" | "medium" | "high"', defaultValue: '"medium"', description: "Adaptive DPR cap (1, 1.5, or 2)." },
+      { name: "maxDpr", type: "number", defaultValue: "1.5", description: "Maximum devicePixelRatio cap." },
+      { name: "backgroundColor", type: "string", defaultValue: "preset base", description: "Container base background color." },
+      { name: "reducedMotion", type: "boolean", defaultValue: "system", description: "Forces static frame rendering when true." },
+    ],
   },
 ];
 

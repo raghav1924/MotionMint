@@ -1,5 +1,12 @@
 # CHANGELOG.md — MotionMint
 
+## [0.17.0] — 2026-11-26 (Shader Background — Raw WebGL Flagship Component)
+### Added
+- `registry/components/shader-background.tsx`: Raw WebGL generative canvas component (`ShaderBackground`, `SHADER_PRESETS`) with 6 presets (`silk`, `aurora`, `mercury`, `flow`, `noise`, `energy`), pointer/scroll uniforms, DPR capping (`quality` + `maxDpr`), `IntersectionObserver` offscreen pause, `visibilitychange` hidden-tab pause, `prefers-reduced-motion` static frame mode, WebGL resource cleanup, and CSS radial-gradient fallback.
+- Added `"Backgrounds"` category and `shader-background` entry to `lib/catalog.ts`, `lib/catalog-interactions.ts`, `registry.json`, and `public/r/shader-background.json` (`51` validated registry items; `45` implemented components).
+- Integrated live preview (`components/shared/component-preview-card.tsx`) and full contextual studio controls (`components/studio/component-studio.tsx`: preset selector, 3-color palette pickers, speed, intensity, distortion, opacity, pointer toggle & strength, scroll toggle, quality DPR cap, background color).
+- Added `tests/shader-background.test.tsx`.
+
 ## [0.16.0] — 2026-11-25 (Phase 2.13 — Bencho-Inspired Interactive Component Experience)
 ### Added
 - `docs/research/BENCHO_UI_RESEARCH.md` recording live audit findings from `bencho.dev` and MotionMint adaptation decisions.
