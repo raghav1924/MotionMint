@@ -69,8 +69,8 @@ export function Footer() {
               className="h-14 w-14 shrink-0 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
             />
             <span className="select-none text-5xl font-semibold leading-[0.88] tracking-[-0.045em] sm:text-7xl lg:text-[116px]">
-              R<span className="font-normal opacity-50">&amp;</span>J{" "}
-              <span className="font-normal opacity-65">Studio</span>
+              R<span className="font-normal opacity-65">ender</span>J
+              <span className="font-normal opacity-65">oy</span>
             </span>
           </div>
         </div>

@@ -306,7 +306,7 @@ export function CinematicHero() {
                 className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] transition-colors"
               >
                 <Workflow className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>Discover R&amp;J Flow →</span>
+                <span>Discover RenderJoy Flow →</span>
               </Link>
             </div>
           </motion.div>

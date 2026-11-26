@@ -49,11 +49,11 @@ export default function InstallationDocsPage() {
 
       <section className="mm-card p-6 space-y-3">
         <div className="flex items-center justify-between gap-2">
-          <h2 className="text-lg font-semibold">2. Configure @rjstudio Namespace</h2>
+          <h2 className="text-lg font-semibold">2. Configure @renderjoy Namespace</h2>
           <CopyButton value={configSnippet} label="Copy JSON" />
         </div>
         <p className="text-sm text-[var(--mm-fg-muted)]">
-          Add the <code className="font-mono text-xs">@rjstudio</code> registry to your{" "}
+          Add the <code className="font-mono text-xs">@renderjoy</code> registry to your{" "}
           <code className="font-mono text-xs">components.json</code>:
         </p>
         <pre className="overflow-x-auto rounded-[var(--mm-radius-sm)] border border-[var(--mm-border)] bg-[var(--mm-surface-subtle)] p-4 font-mono text-xs text-[var(--mm-fg)]">
@@ -69,7 +69,7 @@ export default function InstallationDocsPage() {
         <p className="text-sm text-[var(--mm-fg-muted)]">
           The CLI automatically resolves npm dependencies (<code className="font-mono text-xs">motion</code>,{" "}
           <code className="font-mono text-xs">lucide-react</code>), shared sound helpers (
-          <code className="font-mono text-xs">@rjstudio/sound-engine</code>), and CSS
+          <code className="font-mono text-xs">@renderjoy/sound-engine</code>), and CSS
           keyframes into your <code className="font-mono text-xs">globals.css</code>.
         </p>
         <pre className="overflow-x-auto rounded-[var(--mm-radius-sm)] border border-[var(--mm-border)] bg-[var(--mm-surface-subtle)] p-4 font-mono text-xs text-[var(--mm-fg)]">

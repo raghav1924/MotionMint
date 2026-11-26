@@ -84,7 +84,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: true,
     accessibilityNotes:
       "Native <button> semantics, visible focus-visible ring, respects prefers-reduced-motion, and never relies on audio alone.",
-    installCommand: "npx shadcn add @rjstudio/ripple-button",
+    installCommand: "npx shadcn add @renderjoy/ripple-button",
     sourcePath: "registry/components/ripple-button.tsx",
     useCases: [
       { title: "CTA buttons", description: "Primary calls-to-action where tactile confirmation reinforces each click." },
@@ -130,7 +130,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: true,
     accessibilityNotes:
       "Disables magnetic/spring transforms automatically when prefers-reduced-motion is enabled.",
-    installCommand: "npx shadcn add @rjstudio/jelly-button",
+    installCommand: "npx shadcn add @renderjoy/jelly-button",
     sourcePath: "registry/components/jelly-button.tsx",
     useCases: [
       { title: "Playful interfaces", description: "Consumer apps, games, or onboarding flows where delight matters." },
@@ -170,7 +170,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: true,
     accessibilityNotes:
       "Updates aria-label on copy state change and communicates success visually without requiring sound.",
-    installCommand: "npx shadcn add @rjstudio/copy-button",
+    installCommand: "npx shadcn add @renderjoy/copy-button",
     sourcePath: "registry/components/copy-button.tsx",
     useCases: [
       { title: "Code snippets", description: "One-click copy on install commands, API keys, and code blocks." },
@@ -228,7 +228,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: true,
     accessibilityNotes:
       'Uses role="switch" with aria-checked, aria-label, and keyboard Enter/Space support.',
-    installCommand: "npx shadcn add @rjstudio/sound-toggle",
+    installCommand: "npx shadcn add @renderjoy/sound-toggle",
     sourcePath: "registry/components/sound-toggle.tsx",
     useCases: [
       { title: "Media-rich apps", description: "Let users mute ambient sounds, notifications, or interaction audio globally." },
@@ -292,7 +292,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: false,
     accessibilityNotes:
       'Exposes role="status" and screen-reader-only text; respects prefers-reduced-motion.',
-    installCommand: "npx shadcn add @rjstudio/bounce-dots-loader",
+    installCommand: "npx shadcn add @renderjoy/bounce-dots-loader",
     sourcePath: "registry/components/bounce-dots-loader.tsx",
     useCases: [
       { title: "Chat interfaces", description: "Typing indicator while an AI or remote user composes a reply." },
@@ -326,7 +326,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: false,
     accessibilityNotes:
       'Uses role="progressbar" with aria-valuenow, aria-valuemin, and aria-valuemax.',
-    installCommand: "npx shadcn add @rjstudio/progress-ring",
+    installCommand: "npx shadcn add @renderjoy/progress-ring",
     sourcePath: "registry/components/progress-ring.tsx",
     useCases: [
       { title: "File upload progress", description: "Show upload or processing completion as a satisfying ring fill." },
@@ -384,7 +384,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: false,
     accessibilityNotes:
       "Sets aria-label on the semantic wrapper and aria-hidden on split segments so screen readers read full words naturally; respects prefers-reduced-motion.",
-    installCommand: "npx shadcn add @rjstudio/wiggle-text",
+    installCommand: "npx shadcn add @renderjoy/wiggle-text",
     sourcePath: "registry/components/wiggle-text.tsx",
     useCases: [
       { title: "Error labels", description: "Shake a field label or message to draw attention after validation failure." },
@@ -448,7 +448,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: false,
     accessibilityNotes:
       'Exposes role="status" with screen-reader label while marking visual shimmer blocks aria-hidden; disables shimmer under prefers-reduced-motion.',
-    installCommand: "npx shadcn add @rjstudio/skeleton-shimmer",
+    installCommand: "npx shadcn add @renderjoy/skeleton-shimmer",
     sourcePath: "registry/components/skeleton-shimmer.tsx",
     useCases: [
       { title: "List loading states", description: "Placeholder cards while feed items, search results, or posts load." },
@@ -500,7 +500,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: true,
     accessibilityNotes:
       'Keyboard Enter/Space activation, aria-disabled support, and role="alert" validation messages; strictly handles file selection without faking server uploads.',
-    installCommand: "npx shadcn add @rjstudio/dropzone",
+    installCommand: "npx shadcn add @renderjoy/dropzone",
     sourcePath: "registry/components/dropzone.tsx",
     useCases: [
       { title: "File upload", description: "Drag-and-drop or click-to-browse for images, documents, and assets." },
@@ -558,7 +558,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: true,
     accessibilityNotes:
       "Supports ArrowLeft/ArrowRight keyboard swiping, Cmd/Ctrl+Z undo, and prefers-reduced-motion instant transitions.",
-    installCommand: "npx shadcn add @rjstudio/swipe-card-deck",
+    installCommand: "npx shadcn add @renderjoy/swipe-card-deck",
     sourcePath: "registry/components/swipe-card-deck.tsx",
     useCases: [
       { title: "Onboarding slides", description: "Walk new users through feature highlights one card at a time." },
@@ -598,7 +598,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: false,
     accessibilityNotes:
       'Uses role="status" and aria-live="polite" to announce application stage transitions cleanly.',
-    installCommand: "npx shadcn add @rjstudio/thinking-loader",
+    installCommand: "npx shadcn add @renderjoy/thinking-loader",
     sourcePath: "registry/components/thinking-loader.tsx",
     useCases: [
       { title: "AI response wait", description: "Show the model is working while generating a streamed or batch response." },
@@ -638,7 +638,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: true,
     accessibilityNotes:
       'Button semantics with aria-pressed state, keyboard Enter/Space flip, and instant crossfade under prefers-reduced-motion.',
-    installCommand: "npx shadcn add @rjstudio/flip-card",
+    installCommand: "npx shadcn add @renderjoy/flip-card",
     sourcePath: "registry/components/flip-card.tsx",
     useCases: [
       { title: "Flashcards", description: "Educational apps where flipping reveals an answer, translation, or definition." },
@@ -676,7 +676,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Keyboard Enter submission, aria-label on textarea/buttons, disabled & streaming states.",
-    installCommand: "npx shadcn@latest add @rjstudio/ai-prompt-composer",
+    installCommand: "npx shadcn@latest add @renderjoy/ai-prompt-composer",
     sourcePath: "registry/components/ai-prompt-composer.tsx",
     useCases: [
       { title: "Prompt builder", description: "Let users craft, refine, and submit structured prompts with live token count." },
@@ -698,7 +698,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: 'Uses aria-live="polite" during streaming and article role.',
-    installCommand: "npx shadcn@latest add @rjstudio/streaming-message",
+    installCommand: "npx shadcn@latest add @renderjoy/streaming-message",
     sourcePath: "registry/components/streaming-message.tsx",
     useCases: [
       { title: "AI chat replies", description: "Stream token-by-token output from LLMs with a smooth cursor blink." },
@@ -720,7 +720,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "Uses aria-expanded on the collapsible header.",
-    installCommand: "npx shadcn@latest add @rjstudio/tool-call-card",
+    installCommand: "npx shadcn@latest add @renderjoy/tool-call-card",
     sourcePath: "registry/components/tool-call-card.tsx",
     useCases: [
       { title: "AI agent trace", description: "Display function calls an agent made alongside inputs, outputs, and status." },
@@ -742,7 +742,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "Semantic ordered list with progress counter.",
-    installCommand: "npx shadcn@latest add @rjstudio/agent-plan",
+    installCommand: "npx shadcn@latest add @renderjoy/agent-plan",
     sourcePath: "registry/components/agent-plan.tsx",
     useCases: [
       { title: "AI task planner", description: "Show the step-by-step plan an agent will follow before it executes." },
@@ -764,7 +764,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: 'Uses region landmark and role="status" after decision.',
-    installCommand: "npx shadcn@latest add @rjstudio/approval-card",
+    installCommand: "npx shadcn@latest add @renderjoy/approval-card",
     sourcePath: "registry/components/approval-card.tsx",
     useCases: [
       { title: "Human-in-the-loop", description: "Pause AI execution and present the action for a human to approve or reject." },
@@ -786,7 +786,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "Monospace readable diff with +/- prefixes (never color-only).",
-    installCommand: "npx shadcn@latest add @rjstudio/inline-diff",
+    installCommand: "npx shadcn@latest add @renderjoy/inline-diff",
     sourcePath: "registry/components/inline-diff.tsx",
     useCases: [
       { title: "AI code suggestions", description: "Display proposed code changes inline with added/removed line highlighting." },
@@ -808,7 +808,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "Collapsible button with aria-expanded and numbered list.",
-    installCommand: "npx shadcn@latest add @rjstudio/reasoning-trace",
+    installCommand: "npx shadcn@latest add @renderjoy/reasoning-trace",
     sourcePath: "registry/components/reasoning-trace.tsx",
     useCases: [
       { title: "Chain-of-thought display", description: "Unfold the step-by-step reasoning an AI model produced for a decision." },
@@ -830,7 +830,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Clearly labels demo mode and supports full keyboard submission.",
-    installCommand: "npx shadcn@latest add @rjstudio/ai-chat",
+    installCommand: "npx shadcn@latest add @renderjoy/ai-chat",
     sourcePath: "registry/components/ai-chat.tsx",
     useCases: [
       { title: "In-product assistant", description: "Embedded conversation UI for a product copilot or support chatbot." },
@@ -852,7 +852,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: 'Uses role="status" for progress and role="alert" for failure.',
-    installCommand: "npx shadcn@latest add @rjstudio/image-generation",
+    installCommand: "npx shadcn@latest add @renderjoy/image-generation",
     sourcePath: "registry/components/image-generation.tsx",
     useCases: [
       { title: "AI creative studio", description: "Prompt → image workflow with loading state, seed display, and retry." },
@@ -874,7 +874,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Button semantics with aria-pressed and motion-safe pulse.",
-    installCommand: "npx shadcn@latest add @rjstudio/chat-orb",
+    installCommand: "npx shadcn@latest add @renderjoy/chat-orb",
     sourcePath: "registry/components/chat-orb.tsx",
     useCases: [
       { title: "Floating AI assistant", description: "Persistent orb button that expands into a chat panel from any page." },
@@ -895,7 +895,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: 'Exposes role="img" with descriptive progress aria-label.',
-    installCommand: "npx shadcn@latest add @rjstudio/pixel-image-generation",
+    installCommand: "npx shadcn@latest add @renderjoy/pixel-image-generation",
     sourcePath: "registry/components/pixel-image-generation.tsx",
     useCases: [
       { title: "Retro AI generator", description: "Produce pixel-art sprites or scenes from text prompts in a game aesthetic." },
@@ -917,7 +917,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: 'Uses role="radiogroup" and role="radio" with ArrowLeft/ArrowRight navigation.',
-    installCommand: "npx shadcn@latest add @rjstudio/segmented-control",
+    installCommand: "npx shadcn@latest add @renderjoy/segmented-control",
     sourcePath: "registry/components/segmented-control.tsx",
     useCases: [
       { title: "View switcher", description: "Toggle between Grid, List, and Map views or comparable layout options." },
@@ -940,7 +940,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Keyboard ArrowUp/Down support, disabled boundary buttons, and aria-label.",
-    installCommand: "npx shadcn@latest add @rjstudio/number-stepper",
+    installCommand: "npx shadcn@latest add @renderjoy/number-stepper",
     sourcePath: "registry/components/number-stepper.tsx",
     useCases: [
       { title: "Quantity selector", description: "Increment or decrement item counts in a cart, seat picker, or booking form." },
@@ -964,7 +964,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "Associates label, helper/error text via aria-describedby and sets aria-invalid.",
-    installCommand: "npx shadcn@latest add @rjstudio/glow-input",
+    installCommand: "npx shadcn@latest add @renderjoy/glow-input",
     sourcePath: "registry/components/glow-input.tsx",
     useCases: [
       { title: "Search bar", description: "Prominent search field with an ambient glow to draw user focus." },
@@ -987,7 +987,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: 'Sets aria-invalid and role="alert" on invalid email submission.',
-    installCommand: "npx shadcn@latest add @rjstudio/email-capture",
+    installCommand: "npx shadcn@latest add @renderjoy/email-capture",
     sourcePath: "registry/components/email-capture.tsx",
     useCases: [
       { title: "Waitlist signup", description: "Pre-launch landing pages where capturing an email is the primary CTA." },
@@ -1009,7 +1009,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Escape & outside-click dismissal, aria-haspopup dialog, and formatted day labels.",
-    installCommand: "npx shadcn@latest add @rjstudio/date-picker",
+    installCommand: "npx shadcn@latest add @renderjoy/date-picker",
     sourcePath: "registry/components/date-picker.tsx",
     useCases: [
       { title: "Booking forms", description: "Hotel, restaurant, or appointment scheduling with calendar selection." },
@@ -1032,7 +1032,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: 'Uses combobox/listbox ARIA roles with ArrowUp/ArrowDown/Enter/Escape support.',
-    installCommand: "npx shadcn@latest add @rjstudio/animated-select",
+    installCommand: "npx shadcn@latest add @renderjoy/animated-select",
     sourcePath: "registry/components/animated-select.tsx",
     useCases: [
       { title: "Country or currency picker", description: "Select from long lists with smooth open/close animation and keyboard nav." },
@@ -1054,7 +1054,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Per-cell aria-labels, ArrowLeft/Right navigation, and numeric/alphanumeric modes.",
-    installCommand: "npx shadcn@latest add @rjstudio/otp-input",
+    installCommand: "npx shadcn@latest add @renderjoy/otp-input",
     sourcePath: "registry/components/otp-input.tsx",
     useCases: [
       { title: "Two-factor auth", description: "Verification code entry for SMS or authenticator app 2FA flows." },
@@ -1077,7 +1077,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: 'Uses aria-multiselectable="true" and removable chip buttons with aria-label.',
-    installCommand: "npx shadcn@latest add @rjstudio/multi-select",
+    installCommand: "npx shadcn@latest add @renderjoy/multi-select",
     sourcePath: "registry/components/multi-select.tsx",
     useCases: [
       { title: "Tag assignment", description: "Let users attach multiple labels, categories, or skills to a record." },
@@ -1099,7 +1099,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Never auto-loads scripts; exposes explicit onSavePreferences callback.",
-    installCommand: "npx shadcn@latest add @rjstudio/cookie-consent",
+    installCommand: "npx shadcn@latest add @renderjoy/cookie-consent",
     sourcePath: "registry/components/cookie-consent.tsx",
     useCases: [
       { title: "GDPR compliance", description: "Collect and record user consent for analytics, marketing, and functional cookies." },
@@ -1121,7 +1121,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Keyboard Left/Right arrows cycle cards; includes explicit previous, next, and reset buttons.",
-    installCommand: "npx shadcn@latest add @rjstudio/card-stack",
+    installCommand: "npx shadcn@latest add @renderjoy/card-stack",
     sourcePath: "registry/components/card-stack.tsx",
     useCases: [
       { title: "Feature showcase", description: "Layer product screenshots or feature cards in a tactile depth stack." },
@@ -1144,7 +1144,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Dialog role with aria-modal, Escape key dismissal, and explicit detent snap buttons.",
-    installCommand: "npx shadcn@latest add @rjstudio/detent-drawer",
+    installCommand: "npx shadcn@latest add @renderjoy/detent-drawer",
     sourcePath: "registry/components/detent-drawer.tsx",
     useCases: [
       { title: "Mobile bottom sheet", description: "iOS-style drawer that snaps to 25 %, 60 %, and 100 % height positions." },
@@ -1167,7 +1167,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Toggle button exposes aria-expanded state and aria-live status announcements.",
-    installCommand: "npx shadcn@latest add @rjstudio/notch",
+    installCommand: "npx shadcn@latest add @renderjoy/notch",
     sourcePath: "registry/components/notch.tsx",
     useCases: [
       { title: "Dynamic Island-style notifications", description: "Pill-shaped notch that expands to reveal activity, timers, or alerts." },
@@ -1190,7 +1190,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Implements role='slider' with aria-valuemin/max/now and Arrow/Home/End keyboard steps.",
-    installCommand: "npx shadcn@latest add @rjstudio/physical-knob",
+    installCommand: "npx shadcn@latest add @renderjoy/physical-knob",
     sourcePath: "registry/components/physical-knob.tsx",
     useCases: [
       { title: "Audio controls", description: "Rotatable knob for volume, pan, EQ gain, or any continuous parameter." },
@@ -1213,7 +1213,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Toolbar/button semantics with aria-expanded, aria-pressed, and Escape key closure.",
-    installCommand: "npx shadcn@latest add @rjstudio/reaction-arc",
+    installCommand: "npx shadcn@latest add @renderjoy/reaction-arc",
     sourcePath: "registry/components/reaction-arc.tsx",
     useCases: [
       { title: "Post reactions", description: "Emoji picker arc that fans out on hover or long-press above a feed item." },
@@ -1235,7 +1235,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Semantic line item table with Reprint button and reduced-motion instant reveal.",
-    installCommand: "npx shadcn@latest add @rjstudio/receipt-printer",
+    installCommand: "npx shadcn@latest add @renderjoy/receipt-printer",
     sourcePath: "registry/components/receipt-printer.tsx",
     useCases: [
       { title: "Order confirmation", description: "Thermal-print animation reveals order details with satisfying line-by-line reveal." },
@@ -1258,7 +1258,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Listbox role with aria-multiselectable, aria-selected, and click/keyboard toggling.",
-    installCommand: "npx shadcn@latest add @rjstudio/rubber-band-select",
+    installCommand: "npx shadcn@latest add @renderjoy/rubber-band-select",
     sourcePath: "registry/components/rubber-band-select.tsx",
     useCases: [
       { title: "Canvas multi-select", description: "Drag a selection rectangle across items in a spatial or grid canvas." },
@@ -1280,7 +1280,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Exposes aria-expanded toggle and collapses on Escape key.",
-    installCommand: "npx shadcn@latest add @rjstudio/morphing-tray",
+    installCommand: "npx shadcn@latest add @renderjoy/morphing-tray",
     sourcePath: "registry/components/morphing-tray.tsx",
     useCases: [
       { title: "Context menu", description: "Tray that reshapes to match the actions available for the selected object." },
@@ -1303,7 +1303,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Every key cap is a native button with keyboard focus ring and aria-pressed state.",
-    installCommand: "npx shadcn@latest add @rjstudio/keyboard",
+    installCommand: "npx shadcn@latest add @renderjoy/keyboard",
     sourcePath: "registry/components/keyboard.tsx",
     useCases: [
       { title: "Shortcut reference", description: "Interactive keyboard diagram that highlights active modifier combinations." },
@@ -1325,7 +1325,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "Toolbar exposes Zoom In, Zoom Out, Add Node, and Reset View buttons.",
-    installCommand: "npx shadcn@latest add @rjstudio/infinity-canvas",
+    installCommand: "npx shadcn@latest add @renderjoy/infinity-canvas",
     sourcePath: "registry/components/infinity-canvas.tsx",
     useCases: [
       { title: "Spatial component gallery", description: "Pan and zoom across a freeform grid of component previews or design assets." },
@@ -1347,7 +1347,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Includes accessible Reveal and Reset buttons for keyboard and assistive technology users.",
-    installCommand: "npx shadcn@latest add @rjstudio/scratch-card",
+    installCommand: "npx shadcn@latest add @renderjoy/scratch-card",
     sourcePath: "registry/components/scratch-card.tsx",
     useCases: [
       { title: "Promotional reward reveal", description: "Gamified discount or prize reveal that users uncover by scratching." },
@@ -1369,7 +1369,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "Trigger exposes aria-expanded/aria-haspopup; dialog closes on Escape or outside pointer down.",
-    installCommand: "npx shadcn@latest add @rjstudio/halftone-popover",
+    installCommand: "npx shadcn@latest add @renderjoy/halftone-popover",
     sourcePath: "registry/components/halftone-popover.tsx",
     useCases: [
       { title: "Tooltip with character", description: "Rich informational popover with a halftone-print aesthetic for creative tools." },
@@ -1391,7 +1391,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Live-region upload status announcements.",
-    installCommand: "npx shadcn add @rjstudio-pro/advanced-upload-flow",
+    installCommand: "npx shadcn add @renderjoy-pro/advanced-upload-flow",
     props: [],
   },
   {
@@ -1405,7 +1405,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Non-audio confirmation summary and focus management.",
-    installCommand: "npx shadcn add @rjstudio-pro/payment-success-flow",
+    installCommand: "npx shadcn add @renderjoy-pro/payment-success-flow",
     props: [],
   },
   {
@@ -1419,7 +1419,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: true,
     accessibilityNotes: "Arrow-key navigation and aria-roledescription.",
-    installCommand: "npx shadcn add @rjstudio-pro/cover-flow-carousel",
+    installCommand: "npx shadcn add @renderjoy-pro/cover-flow-carousel",
     props: [],
   },
   {
@@ -1433,7 +1433,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: false,
     supportsHaptics: false,
     accessibilityNotes: "SVG aria-labels and tabular fallback values.",
-    installCommand: "npx shadcn add @rjstudio-pro/animated-charts",
+    installCommand: "npx shadcn add @renderjoy-pro/animated-charts",
     props: [],
   },
   {
@@ -1447,7 +1447,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsSound: true,
     supportsHaptics: false,
     accessibilityNotes: "Semantic landmarks and keyboard-accessible widgets.",
-    installCommand: "npx shadcn add @rjstudio-pro/bento-dashboard-block",
+    installCommand: "npx shadcn add @renderjoy-pro/bento-dashboard-block",
     props: [],
   },
   {
@@ -1463,7 +1463,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
     supportsHaptics: false,
     accessibilityNotes:
       "Canvas marked aria-hidden; respects prefers-reduced-motion with static frame rendering, pauses offscreen and on hidden tabs, and falls back to CSS gradients if WebGL is unavailable.",
-    installCommand: "npx shadcn add @rjstudio/shader-background",
+    installCommand: "npx shadcn add @renderjoy/shader-background",
     sourcePath: "registry/components/shader-background.tsx",
     useCases: [
       { title: "Hero & Landing Sections", description: "Layer generative fluid motion behind editorial headlines and CTAs." },

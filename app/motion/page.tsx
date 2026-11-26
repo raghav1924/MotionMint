@@ -72,7 +72,7 @@ export default function MotionLabPage() {
   const [disableNonEssential, setDisableNonEssential] = useState(false);
 
   const springCode = `import { MOTION_SPRINGS } from "@/lib/motion/presets";
-import { MotionReveal } from "@/components/rjstudio/motion-reveal";
+import { MotionReveal } from "@/components/renderjoy/motion-reveal";
 
 <MotionReveal variant="fadeUp">
   <YourComponent />
@@ -129,7 +129,7 @@ import { MotionReveal } from "@/components/rjstudio/motion-reveal";
             <div className="flex flex-wrap items-center justify-center gap-4">
               <RippleButton>Pointer Ripple</RippleButton>
               <JellyButton>Tactile Press</JellyButton>
-              <CopyButton value="npx shadcn@latest add @rjstudio/motion-reveal" />
+              <CopyButton value="npx shadcn@latest add @renderjoy/motion-reveal" />
             </div>
           )}
           {category === "Swipe" && <SwipeCardDeck cards={DECK_ITEMS} />}
@@ -159,7 +159,7 @@ import { MotionReveal } from "@/components/rjstudio/motion-reveal";
           {category === "Text" && (
             <div className="space-y-5 text-center w-full">
               <WiggleText text="Hover or focus these letters" className="text-2xl font-bold" />
-              <ParticleWordmark text="R&J Studio" />
+              <ParticleWordmark text="RenderJoy" />
             </div>
           )}
           {category === "Transitions" && (
@@ -309,7 +309,7 @@ import { MotionReveal } from "@/components/rjstudio/motion-reveal";
         <div className="rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
-              Portable Usage (`@rjstudio/motion-reveal`)
+              Portable Usage (`@renderjoy/motion-reveal`)
             </h2>
             <Link
               href="/docs/installation"

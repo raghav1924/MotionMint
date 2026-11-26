@@ -13,7 +13,7 @@
       "path": "registry/components/motion-reveal.tsx",
       "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface MotionRevealProps {\n  children: React.ReactNode;\n  variant?: \"fadeUp\" | \"blurIn\" | \"scaleIn\" | \"slideLeft\";\n  delay?: number;\n  duration?: number;\n  className?: string;\n}\n\nexport function MotionReveal({\n  children,\n  variant = \"fadeUp\",\n  delay = 0,\n  duration = 0.34,\n  className,\n}: MotionRevealProps) {\n  const prefersReduced = useReducedMotion();\n\n  if (prefersReduced) {\n    return <div className={className}>{children}</div>;\n  }\n\n  const initialMap = {\n    fadeUp: { opacity: 0, y: 14 },\n    blurIn: { opacity: 0, filter: \"blur(6px)\" },\n    scaleIn: { opacity: 0, scale: 0.94 },\n    slideLeft: { opacity: 0, x: 18 },\n  }[variant];\n\n  const animateMap = {\n    fadeUp: { opacity: 1, y: 0 },\n    blurIn: { opacity: 1, filter: \"blur(0px)\" },\n    scaleIn: { opacity: 1, scale: 1 },\n    slideLeft: { opacity: 1, x: 0 },\n  }[variant];\n\n  return (\n    <motion.div\n      initial={initialMap}\n      whileInView={animateMap}\n      viewport={{ once: true, amount: 0.15 }}\n      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}\n      className={cn(className)}\n    >\n      {children}\n    </motion.div>\n  );\n}\n",
       "type": "registry:component",
-      "target": "components/rjstudio/motion-reveal.tsx"
+      "target": "components/renderjoy/motion-reveal.tsx"
     }
   ],
   "type": "registry:component"

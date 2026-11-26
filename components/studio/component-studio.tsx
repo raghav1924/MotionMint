@@ -372,7 +372,7 @@ export function ComponentStudio({
             demoNotice="Demo UI Mode — Controlled props, no live AI backend"
             initialMessages={[
               { id: "1", role: "user", content: "How do I install a component?", status: "complete" },
-              { id: "2", role: "assistant", content: "Run npx shadcn@latest add @rjstudio/ai-chat.", status: "complete" },
+              { id: "2", role: "assistant", content: "Run npx shadcn@latest add @renderjoy/ai-chat.", status: "complete" },
             ]}
           />
         );
@@ -419,7 +419,7 @@ export function ComponentStudio({
             <GlowInput
               label="API Endpoint"
               prefix="https://"
-              placeholder="rjstudio.dev/r"
+              placeholder="renderjoy.dev/r"
               helperText="Move your cursor over the border while focused."
             />
           </div>

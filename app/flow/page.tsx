@@ -8,7 +8,7 @@ export default function FlowPage() {
       <WorkspaceHeader
         eyebrow="WORKFLOWS"
         title="Node Pipeline Orchestrator"
-        description="Built with the portable R&J Flow UI Kit (@xyflow/react) and ported from our VectorShift POC: 9 typed nodes, Kahn's DAG validation, and a clearly labelled simulated execution adapter."
+        description="Built with the portable RenderJoy Flow UI Kit (@xyflow/react) and ported from our VectorShift POC: 9 typed nodes, Kahn's DAG validation, and a clearly labelled simulated execution adapter."
       />
       <PipelineOrchestrator />
     </WorkspacePage>

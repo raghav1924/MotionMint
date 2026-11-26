@@ -10,14 +10,14 @@
     "tailwind-merge"
   ],
   "registryDependencies": [
-    "@rjstudio/sound-engine"
+    "@renderjoy/sound-engine"
   ],
   "files": [
     {
       "path": "registry/components/rubber-band-select.tsx",
       "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\nimport { cn } from \"@/lib/utils\";\nimport { triggerInteractionFeedback } from \"@/lib/audio/feedback-store\";\n\nexport interface RubberBandOption {\n  value: string;\n  label: string;\n  disabled?: boolean;\n}\n\nexport interface RubberBandSelectProps {\n  options: RubberBandOption[];\n  multiple?: boolean;\n  value?: string[];\n  defaultValue?: string[];\n  onValueChange?: (values: string[]) => void;\n  sound?: boolean;\n  haptic?: boolean;\n  className?: string;\n}\n\nexport function RubberBandSelect({\n  options,\n  multiple = false,\n  value,\n  defaultValue,\n  onValueChange,\n  sound,\n  haptic,\n  className,\n}: RubberBandSelectProps) {\n  const initial = defaultValue ?? (options[0] && !options[0].disabled ? [options[0].value] : []);\n  const [internal, setInternal] = useState<string[]>(initial);\n  const prefersReduced = useReducedMotion();\n\n  const isControlled = value !== undefined;\n  const selected = isControlled ? value : internal;\n\n  const toggle = (opt: RubberBandOption) => {\n    if (opt.disabled) return;\n    let next: string[];\n    if (multiple) {\n      next = selected.includes(opt.value)\n        ? selected.filter((v) => v !== opt.value)\n        : [...selected, opt.value];\n    } else {\n      next = [opt.value];\n    }\n    if (!isControlled) setInternal(next);\n    triggerInteractionFeedback(\"select\", { sound, haptic });\n    onValueChange?.(next);\n  };\n\n  return (\n    <div\n      role=\"group\"\n      aria-label=\"Rubber band selection\"\n      className={cn(\"flex flex-wrap items-center gap-2\", className)}\n    >\n      {options.map((opt) => {\n        const isSelected = selected.includes(opt.value);\n        return (\n          <motion.button\n            key={opt.value}\n            type=\"button\"\n            disabled={opt.disabled}\n            aria-pressed={isSelected}\n            onClick={() => toggle(opt)}\n            whileTap={prefersReduced ? undefined : { scaleX: 1.12, scaleY: 0.88 }}\n            transition={{ type: \"spring\", stiffness: 500, damping: 14 }}\n            className={cn(\n              \"rounded-full border px-3.5 py-1.5 text-xs font-medium cursor-pointer select-none transition-colors\",\n              \"disabled:opacity-40 disabled:pointer-events-none\",\n              \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mm-ring,#10b981)]\",\n              isSelected\n                ? \"border-[var(--mm-accent,#10b981)] bg-[var(--mm-accent,#10b981)] text-[var(--mm-accent-fg,#03150e)]\"\n                : \"border-[var(--mm-border-strong)] bg-[var(--mm-surface,#111114)] text-[var(--mm-fg,#fafafa)] hover:border-[var(--mm-accent)]\"\n            )}\n          >\n            {opt.label}\n          </motion.button>\n        );\n      })}\n    </div>\n  );\n}\n",
       "type": "registry:component",
-      "target": "components/rjstudio/rubber-band-select.tsx"
+      "target": "components/renderjoy/rubber-band-select.tsx"
     }
   ],
   "type": "registry:component"

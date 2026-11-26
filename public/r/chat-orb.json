@@ -9,14 +9,14 @@
     "tailwind-merge"
   ],
   "registryDependencies": [
-    "@rjstudio/sound-engine"
+    "@renderjoy/sound-engine"
   ],
   "files": [
     {
       "path": "registry/components/chat-orb.tsx",
       "content": "\"use client\";\n\nimport React from \"react\";\nimport { Mic } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { triggerInteractionFeedback } from \"@/lib/audio/feedback-store\";\n\nexport interface ChatOrbProps {\n  state?: \"idle\" | \"listening\" | \"speaking\";\n  onToggle?: () => void;\n  sound?: boolean;\n  haptic?: boolean;\n  label?: string;\n  className?: string;\n}\n\nexport function ChatOrb({\n  state = \"idle\",\n  onToggle,\n  sound,\n  haptic,\n  label = \"Voice assistant orb\",\n  className,\n}: ChatOrbProps) {\n  const isActive = state !== \"idle\";\n\n  return (\n    <button\n      type=\"button\"\n      onClick={() => {\n        triggerInteractionFeedback(\"click\", { sound, haptic });\n        onToggle?.();\n      }}\n      aria-pressed={isActive}\n      aria-label={`${label}: ${state}`}\n      className={cn(\n        \"relative inline-flex h-20 w-20 items-center justify-center rounded-full cursor-pointer select-none\",\n        \"border-2 border-[var(--mm-accent,#10b981)] bg-[var(--mm-surface-elevated,#18181c)] text-[var(--mm-fg,#fafafa)]\",\n        \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mm-ring,#10b981)] focus-visible:ring-offset-2\",\n        className\n      )}\n    >\n      {isActive && (\n        <span\n          aria-hidden=\"true\"\n          className=\"absolute inset-0 rounded-full border-2 border-[var(--mm-accent,#10b981)] opacity-50 motion-safe:animate-ping\"\n        />\n      )}\n      <span\n        aria-hidden=\"true\"\n        className=\"absolute inset-2 rounded-full bg-[var(--mm-accent-soft,rgba(16,185,129,0.16))]\"\n      />\n      <Mic className=\"relative z-10 h-6 w-6 text-[var(--mm-accent,#10b981)]\" aria-hidden=\"true\" />\n    </button>\n  );\n}\n",
       "type": "registry:component",
-      "target": "components/rjstudio/chat-orb.tsx"
+      "target": "components/renderjoy/chat-orb.tsx"
     }
   ],
   "type": "registry:component"

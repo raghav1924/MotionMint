@@ -13,7 +13,7 @@ const DEFAULT_FAQS: FaqItem[] = [
   {
     question: "How do I install MotionMint components?",
     answer:
-      "Install components via the shadcn-compatible registry (`pnpm dlx shadcn@latest add @rjstudio/<slug>`) or copy the TypeScript source from Component Studio.",
+      "Install components via the shadcn-compatible registry (`pnpm dlx shadcn@latest add @renderjoy/<slug>`) or copy the TypeScript source from Component Studio.",
   },
   {
     question: "Why is sound off by default?",

@@ -2,8 +2,9 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Bespoke "RJ" geometric monogram mark:
- * crisp architectural R paired with an interlocking J curve.
+ * RenderJoy ("Tangential Wing") symbol — designed in Figma:
+ * sculptural single-silhouette mark subtly encoding R and J via
+ * tangential canopy & nested pendulum separated by an intentional negative-space arch.
  */
 export function MotionMintMark({
   className,
@@ -16,60 +17,42 @@ export function MotionMintMark({
     <svg
       width={size}
       height={size}
-      viewBox="0 0 32 32"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       className={cn("shrink-0", className)}
     >
-      {/* R stem + bowl + leg */}
       <path
-        d="M5 26V6H12.5C15.5376 6 18 8.46243 18 11.5C18 14.5376 15.5376 17 12.5 17H5"
-        stroke="currentColor"
-        strokeWidth="3.1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M18 18C18 14.6863 20.6863 12 24 12H50C69.8822 12 86 28.1178 86 48C86 61.1 79.05 72.58 68.62 78.92C64.28 81.56 58.8 78.42 58.8 73.34V52C58.8 42.6112 51.1888 35 41.8 35C34.5 35 28.8 40.4 28.8 47.6V73.5C28.8 77.0899 25.8899 80 22.3 80C19.9252 80 18 78.0748 18 75.7V18Z"
+        fill="currentColor"
       />
       <path
-        d="M11.5 17L17.5 26"
-        stroke="currentColor"
-        strokeWidth="3.1"
-        strokeLinecap="round"
+        d="M37.5 52C37.5 47.0294 41.5294 43 46.5 43C51.4706 43 55.5 47.0294 55.5 52V71C55.5 80.3888 47.8888 88 38.5 88C33.1 88 28.3 85.48 25.18 81.55C31.3 80.6 37.5 76.2 37.5 69.5V52Z"
+        fill="currentColor"
       />
-      {/* Interlocking J */}
-      <path
-        d="M26 6V19.5C26 23.0899 23.0899 26 19.5 26C18.2 26 17.0 25.6 16.0 24.9"
-        stroke="currentColor"
-        strokeWidth="3.1"
-        strokeLinecap="round"
-        opacity="0.72"
-      />
-      <circle cx="26" cy="6" r="1.6" fill="currentColor" />
     </svg>
   );
 }
 
 /**
- * Editorial wordmark highlighting R and J together.
+ * Understated geometric sans-serif wordmark for RenderJoy.
  */
 export function MotionMintWordmark({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-baseline font-semibold tracking-[-0.035em] leading-none select-none",
+        "inline-flex items-baseline font-medium tracking-[-0.035em] leading-none select-none",
         className
       )}
     >
-      <span>R</span>
-      <span className="mx-[0.04em] font-normal opacity-55">&amp;</span>
-      <span>J</span>
-      <span className="ml-[0.28em] font-normal opacity-65">Studio</span>
+      RenderJoy
     </span>
   );
 }
 
 /**
- * Horizontal brand lockup: RJ Monogram + R&J Studio Wordmark.
+ * Horizontal brand lockup: Tangential Wing symbol + RenderJoy wordmark.
  */
 export function MotionMintLogo({
   markSize = 22,

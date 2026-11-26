@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "rjstudio",
+  "name": "renderjoy",
   "homepage": "http://localhost:3000",
   "items": [
     {
@@ -36,7 +36,7 @@
         {
           "path": "registry/components/bounce-dots-loader.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/bounce-dots-loader.tsx"
+          "target": "components/renderjoy/bounce-dots-loader.tsx"
         }
       ],
       "css": {
@@ -56,7 +56,7 @@
         {
           "path": "registry/components/wiggle-text.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/wiggle-text.tsx"
+          "target": "components/renderjoy/wiggle-text.tsx"
         }
       ],
       "css": {
@@ -74,12 +74,12 @@
       "title": "Jelly / Magnetic Button",
       "description": "Spring-physics magnetic button with subtle cursor attraction and squash-and-stretch press feedback.",
       "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/jelly-button.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/jelly-button.tsx"
+          "target": "components/renderjoy/jelly-button.tsx"
         }
       ]
     },
@@ -89,12 +89,12 @@
       "title": "Ripple Button",
       "description": "Tactile button with pointer-origin ripple expansion, keyboard support, and optional Web Audio + haptic feedback.",
       "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/ripple-button.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/ripple-button.tsx"
+          "target": "components/renderjoy/ripple-button.tsx"
         }
       ]
     },
@@ -104,12 +104,12 @@
       "title": "Animated Copy Button",
       "description": "Clipboard copy button with immediate icon/label confirmation, error fallback, and optional success chime.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/copy-button.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/copy-button.tsx"
+          "target": "components/renderjoy/copy-button.tsx"
         }
       ]
     },
@@ -119,12 +119,12 @@
       "title": "Sound & Haptic Toggle",
       "description": "Accessible switch with spring thumb transition, optional animated waveform, and synthesized audio cues.",
       "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/sound-toggle.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/sound-toggle.tsx"
+          "target": "components/renderjoy/sound-toggle.tsx"
         }
       ]
     },
@@ -138,7 +138,7 @@
         {
           "path": "registry/components/progress-ring.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/progress-ring.tsx"
+          "target": "components/renderjoy/progress-ring.tsx"
         }
       ]
     },
@@ -152,7 +152,7 @@
         {
           "path": "registry/components/skeleton-shimmer.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/skeleton-shimmer.tsx"
+          "target": "components/renderjoy/skeleton-shimmer.tsx"
         }
       ],
       "css": {
@@ -168,12 +168,12 @@
       "title": "Basic Dropzone",
       "description": "Accessible click-and-drag file selection dropzone with type/size validation, file list removal, and optional audio/haptic cues.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/dropzone.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/dropzone.tsx"
+          "target": "components/renderjoy/dropzone.tsx"
         }
       ]
     },
@@ -183,12 +183,12 @@
       "title": "Swipe Card Deck",
       "description": "Layered tactile card stack with spring drag/swipe gestures, card rotation, undo history, and keyboard arrow navigation.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/swipe-card-deck.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/swipe-card-deck.tsx"
+          "target": "components/renderjoy/swipe-card-deck.tsx"
         }
       ]
     },
@@ -202,7 +202,7 @@
         {
           "path": "registry/components/thinking-loader.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/thinking-loader.tsx"
+          "target": "components/renderjoy/thinking-loader.tsx"
         }
       ],
       "css": {
@@ -218,12 +218,12 @@
       "title": "Direction-Aware Flip Card",
       "description": "3D perspective card that detects pointer entry direction and flips along the natural axis with keyboard and reduced-motion fallbacks.",
       "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/flip-card.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/flip-card.tsx"
+          "target": "components/renderjoy/flip-card.tsx"
         }
       ]
     },
@@ -250,7 +250,7 @@
         {
           "path": "registry/components/motion-reveal.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/motion-reveal.tsx"
+          "target": "components/renderjoy/motion-reveal.tsx"
         }
       ]
     },
@@ -260,12 +260,12 @@
       "title": "AI Prompt Composer",
       "description": "Accessible prompt input with Enter-to-send, Shift+Enter newline, mode selector, and stop-streaming state.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/ai-prompt-composer.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/ai-prompt-composer.tsx"
+          "target": "components/renderjoy/ai-prompt-composer.tsx"
         }
       ]
     },
@@ -275,12 +275,12 @@
       "title": "Streaming Message",
       "description": "Role-aware message bubble with streaming cursor, error state, and retry callback.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/ai-types"],
+      "registryDependencies": ["@renderjoy/ai-types"],
       "files": [
         {
           "path": "registry/components/streaming-message.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/streaming-message.tsx"
+          "target": "components/renderjoy/streaming-message.tsx"
         }
       ]
     },
@@ -290,12 +290,12 @@
       "title": "Tool Call Card",
       "description": "Collapsible tool execution card displaying status, duration, and formatted input/output JSON.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/ai-types"],
+      "registryDependencies": ["@renderjoy/ai-types"],
       "files": [
         {
           "path": "registry/components/tool-call-card.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/tool-call-card.tsx"
+          "target": "components/renderjoy/tool-call-card.tsx"
         }
       ]
     },
@@ -305,12 +305,12 @@
       "title": "Agent Plan",
       "description": "Ordered multi-step execution plan showing pending, in-progress, completed, failed, and skipped steps.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/ai-types"],
+      "registryDependencies": ["@renderjoy/ai-types"],
       "files": [
         {
           "path": "registry/components/agent-plan.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/agent-plan.tsx"
+          "target": "components/renderjoy/agent-plan.tsx"
         }
       ]
     },
@@ -320,12 +320,12 @@
       "title": "Approval Card",
       "description": "Human-in-the-loop confirmation gate with approve/reject callbacks and audio/haptic cues.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/approval-card.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/approval-card.tsx"
+          "target": "components/renderjoy/approval-card.tsx"
         }
       ]
     },
@@ -339,7 +339,7 @@
         {
           "path": "registry/components/inline-diff.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/inline-diff.tsx"
+          "target": "components/renderjoy/inline-diff.tsx"
         }
       ]
     },
@@ -353,7 +353,7 @@
         {
           "path": "registry/components/reasoning-trace.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/reasoning-trace.tsx"
+          "target": "components/renderjoy/reasoning-trace.tsx"
         }
       ]
     },
@@ -364,16 +364,16 @@
       "description": "Composable conversation container combining StreamingMessage, ThinkingLoader, and AIPromptComposer.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
       "registryDependencies": [
-        "@rjstudio/ai-types",
-        "@rjstudio/streaming-message",
-        "@rjstudio/ai-prompt-composer",
-        "@rjstudio/thinking-loader"
+        "@renderjoy/ai-types",
+        "@renderjoy/streaming-message",
+        "@renderjoy/ai-prompt-composer",
+        "@renderjoy/thinking-loader"
       ],
       "files": [
         {
           "path": "registry/components/ai-chat.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/ai-chat.tsx"
+          "target": "components/renderjoy/ai-chat.tsx"
         }
       ]
     },
@@ -387,7 +387,7 @@
         {
           "path": "registry/components/image-generation.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/image-generation.tsx"
+          "target": "components/renderjoy/image-generation.tsx"
         }
       ]
     },
@@ -397,12 +397,12 @@
       "title": "Chat Orb",
       "description": "Interactive voice-state orb button with idle, listening, and speaking states.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/chat-orb.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/chat-orb.tsx"
+          "target": "components/renderjoy/chat-orb.tsx"
         }
       ]
     },
@@ -416,7 +416,7 @@
         {
           "path": "registry/components/pixel-image-generation.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/pixel-image-generation.tsx"
+          "target": "components/renderjoy/pixel-image-generation.tsx"
         }
       ]
     },
@@ -426,12 +426,12 @@
       "title": "Segmented Control",
       "description": "Single-selection pill control with animated indicator, disabled options, and keyboard arrow navigation.",
       "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/segmented-control.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/segmented-control.tsx"
+          "target": "components/renderjoy/segmented-control.tsx"
         }
       ]
     },
@@ -441,12 +441,12 @@
       "title": "Number Stepper",
       "description": "Numeric stepper with increment/decrement buttons, direct input, min/max clamping, and ArrowUp/Down support.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/number-stepper.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/number-stepper.tsx"
+          "target": "components/renderjoy/number-stepper.tsx"
         }
       ]
     },
@@ -460,7 +460,7 @@
         {
           "path": "registry/components/glow-input.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/glow-input.tsx"
+          "target": "components/renderjoy/glow-input.tsx"
         }
       ]
     },
@@ -470,12 +470,12 @@
       "title": "Email Capture",
       "description": "Validated email capture form with loading, success, and error states via explicit onSubmit callback.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/email-capture.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/email-capture.tsx"
+          "target": "components/renderjoy/email-capture.tsx"
         }
       ]
     },
@@ -485,12 +485,12 @@
       "title": "Date Picker",
       "description": "Zero-dependency calendar date picker with min/max bounds, month navigation, and Intl formatting.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/date-picker.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/date-picker.tsx"
+          "target": "components/renderjoy/date-picker.tsx"
         }
       ]
     },
@@ -500,12 +500,12 @@
       "title": "Animated Select",
       "description": "Searchable combobox select with animated dropdown, grouped options, disabled items, and keyboard navigation.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/animated-select.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/animated-select.tsx"
+          "target": "components/renderjoy/animated-select.tsx"
         }
       ]
     },
@@ -515,12 +515,12 @@
       "title": "OTP Input",
       "description": "Multi-cell verification code input with auto-focus progression, backspace navigation, and clipboard paste.",
       "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/otp-input.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/otp-input.tsx"
+          "target": "components/renderjoy/otp-input.tsx"
         }
       ]
     },
@@ -530,12 +530,12 @@
       "title": "Multi Select",
       "description": "Multi-value selector with removable chips, search, select/clear all, and maxSelected limit.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/multi-select.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/multi-select.tsx"
+          "target": "components/renderjoy/multi-select.tsx"
         }
       ]
     },
@@ -545,12 +545,12 @@
       "title": "Cookie Consent",
       "description": "Configurable consent panel with Accept All, Reject Optional, and category customisation callbacks.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/cookie-consent.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/cookie-consent.tsx"
+          "target": "components/renderjoy/cookie-consent.tsx"
         }
       ]
     },
@@ -560,12 +560,12 @@
       "title": "Card Stack",
       "description": "Layered interactive card stack with drag/swipe cycling, configurable depth and rotation, and keyboard navigation.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/card-stack.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/card-stack.tsx"
+          "target": "components/renderjoy/card-stack.tsx"
         }
       ]
     },
@@ -575,12 +575,12 @@
       "title": "Detent Drawer",
       "description": "Snap-point drawer with Peek, Half, and Full detents, drag snapping, and keyboard Escape dismissal.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/detent-drawer.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/detent-drawer.tsx"
+          "target": "components/renderjoy/detent-drawer.tsx"
         }
       ]
     },
@@ -590,12 +590,12 @@
       "title": "Notch",
       "description": "Dynamic Island-inspired morphing status pill with idle, active, success, and alert states.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/notch.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/notch.tsx"
+          "target": "components/renderjoy/notch.tsx"
         }
       ]
     },
@@ -605,12 +605,12 @@
       "title": "Physical Knob",
       "description": "Tactile rotary dial with pointer drag rotation, tick marks, detent snapping, and double-click reset.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/physical-knob.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/physical-knob.tsx"
+          "target": "components/renderjoy/physical-knob.tsx"
         }
       ]
     },
@@ -620,12 +620,12 @@
       "title": "Reaction Arc",
       "description": "Radial fan-out reaction picker with spring-staggered arc geometry and keyboard selection.",
       "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/reaction-arc.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/reaction-arc.tsx"
+          "target": "components/renderjoy/reaction-arc.tsx"
         }
       ]
     },
@@ -635,12 +635,12 @@
       "title": "Receipt Printer",
       "description": "Thermal-style animated receipt feed with line-by-line printing, totals, and serrated edge.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/receipt-printer.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/receipt-printer.tsx"
+          "target": "components/renderjoy/receipt-printer.tsx"
         }
       ]
     },
@@ -650,12 +650,12 @@
       "title": "Rubber Band Select",
       "description": "Elastic drag-to-select list with rubber-band resistance, single/multi select, and keyboard fallback.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/rubber-band-select.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/rubber-band-select.tsx"
+          "target": "components/renderjoy/rubber-band-select.tsx"
         }
       ]
     },
@@ -665,12 +665,12 @@
       "title": "Morphing Tray",
       "description": "Compact-to-expanded contextual surface morphing seamlessly between summary and full controls.",
       "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/morphing-tray.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/morphing-tray.tsx"
+          "target": "components/renderjoy/morphing-tray.tsx"
         }
       ]
     },
@@ -680,12 +680,12 @@
       "title": "Keyboard",
       "description": "Interactive visual mechanical keyboard with physical keystroke highlights, click triggers, and key-cap depth.",
       "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/keyboard.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/keyboard.tsx"
+          "target": "components/renderjoy/keyboard.tsx"
         }
       ]
     },
@@ -699,7 +699,7 @@
         {
           "path": "registry/components/infinity-canvas.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/infinity-canvas.tsx"
+          "target": "components/renderjoy/infinity-canvas.tsx"
         }
       ]
     },
@@ -709,12 +709,12 @@
       "title": "Scratch Card",
       "description": "HTML5 canvas scratch-to-reveal foil surface with automatic threshold completion and accessible reveal fallback.",
       "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/sound-engine"],
+      "registryDependencies": ["@renderjoy/sound-engine"],
       "files": [
         {
           "path": "registry/components/scratch-card.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/scratch-card.tsx"
+          "target": "components/renderjoy/scratch-card.tsx"
         }
       ]
     },
@@ -728,7 +728,7 @@
         {
           "path": "registry/components/halftone-popover.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/halftone-popover.tsx"
+          "target": "components/renderjoy/halftone-popover.tsx"
         }
       ]
     },
@@ -742,7 +742,7 @@
         {
           "path": "registry/flow/base-node.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/flow/base-node.tsx"
+          "target": "components/renderjoy/flow/base-node.tsx"
         }
       ]
     },
@@ -752,12 +752,12 @@
       "title": "Flow Pipeline Nodes",
       "description": "Nine typed workflow nodes (Input, Output, auto-resizing Text with {{var}} handles, LLM, Webhook, HTTP Request, JSON Transform, Condition, Merge).",
       "dependencies": ["@xyflow/react", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@rjstudio/flow-base-node"],
+      "registryDependencies": ["@renderjoy/flow-base-node"],
       "files": [
         {
           "path": "registry/flow/pipeline-nodes.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/flow/pipeline-nodes.tsx"
+          "target": "components/renderjoy/flow/pipeline-nodes.tsx"
         }
       ]
     },
@@ -771,7 +771,7 @@
         {
           "path": "registry/flow/flow-canvas.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/flow/flow-canvas.tsx"
+          "target": "components/renderjoy/flow/flow-canvas.tsx"
         }
       ]
     },
@@ -785,7 +785,7 @@
         {
           "path": "registry/components/shader-background.tsx",
           "type": "registry:component",
-          "target": "components/rjstudio/shader-background.tsx"
+          "target": "components/renderjoy/shader-background.tsx"
         }
       ]
     }

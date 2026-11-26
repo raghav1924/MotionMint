@@ -101,10 +101,10 @@ describe("MotionMint Phase 2 — 9 Free Components", () => {
   });
 
   it("CopyButton handles success, empty value, and clipboard rejection", async () => {
-    const { rerender } = render(<CopyButton value="npx shadcn add @rjstudio/ripple-button" />);
+    const { rerender } = render(<CopyButton value="npx shadcn add @renderjoy/ripple-button" />);
     fireEvent.click(screen.getByRole("button"));
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-      "npx shadcn add @rjstudio/ripple-button"
+      "npx shadcn add @renderjoy/ripple-button"
     );
     expect(await screen.findByText("Copied")).toBeInTheDocument();
 
@@ -236,13 +236,13 @@ describe("MotionMint Phase 2 — 9 Free Components", () => {
       <MotionMintProvider>
         <ComponentDetailWorkbench
           slug="ripple-button"
-          installCommand="npx shadcn add @rjstudio/ripple-button"
+          installCommand="npx shadcn add @renderjoy/ripple-button"
         />
       </MotionMintProvider>
     );
     fireEvent.click(screen.getByRole("button", { name: "pnpm" }));
     expect(
-      screen.getByText("pnpm dlx shadcn add @rjstudio/ripple-button")
+      screen.getByText("pnpm dlx shadcn add @renderjoy/ripple-button")
     ).toBeInTheDocument();
     const neoBtn = screen.getByRole("button", { name: "Neo-Brutal" });
     fireEvent.click(neoBtn);

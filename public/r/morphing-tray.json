@@ -10,14 +10,14 @@
     "tailwind-merge"
   ],
   "registryDependencies": [
-    "@rjstudio/sound-engine"
+    "@renderjoy/sound-engine"
   ],
   "files": [
     {
       "path": "registry/components/morphing-tray.tsx",
       "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\nimport { ChevronUp, ChevronDown } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { triggerInteractionFeedback } from \"@/lib/audio/feedback-store\";\n\nexport interface MorphingTrayProps {\n  title: string;\n  compactSummary?: React.ReactNode;\n  children: React.ReactNode;\n  actions?: React.ReactNode;\n  defaultExpanded?: boolean;\n  sound?: boolean;\n  haptic?: boolean;\n  className?: string;\n}\n\nexport function MorphingTray({\n  title,\n  compactSummary,\n  children,\n  actions,\n  defaultExpanded = false,\n  sound,\n  haptic,\n  className,\n}: MorphingTrayProps) {\n  const [expanded, setExpanded] = useState(defaultExpanded);\n  const prefersReduced = useReducedMotion();\n\n  const toggle = () => {\n    const next = !expanded;\n    setExpanded(next);\n    triggerInteractionFeedback(next ? \"panelOpen\" : \"panelClose\", { sound, haptic });\n  };\n\n  return (\n    <motion.div\n      layout={!prefersReduced}\n      transition={{ type: \"spring\", stiffness: 340, damping: 28 }}\n      onKeyDown={(e) => {\n        if (e.key === \"Escape\" && expanded) setExpanded(false);\n      }}\n      className={cn(\n        \"w-full max-w-md overflow-hidden rounded-[var(--mm-radius-lg,20px)] border border-[var(--mm-border-strong,rgba(255,255,255,0.18))] bg-[var(--mm-surface,#111114)] text-[var(--mm-fg,#fafafa)] shadow-[var(--mm-shadow)]\",\n        className\n      )}\n    >\n      <div className=\"flex items-center justify-between gap-3 px-4 py-3\">\n        <button\n          type=\"button\"\n          onClick={toggle}\n          aria-expanded={expanded}\n          className=\"flex flex-1 items-center gap-2.5 text-left text-xs font-semibold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mm-ring,#10b981)] rounded\"\n        >\n          {expanded ? (\n            <ChevronDown className=\"h-4 w-4 text-[var(--mm-accent,#10b981)]\" aria-hidden=\"true\" />\n          ) : (\n            <ChevronUp className=\"h-4 w-4 text-[var(--mm-accent,#10b981)]\" aria-hidden=\"true\" />\n          )}\n          <span>{title}</span>\n          {!expanded && compactSummary && (\n            <span className=\"ml-auto font-normal text-[var(--mm-fg-muted)]\">{compactSummary}</span>\n          )}\n        </button>\n        {actions && <div className=\"shrink-0\">{actions}</div>}\n      </div>\n\n      {expanded && (\n        <div className=\"border-t border-[var(--mm-border)] bg-[var(--mm-surface-subtle,#141418)] p-4 text-xs\">\n          {children}\n        </div>\n      )}\n    </motion.div>\n  );\n}\n",
       "type": "registry:component",
-      "target": "components/rjstudio/morphing-tray.tsx"
+      "target": "components/renderjoy/morphing-tray.tsx"
     }
   ],
   "type": "registry:component"

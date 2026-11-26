@@ -94,7 +94,7 @@ export function HomeHeroDemo() {
               Feedback &amp; CLI
             </span>
             <div className="flex items-center gap-3">
-              <CopyButton value="npx shadcn add @rjstudio/ripple-button" label="Copy CLI" />
+              <CopyButton value="npx shadcn add @renderjoy/ripple-button" label="Copy CLI" />
               <BounceDotsLoader size="sm" />
             </div>
           </div>
