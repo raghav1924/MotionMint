@@ -13,7 +13,9 @@ export type ShaderPresetId =
   | "noise"
   | "energy"
   | "fluted-glass"
-  | "topography";
+  | "topography"
+  | "prism"
+  | "kinetic-torus";
 
 export type ShaderLookCategory = "premium" | "simple" | "modern";
 export type ShaderQuality = "low" | "medium" | "high";
@@ -115,6 +117,22 @@ export const SHADER_PRESETS: Record<ShaderPresetId, ShaderPresetMeta> = {
     description: "Crisp flat vector-style organic contour bands in motion.",
     defaultColors: ["#1EA7D8", "#38BDF8", "#1446A0"],
     index: 10,
+  },
+  prism: {
+    id: "prism",
+    label: "Chromatic Prism",
+    look: "premium",
+    description: "Soft-focus optical glass caustics with spectral rainbow dispersion.",
+    defaultColors: ["#F8FAFC", "#38BDF8", "#050507"],
+    index: 11,
+  },
+  "kinetic-torus": {
+    id: "kinetic-torus",
+    label: "Kinetic Torus",
+    look: "premium",
+    description: "3D sculpted radial-ribbed torus rotating with studio rim lighting.",
+    defaultColors: ["#8B5CF6", "#E2E8F0", "#070709"],
+    index: 12,
   },
 };
 
@@ -223,6 +241,19 @@ float liquidHeight(vec2 p, float t, float dist) {
     fbm(p + vec2(5.2, 1.3) + vec2(-t * 0.11, t * 0.13))
   );
   return fbm(p + q * (1.75 * dist) + vec2(t * 0.09, -t * 0.08));
+}
+
+float torusSculptureSDF(vec3 pos, float t, float dist) {
+  float ang = atan(pos.y, pos.x);
+  float rMajor = 0.62;
+  vec2 q = vec2(length(pos.xy) - rMajor, pos.z);
+  float twist = ang * 3.0 + t * 0.9;
+  float c = cos(twist);
+  float s = sin(twist);
+  vec2 rq = mat2(c, -s, s, c) * q;
+  float fins = 0.045 * sin(ang * 24.0 + atan(rq.y, rq.x) * 2.0);
+  float box = length(max(abs(rq) - vec2(0.22 + 0.04 * dist, 0.09), 0.0)) - 0.045;
+  return (box + fins) * 0.65;
 }
 
 void main() {
@@ -336,13 +367,81 @@ void main() {
     float groove = smoothstep(0.42, 0.5, abs(ribPhase));
     col = mix(tinted, u_color2 * 0.6, groove * 0.55);
     col += u_color0 * ridge * 0.18 * u_intensity;
-  } else {
+  } else if (u_preset == 10) {
     // 11 — Topography: crisp flat vector-style organic contour bands
     float elev = fbm(p * 0.85 + vec2(t * 0.09, -t * 0.07))
                + 0.45 * fbm(p * 0.55 - vec2(t * 0.06, t * 0.08));
     float wave = sin(elev * (11.0 + u_distortion * 5.0));
     float bandMask = smoothstep(0.14, 0.21, wave);
     col = mix(u_color2, u_color0, bandMask * clamp(u_intensity, 0.4, 1.0));
+  } else if (u_preset == 11) {
+    // 12 — Chromatic Prism: soft-focus optical glass caustics with RGB dispersion
+    vec2 q = p * 0.52;
+    float e = 0.04;
+    float h = liquidHeight(q, t * 0.9, u_distortion);
+    float hx = liquidHeight(q + vec2(e, 0.0), t * 0.9, u_distortion);
+    float hy = liquidHeight(q + vec2(0.0, e), t * 0.9, u_distortion);
+    vec2 grad = vec2(hx - h, hy - h) / e;
+    vec2 disp = normalize(grad + 0.0001) * (0.045 + 0.035 * u_distortion);
+
+    float hR = liquidHeight(q + disp, t * 0.9, u_distortion);
+    float hB = liquidHeight(q - disp, t * 0.9, u_distortion);
+
+    vec3 caustic = vec3(
+      smoothstep(0.45, 0.72, hR),
+      smoothstep(0.45, 0.72, h),
+      smoothstep(0.45, 0.72, hB)
+    );
+    float edgeMask = clamp(length(caustic - vec3(caustic.g)) * 3.5 + caustic.g * (1.0 - caustic.g) * 2.2, 0.0, 1.0);
+    vec3 spectrum = 0.5 + 0.5 * cos(h * 11.0 + vec3(0.0, 2.1, 4.2));
+    vec3 prismGlow = mix(caustic, spectrum, 0.38) * edgeMask * u_intensity;
+    col = mix(u_color2, u_color0, caustic.g * 0.92 * u_intensity);
+    col += prismGlow * 0.65;
+  } else {
+    // 13 — Kinetic Torus: 3D sculpted radial-ribbed torus with studio rim lighting
+    vec2 tilt = (u_mouse - 0.5) * u_pointerStrength * 0.9;
+    vec3 ro = vec3(0.0, 0.0, 2.05);
+    vec3 rd = normalize(vec3(uv * 1.15, -1.55));
+
+    float rx = 0.35 + tilt.y;
+    float ry = t * 0.35 + tilt.x;
+    mat2 rotX = mat2(cos(rx), -sin(rx), sin(rx), cos(rx));
+    mat2 rotY = mat2(cos(ry), -sin(ry), sin(ry), cos(ry));
+
+    float distAcc = 0.0;
+    bool hit = false;
+    vec3 hitPos = vec3(0.0);
+    for (int i = 0; i < 32; i++) {
+      vec3 sp = ro + rd * distAcc;
+      sp.yz = rotX * sp.yz;
+      sp.xz = rotY * sp.xz;
+      float d = torusSculptureSDF(sp, t, u_distortion);
+      if (d < 0.004) {
+        hit = true;
+        hitPos = sp;
+        break;
+      }
+      distAcc += d;
+      if (distAcc > 4.0) break;
+    }
+
+    col = u_color2;
+    if (hit) {
+      float eps = 0.006;
+      vec3 n = normalize(vec3(
+        torusSculptureSDF(hitPos + vec3(eps, 0.0, 0.0), t, u_distortion) - torusSculptureSDF(hitPos - vec3(eps, 0.0, 0.0), t, u_distortion),
+        torusSculptureSDF(hitPos + vec3(0.0, eps, 0.0), t, u_distortion) - torusSculptureSDF(hitPos - vec3(0.0, eps, 0.0), t, u_distortion),
+        torusSculptureSDF(hitPos + vec3(0.0, 0.0, eps), t, u_distortion) - torusSculptureSDF(hitPos - vec3(0.0, 0.0, eps), t, u_distortion)
+      ));
+      vec3 lightA = normalize(vec3(-0.6, 0.8, 0.7));
+      vec3 lightB = normalize(vec3(0.7, -0.5, 0.5));
+      float diffA = max(dot(n, lightA), 0.0);
+      float diffB = max(dot(n, lightB), 0.0);
+      float fresnel = pow(1.0 - max(dot(n, normalize(-rd)), 0.0), 2.8);
+      col = u_color2 * 0.5
+          + u_color0 * (diffA * 0.72 + fresnel * 0.55) * u_intensity
+          + u_color1 * (diffB * 0.55 + pow(diffA, 6.0) * 0.45) * u_intensity;
+    }
   }
 
   gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);

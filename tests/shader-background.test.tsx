@@ -36,6 +36,8 @@ describe("ShaderBackground — Raw WebGL Generative Canvas", () => {
       "energy",
       "fluted-glass",
       "topography",
+      "prism",
+      "kinetic-torus",
     ]);
 
     for (const preset of presets) {
