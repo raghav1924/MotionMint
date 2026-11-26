@@ -51,7 +51,7 @@ describe("Phase 2.6 — Complete Catalogue Inventory & Homepage Modules", () => 
       dispatchEvent: () => false,
     }));
 
-    render(<ParticleWordmark text="MotionMint" />);
-    expect(screen.getByText("MotionMint")).toBeInTheDocument();
+    render(<ParticleWordmark text="R&J Studio" />);
+    expect(screen.getByText("R&J Studio")).toBeInTheDocument();
   });
 });

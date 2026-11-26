@@ -63,7 +63,7 @@ describe("Planes UI Design & Interaction Specification", () => {
       </MotionMintProvider>
     );
 
-    expect(screen.getByText("@motionmint/card-stack")).toBeInTheDocument();
+    expect(screen.getByText("@rjstudio/card-stack")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Copy prompt options" }));
     expect(screen.getByRole("menuitem", { name: /Open in ChatGPT/i })).toBeInTheDocument();
@@ -110,7 +110,7 @@ describe("Planes UI Design & Interaction Specification", () => {
 
     expect(screen.queryByText(/Pro Component/i)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("tab", { name: "npm" }));
-    expect(screen.getByText("npx shadcn@latest add @motionmint/card-stack")).toBeInTheDocument();
+    expect(screen.getByText("npx shadcn@latest add @rjstudio/card-stack")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "props" }));
     expect(screen.getByText("maxVisibleDepth")).toBeInTheDocument();

@@ -95,7 +95,7 @@ export function ComponentLivePreview({
     case "copy-button":
       return (
         <div className="flex items-center justify-center gap-3">
-          <CopyButton value="npx shadcn add @motionmint/ripple-button" />
+          <CopyButton value="npx shadcn add @rjstudio/ripple-button" />
         </div>
       );
     case "sound-toggle":

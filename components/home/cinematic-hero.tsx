@@ -18,6 +18,7 @@ import { ProgressRing } from "@/registry/components/progress-ring";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { MotionMintTheme } from "@/components/theme/theme-scope";
 import { SculpturalSilk } from "@/components/home/sculptural-silk";
+import { BRAND } from "@/lib/brand";
 import { useMotionMint } from "@/components/site/providers";
 
 export function CinematicHero() {
@@ -271,7 +272,7 @@ export function CinematicHero() {
             className="relative z-10 mx-auto max-w-2xl py-8 text-center space-y-6"
           >
             <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ws-text-secondary)]">
-              MotionMint · 44 Components · 58 Theme Variants · Flow
+              {BRAND.name} · 45 Components · 58 Theme Variants · Flow
             </p>
 
             <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[var(--ws-text-primary)] sm:text-6xl lg:text-[72px] lg:leading-[1.03]">
@@ -305,7 +306,7 @@ export function CinematicHero() {
                 className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] transition-colors"
               >
                 <Workflow className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>Discover MotionMint Flow →</span>
+                <span>Discover R&amp;J Flow →</span>
               </Link>
             </div>
           </motion.div>

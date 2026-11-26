@@ -33,7 +33,7 @@ describe("Phase 2.12 — Editorial Brand Identity & Homepage Redesign", () => {
     );
 
     // Editorial Navbar (no sound toggle or 29-theme dropdown in header)
-    expect(screen.getByRole("link", { name: /MotionMint home/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /R&J Studio home/i })).toBeInTheDocument();
     expect(screen.queryByText(/Sound Off/i)).not.toBeInTheDocument();
 
     // Hero
@@ -47,7 +47,7 @@ describe("Phase 2.12 — Editorial Brand Identity & Homepage Redesign", () => {
     expect(heroWrapper).toHaveAttribute("data-hero-scroll-stage", "reveal");
     expect(screen.getAllByRole("link", { name: /Explore Components/i }).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /Discover Themes/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Discover MotionMint Flow/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Discover R&J Flow/i })).toBeInTheDocument();
 
     // Capability strip
     expect(screen.getByText("shadcn-compatible registry (50 items)")).toBeInTheDocument();

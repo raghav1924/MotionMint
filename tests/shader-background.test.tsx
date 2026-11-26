@@ -39,6 +39,7 @@ describe("ShaderBackground — Raw WebGL Generative Canvas", () => {
       "prism",
       "kinetic-torus",
       "particle-helix",
+      "bio-terrain",
     ]);
 
     for (const preset of presets) {

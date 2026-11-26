@@ -9,17 +9,17 @@
     "tailwind-merge"
   ],
   "registryDependencies": [
-    "@motionmint/ai-types",
-    "@motionmint/streaming-message",
-    "@motionmint/ai-prompt-composer",
-    "@motionmint/thinking-loader"
+    "@rjstudio/ai-types",
+    "@rjstudio/streaming-message",
+    "@rjstudio/ai-prompt-composer",
+    "@rjstudio/thinking-loader"
   ],
   "files": [
     {
       "path": "registry/components/ai-chat.tsx",
       "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport type { AIMessage } from \"@/lib/ai/types\";\nimport { StreamingMessage } from \"@/registry/components/streaming-message\";\nimport { AIPromptComposer } from \"@/registry/components/ai-prompt-composer\";\nimport { ThinkingLoader } from \"@/registry/components/thinking-loader\";\n\nexport interface AIChatProps {\n  initialMessages?: AIMessage[];\n  isLoading?: boolean;\n  onSendMessage?: (prompt: string) => void;\n  demoNotice?: string;\n  className?: string;\n}\n\nexport function AIChat({\n  initialMessages = [],\n  isLoading = false,\n  onSendMessage,\n  demoNotice,\n  className,\n}: AIChatProps) {\n  const [messages, setMessages] = useState<AIMessage[]>(initialMessages);\n\n  const handleSubmit = (prompt: string) => {\n    const userMsg: AIMessage = {\n      id: `u-${Date.now()}`,\n      role: \"user\",\n      content: prompt,\n      status: \"complete\",\n    };\n    setMessages((prev) => [...prev, userMsg]);\n    onSendMessage?.(prompt);\n  };\n\n  return (\n    <div\n      className={cn(\n        \"flex w-full max-w-2xl flex-col overflow-hidden rounded-[var(--mm-radius-lg,20px)] border border-[var(--mm-border-strong,rgba(255,255,255,0.16))] bg-[var(--mm-bg,#09090b)] text-[var(--mm-fg,#fafafa)]\",\n        className\n      )}\n    >\n      {demoNotice && (\n        <div className=\"border-b border-[var(--mm-border,rgba(255,255,255,0.08))] bg-[var(--mm-surface-subtle,#141418)] px-4 py-2 text-[11px] font-mono text-[var(--mm-fg-muted,#a1a1aa)]\">\n          {demoNotice}\n        </div>\n      )}\n\n      <div className=\"flex-1 space-y-4 p-4 max-h-80 overflow-y-auto\">\n        {messages.length === 0 ? (\n          <p className=\"py-10 text-center text-xs text-[var(--mm-fg-subtle,#71717a)]\">\n            No messages yet. Send a prompt below to begin.\n          </p>\n        ) : (\n          messages.map((m) => <StreamingMessage key={m.id} message={m} />)\n        )}\n\n        {isLoading && (\n          <div className=\"pt-1\">\n            <ThinkingLoader variant=\"orbit\" />\n          </div>\n        )}\n      </div>\n\n      <div className=\"border-t border-[var(--mm-border,rgba(255,255,255,0.08))] p-3\">\n        <AIPromptComposer onSubmit={handleSubmit} isStreaming={isLoading} />\n      </div>\n    </div>\n  );\n}\n",
       "type": "registry:component",
-      "target": "components/motionmint/ai-chat.tsx"
+      "target": "components/rjstudio/ai-chat.tsx"
     }
   ],
   "type": "registry:component"

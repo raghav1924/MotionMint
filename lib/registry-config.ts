@@ -2,7 +2,7 @@ import { BRAND } from "@/lib/brand";
 
 export type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
 
-export const REGISTRY_NAMESPACE = "@motionmint";
+export const REGISTRY_NAMESPACE = "@rjstudio";
 
 /**
  * Configurable registry base URL.

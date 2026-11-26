@@ -155,7 +155,7 @@ export function ThemesFlowSplit() {
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--ws-text-muted)]">
-                02 · MotionMint Flow
+                02 · R&amp;J Flow
               </span>
               <Link
                 href="/flow"

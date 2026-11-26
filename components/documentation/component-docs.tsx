@@ -24,7 +24,7 @@ export function ComponentDocs({
 
   const installCmd = getInstallCommand(item.slug, pkg);
   const componentExport = item.name.replace(/[^a-zA-Z0-9]/g, "");
-  const usageSnippet = `import { ${componentExport} } from "@/components/motionmint/${item.slug}";\n\nexport function Example() {\n  return <${componentExport} />;\n}`;
+  const usageSnippet = `import { ${componentExport} } from "@/components/rjstudio/${item.slug}";\n\nexport function Example() {\n  return <${componentExport} />;\n}`;
 
   const related = CATALOG_ITEMS.filter(
     (c) => c.status === "implemented" && c.slug !== item.slug && c.category === item.category

@@ -1,11 +1,9 @@
 import React from "react";
-import { BRAND } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 /**
- * MotionMint Kinetic M Logomark.
- * Two continuous folded ribbon paths forming an unmistakable geometric M
- * with a precision diagonal cut — legible from 16px favicon to 160px footer scale.
+ * Bespoke "RJ" geometric monogram mark:
+ * crisp architectural R paired with an interlocking J curve.
  */
 export function MotionMintMark({
   className,
@@ -24,37 +22,55 @@ export function MotionMintMark({
       aria-hidden="true"
       className={cn("shrink-0", className)}
     >
-      {/* Left ascending folded ribbon */}
+      {/* R stem + bowl + leg */}
       <path
-        d="M4.5 25.5V9.2C4.5 7.7 6.3 6.9 7.4 7.9L16 15.8L16 21.4L9 14.9V25.5H4.5Z"
-        fill="currentColor"
+        d="M5 26V6H12.5C15.5376 6 18 8.46243 18 11.5C18 14.5376 15.5376 17 12.5 17H5"
+        stroke="currentColor"
+        strokeWidth="3.1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      {/* Right descending folded ribbon */}
       <path
-        d="M27.5 25.5V9.2C27.5 7.7 25.7 6.9 24.6 7.9L16 15.8L16 21.4L23 14.9V25.5H27.5Z"
-        fill="currentColor"
-        fillOpacity="0.62"
+        d="M11.5 17L17.5 26"
+        stroke="currentColor"
+        strokeWidth="3.1"
+        strokeLinecap="round"
       />
-      {/* Precision kinetic apex */}
-      <path d="M13.2 13.2L16 10.6L18.8 13.2L16 15.8L13.2 13.2Z" fill="currentColor" />
+      {/* Interlocking J */}
+      <path
+        d="M26 6V19.5C26 23.0899 23.0899 26 19.5 26C18.2 26 17.0 25.6 16.0 24.9"
+        stroke="currentColor"
+        strokeWidth="3.1"
+        strokeLinecap="round"
+        opacity="0.72"
+      />
+      <circle cx="26" cy="6" r="1.6" fill="currentColor" />
     </svg>
   );
 }
 
+/**
+ * Editorial wordmark highlighting R and J together.
+ */
 export function MotionMintWordmark({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-baseline tracking-[-0.035em] select-none",
+        "inline-flex items-baseline font-semibold tracking-[-0.035em] leading-none select-none",
         className
       )}
     >
-      <span className="font-semibold">{BRAND.name.slice(0, 6)}</span>
-      <span className="font-normal opacity-70">{BRAND.name.slice(6)}</span>
+      <span>R</span>
+      <span className="mx-[0.04em] font-normal opacity-55">&amp;</span>
+      <span>J</span>
+      <span className="ml-[0.28em] font-normal opacity-65">Studio</span>
     </span>
   );
 }
 
+/**
+ * Horizontal brand lockup: RJ Monogram + R&J Studio Wordmark.
+ */
 export function MotionMintLogo({
   markSize = 22,
   className,
@@ -65,7 +81,7 @@ export function MotionMintLogo({
   wordmarkClassName?: string;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
+    <span className={cn("inline-flex items-center gap-2.5", className)}>
       <MotionMintMark size={markSize} />
       <MotionMintWordmark className={cn("text-[15px]", wordmarkClassName)} />
     </span>

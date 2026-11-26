@@ -372,7 +372,7 @@ export function ComponentStudio({
             demoNotice="Demo UI Mode — Controlled props, no live AI backend"
             initialMessages={[
               { id: "1", role: "user", content: "How do I install a component?", status: "complete" },
-              { id: "2", role: "assistant", content: "Run npx shadcn@latest add @motionmint/ai-chat.", status: "complete" },
+              { id: "2", role: "assistant", content: "Run npx shadcn@latest add @rjstudio/ai-chat.", status: "complete" },
             ]}
           />
         );
@@ -419,7 +419,7 @@ export function ComponentStudio({
             <GlowInput
               label="API Endpoint"
               prefix="https://"
-              placeholder="motionmint.dev/r"
+              placeholder="rjstudio.dev/r"
               helperText="Move your cursor over the border while focused."
             />
           </div>
@@ -564,7 +564,12 @@ export function ComponentStudio({
             backgroundColor={shaderBgColor}
             reducedMotion={simReducedMotion}
             className={cn(
-              "flex min-h-[280px] w-full flex-col items-center justify-center rounded-2xl border border-white/10 p-6 text-center",
+              "flex w-full flex-col items-center justify-center p-6 text-center",
+              viewport === "mobile"
+                ? "h-[690px] rounded-none border-0"
+                : viewport === "tablet"
+                  ? "h-[500px] rounded-none border-0"
+                  : "min-h-[540px] sm:min-h-[600px] rounded-[24px] border border-white/10 shadow-[var(--ws-shadow-floating)]",
               shaderPreset === "pastel" ? "text-slate-900" : "text-white"
             )}
           >
@@ -1075,9 +1080,9 @@ export function ComponentStudio({
         );
       case "shader-background":
         return (
-          <div className="space-y-3.5 text-xs text-[var(--ws-text-secondary)]">
+          <div className="grid gap-6 md:grid-cols-3 text-xs text-[var(--ws-text-secondary)]">
             <div className="space-y-1.5">
-              <p>Shader Preset</p>
+              <p className="font-medium text-[var(--ws-text-primary)]">Shader Preset</p>
               <div className="grid grid-cols-3 gap-1.5">
                 {(Object.keys(SHADER_PRESETS) as ShaderPresetId[]).map((id) => (
                   <button
@@ -1101,9 +1106,10 @@ export function ComponentStudio({
               </div>
             </div>
 
+            <div className="space-y-4">
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <span>Palette</span>
+                <span className="font-medium text-[var(--ws-text-primary)]">Palette</span>
                 <button
                   type="button"
                   onClick={() => {
@@ -1135,6 +1141,9 @@ export function ComponentStudio({
               </div>
             </div>
 
+            </div>
+
+            <div className="space-y-3">
             <label className="block space-y-1">
               <span>Speed ({shaderSpeed.toFixed(2)})</span>
               <input
@@ -1251,6 +1260,7 @@ export function ComponentStudio({
                 className="h-7 w-12 cursor-pointer rounded border border-[var(--ws-border)] bg-transparent p-0.5"
               />
             </label>
+            </div>
           </div>
         );
       default:
@@ -1421,7 +1431,9 @@ export function ComponentStudio({
           <div
             className={cn(
               "grid gap-5 items-start",
-              inspectorOpen && stageTab === "preview" ? "xl:grid-cols-[1fr_290px]" : "grid-cols-1"
+              inspectorOpen && stageTab === "preview" && item.slug !== "shader-background"
+                ? "xl:grid-cols-[1fr_290px]"
+                : "grid-cols-1"
             )}
           >
             {stageTab === "compare" ? (
@@ -1494,7 +1506,19 @@ export function ComponentStudio({
                 >
                   <div key={combinedResetKey} className="w-full flex flex-col items-center">
                     <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
-                      {viewport === "mobile" ? (
+                      {item.slug === "shader-background" ? (
+                        viewport === "mobile" ? (
+                          <MobileDeviceFrame slug={item.slug} fullBleed>
+                            {renderStage()}
+                          </MobileDeviceFrame>
+                        ) : viewport === "tablet" ? (
+                          <TabletPreviewFrame slug={item.slug} fullBleed>
+                            {renderStage()}
+                          </TabletPreviewFrame>
+                        ) : (
+                          renderStage()
+                        )
+                      ) : viewport === "mobile" ? (
                         <MobileDeviceFrame slug={item.slug}>
                           <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
                             {renderStage()}
@@ -1525,11 +1549,14 @@ export function ComponentStudio({
               </div>
             )}
 
-            {/* Collapsible Right Inspector */}
+            {/* Collapsible Inspector (Side for standard components, Bottom wide panel for full-canvas Shader Background) */}
             {inspectorOpen && stageTab === "preview" && (
               <aside
                 aria-label="Component Inspector"
-                className="hidden xl:block rounded-xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 space-y-4"
+                className={cn(
+                  "rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-4",
+                  item.slug === "shader-background" ? "block w-full" : "hidden xl:block rounded-xl p-4"
+                )}
               >
                 <div className="flex items-center justify-between border-b border-[var(--ws-border)] pb-2.5">
                   <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ws-text-secondary)]">

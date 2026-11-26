@@ -8,6 +8,7 @@ interface FrameProps {
   slug: string;
   children: React.ReactNode;
   className?: string;
+  fullBleed?: boolean;
 }
 
 export function DesktopBrowserFrame({ slug, children, className }: FrameProps) {
@@ -42,7 +43,7 @@ export function DesktopBrowserFrame({ slug, children, className }: FrameProps) {
   );
 }
 
-export function TabletPreviewFrame({ slug, children, className }: FrameProps) {
+export function TabletPreviewFrame({ slug, children, className, fullBleed }: FrameProps) {
   return (
     <div
       data-testid="tablet-preview-frame"
@@ -65,40 +66,45 @@ export function TabletPreviewFrame({ slug, children, className }: FrameProps) {
       </div>
 
       {/* Tablet Aspect Viewport */}
-      <div className="flex min-h-[500px] w-full items-center justify-center p-6 sm:p-10 overflow-y-auto">
+      <div
+        className={cn(
+          "flex min-h-[500px] w-full items-center justify-center overflow-y-auto",
+          fullBleed ? "p-0" : "p-6 sm:p-10"
+        )}
+      >
         {children}
       </div>
     </div>
   );
 }
 
-export function MobileDeviceFrame({ slug, children, className }: FrameProps) {
+export function MobileDeviceFrame({ slug, children, className, fullBleed }: FrameProps) {
   return (
     <div
       data-testid="mobile-device-frame"
       aria-label={`Mobile preview of ${slug}`}
-      className={cn("relative mx-auto w-full max-w-[390px] py-1", className)}
+      className={cn("relative mx-auto w-full max-w-[366px] py-1", className)}
     >
       {/* Left side hardware buttons */}
       <span
         aria-hidden="true"
-        className="absolute -left-[3px] top-24 h-7 w-[3px] rounded-l bg-[#27272a]"
+        className="absolute -left-[3px] top-28 h-7 w-[3px] rounded-l bg-[#27272a]"
       />
       <span
         aria-hidden="true"
-        className="absolute -left-[3px] top-36 h-11 w-[3px] rounded-l bg-[#27272a]"
+        className="absolute -left-[3px] top-40 h-12 w-[3px] rounded-l bg-[#27272a]"
       />
       <span
         aria-hidden="true"
-        className="absolute -left-[3px] top-50 h-11 w-[3px] rounded-l bg-[#27272a]"
+        className="absolute -left-[3px] top-56 h-12 w-[3px] rounded-l bg-[#27272a]"
       />
       {/* Right side power button */}
       <span
         aria-hidden="true"
-        className="absolute -right-[3px] top-36 h-14 w-[3px] rounded-r bg-[#27272a]"
+        className="absolute -right-[3px] top-44 h-16 w-[3px] rounded-r bg-[#27272a]"
       />
 
-      <div className="w-full rounded-[48px] border-[10px] border-[#111113] bg-white text-[#08090a] shadow-[0_24px_60px_rgba(0,0,0,0.22)] overflow-hidden">
+      <div className="w-full rounded-[52px] border-[10px] border-[#111113] bg-white text-[#08090a] shadow-[0_24px_60px_rgba(0,0,0,0.22)] overflow-hidden">
         {/* iOS Status Bar + Dynamic Island */}
         <div className="relative flex h-12 items-center justify-between px-7 pt-1 text-[11px] font-semibold">
           <span>9:41</span>
@@ -114,8 +120,13 @@ export function MobileDeviceFrame({ slug, children, className }: FrameProps) {
           </div>
         </div>
 
-        {/* Inner Scrollable Device Screen */}
-        <div className="flex h-[540px] flex-col items-center justify-center px-4 py-6 overflow-y-auto overflow-x-hidden">
+        {/* Inner Scrollable Device Screen (iPhone 9:19.5 proportions) */}
+        <div
+          className={cn(
+            "flex h-[690px] flex-col items-center justify-center overflow-y-auto overflow-x-hidden",
+            fullBleed ? "p-0" : "px-4 py-6"
+          )}
+        >
           {children}
         </div>
 
