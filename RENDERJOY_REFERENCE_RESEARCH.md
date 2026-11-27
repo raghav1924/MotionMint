@@ -1,6 +1,6 @@
-# MotionMint — Reference Research, Competitive Analysis & Component Source Catalogue
+# RenderJoy — Reference Research, Competitive Analysis & Component Source Catalogue
 
-> **Purpose:** Research notebook for Antigravity and future coding agents. This document records the websites the user supplied, the capabilities/categories that were visible in official documentation or indexed pages, the user's own supplied future component list, and how MotionMint should use each source.
+> **Purpose:** Research notebook for Antigravity and future coding agents. This document records the websites the user supplied, the capabilities/categories that were visible in official documentation or indexed pages, the user's own supplied future component list, and how RenderJoy should use each source.
 >
 > **Research snapshot:** 2026-11-27. Websites change frequently. Re-open official reference pages before making implementation or availability claims. This is a design/product research map, not permission to copy source code, assets, logos or paid components.
 
@@ -19,7 +19,7 @@ Bencho combines four related experiences:
 
 Bencho's official About page describes 186 blocks, all live/adjustable, and a source/MCP Pro offering. Its homepage search index shows an interaction-labelled component inventory. Treat counts as a dated snapshot, not a permanent fact. The user's attached screenshot of `/bench` shows a dark dotted full-canvas surface with independent specimen objects (chart, media stack, pricing/value tile, clock, logo glyph) and canvas zoom controls. The attached footer screenshot shows a near-black footer, a contact line, left-side logo/description/creator/social area, four right-side link groups, a large halftone/dot landscape and compact legal footer row.
 
-**MotionMint adaptation:** live component details + adjustable inspector + category/interaction discovery + individual sound audition + curated Finds/reference area + a `/bench` board. Preserve MotionMint's own brand, themes and installation model.
+**RenderJoy adaptation:** live component details + adjustable inspector + category/interaction discovery + individual sound audition + curated Finds/reference area + a `/bench` board. Preserve RenderJoy's own brand, themes and installation model.
 
 ### The sources fall into different roles
 
@@ -31,6 +31,18 @@ Bencho's official About page describes 186 blocks, all live/adjustable, and a so
 - **Brand/portfolio inspiration:** Metalab, Marked.dev, Contra / Divan Raj.
 
 Do not treat every source as a component codebase. Some are reference galleries, interaction inspiration or lower-level primitives.
+
+---
+
+## 1.1 Current working roadmap reconciliation
+
+The user supplied the current repository `ROADMAP.md` (last updated 2026-11-25). It uses the brand **RenderJoy** (`@renderjoy/*`, `<RenderJoyTheme>`, `renderjoy-logo.tsx`), so this research document now follows that repository identity. Earlier conversation messages used “MotionMint”; do not mass-rename the codebase based on conversational naming alone. Preserve the current repository brand unless the user explicitly approves a rename.
+
+The current roadmap reports these as complete: unified application shell (Phase 2.11), editorial brand and shortened homepage (Phase 2.12), Bencho-inspired component discovery/inspector/comparison (Phase 2.13), the raw-WebGL Shader Background engine (six internal presets), and the `/flow` Node Pipeline Orchestrator demo. These are the starting baseline, not an instruction to rebuild them. Verify source and browser behaviour before asserting current state.
+
+The roadmap also establishes important distinctions: `/playground` and standalone `/canvas` were removed later; `InfinityCanvas` remains an installable component; the requested full-canvas Bencho-style experimentation workspace is a separate future **Bench** route. The Flow execution adapter is simulated, not a production workflow runtime. The current Sound Lab reports 17 synthesized cues; the 50+ individually auditionable original sound library remains future work. The single Shader Background item has six internal presets, while the user's later requirement is to publish each distinct visual effect (for example Logo Flare, Prism, Wind Tunnel, Cloud Sea and Liquid Drops) as its own discoverable component while sharing the renderer internally.
+
+If an older section of this research or the earlier Agent Roadmap conflicts with the user's supplied current `ROADMAP.md`, use the latest roadmap's completed status and the later route-removal decisions as the baseline, then use repository evidence to determine what remains.
 
 ---
 
@@ -270,7 +282,7 @@ This is a **name inventory** captured from search-indexed official Bencho pages 
 - Glass Bubble
 - Dither/ASCII style interaction demos
 
-> Names may overlap or have different spelling/capitalisation on the current live site. Before adding new MotionMint items, compare behaviour and purpose rather than matching names alone.
+> Names may overlap or have different spelling/capitalisation on the current live site. Before adding new RenderJoy items, compare behaviour and purpose rather than matching names alone.
 
 ### 2.3 Bencho interaction taxonomy to adopt
 
@@ -298,7 +310,7 @@ A component can support multiple interaction types. Filter/search should work on
 
 The official indexed `/sounds` page returned 82 named samples in eight categories: Actions, Feedback, Navigation, Notifications, Selection, Movement, Progress and System. Example names surfaced in the current index include Pat, Knock, Jab, Cuff, Tap, Thump, Sigh, Buzz, Bump, Groan, Snub, Chime, Hail, Pip, Bell, Tone, Whisk, Glide, Step, Vault, Sweep, Ferry, Stride, Bloom, Portal, Drift, Drag, Lift, Float, Drape, Swim, Sway, Hover, Tick, Latch, Pick, Cog, Check, Mark, Notch, Pin, Settle, Rise, Climb, Crest, Fill, Hush, Purr, Boot, Drone, Wake, Hum, Idle and Pulse.
 
-**MotionMint requirement:** ship at least 50 original, individually playable and clearly categorised sounds. Use Bencho as an interaction/quality benchmark only. Do not copy its audio recordings or one-to-one sound names/identities. Prefer original synthesis or properly licensed assets; sound off by default.
+**RenderJoy requirement:** ship at least 50 original, individually playable and clearly categorised sounds. Use Bencho as an interaction/quality benchmark only. Do not copy its audio recordings or one-to-one sound names/identities. Prefer original synthesis or properly licensed assets; sound off by default.
 
 ### 2.5 Bencho Bench / screenshot findings
 
@@ -309,7 +321,7 @@ From the user's attached `/bench` screenshot:
 - Specimens include a data chart, image/card stack, conversion/payment panel, abstract glyph and time/tick control.
 - Large negative space and direct manipulation feel.
 
-MotionMint should create `/bench` as a full-canvas lab where developers can place live components, adjust them and compare them. Keep `InfinityCanvas` as a separate installable component. The Bench route is not the old generic Playground route.
+RenderJoy should create `/bench` as a full-canvas lab where developers can place live components, adjust them and compare them. Keep `InfinityCanvas` as a separate installable component. The Bench route is not the old generic Playground route.
 
 ### 2.6 Bencho footer screenshot findings
 
@@ -321,11 +333,11 @@ MotionMint should create `/bench` as a full-canvas lab where developers can plac
 - Large dot/halftone landscape along bottom.
 - Fine divider and compact legal/copyright links.
 
-Adapt the information architecture and halftone motif in original MotionMint styling.
+Adapt the information architecture and halftone motif in original RenderJoy styling.
 
 ### 2.7 Licence and copying safeguards
 
-Bencho's About page states that its free blocks are MIT and that Pro unlocks full source/MCP. This does not grant MotionMint permission to copy paid blocks or Bencho-specific content. For any open-source code considered for adaptation, inspect the original repository's current LICENSE and preserve required attribution/notice. Prefer original implementation from observed behaviour.
+Bencho's About page states that its free blocks are MIT and that Pro unlocks full source/MCP. This does not grant RenderJoy permission to copy paid blocks or Bencho-specific content. For any open-source code considered for adaptation, inspect the original repository's current LICENSE and preserve required attribution/notice. Prefer original implementation from observed behaviour.
 
 ---
 
@@ -411,7 +423,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Dashboard-01 observed composition:** app sidebar with Dashboard/Lifecycle/Analytics/Projects/Team and document/resource nav; site header; summary/stat cards for revenue, customers, active accounts and growth; visitor chart; configurable data table with row drag, status, target, limit, reviewer and row menu. The registry/build example names `app-sidebar`, `chart-area-interactive`, `data-table`, `nav-documents`, `nav-main`, `nav-secondary`, `nav-user`, `section-cards` and `site-header`.
 
-**MotionMint use:** rely on shadcn/Radix-compatible foundations for semantics, but develop unique interaction-rich application components and full blocks. Avoid duplicating basic primitives without a differentiation reason.
+**RenderJoy use:** rely on shadcn/Radix-compatible foundations for semantics, but develop unique interaction-rich application components and full blocks. Avoid duplicating basic primitives without a differentiation reason.
 
 ### 3.2 Planes
 
@@ -466,7 +478,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Observed indexed Planes Logo Flare direction from user's recording:** dark navy/black background, central geometric logo, bright blue central illumination, radial rays and soft atmospheric glow. User wants a separate individual component, not a generic shader preset switcher.
 
-**MotionMint use:** study art direction, preview scale, custom interaction, dedicated detail pages, source/install presentation and WebGL polish. Make original art and component implementations.
+**RenderJoy use:** study art direction, preview scale, custom interaction, dedicated detail pages, source/install presentation and WebGL polish. Make original art and component implementations.
 
 ### 3.3 Marked.dev
 
@@ -504,7 +516,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Reel detail observed:** 9:16 media, progress indicators, autoplay/advance, image/video support, play/pause and mute, touch left/right navigation, composable overlays, keyboard accessibility and responsive viewport-height scaling.
 
-**MotionMint use:** review Deck, Reel, Stories, Image Zoom/Crop, Collaborative Canvas, Gantt/Kanban, Code Block, Editor and richer block templates.
+**RenderJoy use:** review Deck, Reel, Stories, Image Zoom/Crop, Collaborative Canvas, Gantt/Kanban, Code Block, Editor and richer block templates.
 
 ### 3.6 Magic UI
 
@@ -522,7 +534,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 - Backgrounds: Flickering Grid, Animated Grid Pattern, Retro Grid, Ripple, Dot Pattern, Grid Pattern, Hexagon Pattern, Striped Pattern, Interactive Grid Pattern, Light Rays, Noise Texture.
 - Community: Shiny Button, File Tree, Code Comparison, Scroll Progress, Neon Gradient Card, Comic Text, Kinetic Text, Cool Mode, Pixel Image, Pulsating Button, Backlight, Glyph Matrix.
 
-**MotionMint use:** compare effects and build original versions only where distinct; don't assume every Magic UI item belongs in the initial roadmap.
+**RenderJoy use:** compare effects and build original versions only where distinct; don't assume every Magic UI item belongs in the initial roadmap.
 
 ### 3.7 Tactile UI
 
@@ -532,7 +544,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Visible examples:** buttons, inputs, toggles, toasts, navigation controls, day/week/month controls, alerts, cards, invoice/payment surfaces, tables, dialogs, keys, knobs, fields and meters. Exact 224-item breakdown was not captured in the available index; inspect the live kit before adding a specific Tactile-derived item.
 
-**MotionMint use:** physical/tactile control ideas (knobs, sliders, keys, rubber-band selection, tactile feedback); do not copy the exact skeuomorphic visual language.
+**RenderJoy use:** physical/tactile control ideas (knobs, sliders, keys, rubber-band selection, tactile feedback); do not copy the exact skeuomorphic visual language.
 
 ### 3.8 React Bits
 
@@ -550,7 +562,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 - Sound Lab: audition/tune sound effects and install/export sounds.
 - Bento Builder: arrange, drag and resize bento tiles.
 
-**MotionMint use:** strong product inspiration for a future shader/texture/sound studio and export/share workflow. Keep actual component previews and export behaviour honest.
+**RenderJoy use:** strong product inspiration for a future shader/texture/sound studio and export/share workflow. Keep actual component previews and export behaviour honest.
 
 ### 3.9 Preline UI
 
@@ -573,7 +585,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Role:** icon system, not a UI component library. Current indexed catalogue exposes over 2,124 icons and category groups including Accessibility, Accounts & Access, AI, Animals, Arrows, Buildings, Charts, Communication, Connectivity, Cursors, Design, Coding & Development, Devices, Education, Finance, File Icons, Gaming, Layout, Mail, Multimedia, Nature, Navigation & Places, Notifications, People, Photography, Science, Security and Shapes.
 
-**MotionMint use:** use Lucide for supporting interface icons with consistent stroke; never use generic icon art as MotionMint's primary brand mark. Build a curated icon mapping and provide tooltips.
+**RenderJoy use:** use Lucide for supporting interface icons with consistent stroke; never use generic icon art as RenderJoy's primary brand mark. Build a curated icon mapping and provide tooltips.
 
 ### 3.11 Floating UI
 
@@ -586,7 +598,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Relevant APIs/documentation surfaced:** `useFloating`, `useInteractions`, `useHover`, `useClick`; middleware includes `offset`, `flip`, `shift`, `size`, `arrow`, `hide`, `autoPlacement`, etc. Floating UI's middleware is ordered and can reset/recompute positioning when placement changes.
 
-**MotionMint use:** implement compact inspector/menu positioning, viewport collision handling, tooltips and hover/focus behaviour. Keep menu placement fixed/stable and avoid preview layout shifts.
+**RenderJoy use:** implement compact inspector/menu positioning, viewport collision handling, tooltips and hover/focus behaviour. Keep menu placement fixed/stable and avoid preview layout shifts.
 
 ### 3.12 Stylemoth
 
@@ -606,7 +618,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Homepage indexed positioning:** library of templates and prompts, separate sections/components/shaders categories, and shader backgrounds exported as MP4/still/component. Homepage search result reported 172 shaders and 132 components at crawl time; counts may change.
 
-**MotionMint use:** unique scroll/motion patterns and component interaction engineering. Inspect actual implementations and avoid duplicating generic effects.
+**RenderJoy use:** unique scroll/motion patterns and component interaction engineering. Inspect actual implementations and avoid duplicating generic effects.
 
 ### 3.14 Footer Design
 
@@ -616,7 +628,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Filters/categories surfaced:** Typographic, Small Type, Illustrative, Grid, Flat, Animated, Cards, Bright, Dark, Large Type and Bold.
 
-**MotionMint use:** research distinct footer composition patterns and select a halftone/typographic/dark editorial solution for MotionMint. The user's Bencho footer screenshot remains the primary requested reference.
+**RenderJoy use:** research distinct footer composition patterns and select a halftone/typographic/dark editorial solution for RenderJoy. The user's Bencho footer screenshot remains the primary requested reference.
 
 ### 3.15 Try Clucky
 
@@ -632,7 +644,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Official indexed categories:** button category contains examples from product/brand websites such as Telescope, Primeasia, turn.io, Titan, Safepal, Zkpass, Vapi, Framer, Supabase, Linear, Perplexity, Cohere and others. Treat it as reference examples, not a source-code library.
 
-**MotionMint use:** CTA hierarchy, wording, placement, hover states, pricing/upgrade prompts and conversion affordances.
+**RenderJoy use:** CTA hierarchy, wording, placement, hover states, pricing/upgrade prompts and conversion affordances.
 
 ### 3.17 Mobbin
 
@@ -644,7 +656,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Categories/examples surfaced:** component screens and patterns such as buttons, dashboard navigation, onboarding tooltips, tabs, segmented controls, pagination, accordion, text fields, time picker, full-screen overlay, modal, multi-select dropdown, notification dot, admin badge, dialogs, cards, progress indicators, skeletons, toasts, upload flows, logo/navigation combinations, tabs and forms.
 
-**MotionMint use:** inspect real-world edge cases and workflows before implementing form controls, navigation, overlays, account flows, dashboard and onboarding patterns.
+**RenderJoy use:** inspect real-world edge cases and workflows before implementing form controls, navigation, overlays, account flows, dashboard and onboarding patterns.
 
 ### 3.18 Refero
 
@@ -654,7 +666,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Styles surfaced in index:** 3D objects, soft pastel gradients, Bauhaus geometry, AI startup, editorial magazine, type foundry, e-commerce, film grain/photos, acid lime accent, friendly startup, minimal & clean, huge serif headlines, brutalist, cinematic dark, developer tool, uppercase type, sharp corners, rounded, bento grid, playful/colorful, luxury brand, hardware product, retro web, maximalist, health/wellness, bold sans, earthy terracotta, black with one accent, fashion brand, hairline grid lines, creative studio, vibrant gradients, warm indie SaaS, architecture studio, black and white, frosted glass, music/audio, monospace/terminal, calm/soft, pixel fonts, mobile app landing and game studio.
 
-**MotionMint use:** moodboard and theme research. Not a component code library.
+**RenderJoy use:** moodboard and theme research. Not a component code library.
 
 ### 3.19 Scroll Shaders
 
@@ -669,7 +681,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 - Shader shelves: Mesh Gradients, Grain Gradients, Dither, Liquid Metal, Light & Rays, Fluted Glass, Halftone, Waves & Lines, 3D & Depth, Retro & ASCII, Patterns & Grids.
 - Examples surfaced: ASCII Flow, Aurora Veil, Bayer Drift, Caustics, Contour, Dot Screen, Eclipse, Ember Bloom, Fluted Glass, Grain Orbs, Heat Ribbons, Hex Scan, Iris Orb, Light Leak, Mercury, Moiré Rings, Ooze, Silk Lines, Silk Mesh, Swirl Gradient, Truchet Flow, Tunnel Warp, Voronoi Cells, Chrome Ribbons, Oil Slick, Prism Eclipse, Solar Eclipse, Aurora Bloom, Liquid Metal and others.
 
-**MotionMint use:** shader inspiration and WebGL quality benchmark. Each distinct visual requested by the user should have its own MotionMint catalogue detail page, even when engine code is shared.
+**RenderJoy use:** shader inspiration and WebGL quality benchmark. Each distinct visual requested by the user should have its own RenderJoy catalogue detail page, even when engine code is shared.
 
 ### 3.20 Lapa Ninja
 
@@ -679,7 +691,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Categories/counts surfaced in index (snapshot):** Hero, Features, Pricing, Testimonials, CTA, Footer, FAQ, How It Works, About, Team, Contact, Newsletter, Products, Services, Work, Blog, Gallery, Showcase, Stats, Value Proposition, Menu, Loading, Cursor & Hover, Page Transition and Text Animation. The indexed page reported 36,225 examples; this can change.
 
-**MotionMint use:** section/block idea discovery, not component code reuse.
+**RenderJoy use:** section/block idea discovery, not component code reuse.
 
 ### 3.21 Curated
 
@@ -689,7 +701,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Categories surfaced:** Agency, Artificial Intelligence, Assets, Design Tools, Desktop Apps, Development Tools, E-commerce, Education, Finance, Marketing, Mobile Apps, Portfolio, Productivity, Tech, Web Apps and Web3. Includes filtering by style, visuals, attributes and tags.
 
-**MotionMint use:** live source websites for art direction, page composition and industry-specific blocks.
+**RenderJoy use:** live source websites for art direction, page composition and industry-specific blocks.
 
 ### 3.22 Recent Design (formerly Godly)
 
@@ -697,7 +709,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Role:** daily curation of web, interface, branding, product, typography, motion, illustration, 3D, editorial and print work. The website has Browse categories including Design, Websites, OG Images, App Screenshots and App Icons; Resources include Tools, Skills and Jobs.
 
-**MotionMint use:** up-to-date aesthetic research. User's prior URL `recent.design/?ref=godly` is valid but the current identity is Recent.
+**RenderJoy use:** up-to-date aesthetic research. User's prior URL `recent.design/?ref=godly` is valid but the current identity is Recent.
 
 ### 3.23 Best Designs on X
 
@@ -713,7 +725,7 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 
 **Role:** designer portfolio and project inspiration, not a component library. Indexed work indicates product design, mobile/web, motion design, AI/SaaS, website design, art gallery mobile app and AI-native audio platform work.
 
-**MotionMint use:** portfolio case-study, motion direction, product showcase and creative presentation inspiration.
+**RenderJoy use:** portfolio case-study, motion direction, product showcase and creative presentation inspiration.
 
 ### 3.25 SiteInspire, Dribbble, Wix Studio, Metalab and Awwwards (contextual sources)
 
@@ -723,13 +735,13 @@ Bencho's About page states that its free blocks are MIT and that Pro unlocks ful
 - https://www.metalab.com/ — primary reference for premium brand/product storytelling and art direction.
 - https://www.awwwards.com/ — award/gallery inspiration; use for motion and visual quality references.
 
-These are not all component source libraries. The agent must identify exact visual patterns and translate them into original MotionMint design.
+These are not all component source libraries. The agent must identify exact visual patterns and translate them into original RenderJoy design.
 
 ---
 
-## 4. Cross-reference component taxonomy for MotionMint
+## 4. Cross-reference component taxonomy for RenderJoy
 
-This is a deduplicated research taxonomy. It combines the user's own roadmap and verified reference inventories. The agent should map it to existing MotionMint components before building anything.
+This is a deduplicated research taxonomy. It combines the user's own roadmap and verified reference inventories. The agent should map it to existing RenderJoy components before building anything.
 
 ### A. Foundations and accessible primitives
 Buttons, button groups, toggles, segmented controls, inputs, input groups, textareas, forms, labels, checkbox, radio group, switch, select, combobox, OTP, password reveal, slider, number stepper, date/time pickers, calendar, color picker, tags, rating, badge, avatar/avatar stack, progress, skeleton, spinner, separator, KBD, tooltip, popover, hover card, dropdown, context menu, command palette, dialog, alert dialog, drawer/sheet, accordion/collapsible, tabs, toggle group, menubar, navigation menu, breadcrumbs, pagination, stepper, sidebar, scroll area, toast, empty state.
@@ -762,17 +774,17 @@ Actions, feedback, navigation, notifications, selection, movement, progress and 
 
 ## 5. Reference prioritisation matrix
 
-| Priority | Reference | Best use in MotionMint | Do not use it for |
+| Priority | Reference | Best use in RenderJoy | Do not use it for |
 |---|---|---|---|
 | P0 | Bencho | Live adjustable components, interactions, Sounds, Finds, Bench, individual details | Copying its source, sound assets, brand or page design |
 | P0 | Planes | Premium live previews, shader/WebGL art direction, component exhibition | Reproducing its proprietary artwork/code |
-| P0 | shadcn/ui | Registry/source installation, primitives, real app blocks | Treating basic shadcn components as MotionMint's differentiator |
+| P0 | shadcn/ui | Registry/source installation, primitives, real app blocks | Treating basic shadcn components as RenderJoy's differentiator |
 | P0 | Radix | Accessible behaviour, focus, keyboard semantics | Visual design inspiration |
 | P0 | Floating UI | Collision-aware menus, popovers, tooltips, inspectors | Component visual styling |
 | P1 | Scroll Shaders | WebGL shader quality and effect taxonomy | Reusing paid visuals/source without a compatible licence |
-| P1 | React Bits | Live background/shape/texture/sound tools and export workflow | Replacing MotionMint's visual identity |
+| P1 | React Bits | Live background/shape/texture/sound tools and export workflow | Replacing RenderJoy's visual identity |
 | P1 | Tactile UI | Tactile hardware-like controls and rich blocks | Cloning exact Tactile visual style |
-| P1 | Kibo UI | Media, editor, data, collaborative and block families | Blindly duplicating existing MotionMint components |
+| P1 | Kibo UI | Media, editor, data, collaborative and block families | Blindly duplicating existing RenderJoy components |
 | P1 | Magic UI | Animated text/background/effects catalog | A shallow clone of generic gradient effects |
 | P1 | Mobbin | Real shipped product interaction patterns | Copying entire screens verbatim |
 | P1 | Lapa Ninja | Page section/block composition | Source code or complete website copying |
@@ -780,7 +792,7 @@ Actions, feedback, navigation, notifications, selection, movement, progress and 
 | P1 | Refero | Design-style taxonomy/moodboards | Treating styles as components |
 | P1 | Scrolltide | Novel scroll-driven and 3D motion components | Exact prompts/code without checking rights |
 | P2 | Preline | Breadth check for conventional UI patterns | Implementing every generic component |
-| P2 | Lucide | Consistent iconography | Primary MotionMint logomark |
+| P2 | Lucide | Consistent iconography | Primary RenderJoy logomark |
 | P2 | CTA Gallery | CTA and conversion patterns | Fake metrics or dark patterns |
 | P2 | Curated | Live site references by industry/style | Component APIs |
 | P2 | Recent Design | Current design/motion inspiration | Code inventory |
@@ -806,7 +818,7 @@ For each candidate, Antigravity must record:
 7. **Accessibility:** semantics, keyboard, focus, screen reader, reduced motion, contrast and touch.
 8. **Performance:** dependencies, layout/paint cost, animation scheduling, GPU context use and mobile fallback.
 9. **License:** inspect source and assets if code is to be adapted.
-10. **Novelty:** compare to MotionMint catalogue and do not reimplement an existing item.
+10. **Novelty:** compare to RenderJoy catalogue and do not reimplement an existing item.
 11. **Acceptance evidence:** tests, screenshot, browser interaction recording or manual checklist, fresh registry install.
 
 ### Research quality rule
