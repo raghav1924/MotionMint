@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "split-compare",
+  "type": "registry:component",
+  "title": "Tactile Split Comparison Slider",
+  "description": "Split comparison slider revealing two layered UI surfaces.",
+  "dependencies": [
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/split-compare.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { MoveHorizontal } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport function SplitCompare({\n  beforeLabel = \"Wireframe\",\n  afterLabel = \"Rendered\",\n  className,\n}: {\n  beforeLabel?: string;\n  afterLabel?: string;\n  className?: string;\n}) {\n  const [percent, setPercent] = useState(52);\n\n  return (\n    <div\n      className={cn(\n        \"relative h-56 w-full max-w-md overflow-hidden rounded-2xl border border-[var(--mm-border,rgba(255,255,255,0.14))] select-none\",\n        className\n      )}\n    >\n      {/* After layer (Right / Full) */}\n      <div className=\"absolute inset-0 flex flex-col justify-between bg-gradient-to-br from-[#1d1a14] via-[#121015] to-[#09090b] p-5 text-white\">\n        <div className=\"flex justify-end\">\n          <span className=\"rounded-full border border-[#e6c88c]/40 bg-[#e6c88c]/15 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#f5e1b9]\">\n            {afterLabel}\n          </span>\n        </div>\n        <div>\n          <p className=\"text-lg font-semibold tracking-tight\">Champagne Shader Surface</p>\n          <p className=\"text-xs text-zinc-400\">Drag the divider to compare layers.</p>\n        </div>\n      </div>\n\n      {/* Before layer (Left / Clipped) */}\n      <div\n        className=\"absolute inset-0 flex flex-col justify-between bg-zinc-100 p-5 text-zinc-900\"\n        style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}\n      >\n        <div>\n          <span className=\"rounded-full border border-zinc-300 bg-white px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-zinc-700\">\n            {beforeLabel}\n          </span>\n        </div>\n        <div>\n          <p className=\"text-lg font-semibold tracking-tight\">Wireframe Token Pass</p>\n          <p className=\"text-xs text-zinc-600\">Monochrome base structure.</p>\n        </div>\n      </div>\n\n      {/* Luminous divider */}\n      <div\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute inset-y-0 w-0.5 bg-[#e6c88c] shadow-[0_0_16px_rgba(230,200,140,0.9)]\"\n        style={{ left: `${percent}%` }}\n      >\n        <span className=\"absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#fff4d6] bg-[#171209] text-[#f5e1b9] shadow-lg\">\n          <MoveHorizontal className=\"h-3.5 w-3.5\" />\n        </span>\n      </div>\n\n      {/* Accessible range input overlay */}\n      <input\n        type=\"range\"\n        min={5}\n        max={95}\n        value={percent}\n        aria-label=\"Split comparison position\"\n        onChange={(e) => setPercent(Number(e.target.value))}\n        className=\"absolute inset-0 h-full w-full cursor-ew-resize opacity-0\"\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/split-compare.tsx"
+    }
+  ]
+}

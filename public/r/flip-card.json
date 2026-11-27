@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "flip-card",
+  "type": "registry:component",
   "title": "Direction-Aware Flip Card",
   "description": "3D perspective card that detects pointer entry direction and flips along the natural axis with keyboard and reduced-motion fallbacks.",
   "dependencies": [
@@ -18,6 +19,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/flip-card.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

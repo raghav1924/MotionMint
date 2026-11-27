@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "flow-base-node",
+  "type": "registry:component",
   "title": "Flow Base Node",
   "description": "Portable @xyflow/react BaseNode wrapper with auto-spaced multi-handles, execution status badges, lock mode, and accessible deletion.",
   "dependencies": [
@@ -16,6 +17,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/flow/base-node.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

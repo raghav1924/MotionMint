@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "flow-canvas",
+  "type": "registry:component",
   "title": "Flow Canvas",
   "description": "Reusable @xyflow/react workflow canvas with dot grid, minimap, zoom/fit/lock controls, and drag-and-drop support.",
   "dependencies": [
@@ -16,6 +17,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/flow/flow-canvas.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

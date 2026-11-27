@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "infinity-canvas",
+  "type": "registry:component",
   "title": "Infinity Canvas",
   "description": "Pan-and-zoom spatial workspace with draggable nodes, dot grid, zoom controls, and viewport reset.",
   "dependencies": [
@@ -15,6 +16,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/infinity-canvas.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

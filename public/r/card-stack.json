@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card-stack",
+  "type": "registry:component",
   "title": "Card Stack",
   "description": "Layered interactive card stack with drag/swipe cycling, configurable depth and rotation, and keyboard navigation.",
   "dependencies": [
@@ -19,6 +20,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/card-stack.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

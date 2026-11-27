@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kinetic-marquee",
+  "type": "registry:component",
+  "title": "Infinite Kinetic Marquee Ribbon",
+  "description": "Seamless infinite horizontal marquee ribbon with reduced-motion pause.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/kinetic-marquee.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nconst DEFAULT_ITEMS = [\n  \"Linear\",\n  \"Planes\",\n  \"Vercel\",\n  \"Stripe\",\n  \"Raycast\",\n  \"Figma\",\n  \"Loom\",\n  \"Arc\",\n];\n\nexport function KineticMarquee({\n  items = DEFAULT_ITEMS,\n  speedSeconds = 18,\n  className,\n}: {\n  items?: string[];\n  speedSeconds?: number;\n  className?: string;\n}) {\n  const doubled = [...items, ...items];\n\n  return (\n    <div\n      className={cn(\n        \"relative w-full max-w-xl overflow-hidden rounded-2xl border border-[var(--mm-border,rgba(255,255,255,0.12))] bg-[var(--mm-surface,#121216)] py-4\",\n        className\n      )}\n    >\n      <div\n        className=\"flex w-max items-center gap-4 px-4 motion-reduce:animate-none\"\n        style={{\n          animation: `mm-marquee ${speedSeconds}s linear infinite`,\n        }}\n      >\n        {doubled.map((item, i) => (\n          <span\n            key={`${item}-${i}`}\n            className=\"inline-flex shrink-0 items-center rounded-full border border-[var(--mm-border,rgba(255,255,255,0.12))] bg-[var(--mm-surface-subtle,rgba(255,255,255,0.04))] px-4 py-1.5 text-xs font-medium tracking-tight text-[var(--mm-fg,#fafafa)]\"\n          >\n            {item}\n          </span>\n        ))}\n      </div>\n      <style>{`\n        @keyframes mm-marquee {\n          from { transform: translateX(0); }\n          to { transform: translateX(-50%); }\n        }\n      `}</style>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/kinetic-marquee.tsx"
+    }
+  ]
+}

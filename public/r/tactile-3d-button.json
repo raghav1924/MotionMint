@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tactile-3d-button",
+  "type": "registry:component",
+  "title": "3D Tactile Push Button",
+  "description": "Mechanical 3D keycap push button with extruded bottom lip, press travel, and spring rebound.",
+  "dependencies": [
+    "motion",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/tactile-3d-button.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\nimport { cn } from \"@/lib/utils\";\nimport { triggerInteractionFeedback } from \"@/lib/audio/feedback-store\";\n\nexport interface Tactile3DButtonProps\n  extends Omit<\n    React.ButtonHTMLAttributes<HTMLButtonElement>,\n    \"onDrag\" | \"onDragStart\" | \"onDragEnd\" | \"onAnimationStart\"\n  > {\n  tone?: \"obsidian\" | \"emerald\" | \"amber\" | \"ivory\";\n  size?: \"sm\" | \"md\" | \"lg\";\n  sound?: boolean;\n  haptic?: boolean;\n}\n\nexport function Tactile3DButton({\n  children,\n  className,\n  tone = \"obsidian\",\n  size = \"md\",\n  sound,\n  haptic,\n  onClick,\n  disabled,\n  type = \"button\",\n  ...props\n}: Tactile3DButtonProps) {\n  const prefersReduced = useReducedMotion();\n\n  const sizeMap = {\n    sm: \"h-9 px-3.5 text-xs\",\n    md: \"h-11 px-5 text-sm\",\n    lg: \"h-13 px-7 text-base\",\n  }[size];\n\n  const toneMap = {\n    obsidian: {\n      face: \"bg-gradient-to-b from-zinc-800 to-zinc-900 text-white border-zinc-700/80\",\n      lip: \"bg-zinc-950\",\n    },\n    emerald: {\n      face: \"bg-gradient-to-b from-emerald-400 to-emerald-500 text-emerald-950 border-emerald-300/80\",\n      lip: \"bg-emerald-700\",\n    },\n    amber: {\n      face: \"bg-gradient-to-b from-amber-300 to-amber-400 text-amber-950 border-amber-200/80\",\n      lip: \"bg-amber-600\",\n    },\n    ivory: {\n      face: \"bg-gradient-to-b from-white to-zinc-100 text-zinc-950 border-zinc-200\",\n      lip: \"bg-zinc-300\",\n    },\n  }[tone];\n\n  return (\n    <div className=\"relative inline-block pb-[5px]\">\n      <span\n        aria-hidden=\"true\"\n        className={cn(\n          \"absolute inset-x-0 bottom-0 top-[5px] rounded-[12px] shadow-[0_8px_20px_-4px_rgba(0,0,0,0.45)]\",\n          toneMap.lip\n        )}\n      />\n      <motion.button\n        type={type}\n        disabled={disabled}\n        whileHover={prefersReduced ? undefined : { y: -1 }}\n        whileTap={prefersReduced ? undefined : { y: 4 }}\n        transition={{ type: \"spring\", stiffness: 550, damping: 24 }}\n        onClick={(e) => {\n          if (disabled) return;\n          triggerInteractionFeedback(\"click\", { sound, haptic });\n          onClick?.(e);\n        }}\n        className={cn(\n          \"relative z-10 inline-flex items-center justify-center gap-2 rounded-[12px] border font-semibold tracking-[-0.01em] select-none cursor-pointer\",\n          \"shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]\",\n          \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mm-ring,#10b981)] focus-visible:ring-offset-2\",\n          \"disabled:opacity-50 disabled:pointer-events-none\",\n          sizeMap,\n          toneMap.face,\n          className\n        )}\n        {...props}\n      >\n        {children}\n      </motion.button>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/tactile-3d-button.tsx"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "founder-wall",
+  "type": "registry:component",
+  "title": "Editorial Testimonial Wall",
+  "description": "Editorial quote cards with subtle hover elevation.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/founder-wall.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface FounderQuote {\n  id: string;\n  quote: string;\n  author: string;\n  role: string;\n}\n\nconst DEFAULT_QUOTES: FounderQuote[] = [\n  {\n    id: \"q1\",\n    quote: \"Every spring curve feels weighted and intentional—our onboarding conversion jumped 18%.\",\n    author: \"Elena Vance\",\n    role: \"Design Lead, Raycast Studio\",\n  },\n  {\n    id: \"q2\",\n    quote: \"Drop-in shadcn registry portability with zero lock-in and Apple-level polish.\",\n    author: \"Marcus Chen\",\n    role: \"Staff Engineer, Linear\",\n  },\n];\n\nexport function FounderWall({\n  quotes = DEFAULT_QUOTES,\n  className,\n}: {\n  quotes?: FounderQuote[];\n  className?: string;\n}) {\n  return (\n    <div className={cn(\"grid w-full max-w-xl grid-cols-1 sm:grid-cols-2 gap-3\", className)}>\n      {quotes.map((q) => (\n        <figure\n          key={q.id}\n          className=\"flex flex-col justify-between rounded-2xl border border-[var(--mm-border,rgba(255,255,255,0.12))] bg-[var(--mm-surface,#121216)] p-5 transition-transform duration-200 hover:-translate-y-0.5\"\n        >\n          <blockquote className=\"text-xs leading-relaxed text-[var(--mm-fg,#fafafa)]\">\n            “{q.quote}”\n          </blockquote>\n          <figcaption className=\"mt-4 border-t border-[var(--mm-border,rgba(255,255,255,0.08))] pt-3\">\n            <p className=\"text-xs font-semibold text-[var(--mm-fg,#fafafa)]\">{q.author}</p>\n            <p className=\"text-[11px] text-[var(--mm-fg-muted,#a1a1aa)]\">{q.role}</p>\n          </figcaption>\n        </figure>\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/founder-wall.tsx"
+    }
+  ]
+}

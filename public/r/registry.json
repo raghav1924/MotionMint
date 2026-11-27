@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "motionmint",
+  "name": "renderjoy",
   "homepage": "http://localhost:3000",
   "items": [
     {
@@ -31,7 +31,10 @@
       "type": "registry:component",
       "title": "Bounce Dots Loader",
       "description": "Lightweight CSS-keyframe three-dot loader with wave, elastic, and pulse rhythm presets.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/bounce-dots-loader.tsx",
@@ -41,8 +44,14 @@
       ],
       "css": {
         "@keyframes mm-bounce-dot": {
-          "0%, 80%, 100%": { "transform": "translateY(0)", "opacity": "0.45" },
-          "40%": { "transform": "translateY(-6px)", "opacity": "1" }
+          "0%, 80%, 100%": {
+            "transform": "translateY(0)",
+            "opacity": "0.45"
+          },
+          "40%": {
+            "transform": "translateY(-6px)",
+            "opacity": "1"
+          }
         }
       }
     },
@@ -51,7 +60,10 @@
       "type": "registry:component",
       "title": "Wiggle Text",
       "description": "Lightweight CSS-animated character or word wiggle typography primitive with configurable intensity and trigger.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/wiggle-text.tsx",
@@ -61,10 +73,18 @@
       ],
       "css": {
         "@keyframes mm-wiggle": {
-          "0%, 100%": { "transform": "translateY(0) rotate(0deg)" },
-          "25%": { "transform": "translateY(var(--mm-wiggle-y, -3px)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -1))" },
-          "50%": { "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.5)) rotate(var(--mm-wiggle-rot, 6deg))" },
-          "75%": { "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.25)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -0.5))" }
+          "0%, 100%": {
+            "transform": "translateY(0) rotate(0deg)"
+          },
+          "25%": {
+            "transform": "translateY(var(--mm-wiggle-y, -3px)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -1))"
+          },
+          "50%": {
+            "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.5)) rotate(var(--mm-wiggle-rot, 6deg))"
+          },
+          "75%": {
+            "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.25)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -0.5))"
+          }
         }
       }
     },
@@ -73,8 +93,14 @@
       "type": "registry:component",
       "title": "Jelly / Magnetic Button",
       "description": "Spring-physics magnetic button with subtle cursor attraction and squash-and-stretch press feedback.",
-      "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/jelly-button.tsx",
@@ -88,8 +114,13 @@
       "type": "registry:component",
       "title": "Ripple Button",
       "description": "Tactile button with pointer-origin ripple expansion, keyboard support, and optional Web Audio + haptic feedback.",
-      "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/ripple-button.tsx",
@@ -103,8 +134,14 @@
       "type": "registry:component",
       "title": "Animated Copy Button",
       "description": "Clipboard copy button with immediate icon/label confirmation, error fallback, and optional success chime.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/copy-button.tsx",
@@ -118,8 +155,14 @@
       "type": "registry:component",
       "title": "Sound & Haptic Toggle",
       "description": "Accessible switch with spring thumb transition, optional animated waveform, and synthesized audio cues.",
-      "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/sound-toggle.tsx",
@@ -133,7 +176,10 @@
       "type": "registry:component",
       "title": "Progress Ring & Bar",
       "description": "Crisp SVG progress ring and linear progress bar with smooth easing and tabular percentage readout.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/progress-ring.tsx",
@@ -147,7 +193,10 @@
       "type": "registry:component",
       "title": "Skeleton Shimmer",
       "description": "Composable CSS shimmer placeholders for text, avatars, cards, and rectangles with reduced-motion fallback.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/skeleton-shimmer.tsx",
@@ -157,8 +206,12 @@
       ],
       "css": {
         "@keyframes mm-shimmer": {
-          "0%": { "transform": "translateX(-100%)" },
-          "100%": { "transform": "translateX(100%)" }
+          "0%": {
+            "transform": "translateX(-100%)"
+          },
+          "100%": {
+            "transform": "translateX(100%)"
+          }
         }
       }
     },
@@ -167,8 +220,14 @@
       "type": "registry:component",
       "title": "Basic Dropzone",
       "description": "Accessible click-and-drag file selection dropzone with type/size validation, file list removal, and optional audio/haptic cues.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/dropzone.tsx",
@@ -182,8 +241,15 @@
       "type": "registry:component",
       "title": "Swipe Card Deck",
       "description": "Layered tactile card stack with spring drag/swipe gestures, card rotation, undo history, and keyboard arrow navigation.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/swipe-card-deck.tsx",
@@ -197,7 +263,10 @@
       "type": "registry:component",
       "title": "Thinking Loader",
       "description": "Expressive multi-stage status indicator with orbit, pulse-grid, and wave styles for async application states.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/thinking-loader.tsx",
@@ -207,8 +276,14 @@
       ],
       "css": {
         "@keyframes mm-bounce-dot": {
-          "0%, 80%, 100%": { "transform": "translateY(0)", "opacity": "0.45" },
-          "40%": { "transform": "translateY(-6px)", "opacity": "1" }
+          "0%, 80%, 100%": {
+            "transform": "translateY(0)",
+            "opacity": "0.45"
+          },
+          "40%": {
+            "transform": "translateY(-6px)",
+            "opacity": "1"
+          }
         }
       }
     },
@@ -217,8 +292,14 @@
       "type": "registry:component",
       "title": "Direction-Aware Flip Card",
       "description": "3D perspective card that detects pointer entry direction and flips along the natural axis with keyboard and reduced-motion fallbacks.",
-      "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/flip-card.tsx",
@@ -245,7 +326,11 @@
       "type": "registry:component",
       "title": "Motion Reveal",
       "description": "Accessible scroll and entrance reveal wrapper (fadeUp, blurIn, scaleIn, slideLeft) with prefers-reduced-motion fallback.",
-      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/motion-reveal.tsx",
@@ -259,8 +344,14 @@
       "type": "registry:component",
       "title": "AI Prompt Composer",
       "description": "Accessible prompt input with Enter-to-send, Shift+Enter newline, mode selector, and stop-streaming state.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/ai-prompt-composer.tsx",
@@ -274,8 +365,14 @@
       "type": "registry:component",
       "title": "Streaming Message",
       "description": "Role-aware message bubble with streaming cursor, error state, and retry callback.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/ai-types"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/ai-types"
+      ],
       "files": [
         {
           "path": "registry/components/streaming-message.tsx",
@@ -289,8 +386,14 @@
       "type": "registry:component",
       "title": "Tool Call Card",
       "description": "Collapsible tool execution card displaying status, duration, and formatted input/output JSON.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/ai-types"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/ai-types"
+      ],
       "files": [
         {
           "path": "registry/components/tool-call-card.tsx",
@@ -304,8 +407,14 @@
       "type": "registry:component",
       "title": "Agent Plan",
       "description": "Ordered multi-step execution plan showing pending, in-progress, completed, failed, and skipped steps.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/ai-types"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/ai-types"
+      ],
       "files": [
         {
           "path": "registry/components/agent-plan.tsx",
@@ -319,8 +428,14 @@
       "type": "registry:component",
       "title": "Approval Card",
       "description": "Human-in-the-loop confirmation gate with approve/reject callbacks and audio/haptic cues.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/approval-card.tsx",
@@ -334,7 +449,10 @@
       "type": "registry:component",
       "title": "Inline Diff",
       "description": "Code diff viewer with line-level add/remove highlighting, counts, and accept/discard actions.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/inline-diff.tsx",
@@ -348,7 +466,11 @@
       "type": "registry:component",
       "title": "Reasoning Trace",
       "description": "Collapsible execution trace log for developer-supplied step summaries.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/reasoning-trace.tsx",
@@ -362,7 +484,11 @@
       "type": "registry:component",
       "title": "AI Chat",
       "description": "Composable conversation container combining StreamingMessage, ThinkingLoader, and AIPromptComposer.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
       "registryDependencies": [
         "@renderjoy/ai-types",
         "@renderjoy/streaming-message",
@@ -382,7 +508,11 @@
       "type": "registry:component",
       "title": "Image Generation",
       "description": "State-driven media generation preview supporting idle, generating progress, complete, and error states.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/image-generation.tsx",
@@ -396,8 +526,14 @@
       "type": "registry:component",
       "title": "Chat Orb",
       "description": "Interactive voice-state orb button with idle, listening, and speaking states.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/chat-orb.tsx",
@@ -411,7 +547,10 @@
       "type": "registry:component",
       "title": "Pixel Image Generation",
       "description": "Progressive pixel-grid synthesis preview driven by numeric progress.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/pixel-image-generation.tsx",
@@ -425,8 +564,14 @@
       "type": "registry:component",
       "title": "Segmented Control",
       "description": "Single-selection pill control with animated indicator, disabled options, and keyboard arrow navigation.",
-      "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/segmented-control.tsx",
@@ -440,8 +585,14 @@
       "type": "registry:component",
       "title": "Number Stepper",
       "description": "Numeric stepper with increment/decrement buttons, direct input, min/max clamping, and ArrowUp/Down support.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/number-stepper.tsx",
@@ -455,7 +606,10 @@
       "type": "registry:component",
       "title": "Glow Input",
       "description": "Focus-responsive input with optional pointer-tracking radial border glow, prefix/suffix slots, and error states.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/glow-input.tsx",
@@ -469,8 +623,14 @@
       "type": "registry:component",
       "title": "Email Capture",
       "description": "Validated email capture form with loading, success, and error states via explicit onSubmit callback.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/email-capture.tsx",
@@ -484,8 +644,14 @@
       "type": "registry:component",
       "title": "Date Picker",
       "description": "Zero-dependency calendar date picker with min/max bounds, month navigation, and Intl formatting.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/date-picker.tsx",
@@ -499,8 +665,15 @@
       "type": "registry:component",
       "title": "Animated Select",
       "description": "Searchable combobox select with animated dropdown, grouped options, disabled items, and keyboard navigation.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/animated-select.tsx",
@@ -514,8 +687,13 @@
       "type": "registry:component",
       "title": "OTP Input",
       "description": "Multi-cell verification code input with auto-focus progression, backspace navigation, and clipboard paste.",
-      "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/otp-input.tsx",
@@ -529,8 +707,14 @@
       "type": "registry:component",
       "title": "Multi Select",
       "description": "Multi-value selector with removable chips, search, select/clear all, and maxSelected limit.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/multi-select.tsx",
@@ -544,8 +728,14 @@
       "type": "registry:component",
       "title": "Cookie Consent",
       "description": "Configurable consent panel with Accept All, Reject Optional, and category customisation callbacks.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/cookie-consent.tsx",
@@ -559,8 +749,15 @@
       "type": "registry:component",
       "title": "Card Stack",
       "description": "Layered interactive card stack with drag/swipe cycling, configurable depth and rotation, and keyboard navigation.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/card-stack.tsx",
@@ -574,8 +771,15 @@
       "type": "registry:component",
       "title": "Detent Drawer",
       "description": "Snap-point drawer with Peek, Half, and Full detents, drag snapping, and keyboard Escape dismissal.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/detent-drawer.tsx",
@@ -589,8 +793,15 @@
       "type": "registry:component",
       "title": "Notch",
       "description": "Dynamic Island-inspired morphing status pill with idle, active, success, and alert states.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/notch.tsx",
@@ -604,8 +815,14 @@
       "type": "registry:component",
       "title": "Physical Knob",
       "description": "Tactile rotary dial with pointer drag rotation, tick marks, detent snapping, and double-click reset.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/physical-knob.tsx",
@@ -619,8 +836,14 @@
       "type": "registry:component",
       "title": "Reaction Arc",
       "description": "Radial fan-out reaction picker with spring-staggered arc geometry and keyboard selection.",
-      "dependencies": ["motion", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/reaction-arc.tsx",
@@ -634,8 +857,15 @@
       "type": "registry:component",
       "title": "Receipt Printer",
       "description": "Thermal-style animated receipt feed with line-by-line printing, totals, and serrated edge.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/receipt-printer.tsx",
@@ -649,8 +879,15 @@
       "type": "registry:component",
       "title": "Rubber Band Select",
       "description": "Elastic drag-to-select list with rubber-band resistance, single/multi select, and keyboard fallback.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/rubber-band-select.tsx",
@@ -664,8 +901,15 @@
       "type": "registry:component",
       "title": "Morphing Tray",
       "description": "Compact-to-expanded contextual surface morphing seamlessly between summary and full controls.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/morphing-tray.tsx",
@@ -679,8 +923,13 @@
       "type": "registry:component",
       "title": "Keyboard",
       "description": "Interactive visual mechanical keyboard with physical keystroke highlights, click triggers, and key-cap depth.",
-      "dependencies": ["clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/keyboard.tsx",
@@ -694,7 +943,11 @@
       "type": "registry:component",
       "title": "Infinity Canvas",
       "description": "Pan-and-zoom spatial workspace with draggable nodes, dot grid, zoom controls, and viewport reset.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/infinity-canvas.tsx",
@@ -708,8 +961,14 @@
       "type": "registry:component",
       "title": "Scratch Card",
       "description": "HTML5 canvas scratch-to-reveal foil surface with automatic threshold completion and accessible reveal fallback.",
-      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/sound-engine"],
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/sound-engine"
+      ],
       "files": [
         {
           "path": "registry/components/scratch-card.tsx",
@@ -723,7 +982,12 @@
       "type": "registry:component",
       "title": "Halftone Popover",
       "description": "Expressive popover featuring an SVG halftone dot matrix backdrop, click-outside handling, and Escape dismissal.",
-      "dependencies": ["motion", "lucide-react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/components/halftone-popover.tsx",
@@ -737,7 +1001,12 @@
       "type": "registry:component",
       "title": "Flow Base Node",
       "description": "Portable @xyflow/react BaseNode wrapper with auto-spaced multi-handles, execution status badges, lock mode, and accessible deletion.",
-      "dependencies": ["@xyflow/react", "lucide-react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@xyflow/react",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/flow/base-node.tsx",
@@ -751,8 +1020,15 @@
       "type": "registry:component",
       "title": "Flow Pipeline Nodes",
       "description": "Nine typed workflow nodes (Input, Output, auto-resizing Text with {{var}} handles, LLM, Webhook, HTTP Request, JSON Transform, Condition, Merge).",
-      "dependencies": ["@xyflow/react", "lucide-react", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@renderjoy/flow-base-node"],
+      "dependencies": [
+        "@xyflow/react",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@renderjoy/flow-base-node"
+      ],
       "files": [
         {
           "path": "registry/flow/pipeline-nodes.tsx",
@@ -766,12 +1042,346 @@
       "type": "registry:component",
       "title": "Flow Canvas",
       "description": "Reusable @xyflow/react workflow canvas with dot grid, minimap, zoom/fit/lock controls, and drag-and-drop support.",
-      "dependencies": ["@xyflow/react", "lucide-react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@xyflow/react",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "registry/flow/flow-canvas.tsx",
           "type": "registry:component",
           "target": "components/renderjoy/flow/flow-canvas.tsx"
+        }
+      ]
+    },
+    {
+      "name": "shader-engine",
+      "type": "registry:lib",
+      "title": "WebGL Shader Engine",
+      "description": "Portable WebGL 2 / WebGL 1 shader compiler, uniform manager, interaction tracker, quality manager, and 18 preset shaders including Logo Flare.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "lib/shaders/types.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/types.ts"
+        },
+        {
+          "path": "lib/shaders/shader-compiler.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/shader-compiler.ts"
+        },
+        {
+          "path": "lib/shaders/uniform-manager.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/uniform-manager.ts"
+        },
+        {
+          "path": "lib/shaders/quality-manager.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/quality-manager.ts"
+        },
+        {
+          "path": "lib/shaders/interaction-manager.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/interaction-manager.ts"
+        },
+        {
+          "path": "lib/shaders/glsl-source.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/glsl-source.ts"
+        },
+        {
+          "path": "lib/shaders/presets/index.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/presets/index.ts"
+        },
+        {
+          "path": "lib/shaders/renderer.ts",
+          "type": "registry:lib",
+          "target": "lib/shaders/renderer.ts"
+        }
+      ]
+    },
+    {
+      "name": "shader-background",
+      "type": "registry:component",
+      "title": "Shader Background",
+      "description": "Raw WebGL GPU-powered generative canvas background with 18 presets including Logo Flare, pointer/scroll reactivity, DPR capping, visibility pause, and CSS gradient fallback.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-engine"
+      ],
+      "files": [
+        {
+          "path": "registry/components/shader-background.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/shader-background.tsx"
+        }
+      ]
+    },
+    {
+      "name": "cover-flow-carousel",
+      "type": "registry:component",
+      "title": "Cover-Flow Carousel",
+      "description": "iOS-like 3D perspective Cover Flow carousel with spring physics, mirrored floor reflections, and drag/scroll/keyboard navigation.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/cover-flow-carousel.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/cover-flow-carousel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tactile-3d-button",
+      "type": "registry:component",
+      "title": "3D Tactile Push Button",
+      "description": "Mechanical 3D keycap push button with extruded bottom lip, press travel, and spring rebound.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/tactile-3d-button.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/tactile-3d-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "glass-button",
+      "type": "registry:component",
+      "title": "Frosted Glass Button",
+      "description": "Multi-layer translucent glass pill button with specular top highlight and cursor-tracking radial shimmer.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/glass-button.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/glass-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "champagne-button",
+      "type": "registry:component",
+      "title": "Royal Champagne Magnetic CTA",
+      "description": "Magnetic pointer translation paired with an animated specular sheen sweep.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/champagne-button.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/champagne-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "spotlight-bento",
+      "type": "registry:component",
+      "title": "Royal Spotlight Bento Grid",
+      "description": "Pointer-tracking bento grid illuminating 1px hairline borders and radial aura.",
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/spotlight-bento.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/spotlight-bento.tsx"
+        }
+      ]
+    },
+    {
+      "name": "spatial-dock",
+      "type": "registry:component",
+      "title": "Apple Spatial Glass Dock",
+      "description": "Distance-based icon magnification with blurred obsidian glass surface.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/spatial-dock.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/spatial-dock.tsx"
+        }
+      ]
+    },
+    {
+      "name": "kinetic-card-3d",
+      "type": "registry:component",
+      "title": "Kinetic 3D Perspective Card",
+      "description": "Pointer-reactive 3D perspective card with moving metallic glare overlay.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/kinetic-card-3d.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/kinetic-card-3d.tsx"
+        }
+      ]
+    },
+    {
+      "name": "spotlight-command-palette",
+      "type": "registry:component",
+      "title": "Command-K Spotlight Palette",
+      "description": "Frosted command surface with fuzzy search and keyboard navigation.",
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/spotlight-command-palette.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/spotlight-command-palette.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dynamic-island",
+      "type": "registry:component",
+      "title": "Dynamic Island Status Pill",
+      "description": "Compact obsidian pill expanding with spring physics to reveal live details.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dynamic-island.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dynamic-island.tsx"
+        }
+      ]
+    },
+    {
+      "name": "aurora-hero",
+      "type": "registry:component",
+      "title": "Liquid Aurora Editorial Hero",
+      "description": "Hero section with cursor-tracking liquid aurora mesh, grid overlay, and CTA.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/aurora-hero.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/aurora-hero.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pricing-crown",
+      "type": "registry:component",
+      "title": "Royal Pricing Tier Matrix",
+      "description": "Billing cycle toggle paired with an elevated flagship plan card.",
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/pricing-crown.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/pricing-crown.tsx"
+        }
+      ]
+    },
+    {
+      "name": "kinetic-marquee",
+      "type": "registry:component",
+      "title": "Infinite Kinetic Marquee Ribbon",
+      "description": "Seamless infinite horizontal marquee ribbon with reduced-motion pause.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/kinetic-marquee.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/kinetic-marquee.tsx"
+        }
+      ]
+    },
+    {
+      "name": "metric-sparkline",
+      "type": "registry:component",
+      "title": "Keynote Tabular Metric Card",
+      "description": "Monospace KPI card with SVG trend curve and delta badge.",
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/metric-sparkline.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/metric-sparkline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "split-compare",
+      "type": "registry:component",
+      "title": "Tactile Split Comparison Slider",
+      "description": "Split comparison slider revealing two layered UI surfaces.",
+      "dependencies": [
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/split-compare.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/split-compare.tsx"
+        }
+      ]
+    },
+    {
+      "name": "founder-wall",
+      "type": "registry:component",
+      "title": "Editorial Testimonial Wall",
+      "description": "Editorial quote cards with subtle hover elevation.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/founder-wall.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/founder-wall.tsx"
         }
       ]
     }

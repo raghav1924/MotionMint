@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dynamic-island",
+  "type": "registry:component",
+  "title": "Dynamic Island Status Pill",
+  "description": "Compact obsidian pill expanding with spring physics to reveal live details.",
+  "dependencies": [
+    "motion",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dynamic-island.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, AnimatePresence, useReducedMotion } from \"motion/react\";\nimport { CheckCircle2, Disc3 } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { triggerInteractionFeedback } from \"@/lib/audio/feedback-store\";\n\nexport function DynamicIsland({\n  title = \"Build Complete\",\n  detail = \"52 registry components validated in 1.2s\",\n  sound,\n  haptic,\n  className,\n}: {\n  title?: string;\n  detail?: string;\n  sound?: boolean;\n  haptic?: boolean;\n  className?: string;\n}) {\n  const [expanded, setExpanded] = useState(false);\n  const prefersReduced = useReducedMotion();\n\n  return (\n    <motion.button\n      type=\"button\"\n      aria-expanded={expanded}\n      onClick={() => {\n        setExpanded((v) => !v);\n        triggerInteractionFeedback(\"click\", { sound, haptic });\n      }}\n      layout={!prefersReduced}\n      transition={{ type: \"spring\", stiffness: 420, damping: 30 }}\n      className={cn(\n        \"relative flex flex-col justify-center overflow-hidden rounded-[28px] bg-[#0a0a0c] text-white border border-white/15 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.65)] cursor-pointer select-none\",\n        \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400\",\n        expanded ? \"w-[320px] p-4\" : \"h-10 px-4\",\n        className\n      )}\n    >\n      <div className=\"flex w-full items-center justify-between gap-3\">\n        <div className=\"flex items-center gap-2\">\n          <Disc3\n            className={cn(\"h-4 w-4 text-emerald-400\", !prefersReduced && \"animate-spin\")}\n            style={{ animationDuration: \"5s\" }}\n            aria-hidden=\"true\"\n          />\n          <span className=\"text-xs font-semibold tracking-tight\">{title}</span>\n        </div>\n        <CheckCircle2 className=\"h-3.5 w-3.5 text-emerald-400 shrink-0\" aria-hidden=\"true\" />\n      </div>\n\n      <AnimatePresence initial={false}>\n        {expanded && (\n          <motion.p\n            initial={prefersReduced ? false : { opacity: 0, y: 4 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={prefersReduced ? undefined : { opacity: 0, y: 4 }}\n            className=\"mt-2.5 text-left text-xs leading-relaxed text-zinc-400\"\n          >\n            {detail}\n          </motion.p>\n        )}\n      </AnimatePresence>\n    </motion.button>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/dynamic-island.tsx"
+    }
+  ]
+}

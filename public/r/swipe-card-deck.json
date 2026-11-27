@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "swipe-card-deck",
+  "type": "registry:component",
   "title": "Swipe Card Deck",
   "description": "Layered tactile card stack with spring drag/swipe gestures, card rotation, undo history, and keyboard arrow navigation.",
   "dependencies": [
@@ -19,6 +20,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/swipe-card-deck.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

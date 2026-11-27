@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "flow-pipeline-nodes",
+  "type": "registry:component",
   "title": "Flow Pipeline Nodes",
   "description": "Nine typed workflow nodes (Input, Output, auto-resizing Text with {{var}} handles, LLM, Webhook, HTTP Request, JSON Transform, Condition, Merge).",
   "dependencies": [
@@ -19,6 +20,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/flow/pipeline-nodes.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

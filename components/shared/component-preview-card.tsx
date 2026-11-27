@@ -46,6 +46,21 @@ import { InfinityCanvas } from "@/registry/components/infinity-canvas";
 import { ScratchCard } from "@/registry/components/scratch-card";
 import { HalftonePopover } from "@/registry/components/halftone-popover";
 import { ShaderBackground, SHADER_PRESETS, type ShaderPresetId } from "@/registry/components/shader-background";
+import { CoverFlowCarousel } from "@/registry/components/cover-flow-carousel";
+import { Tactile3DButton } from "@/registry/components/tactile-3d-button";
+import { GlassButton } from "@/registry/components/glass-button";
+import { ChampagneButton } from "@/registry/components/champagne-button";
+import { SpotlightBento } from "@/registry/components/spotlight-bento";
+import { SpatialDock } from "@/registry/components/spatial-dock";
+import { KineticCard3D } from "@/registry/components/kinetic-card-3d";
+import { SpotlightCommandPalette } from "@/registry/components/spotlight-command-palette";
+import { DynamicIsland } from "@/registry/components/dynamic-island";
+import { AuroraHero } from "@/registry/components/aurora-hero";
+import { PricingCrown } from "@/registry/components/pricing-crown";
+import { KineticMarquee } from "@/registry/components/kinetic-marquee";
+import { MetricSparkline } from "@/registry/components/metric-sparkline";
+import { SplitCompare } from "@/registry/components/split-compare";
+import { FounderWall } from "@/registry/components/founder-wall";
 
 const DEMO_CARDS: DeckCardItem[] = [
   {
@@ -81,15 +96,17 @@ export function ComponentLivePreview({
   switch (slug) {
     case "ripple-button":
       return (
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <RippleButton variant="primary">Click for Ripple</RippleButton>
-          <RippleButton variant="outline">Secondary</RippleButton>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <RippleButton variant="primary" size="sm">Primary</RippleButton>
+          <RippleButton variant="3d" size="sm">3D Push</RippleButton>
+          <RippleButton variant="glass" size="sm">Glass</RippleButton>
         </div>
       );
     case "jelly-button":
       return (
-        <div className="flex items-center justify-center">
-          <JellyButton>Hover &amp; Press</JellyButton>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <JellyButton variant="primary">Magnetic</JellyButton>
+          <JellyButton variant="3d">3D Jelly</JellyButton>
         </div>
       );
     case "copy-button":
@@ -406,6 +423,46 @@ export function ComponentLivePreview({
           }
         />
       );
+    case "cover-flow-carousel":
+      return <CoverFlowCarousel className="scale-[0.72] origin-center -my-12" />;
+    case "tactile-3d-button":
+      return (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Tactile3DButton tone="obsidian">Push 3D</Tactile3DButton>
+          <Tactile3DButton tone="emerald">Emerald</Tactile3DButton>
+        </div>
+      );
+    case "glass-button":
+      return (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <GlassButton finish="obsidian">Obsidian</GlassButton>
+          <GlassButton finish="prism">Prism</GlassButton>
+        </div>
+      );
+    case "champagne-button":
+      return <ChampagneButton label="Get Started" />;
+    case "spotlight-bento":
+      return <SpotlightBento className="scale-[0.65] origin-center -my-16" />;
+    case "spatial-dock":
+      return <SpatialDock className="scale-[0.82]" />;
+    case "kinetic-card-3d":
+      return <KineticCard3D className="scale-[0.85]" />;
+    case "spotlight-command-palette":
+      return <SpotlightCommandPalette className="scale-[0.78] -my-8" />;
+    case "dynamic-island":
+      return <DynamicIsland />;
+    case "aurora-hero":
+      return <AuroraHero className="scale-[0.65] origin-center -my-16" />;
+    case "pricing-crown":
+      return <PricingCrown className="scale-[0.68] origin-center -my-14" />;
+    case "kinetic-marquee":
+      return <KineticMarquee />;
+    case "metric-sparkline":
+      return <MetricSparkline className="scale-[0.85]" />;
+    case "split-compare":
+      return <SplitCompare className="scale-[0.82]" />;
+    case "founder-wall":
+      return <FounderWall className="scale-[0.72] -my-8" />;
     default:
       return (
         <span className="rounded-full border border-[var(--mm-border)] bg-[var(--mm-surface-subtle)] px-3 py-1 text-xs text-[var(--mm-fg-muted)]">

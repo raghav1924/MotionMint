@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aurora-hero",
+  "type": "registry:component",
+  "title": "Liquid Aurora Editorial Hero",
+  "description": "Hero section with cursor-tracking liquid aurora mesh, grid overlay, and CTA.",
+  "dependencies": [
+    "motion",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/aurora-hero.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { ChampagneButton } from \"./champagne-button\";\n\nexport function AuroraHero({\n  headline = \"Spatial UI Primitives for Modern React\",\n  subtitle = \"Fluid physical motion, zero layout shift, and cursor-reactive aurora depth.\",\n  ctaLabel = \"Explore Components\",\n  className,\n}: {\n  headline?: string;\n  subtitle?: string;\n  ctaLabel?: string;\n  className?: string;\n}) {\n  const [pos, setPos] = useState({ x: 50, y: 40 });\n\n  return (\n    <section\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setPos({\n          x: ((e.clientX - rect.left) / Math.max(1, rect.width)) * 100,\n          y: ((e.clientY - rect.top) / Math.max(1, rect.height)) * 100,\n        });\n      }}\n      className={cn(\n        \"relative w-full max-w-2xl overflow-hidden rounded-3xl border border-white/15 bg-[#09090b] px-6 py-12 text-center text-white shadow-[0_28px_70px_-20px_rgba(0,0,0,0.7)]\",\n        className\n      )}\n    >\n      {/* Cursor-tracking liquid aurora mesh */}\n      <div\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute inset-0 transition-opacity duration-500\"\n        style={{\n          background: `radial-gradient(360px circle at ${pos.x}% ${pos.y}%, rgba(230,200,140,0.22), transparent 65%), radial-gradient(320px circle at ${100 - pos.x}% ${100 - pos.y}%, rgba(99,102,241,0.22), transparent 65%)`,\n        }}\n      />\n      {/* Architectural grid overlay */}\n      <div\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:32px_32px]\"\n      />\n      <div className=\"relative z-10 mx-auto max-w-lg space-y-4\">\n        <span className=\"inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-0.5 font-mono text-[10px] uppercase tracking-widest text-amber-200/90\">\n          Liquid Aurora Engine\n        </span>\n        <h2 className=\"bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-2xl sm:text-3xl font-semibold tracking-tight text-transparent\">\n          {headline}\n        </h2>\n        <p className=\"text-xs sm:text-sm leading-relaxed text-zinc-400\">{subtitle}</p>\n        <div className=\"pt-2\">\n          <ChampagneButton label={ctaLabel} />\n        </div>\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/aurora-hero.tsx"
+    }
+  ]
+}

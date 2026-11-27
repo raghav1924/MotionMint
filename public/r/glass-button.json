@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "glass-button",
+  "type": "registry:component",
+  "title": "Frosted Glass Button",
+  "description": "Multi-layer translucent glass pill button with specular top highlight and cursor-tracking radial shimmer.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "registry/components/glass-button.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { triggerInteractionFeedback } from \"@/lib/audio/feedback-store\";\n\nexport interface GlassButtonProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  finish?: \"frost\" | \"obsidian\" | \"prism\";\n  size?: \"sm\" | \"md\" | \"lg\";\n  sound?: boolean;\n  haptic?: boolean;\n}\n\nexport function GlassButton({\n  children,\n  className,\n  finish = \"frost\",\n  size = \"md\",\n  sound,\n  haptic,\n  onClick,\n  disabled,\n  type = \"button\",\n  ...props\n}: GlassButtonProps) {\n  const [spot, setSpot] = useState({ x: 50, y: 50, active: false });\n\n  const sizeMap = {\n    sm: \"h-8 px-3.5 text-xs\",\n    md: \"h-10 px-5 text-sm\",\n    lg: \"h-12 px-7 text-base\",\n  }[size];\n\n  const finishMap = {\n    frost:\n      \"bg-white/20 text-[var(--mm-fg,#09090b)] border-white/45 shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_28px_-8px_rgba(0,0,0,0.22)] hover:bg-white/30\",\n    obsidian:\n      \"bg-zinc-950/60 text-white border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_12px_30px_-8px_rgba(0,0,0,0.5)] hover:bg-zinc-900/75\",\n    prism:\n      \"bg-gradient-to-r from-indigo-500/25 via-fuchsia-500/20 to-amber-500/25 text-[var(--mm-fg,#fafafa)] border-white/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_10px_28px_-8px_rgba(99,102,241,0.3)] hover:brightness-110\",\n  }[finish];\n\n  return (\n    <button\n      type={type}\n      disabled={disabled}\n      onMouseMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        setSpot({\n          x: ((e.clientX - rect.left) / Math.max(1, rect.width)) * 100,\n          y: ((e.clientY - rect.top) / Math.max(1, rect.height)) * 100,\n          active: true,\n        });\n      }}\n      onMouseLeave={() => setSpot((s) => ({ ...s, active: false }))}\n      onClick={(e) => {\n        if (disabled) return;\n        triggerInteractionFeedback(\"click\", { sound, haptic });\n        onClick?.(e);\n      }}\n      className={cn(\n        \"relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border backdrop-blur-xl font-medium tracking-[-0.01em] select-none cursor-pointer\",\n        \"transition-all duration-200 active:scale-[0.97]\",\n        \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mm-ring,#10b981)] focus-visible:ring-offset-2\",\n        \"disabled:opacity-50 disabled:pointer-events-none\",\n        sizeMap,\n        finishMap,\n        className\n      )}\n      {...props}\n    >\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute inset-0 transition-opacity duration-200\"\n        style={{\n          opacity: spot.active ? 1 : 0,\n          background: `radial-gradient(110px circle at ${spot.x}% ${spot.y}%, rgba(255,255,255,0.38), transparent 70%)`,\n        }}\n      />\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent\"\n      />\n      <span className=\"relative z-10 inline-flex items-center gap-2\">{children}</span>\n    </button>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/glass-button.tsx"
+    }
+  ]
+}

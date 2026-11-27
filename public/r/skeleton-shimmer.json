@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "skeleton-shimmer",
+  "type": "registry:component",
   "title": "Skeleton Shimmer",
   "description": "Composable CSS shimmer placeholders for text, avatars, cards, and rectangles with reduced-motion fallback.",
   "dependencies": [
@@ -14,16 +15,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/skeleton-shimmer.tsx"
     }
-  ],
-  "css": {
-    "@keyframes mm-shimmer": {
-      "0%": {
-        "transform": "translateX(-100%)"
-      },
-      "100%": {
-        "transform": "translateX(100%)"
-      }
-    }
-  },
-  "type": "registry:component"
+  ]
 }

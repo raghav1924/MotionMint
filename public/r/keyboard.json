@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "keyboard",
+  "type": "registry:component",
   "title": "Keyboard",
   "description": "Interactive visual mechanical keyboard with physical keystroke highlights, click triggers, and key-cap depth.",
   "dependencies": [
@@ -17,6 +18,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/keyboard.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

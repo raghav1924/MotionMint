@@ -19,7 +19,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <AnnouncementBar />
+      {isHome && <AnnouncementBar />}
       <div className="min-h-screen flex flex-col bg-[var(--ws-bg)] text-[var(--ws-text-primary)]">
         {!isHome && <NavigationToggle />}
         {!isHome && <BrandFloatingButton />}

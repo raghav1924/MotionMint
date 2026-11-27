@@ -1,8 +1,10 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sound-engine",
+  "type": "registry:lib",
   "title": "MotionMint Sound & Haptic Engine",
   "description": "Zero-asset Web Audio API synthesizer and navigator.vibrate feedback store (off by default).",
+  "dependencies": [],
   "files": [
     {
       "path": "lib/audio/sound-engine.ts",
@@ -22,6 +24,5 @@
       "type": "registry:lib",
       "target": "lib/audio/use-sound.ts"
     }
-  ],
-  "type": "registry:lib"
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "reasoning-trace",
+  "type": "registry:component",
   "title": "Reasoning Trace",
   "description": "Collapsible execution trace log for developer-supplied step summaries.",
   "dependencies": [
@@ -15,6 +16,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/reasoning-trace.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

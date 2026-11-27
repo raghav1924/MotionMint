@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "bounce-dots-loader",
+  "type": "registry:component",
   "title": "Bounce Dots Loader",
   "description": "Lightweight CSS-keyframe three-dot loader with wave, elastic, and pulse rhythm presets.",
   "dependencies": [
@@ -14,18 +15,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/bounce-dots-loader.tsx"
     }
-  ],
-  "css": {
-    "@keyframes mm-bounce-dot": {
-      "0%, 80%, 100%": {
-        "transform": "translateY(0)",
-        "opacity": "0.45"
-      },
-      "40%": {
-        "transform": "translateY(-6px)",
-        "opacity": "1"
-      }
-    }
-  },
-  "type": "registry:component"
+  ]
 }

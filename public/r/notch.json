@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "notch",
+  "type": "registry:component",
   "title": "Notch",
   "description": "Dynamic Island-inspired morphing status pill with idle, active, success, and alert states.",
   "dependencies": [
@@ -19,6 +20,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/notch.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

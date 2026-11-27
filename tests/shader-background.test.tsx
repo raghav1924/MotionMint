@@ -25,6 +25,7 @@ describe("ShaderBackground — Raw WebGL Generative Canvas", () => {
 
     const presets = Object.keys(SHADER_PRESETS) as ShaderPresetId[];
     expect(presets).toEqual([
+      "logo-flare",
       "silk",
       "liquid-gold",
       "contour",
@@ -33,6 +34,8 @@ describe("ShaderBackground — Raw WebGL Generative Canvas", () => {
       "aurora",
       "flow",
       "noise",
+      "liquid-drops",
+      "ripple",
       "energy",
       "fluted-glass",
       "topography",

@@ -776,11 +776,29 @@
       ]
     },
     {
+      "name": "shader-engine",
+      "type": "registry:lib",
+      "title": "WebGL Shader Engine",
+      "description": "Portable WebGL 2 / WebGL 1 shader compiler, uniform manager, interaction tracker, quality manager, and 18 preset shaders including Logo Flare.",
+      "dependencies": [],
+      "files": [
+        { "path": "lib/shaders/types.ts", "type": "registry:lib", "target": "lib/shaders/types.ts" },
+        { "path": "lib/shaders/shader-compiler.ts", "type": "registry:lib", "target": "lib/shaders/shader-compiler.ts" },
+        { "path": "lib/shaders/uniform-manager.ts", "type": "registry:lib", "target": "lib/shaders/uniform-manager.ts" },
+        { "path": "lib/shaders/quality-manager.ts", "type": "registry:lib", "target": "lib/shaders/quality-manager.ts" },
+        { "path": "lib/shaders/interaction-manager.ts", "type": "registry:lib", "target": "lib/shaders/interaction-manager.ts" },
+        { "path": "lib/shaders/glsl-source.ts", "type": "registry:lib", "target": "lib/shaders/glsl-source.ts" },
+        { "path": "lib/shaders/presets/index.ts", "type": "registry:lib", "target": "lib/shaders/presets/index.ts" },
+        { "path": "lib/shaders/renderer.ts", "type": "registry:lib", "target": "lib/shaders/renderer.ts" }
+      ]
+    },
+    {
       "name": "shader-background",
       "type": "registry:component",
       "title": "Shader Background",
-      "description": "Raw WebGL GPU-powered generative canvas background with 6 presets, pointer/scroll reactivity, DPR capping, visibility pause, and CSS gradient fallback.",
+      "description": "Raw WebGL GPU-powered generative canvas background with 18 presets including Logo Flare, pointer/scroll reactivity, DPR capping, visibility pause, and CSS gradient fallback.",
       "dependencies": ["react"],
+      "registryDependencies": ["@renderjoy/shader-engine"],
       "files": [
         {
           "path": "registry/components/shader-background.tsx",
@@ -788,6 +806,126 @@
           "target": "components/renderjoy/shader-background.tsx"
         }
       ]
+    },
+    {
+      "name": "cover-flow-carousel",
+      "type": "registry:component",
+      "title": "Cover-Flow Carousel",
+      "description": "iOS-like 3D perspective Cover Flow carousel with spring physics, mirrored floor reflections, and drag/scroll/keyboard navigation.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [{ "path": "registry/components/cover-flow-carousel.tsx", "type": "registry:component", "target": "components/renderjoy/cover-flow-carousel.tsx" }]
+    },
+    {
+      "name": "tactile-3d-button",
+      "type": "registry:component",
+      "title": "3D Tactile Push Button",
+      "description": "Mechanical 3D keycap push button with extruded bottom lip, press travel, and spring rebound.",
+      "dependencies": ["motion", "clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/tactile-3d-button.tsx", "type": "registry:component", "target": "components/renderjoy/tactile-3d-button.tsx" }]
+    },
+    {
+      "name": "glass-button",
+      "type": "registry:component",
+      "title": "Frosted Glass Button",
+      "description": "Multi-layer translucent glass pill button with specular top highlight and cursor-tracking radial shimmer.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/glass-button.tsx", "type": "registry:component", "target": "components/renderjoy/glass-button.tsx" }]
+    },
+    {
+      "name": "champagne-button",
+      "type": "registry:component",
+      "title": "Royal Champagne Magnetic CTA",
+      "description": "Magnetic pointer translation paired with an animated specular sheen sweep.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [{ "path": "registry/components/champagne-button.tsx", "type": "registry:component", "target": "components/renderjoy/champagne-button.tsx" }]
+    },
+    {
+      "name": "spotlight-bento",
+      "type": "registry:component",
+      "title": "Royal Spotlight Bento Grid",
+      "description": "Pointer-tracking bento grid illuminating 1px hairline borders and radial aura.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/spotlight-bento.tsx", "type": "registry:component", "target": "components/renderjoy/spotlight-bento.tsx" }]
+    },
+    {
+      "name": "spatial-dock",
+      "type": "registry:component",
+      "title": "Apple Spatial Glass Dock",
+      "description": "Distance-based icon magnification with blurred obsidian glass surface.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [{ "path": "registry/components/spatial-dock.tsx", "type": "registry:component", "target": "components/renderjoy/spatial-dock.tsx" }]
+    },
+    {
+      "name": "kinetic-card-3d",
+      "type": "registry:component",
+      "title": "Kinetic 3D Perspective Card",
+      "description": "Pointer-reactive 3D perspective card with moving metallic glare overlay.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [{ "path": "registry/components/kinetic-card-3d.tsx", "type": "registry:component", "target": "components/renderjoy/kinetic-card-3d.tsx" }]
+    },
+    {
+      "name": "spotlight-command-palette",
+      "type": "registry:component",
+      "title": "Command-K Spotlight Palette",
+      "description": "Frosted command surface with fuzzy search and keyboard navigation.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/spotlight-command-palette.tsx", "type": "registry:component", "target": "components/renderjoy/spotlight-command-palette.tsx" }]
+    },
+    {
+      "name": "dynamic-island",
+      "type": "registry:component",
+      "title": "Dynamic Island Status Pill",
+      "description": "Compact obsidian pill expanding with spring physics to reveal live details.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [{ "path": "registry/components/dynamic-island.tsx", "type": "registry:component", "target": "components/renderjoy/dynamic-island.tsx" }]
+    },
+    {
+      "name": "aurora-hero",
+      "type": "registry:component",
+      "title": "Liquid Aurora Editorial Hero",
+      "description": "Hero section with cursor-tracking liquid aurora mesh, grid overlay, and CTA.",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [{ "path": "registry/components/aurora-hero.tsx", "type": "registry:component", "target": "components/renderjoy/aurora-hero.tsx" }]
+    },
+    {
+      "name": "pricing-crown",
+      "type": "registry:component",
+      "title": "Royal Pricing Tier Matrix",
+      "description": "Billing cycle toggle paired with an elevated flagship plan card.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/pricing-crown.tsx", "type": "registry:component", "target": "components/renderjoy/pricing-crown.tsx" }]
+    },
+    {
+      "name": "kinetic-marquee",
+      "type": "registry:component",
+      "title": "Infinite Kinetic Marquee Ribbon",
+      "description": "Seamless infinite horizontal marquee ribbon with reduced-motion pause.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/kinetic-marquee.tsx", "type": "registry:component", "target": "components/renderjoy/kinetic-marquee.tsx" }]
+    },
+    {
+      "name": "metric-sparkline",
+      "type": "registry:component",
+      "title": "Keynote Tabular Metric Card",
+      "description": "Monospace KPI card with SVG trend curve and delta badge.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/metric-sparkline.tsx", "type": "registry:component", "target": "components/renderjoy/metric-sparkline.tsx" }]
+    },
+    {
+      "name": "split-compare",
+      "type": "registry:component",
+      "title": "Tactile Split Comparison Slider",
+      "description": "Split comparison slider revealing two layered UI surfaces.",
+      "dependencies": ["lucide-react", "clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/split-compare.tsx", "type": "registry:component", "target": "components/renderjoy/split-compare.tsx" }]
+    },
+    {
+      "name": "founder-wall",
+      "type": "registry:component",
+      "title": "Editorial Testimonial Wall",
+      "description": "Editorial quote cards with subtle hover elevation.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/components/founder-wall.tsx", "type": "registry:component", "target": "components/renderjoy/founder-wall.tsx" }]
     }
   ]
 }

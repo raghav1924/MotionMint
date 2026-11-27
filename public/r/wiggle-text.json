@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "wiggle-text",
+  "type": "registry:component",
   "title": "Wiggle Text",
   "description": "Lightweight CSS-animated character or word wiggle typography primitive with configurable intensity and trigger.",
   "dependencies": [
@@ -14,22 +15,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/wiggle-text.tsx"
     }
-  ],
-  "css": {
-    "@keyframes mm-wiggle": {
-      "0%, 100%": {
-        "transform": "translateY(0) rotate(0deg)"
-      },
-      "25%": {
-        "transform": "translateY(var(--mm-wiggle-y, -3px)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -1))"
-      },
-      "50%": {
-        "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.5)) rotate(var(--mm-wiggle-rot, 6deg))"
-      },
-      "75%": {
-        "transform": "translateY(calc(var(--mm-wiggle-y, -3px) * 0.25)) rotate(calc(var(--mm-wiggle-rot, 6deg) * -0.5))"
-      }
-    }
-  },
-  "type": "registry:component"
+  ]
 }

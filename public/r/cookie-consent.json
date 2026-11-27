@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "cookie-consent",
+  "type": "registry:component",
   "title": "Cookie Consent",
   "description": "Configurable consent panel with Accept All, Reject Optional, and category customisation callbacks.",
   "dependencies": [
@@ -18,6 +19,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/cookie-consent.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "champagne-button",
+  "type": "registry:component",
+  "title": "Royal Champagne Magnetic CTA",
+  "description": "Magnetic pointer translation paired with an animated specular sheen sweep.",
+  "dependencies": [
+    "motion",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/champagne-button.tsx",
+      "content": "\"use client\";\n\nimport React, { useRef, useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\nimport { ArrowRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { triggerInteractionFeedback } from \"@/lib/audio/feedback-store\";\n\nexport interface ChampagneButtonProps\n  extends Omit<\n    React.ButtonHTMLAttributes<HTMLButtonElement>,\n    \"onDrag\" | \"onDragStart\" | \"onDragEnd\" | \"onAnimationStart\"\n  > {\n  label?: string;\n  strength?: number;\n  sound?: boolean;\n  haptic?: boolean;\n}\n\nexport function ChampagneButton({\n  label = \"Get Started\",\n  children,\n  strength = 0.28,\n  sound,\n  haptic,\n  className,\n  onClick,\n  disabled,\n  type = \"button\",\n  ...props\n}: ChampagneButtonProps) {\n  const ref = useRef<HTMLButtonElement>(null);\n  const [offset, setOffset] = useState({ x: 0, y: 0 });\n  const [hovered, setHovered] = useState(false);\n  const prefersReduced = useReducedMotion();\n\n  return (\n    <motion.button\n      ref={ref}\n      type={type}\n      disabled={disabled}\n      onMouseEnter={() => setHovered(true)}\n      onMouseMove={(e) => {\n        if (prefersReduced || disabled || !ref.current) return;\n        const rect = ref.current.getBoundingClientRect();\n        setOffset({\n          x: (e.clientX - (rect.left + rect.width / 2)) * strength,\n          y: (e.clientY - (rect.top + rect.height / 2)) * strength,\n        });\n      }}\n      onMouseLeave={() => {\n        setHovered(false);\n        setOffset({ x: 0, y: 0 });\n      }}\n      onClick={(e) => {\n        if (disabled) return;\n        triggerInteractionFeedback(\"click\", { sound, haptic });\n        onClick?.(e);\n      }}\n      animate={prefersReduced ? undefined : { x: offset.x, y: offset.y }}\n      whileTap={prefersReduced ? undefined : { scale: 0.96 }}\n      transition={{ type: \"spring\", stiffness: 360, damping: 20 }}\n      className={cn(\n        \"group relative inline-flex h-11 items-center justify-center gap-2 overflow-hidden rounded-full px-6 text-sm font-semibold tracking-[-0.01em] select-none cursor-pointer\",\n        \"bg-gradient-to-b from-[#f5e1b9] via-[#e6c88c] to-[#cfa862] text-[#171209]\",\n        \"border border-[#fff4d6]/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_12px_28px_-8px_rgba(207,168,98,0.5)]\",\n        \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e6c88c] focus-visible:ring-offset-2\",\n        \"disabled:opacity-50 disabled:pointer-events-none\",\n        className\n      )}\n      {...props}\n    >\n      {/* Animated specular sheen sweep */}\n      <span\n        aria-hidden=\"true\"\n        className={cn(\n          \"pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/55 to-transparent transition-transform duration-700\",\n          hovered ? \"translate-x-[340%]\" : \"-translate-x-full\"\n        )}\n      />\n      <span className=\"relative z-10 inline-flex items-center gap-2\">\n        {children ?? label}\n        <ArrowRight className=\"h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5\" aria-hidden=\"true\" />\n      </span>\n    </motion.button>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/champagne-button.tsx"
+    }
+  ]
+}

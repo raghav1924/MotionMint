@@ -75,6 +75,21 @@ import { VisualKeyboard } from "@/registry/components/keyboard";
 import { InfinityCanvas } from "@/registry/components/infinity-canvas";
 import { ScratchCard } from "@/registry/components/scratch-card";
 import { HalftonePopover } from "@/registry/components/halftone-popover";
+import { CoverFlowCarousel } from "@/registry/components/cover-flow-carousel";
+import { Tactile3DButton } from "@/registry/components/tactile-3d-button";
+import { GlassButton } from "@/registry/components/glass-button";
+import { ChampagneButton } from "@/registry/components/champagne-button";
+import { SpotlightBento } from "@/registry/components/spotlight-bento";
+import { SpatialDock } from "@/registry/components/spatial-dock";
+import { KineticCard3D } from "@/registry/components/kinetic-card-3d";
+import { SpotlightCommandPalette } from "@/registry/components/spotlight-command-palette";
+import { DynamicIsland } from "@/registry/components/dynamic-island";
+import { AuroraHero } from "@/registry/components/aurora-hero";
+import { PricingCrown } from "@/registry/components/pricing-crown";
+import { KineticMarquee } from "@/registry/components/kinetic-marquee";
+import { MetricSparkline } from "@/registry/components/metric-sparkline";
+import { SplitCompare } from "@/registry/components/split-compare";
+import { FounderWall } from "@/registry/components/founder-wall";
 import {
   ShaderBackground,
   SHADER_PRESETS,
@@ -82,7 +97,6 @@ import {
   type ShaderQuality,
 } from "@/registry/components/shader-background";
 import {
-  DesktopBrowserFrame,
   TabletPreviewFrame,
   MobileDeviceFrame,
 } from "@/components/preview/device-frames";
@@ -161,7 +175,11 @@ export function ComponentStudio({
   const isProdRegistry = isProductionRegistryConfigured();
 
   // Live Inspector State
-  const [variant, setVariant] = useState<"primary" | "secondary" | "outline">("primary");
+  const [variant, setVariant] = useState<"primary" | "secondary" | "outline" | "3d" | "glass" | "shimmer">("primary");
+  const [jellyVariant, setJellyVariant] = useState<"primary" | "3d" | "glass" | "obsidian">("primary");
+  const [tactileTone, setTactileTone] = useState<"obsidian" | "emerald" | "amber" | "ivory">("obsidian");
+  const [glassFinish, setGlassFinish] = useState<"frost" | "obsidian" | "prism">("obsidian");
+  const [coverReflections, setCoverReflections] = useState(true);
   const [size, setSize] = useState<"sm" | "md" | "lg">("md");
   const [buttonLabel, setButtonLabel] = useState("Primary Action");
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -201,6 +219,11 @@ export function ComponentStudio({
   const [shaderScrollReactive, setShaderScrollReactive] = useState(false);
   const [shaderQuality, setShaderQuality] = useState<ShaderQuality>("medium");
   const [shaderBgColor, setShaderBgColor] = useState("#0F172A");
+  const [shaderRayCount, setShaderRayCount] = useState(14);
+  const [shaderGlowRadius, setShaderGlowRadius] = useState(1);
+  const [shaderLensStreak, setShaderLensStreak] = useState(0.85);
+  const [shaderNoiseAmount, setShaderNoiseAmount] = useState(1);
+  const [shaderShowLogo, setShaderShowLogo] = useState(true);
 
   const categories = Array.from(new Set(CATALOG_ITEMS.map((c) => c.category)));
 
@@ -210,17 +233,35 @@ export function ComponentStudio({
     switch (item.slug) {
       case "ripple-button":
         return (
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <RippleButton variant={variant} size={size} disabled={buttonDisabled}>
               {buttonLabel || "Primary Action"}
             </RippleButton>
-            <RippleButton variant="outline" size={size} disabled={buttonDisabled}>
-              Secondary
+            <RippleButton variant="3d" size={size} disabled={buttonDisabled}>
+              3D Keycap
+            </RippleButton>
+            <RippleButton variant="glass" size={size} disabled={buttonDisabled}>
+              Frosted Glass
+            </RippleButton>
+            <RippleButton variant="shimmer" size={size} disabled={buttonDisabled}>
+              Obsidian Sheen
             </RippleButton>
           </div>
         );
       case "jelly-button":
-        return <JellyButton magneticStrength={magneticStrength}>Magnetic Jelly</JellyButton>;
+        return (
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <JellyButton variant={jellyVariant} magneticStrength={magneticStrength}>
+              Magnetic Jelly
+            </JellyButton>
+            <JellyButton variant="3d" magneticStrength={magneticStrength}>
+              3D Magnetic
+            </JellyButton>
+            <JellyButton variant="glass" magneticStrength={magneticStrength}>
+              Glass Magnetic
+            </JellyButton>
+          </div>
+        );
       case "copy-button":
         return <CopyButton value={copyText} />;
       case "sound-toggle":
@@ -562,14 +603,38 @@ export function ComponentStudio({
             scrollReactive={shaderScrollReactive}
             quality={shaderQuality}
             backgroundColor={shaderBgColor}
+            rayCount={shaderRayCount}
+            glowRadius={shaderGlowRadius}
+            lensStreak={shaderLensStreak}
+            noiseAmount={shaderNoiseAmount}
             reducedMotion={simReducedMotion}
+            logo={
+              shaderPreset === "logo-flare" && shaderShowLogo ? (
+                <svg
+                  width="88"
+                  height="88"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  className="text-white drop-shadow-[0_0_24px_rgba(147,197,253,0.65)]"
+                >
+                  <path
+                    d="M18 18C18 14.6863 20.6863 12 24 12H50C69.8822 12 86 28.1178 86 48C86 61.1 79.05 72.58 68.62 78.92C64.28 81.56 58.8 78.42 58.8 73.34V52C58.8 42.6112 51.1888 35 41.8 35C34.5 35 28.8 40.4 28.8 47.6V73.5C28.8 77.0899 25.8899 80 22.3 80C19.9252 80 18 78.0748 18 75.7V18Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M37.5 52C37.5 47.0294 41.5294 43 46.5 43C51.4706 43 55.5 47.0294 55.5 52V71C55.5 80.3888 47.8888 88 38.5 88C33.1 88 28.3 85.48 25.18 81.55C31.3 80.6 37.5 76.2 37.5 69.5V52Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ) : undefined
+            }
             className={cn(
               "flex w-full flex-col items-center justify-center p-6 text-center",
               viewport === "mobile"
                 ? "h-[690px] rounded-none border-0"
                 : viewport === "tablet"
                   ? "h-[500px] rounded-none border-0"
-                  : "min-h-[540px] sm:min-h-[600px] rounded-[24px] border border-white/10 shadow-[var(--ws-shadow-floating)]",
+                  : "min-h-[72vh] sm:min-h-[660px] rounded-none border-0",
               shaderPreset === "pastel" ? "text-slate-900" : "text-white"
             )}
           >
@@ -627,6 +692,63 @@ export function ComponentStudio({
             }
           />
         );
+      case "cover-flow-carousel":
+        return <CoverFlowCarousel showReflections={coverReflections} />;
+      case "tactile-3d-button":
+        return (
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Tactile3DButton tone={tactileTone} size={size}>
+              {buttonLabel || "Push 3D"}
+            </Tactile3DButton>
+            <Tactile3DButton tone="emerald" size={size}>
+              Emerald
+            </Tactile3DButton>
+            <Tactile3DButton tone="amber" size={size}>
+              Amber
+            </Tactile3DButton>
+            <Tactile3DButton tone="ivory" size={size}>
+              Ivory
+            </Tactile3DButton>
+          </div>
+        );
+      case "glass-button":
+        return (
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <GlassButton finish={glassFinish} size={size}>
+              {buttonLabel || "Glass Action"}
+            </GlassButton>
+            <GlassButton finish="frost" size={size}>
+              Frost Pill
+            </GlassButton>
+            <GlassButton finish="prism" size={size}>
+              Prism Glass
+            </GlassButton>
+          </div>
+        );
+      case "champagne-button":
+        return <ChampagneButton label={buttonLabel || "Get Started"} strength={magneticStrength} />;
+      case "spotlight-bento":
+        return <SpotlightBento />;
+      case "spatial-dock":
+        return <SpatialDock />;
+      case "kinetic-card-3d":
+        return <KineticCard3D />;
+      case "spotlight-command-palette":
+        return <SpotlightCommandPalette />;
+      case "dynamic-island":
+        return <DynamicIsland />;
+      case "aurora-hero":
+        return <AuroraHero />;
+      case "pricing-crown":
+        return <PricingCrown />;
+      case "kinetic-marquee":
+        return <KineticMarquee />;
+      case "metric-sparkline":
+        return <MetricSparkline />;
+      case "split-compare":
+        return <SplitCompare />;
+      case "founder-wall":
+        return <FounderWall />;
       default:
         return (
           <div className="text-center space-y-2">
@@ -655,7 +777,7 @@ export function ComponentStudio({
             <div className="space-y-1.5">
               <p className="text-[var(--ws-text-secondary)]">Variant</p>
               <div className="flex flex-wrap gap-1.5">
-                {(["primary", "secondary", "outline"] as const).map((v) => (
+                {(["primary", "secondary", "outline", "3d", "glass", "shimmer"] as const).map((v) => (
                   <button
                     key={v}
                     type="button"
@@ -749,16 +871,99 @@ export function ComponentStudio({
         );
       case "jelly-button":
         return (
-          <label className="block space-y-2 text-xs text-[var(--mm-fg-muted)]">
-            <span>Magnetic Pull ({magneticStrength.toFixed(2)})</span>
+          <div className="space-y-4 text-xs">
+            <div className="space-y-1.5">
+              <p className="text-[var(--ws-text-secondary)]">Style</p>
+              <div className="flex flex-wrap gap-1.5">
+                {(["primary", "3d", "glass", "obsidian"] as const).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setJellyVariant(v)}
+                    className={cn(
+                      "px-2.5 py-1 rounded-md border cursor-pointer",
+                      jellyVariant === v
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
+                    )}
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <label className="block space-y-2 text-xs text-[var(--mm-fg-muted)]">
+              <span>Magnetic Pull ({magneticStrength.toFixed(2)})</span>
+              <input
+                type="range"
+                min="0"
+                max="0.6"
+                step="0.05"
+                value={magneticStrength}
+                onChange={(e) => setMagneticStrength(Number(e.target.value))}
+                className="w-full accent-[var(--mm-accent)]"
+              />
+            </label>
+          </div>
+        );
+      case "tactile-3d-button":
+        return (
+          <div className="space-y-4 text-xs">
+            <div className="space-y-1.5">
+              <p className="text-[var(--ws-text-secondary)]">Tone</p>
+              <div className="flex flex-wrap gap-1.5">
+                {(["obsidian", "emerald", "amber", "ivory"] as const).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setTactileTone(t)}
+                    className={cn(
+                      "px-2.5 py-1 rounded-md border cursor-pointer capitalize",
+                      tactileTone === t
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
+                    )}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      case "glass-button":
+        return (
+          <div className="space-y-4 text-xs">
+            <div className="space-y-1.5">
+              <p className="text-[var(--ws-text-secondary)]">Glass Finish</p>
+              <div className="flex flex-wrap gap-1.5">
+                {(["frost", "obsidian", "prism"] as const).map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => setGlassFinish(f)}
+                    className={cn(
+                      "px-2.5 py-1 rounded-md border cursor-pointer capitalize",
+                      glassFinish === f
+                        ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                        : "border-[var(--ws-border)] text-[var(--ws-text-secondary)]"
+                    )}
+                  >
+                    {f}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      case "cover-flow-carousel":
+        return (
+          <label className="flex items-center justify-between gap-2 text-xs text-[var(--ws-text-secondary)] cursor-pointer">
+            <span>Mirrored Floor Reflections</span>
             <input
-              type="range"
-              min="0"
-              max="0.6"
-              step="0.05"
-              value={magneticStrength}
-              onChange={(e) => setMagneticStrength(Number(e.target.value))}
-              className="w-full accent-[var(--mm-accent)]"
+              type="checkbox"
+              checked={coverReflections}
+              onChange={(e) => setCoverReflections(e.target.checked)}
             />
           </label>
         );
@@ -1196,6 +1401,67 @@ export function ComponentStudio({
               />
             </label>
 
+            {shaderPreset === "logo-flare" && (
+              <>
+                <label className="block space-y-1">
+                  <span>Ray Count ({shaderRayCount})</span>
+                  <input
+                    type="range"
+                    min="6"
+                    max="28"
+                    step="1"
+                    value={shaderRayCount}
+                    onChange={(e) => setShaderRayCount(Number(e.target.value))}
+                    className="w-full"
+                  />
+                </label>
+                <label className="block space-y-1">
+                  <span>Glow Radius ({shaderGlowRadius.toFixed(2)})</span>
+                  <input
+                    type="range"
+                    min="0.4"
+                    max="1.8"
+                    step="0.05"
+                    value={shaderGlowRadius}
+                    onChange={(e) => setShaderGlowRadius(Number(e.target.value))}
+                    className="w-full"
+                  />
+                </label>
+                <label className="block space-y-1">
+                  <span>Lens Streak ({shaderLensStreak.toFixed(2)})</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1.6"
+                    step="0.05"
+                    value={shaderLensStreak}
+                    onChange={(e) => setShaderLensStreak(Number(e.target.value))}
+                    className="w-full"
+                  />
+                </label>
+                <label className="block space-y-1">
+                  <span>Noise Amount ({shaderNoiseAmount.toFixed(2)})</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1.5"
+                    step="0.05"
+                    value={shaderNoiseAmount}
+                    onChange={(e) => setShaderNoiseAmount(Number(e.target.value))}
+                    className="w-full"
+                  />
+                </label>
+                <label className="flex items-center justify-between gap-2 cursor-pointer">
+                  <span>Foreground Logo</span>
+                  <input
+                    type="checkbox"
+                    checked={shaderShowLogo}
+                    onChange={(e) => setShaderShowLogo(e.target.checked)}
+                  />
+                </label>
+              </>
+            )}
+
             <label className="flex items-center justify-between gap-2 cursor-pointer">
               <span>Pointer Reactive</span>
               <input
@@ -1275,14 +1541,140 @@ export function ComponentStudio({
   return (
     <div
       className={cn(
-        "p-4 sm:p-6 space-y-6",
-        fullscreen && "fixed inset-0 z-40 bg-[var(--ws-bg)] overflow-y-auto p-6 pb-28"
+        "w-full min-w-0",
+        fullscreen && "fixed inset-0 z-40 bg-[var(--ws-bg)] overflow-y-auto pb-28"
       )}
     >
-      {/* Main Studio Workspace */}
-      <div className="mx-auto max-w-[1180px] space-y-8 min-w-0">
-          {/* Planes-style Centered Component Heading */}
-          <div className="relative flex flex-col items-center text-center pt-4 space-y-2">
+      {/* Pure Edge-to-Edge Canvas Stage at Very Top (Nothing Above Preview) */}
+      <div className="w-full">
+        {stageTab === "compare" ? (
+          <div className="mx-auto max-w-[1180px] px-4 sm:px-6 pt-6">
+            <ComparisonWorkbench
+              title={`Compare ${item.name}`}
+              renderSpecimen={() => (
+                <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
+                  {renderStage()}
+                </MotionConfig>
+              )}
+            />
+          </div>
+        ) : stageTab === "code" ? (
+          <div className="mx-auto max-w-[1180px] px-4 sm:px-6 pt-6">
+            <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ws-border)] pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs text-[var(--ws-text-primary)]">
+                    {item.sourcePath ?? `registry/components/${item.slug}.tsx`}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (sourceCode) {
+                      void navigator.clipboard?.writeText(sourceCode);
+                      setCopiedSource(true);
+                      setTimeout(() => setCopiedSource(false), 1500);
+                    }
+                  }}
+                  className="inline-flex h-7 items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-bg)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+                >
+                  {copiedSource ? (
+                    <Check className="h-3 w-3 text-emerald-500" aria-hidden="true" />
+                  ) : (
+                    <Copy className="h-3 w-3" aria-hidden="true" />
+                  )}
+                  <span>{copiedSource ? "Copied" : "Copy Source"}</span>
+                </button>
+              </div>
+              <pre className="max-h-[520px] overflow-auto rounded-xl border border-[var(--ws-border)] bg-[var(--ws-bg)] p-4 font-mono text-xs leading-relaxed text-[var(--ws-text-primary)]">
+                <code>{sourceCode ?? `// Install via CLI:\n${resolvedInstall}`}</code>
+              </pre>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center w-full">
+            <ContextMenu
+              className="flex w-full justify-center"
+              items={[
+                {
+                  id: "ctx-reset",
+                  label: "Reset Preview",
+                  onSelect: () => setResetKey((k) => k + 1),
+                },
+                {
+                  id: "ctx-inspector",
+                  label: inspectorOpen ? "Hide Inspector" : "Show Inspector",
+                  onSelect: () => setInspectorOpen((v) => !v),
+                },
+                {
+                  id: "ctx-fullscreen",
+                  label: fullscreen ? "Exit Fullscreen" : "Enter Fullscreen",
+                  onSelect: () => setFullscreen((f) => !f),
+                },
+                {
+                  id: "ctx-copy-cli",
+                  label: "Copy CLI Command",
+                  onSelect: () => void navigator.clipboard?.writeText(resolvedInstall),
+                },
+              ]}
+            >
+              <div key={combinedResetKey} className="w-full flex flex-col items-center">
+                <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
+                  {item.slug === "shader-background" ? (
+                    viewport === "mobile" ? (
+                      <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
+                        <MobileDeviceFrame slug={item.slug} fullBleed>
+                          {renderStage()}
+                        </MobileDeviceFrame>
+                      </div>
+                    ) : viewport === "tablet" ? (
+                      <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
+                        <TabletPreviewFrame slug={item.slug} fullBleed>
+                          {renderStage()}
+                        </TabletPreviewFrame>
+                      </div>
+                    ) : (
+                      <div className="w-full border-b border-[var(--ws-border-subtle)]">
+                        {renderStage()}
+                      </div>
+                    )
+                  ) : viewport === "mobile" ? (
+                    <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
+                      <MobileDeviceFrame slug={item.slug}>
+                        <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
+                          {renderStage()}
+                        </MotionMintTheme>
+                      </MobileDeviceFrame>
+                    </div>
+                  ) : viewport === "tablet" ? (
+                    <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
+                      <TabletPreviewFrame slug={item.slug}>
+                        <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-lg flex justify-center">
+                          {renderStage()}
+                        </MotionMintTheme>
+                      </TabletPreviewFrame>
+                    </div>
+                  ) : (
+                    <div
+                      data-testid="desktop-canvas-stage"
+                      className="flex min-h-[72vh] sm:min-h-[660px] w-full items-center justify-center border-b border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] p-6 sm:p-12 overflow-x-auto"
+                    >
+                      <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-3xl flex justify-center">
+                        {renderStage()}
+                      </MotionMintTheme>
+                    </div>
+                  )}
+                </MotionConfig>
+              </div>
+            </ContextMenu>
+          </div>
+        )}
+      </div>
+
+      {/* Below-Canvas Workspace: Title, Controls, Inspector, Docs */}
+      <div className="mx-auto max-w-[1180px] px-4 sm:px-6 pt-10 pb-24 space-y-8 min-w-0">
+          {/* Centered Component Heading (Below Preview) */}
+          <div className="relative flex flex-col items-center text-center space-y-2">
             <div className="flex flex-wrap items-center justify-center gap-2.5">
               <h1 className="text-[28px] sm:text-[34px] font-semibold tracking-tight text-[var(--ws-text-primary)]">
                 {item.name}
@@ -1375,17 +1767,9 @@ export function ComponentStudio({
 
               <button
                 type="button"
-                onClick={() => setMobileInspectorOpen(true)}
-                className="inline-flex xl:hidden items-center gap-1.5 h-8 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
-              >
-                <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden="true" />
-                Inspector
-              </button>
-              <button
-                type="button"
                 onClick={() => setInspectorOpen((v) => !v)}
                 aria-expanded={inspectorOpen}
-                className="hidden xl:inline-flex items-center gap-1.5 h-8 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
+                className="inline-flex items-center gap-1.5 h-8 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
               >
                 <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden="true" />
                 {inspectorOpen ? "Hide Inspector" : "Inspector"}
@@ -1425,138 +1809,22 @@ export function ComponentStudio({
                 ))}
               </div>
             </div>
+
+            <div className="pt-1 flex flex-wrap items-center justify-center gap-2 text-[11px] text-[var(--ws-text-muted)]">
+              <span className="rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-0.5 text-[var(--ws-text-secondary)]">
+                {item.interactionHint}
+              </span>
+              <span>· {item.accessibilityNotes}</span>
+            </div>
           </div>
 
-          {/* Spacious Central Stage + Optional Collapsible Inspector */}
-          <div
-            className={cn(
-              "grid gap-5 items-start",
-              inspectorOpen && stageTab === "preview" && item.slug !== "shader-background"
-                ? "xl:grid-cols-[1fr_290px]"
-                : "grid-cols-1"
-            )}
-          >
-            {stageTab === "compare" ? (
-              <ComparisonWorkbench
-                title={`Compare ${item.name}`}
-                renderSpecimen={() => (
-                  <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
-                    {renderStage()}
-                  </MotionConfig>
-                )}
-              />
-            ) : stageTab === "code" ? (
-              <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ws-border)] pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs text-[var(--ws-text-primary)]">
-                      {item.sourcePath ?? `registry/components/${item.slug}.tsx`}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (sourceCode) {
-                        void navigator.clipboard?.writeText(sourceCode);
-                        setCopiedSource(true);
-                        setTimeout(() => setCopiedSource(false), 1500);
-                      }
-                    }}
-                    className="inline-flex h-7 items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-bg)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
-                  >
-                    {copiedSource ? (
-                      <Check className="h-3 w-3 text-emerald-500" aria-hidden="true" />
-                    ) : (
-                      <Copy className="h-3 w-3" aria-hidden="true" />
-                    )}
-                    <span>{copiedSource ? "Copied" : "Copy Source"}</span>
-                  </button>
-                </div>
-                <pre className="max-h-[520px] overflow-auto rounded-xl border border-[var(--ws-border)] bg-[var(--ws-bg)] p-4 font-mono text-xs leading-relaxed text-[var(--ws-text-primary)]">
-                  <code>{sourceCode ?? `// Install via CLI:\n${resolvedInstall}`}</code>
-                </pre>
-              </div>
-            ) : (
-              /* Central Device Frame Stage */
-              <div className="flex flex-col items-center w-full">
-                <ContextMenu
-                  className="flex w-full justify-center"
-                  items={[
-                    {
-                      id: "ctx-reset",
-                      label: "Reset Preview",
-                      onSelect: () => setResetKey((k) => k + 1),
-                    },
-                    {
-                      id: "ctx-inspector",
-                      label: inspectorOpen ? "Hide Inspector" : "Show Inspector",
-                      onSelect: () => setInspectorOpen((v) => !v),
-                    },
-                    {
-                      id: "ctx-fullscreen",
-                      label: fullscreen ? "Exit Fullscreen" : "Enter Fullscreen",
-                      onSelect: () => setFullscreen((f) => !f),
-                    },
-                    {
-                      id: "ctx-copy-cli",
-                      label: "Copy CLI Command",
-                      onSelect: () => void navigator.clipboard?.writeText(resolvedInstall),
-                    },
-                  ]}
-                >
-                  <div key={combinedResetKey} className="w-full flex flex-col items-center">
-                    <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
-                      {item.slug === "shader-background" ? (
-                        viewport === "mobile" ? (
-                          <MobileDeviceFrame slug={item.slug} fullBleed>
-                            {renderStage()}
-                          </MobileDeviceFrame>
-                        ) : viewport === "tablet" ? (
-                          <TabletPreviewFrame slug={item.slug} fullBleed>
-                            {renderStage()}
-                          </TabletPreviewFrame>
-                        ) : (
-                          renderStage()
-                        )
-                      ) : viewport === "mobile" ? (
-                        <MobileDeviceFrame slug={item.slug}>
-                          <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
-                            {renderStage()}
-                          </MotionMintTheme>
-                        </MobileDeviceFrame>
-                      ) : viewport === "tablet" ? (
-                        <TabletPreviewFrame slug={item.slug}>
-                          <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-lg flex justify-center">
-                            {renderStage()}
-                          </MotionMintTheme>
-                        </TabletPreviewFrame>
-                      ) : (
-                        <DesktopBrowserFrame slug={item.slug}>
-                          <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-xl flex justify-center">
-                            {renderStage()}
-                          </MotionMintTheme>
-                        </DesktopBrowserFrame>
-                      )}
-                    </MotionConfig>
-                  </div>
-                </ContextMenu>
-                <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[11px] text-[var(--ws-text-muted)]">
-                  <span className="rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-0.5 text-[var(--ws-text-secondary)]">
-                    {item.interactionHint}
-                  </span>
-                  <span>· {item.accessibilityNotes}</span>
-                </div>
-              </div>
-            )}
+          <div className="grid grid-cols-1 gap-5 items-start">
 
-            {/* Collapsible Inspector (Side for standard components, Bottom wide panel for full-canvas Shader Background) */}
+            {/* Collapsible Bottom Inspector */}
             {inspectorOpen && stageTab === "preview" && (
               <aside
                 aria-label="Component Inspector"
-                className={cn(
-                  "rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-4",
-                  item.slug === "shader-background" ? "block w-full" : "hidden xl:block rounded-xl p-4"
-                )}
+                className="block w-full rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-4"
               >
                 <div className="flex items-center justify-between border-b border-[var(--ws-border)] pb-2.5">
                   <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ws-text-secondary)]">

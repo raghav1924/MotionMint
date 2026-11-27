@@ -1,6 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "morphing-tray",
+  "type": "registry:component",
   "title": "Morphing Tray",
   "description": "Compact-to-expanded contextual surface morphing seamlessly between summary and full controls.",
   "dependencies": [
@@ -19,6 +20,5 @@
       "type": "registry:component",
       "target": "components/renderjoy/morphing-tray.tsx"
     }
-  ],
-  "type": "registry:component"
+  ]
 }
