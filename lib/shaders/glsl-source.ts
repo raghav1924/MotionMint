@@ -29,6 +29,10 @@ uniform float u_rayCount;
 uniform float u_glowRadius;
 uniform float u_lensStreak;
 uniform float u_noiseAmount;
+uniform float u_entry;
+uniform sampler2D u_logoMap;
+uniform float u_hasLogo;
+uniform float u_logoExtent;
 uniform vec4 u_ripple0;
 uniform vec4 u_ripple1;
 uniform vec4 u_ripple2;
@@ -120,44 +124,99 @@ void main() {
   vec3 col = u_color2;
 
   if (u_preset == 15) {
-    // 15 — Logo Flare (Flagship): Polar volumetric beams + Gaussian bloom + lens streak
-    vec2 origin = (u_flareOrigin - 0.5) * aspect + mouse * (0.18 * u_pointerStrength);
-    origin.y -= u_scroll * 0.14;
-    vec2 delta = uv - origin;
+    // 15 — Logo Flare (Flagship): SVG distance-field light source with
+    // white-hot core, contour halo, crisp needle flares, soft petals & film grain
+    // Keep the logo SDF anchored to u_flareOrigin so it stays locked 1:1 with the DOM <svg>,
+    // while pointer interaction sweeps the optical flare, rays, and lens streaks.
+    vec2 logoOrigin = (u_flareOrigin - 0.5) * aspect;
+    vec2 flareOriginPos = logoOrigin + mouse * (0.12 * u_pointerStrength);
+    flareOriginPos.y -= u_scroll * 0.12;
+    vec2 logoDelta = uv - logoOrigin;
+    vec2 delta = uv - flareOriginPos;
     float r = length(delta);
     float angle = atan(delta.y, delta.x);
+    vec2 dir = vec2(cos(angle), sin(angle));
 
-    float rayN = max(4.0, u_rayCount);
-    float n1 = fbm(vec2(cos(angle) * 2.5 + t * 0.08, sin(angle) * 2.5 - t * 0.06));
-    float n2 = fbm(vec2(angle * 3.0 + t * 0.12, r * 2.2 - t * 0.15));
+    // Staggered entry ignition: core ignites -> halo & petals bloom -> needle flares extend
+    float entryCore = smoothstep(0.0, 0.45, u_entry);
+    float entryHalo = smoothstep(0.08, 0.78, u_entry);
+    float entryRays = smoothstep(0.18, 1.0, u_entry);
 
-    float primaryBeams = pow(0.5 + 0.5 * cos(angle * rayN + n1 * 2.4 * u_distortion + t * 0.18), 3.6);
-    float secondaryBeams = pow(0.5 + 0.5 * cos(angle * (rayN * 0.5) - n2 * 1.8 - t * 0.11), 6.0);
-    float fineRays = pow(0.5 + 0.5 * cos(angle * (rayN * 2.1) + n1 * 3.8 + t * 0.25), 8.0) * 0.55;
+    // Sample SVG Distance Field texture (or fallback to radial SDF)
+    float logoExtent = max(0.12, u_logoExtent);
+    float sdfDist = length(logoDelta) * 0.82;
+    float logoMask = 0.0;
+    float logoAura = 0.0;
+    if (u_hasLogo > 0.5) {
+      vec2 logoUv = vec2(logoDelta.x, -logoDelta.y) / logoExtent + 0.5;
+      vec2 clampedLogoUv = clamp(logoUv, vec2(0.004), vec2(0.996));
+      vec4 sdfTex = texture2D(u_logoMap, clampedLogoUv);
+      float boxOverflow = length(max(abs(logoUv - 0.5) - 0.496, vec2(0.0))) * 2.1;
+      float inBox = step(abs(logoUv.x - 0.5), 0.5) * step(abs(logoUv.y - 0.5), 0.5);
+      sdfDist = sdfTex.r * 0.42 + boxOverflow * logoExtent;
+      logoMask = sdfTex.g * inBox;
+      logoAura = sdfTex.b * inBox;
+    }
 
-    float radialAtten = exp(-r * (1.65 / max(0.35, u_glowRadius)));
-    float beamField = (primaryBeams * 0.7 + secondaryBeams * 0.85 + fineRays) * radialAtten;
-    beamField *= (0.72 + 0.48 * n2 * u_noiseAmount);
+    float glowScale = max(0.38, u_glowRadius);
+    float reachScale = mix(0.24, 1.0, entryHalo) * glowScale;
 
-    // Central blue-white Gaussian bloom
-    float coreBloom = exp(-r * r / (0.045 * max(0.25, u_glowRadius)));
-    float midBloom = exp(-r * 2.6 / max(0.4, u_glowRadius));
+    // 1. White-hot core (contour-hugging SDF core + incandescent center)
+    float coreHot = exp(-sdfDist * sdfDist / (0.0028 * glowScale)) * entryCore;
+    float coreRim = exp(-sdfDist * (16.0 / glowScale)) * entryCore;
+    float centerHot = exp(-r * r / (0.009 * glowScale)) * entryCore;
 
-    // Horizontal optical lens streak
-    float streakH = exp(-abs(delta.y) * 26.0) * exp(-abs(delta.x) * 2.2) * u_lensStreak;
-    float streakSecondary = exp(-length(delta - vec2(-origin.x * 0.35, 0.0)) * 7.0) * 0.25 * u_lensStreak;
+    // 2. Multi-tier atmospheric halo hugging the logo silhouette
+    float innerHalo = exp(-sdfDist * (5.2 / reachScale)) * entryHalo;
+    float outerHalo = exp(-sdfDist * (1.85 / reachScale)) * entryHalo;
 
-    float atmosphere = fbm(uv * 2.4 + vec2(t * 0.05, -t * 0.04)) * 0.16 * u_noiseAmount;
-    float vignette = smoothstep(1.25, 0.22, r);
+    // 3. Soft petals: silky overlapping radial lobes blooming from the core
+    float petalPhase1 = angle * 5.0 + t * 0.075;
+    float petalPhase2 = angle * 3.0 - t * 0.055 + 1.15;
+    float petalLobe1 = pow(0.5 + 0.5 * cos(petalPhase1 + sin(r * 2.4 - t * 0.18) * 0.3), 2.3);
+    float petalLobe2 = pow(0.5 + 0.5 * cos(petalPhase2), 1.9) * 0.65;
+    float petalOrganic = 0.72 + 0.28 * fbm(dir * 2.1 + vec2(t * 0.04, -t * 0.03));
+    float petalFalloff = exp(-r * (1.3 / max(0.42, glowScale))) * smoothstep(0.015, 0.15, r);
+    float softPetals = (petalLobe1 * 0.68 + petalLobe2 * 0.45) * petalOrganic * petalFalloff * entryHalo;
 
-    vec3 deepBase = mix(u_color2 * 0.45, u_color2, vignette) + u_color1 * atmosphere;
-    vec3 rayColor = mix(u_color1, u_color0, clamp(beamField * 1.15, 0.0, 1.0));
-    vec3 hotCore = mix(u_color0, vec3(0.92, 0.97, 1.0), 0.72);
+    // 4. Needle flares: crisp, razor-sharp optical starburst spikes + anamorphic needles
+    float nCount = max(4.0, floor(u_rayCount));
+    float spikeA = pow(abs(cos((angle + t * 0.05) * (nCount * 0.5))), 28.0);
+    float spikeB = pow(abs(cos((angle - t * 0.035 + 0.41) * (nCount * 0.5 + 3.0))), 44.0) * 0.72;
+    float needleVar = 0.52 + 0.48 * noise(vec2(cos(angle) * 3.8 + t * 0.14, sin(angle) * 3.8 - t * 0.11));
+    float needleAtten = exp(-r * (1.45 / max(0.42, glowScale))) * smoothstep(0.008, 0.085, r);
+    float radialNeedles = (spikeA + spikeB) * needleVar * needleAtten * entryRays;
 
-    col = deepBase;
-    col += rayColor * beamField * 1.35 * u_intensity;
-    col += mix(u_color1, u_color0, 0.65) * midBloom * 0.75 * u_intensity;
-    col += hotCore * (coreBloom * 1.45 + streakH + streakSecondary) * u_intensity;
+    // Anamorphic horizontal & subtle diagonal optical needle streaks
+    float hNeedle = exp(-abs(delta.y) * 56.0) * exp(-abs(delta.x) * 1.75) * u_lensStreak * entryRays;
+    float hNeedleHalo = exp(-abs(delta.y) * 12.0) * exp(-abs(delta.x) * 1.1) * 0.32 * u_lensStreak * entryRays;
+    float dCoord = delta.y * 0.866 - delta.x * 0.5;
+    float dNeedle = exp(-abs(dCoord) * 68.0) * exp(-r * 2.6) * 0.38 * u_lensStreak * entryRays;
+    float ghost = exp(-length(uv + flareOriginPos * 0.52) * 8.5) * 0.18 * u_lensStreak * entryRays;
+
+    // Subtle atmospheric nebula + vignette
+    float bgAtmos = fbm(uv * 1.7 + vec2(t * 0.035, -t * 0.025)) * 0.13 * u_noiseAmount * entryHalo;
+    float vignette = smoothstep(1.38, 0.15, r);
+    vec3 deepVoid = mix(u_color2 * 0.28, u_color2, vignette) + u_color1 * bgAtmos;
+
+    vec3 haloCol = mix(u_color1, u_color0, 0.58);
+    vec3 petalCol = mix(u_color1, u_color0, 0.42);
+    vec3 needleCol = mix(u_color0, vec3(0.95, 0.98, 1.0), 0.62);
+    vec3 whiteHot = vec3(1.0, 1.0, 1.0);
+
+    col = deepVoid;
+    col += u_color1 * outerHalo * 0.82 * u_intensity;
+    col += petalCol * softPetals * 1.25 * u_intensity;
+    col += haloCol * (innerHalo * 1.15 + logoAura * 0.45) * u_intensity;
+    col += needleCol * (radialNeedles * 1.65 + hNeedle * 1.45 + hNeedleHalo + dNeedle) * u_intensity;
+    col += u_color0 * ghost * u_intensity;
+    col += mix(u_color0, whiteHot, 0.78) * (coreRim * 1.25 + centerHot * 0.95) * u_intensity;
+    col += whiteHot * (coreHot * 2.85 + logoMask * 1.35 * entryCore) * u_intensity;
+
+    // 5. Cinematic film grain overlay
+    float filmGrain = (hash(v_uv * u_resolution + vec2(fract(t * 17.3) * 137.0, fract(t * 29.1) * 241.0)) - 0.5)
+                    * 0.048 * u_noiseAmount;
+    col += filmGrain;
   } else if (u_preset == 16) {
     // 16 — Liquid Drops: refractive droplets with surface tension
     vec2 g = uv * (3.2 + u_distortion * 1.4);

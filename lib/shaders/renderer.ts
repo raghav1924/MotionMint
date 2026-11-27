@@ -3,6 +3,7 @@ import { createShaderProgram, destroyShaderProgram } from "./shader-compiler";
 import { resolveUniformLocations, parseHexToRgb } from "./uniform-manager";
 import { resolveEffectiveDpr, createReducedMotionQuery } from "./quality-manager";
 import { InteractionTracker } from "./interaction-manager";
+import type { LogoSdfTextureData } from "./logo-sdf";
 import type { ShaderRenderConfig } from "./types";
 
 export interface ShaderRendererCallbacks {
@@ -14,7 +15,9 @@ export function mountShaderEngine(
   container: HTMLElement,
   canvas: HTMLCanvasElement,
   configRef: { current: ShaderRenderConfig },
-  callbacks: ShaderRendererCallbacks
+  callbacks: ShaderRendererCallbacks,
+  logoSdfRef?: { current: LogoSdfTextureData | null },
+  logoExtentRef?: { current: number }
 ): () => void {
   const ctxOpts: WebGLContextAttributes = {
     alpha: true,
@@ -61,7 +64,77 @@ export function mountShaderEngine(
   let isTabVisible = typeof document === "undefined" ? true : !document.hidden;
   let contextLost = false;
   let elapsed = 0;
+  let wallElapsed = 0;
+  let lastPresetIndex = configRef.current.presetIndex;
   let lastNow = performance.now();
+  let logoTexture: WebGLTexture | null = null;
+  let fallbackTexture: WebGLTexture | null = null;
+  let lastUploadedSdf: LogoSdfTextureData | null = null;
+  let hasLogoTexture = false;
+
+  const ensureFallbackTexture = () => {
+    if (fallbackTexture || typeof gl.createTexture !== "function") return;
+    fallbackTexture = gl.createTexture();
+    if (!fallbackTexture) return;
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, fallbackTexture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      1,
+      1,
+      0,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      new Uint8Array([255, 0, 0, 255])
+    );
+  };
+
+  const syncLogoTexture = (): boolean => {
+    const nextSdf = logoSdfRef?.current ?? null;
+    if (nextSdf === lastUploadedSdf) return false;
+    lastUploadedSdf = nextSdf;
+    const prevHasLogo = hasLogoTexture;
+
+    if (!nextSdf || typeof gl.createTexture !== "function") {
+      hasLogoTexture = false;
+      ensureFallbackTexture();
+      return false;
+    }
+
+    if (!logoTexture) {
+      logoTexture = gl.createTexture();
+    }
+    if (!logoTexture) {
+      hasLogoTexture = false;
+      return false;
+    }
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, logoTexture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      nextSdf.size,
+      nextSdf.size,
+      0,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      nextSdf.data
+    );
+    hasLogoTexture = true;
+    return !prevHasLogo;
+  };
 
   const mediaQuery = createReducedMotionQuery();
   const isReducedMotion = () =>
@@ -85,9 +158,17 @@ export function mountShaderEngine(
     lastNow = now;
 
     const cur = configRef.current;
+    const logoJustActivated = syncLogoTexture();
+    if (cur.presetIndex !== lastPresetIndex || (logoJustActivated && cur.presetIndex === 15)) {
+      lastPresetIndex = cur.presetIndex;
+      wallElapsed = 0;
+    }
     if (!isReducedMotion()) {
       elapsed += dt * cur.speed;
+      wallElapsed += dt;
     }
+    const entryRaw = isReducedMotion() ? 1 : Math.min(1, wallElapsed / 1.45);
+    const entryProgress = 1 - Math.pow(1 - entryRaw, 3);
 
     tracker.stepMouse(0.08);
 
@@ -121,6 +202,17 @@ export function mountShaderEngine(
     if (uniforms.glowRadius) gl.uniform1f(uniforms.glowRadius, cur.glowRadius);
     if (uniforms.lensStreak) gl.uniform1f(uniforms.lensStreak, cur.lensStreak);
     if (uniforms.noiseAmount) gl.uniform1f(uniforms.noiseAmount, cur.noiseAmount);
+    if (uniforms.entry) gl.uniform1f(uniforms.entry, entryProgress);
+    if (uniforms.logoMap) gl.uniform1i(uniforms.logoMap, 0);
+    if (uniforms.hasLogo) gl.uniform1f(uniforms.hasLogo, hasLogoTexture ? 1 : 0);
+    if (uniforms.logoExtent) gl.uniform1f(uniforms.logoExtent, logoExtentRef?.current ?? 0.36);
+    if (typeof gl.activeTexture === "function") {
+      const texToBind = hasLogoTexture ? logoTexture : (ensureFallbackTexture(), fallbackTexture);
+      if (texToBind) {
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texToBind);
+      }
+    }
 
     const rLocs = [uniforms.ripple0, uniforms.ripple1, uniforms.ripple2, uniforms.ripple3];
     for (let i = 0; i < 4; i++) {
@@ -247,6 +339,12 @@ export function mountShaderEngine(
     canvas.removeEventListener("webglcontextlost", onContextLost);
     canvas.removeEventListener("webglcontextrestored", onContextRestored);
 
+    if (logoTexture && typeof gl.deleteTexture === "function") {
+      gl.deleteTexture(logoTexture);
+    }
+    if (fallbackTexture && typeof gl.deleteTexture === "function") {
+      gl.deleteTexture(fallbackTexture);
+    }
     if (buffer) gl.deleteBuffer(buffer);
     destroyShaderProgram(gl, compiled);
   };

@@ -206,9 +206,9 @@ export function ComponentStudio({
   const [orbState, setOrbState] = useState<"idle" | "listening" | "speaking">("listening");
   const [pixelProgress, setPixelProgress] = useState(72);
   const [imageGenStatus, setImageGenStatus] = useState<"idle" | "generating" | "complete" | "error">("complete");
-  const [shaderPreset, setShaderPreset] = useState<ShaderPresetId>("silk");
+  const [shaderPreset, setShaderPreset] = useState<ShaderPresetId>("logo-flare");
   const [shaderColors, setShaderColors] = useState<[string, string, string]>(
-    SHADER_PRESETS.silk.defaultColors
+    SHADER_PRESETS["logo-flare"].defaultColors
   );
   const [shaderSpeed, setShaderSpeed] = useState(0.7);
   const [shaderIntensity, setShaderIntensity] = useState(1);
@@ -218,7 +218,9 @@ export function ComponentStudio({
   const [shaderPointerStrength, setShaderPointerStrength] = useState(0.6);
   const [shaderScrollReactive, setShaderScrollReactive] = useState(false);
   const [shaderQuality, setShaderQuality] = useState<ShaderQuality>("medium");
-  const [shaderBgColor, setShaderBgColor] = useState("#0F172A");
+  const [shaderBgColor, setShaderBgColor] = useState(
+    SHADER_PRESETS["logo-flare"].defaultColors[2]
+  );
   const [shaderRayCount, setShaderRayCount] = useState(14);
   const [shaderGlowRadius, setShaderGlowRadius] = useState(1);
   const [shaderLensStreak, setShaderLensStreak] = useState(0.85);
@@ -638,7 +640,14 @@ export function ComponentStudio({
               shaderPreset === "pastel" ? "text-slate-900" : "text-white"
             )}
           >
-            <div className="flex h-full flex-col items-center justify-center gap-2.5">
+            <div
+              className={cn(
+                "flex h-full flex-col items-center gap-2.5",
+                shaderPreset === "logo-flare" && shaderShowLogo
+                  ? "justify-end pb-8"
+                  : "justify-center"
+              )}
+            >
               <span
                 className={cn(
                   "rounded-full border px-3 py-0.5 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm",

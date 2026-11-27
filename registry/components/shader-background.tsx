@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { mountShaderEngine } from "@/lib/shaders/renderer";
+import { buildSvgDistanceField, type LogoSdfTextureData } from "@/lib/shaders/logo-sdf";
 import { SHADER_PRESETS } from "@/lib/shaders/presets";
 import type {
   FlareOrigin,
@@ -78,7 +79,83 @@ export function ShaderBackground({
 }: ShaderBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const logoWrapperRef = useRef<HTMLDivElement>(null);
+  const logoSdfRef = useRef<LogoSdfTextureData | null>(null);
+  const logoExtentRef = useRef<number>(0.36);
+  const lastSvgMarkupRef = useRef<string | null>(null);
+  const mountedRef = useRef(true);
   const [webglFailed, setWebglFailed] = useState(false);
+  const [entered, setEntered] = useState(false);
+
+  const hasLogo = Boolean(logo);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setEntered(true);
+      return;
+    }
+    setEntered(false);
+    const raf = requestAnimationFrame(() => setEntered(true));
+    return () => cancelAnimationFrame(raf);
+  }, [reducedMotion, preset, hasLogo]);
+
+  const measureLogoExtent = () => {
+    const container = containerRef.current;
+    const svg = logoWrapperRef.current?.querySelector("svg");
+    if (!container || !svg) {
+      logoExtentRef.current = 0.36;
+      return;
+    }
+    const cRect = container.getBoundingClientRect();
+    if (cRect.height <= 0) return;
+    const attrW = parseFloat(svg.getAttribute("width") || "0");
+    const attrH = parseFloat(svg.getAttribute("height") || "0");
+    const sRect = svg.getBoundingClientRect();
+    const w = svg.clientWidth || attrW || sRect.width;
+    const h = svg.clientHeight || attrH || sRect.height;
+    const maxDim = Math.max(w, h);
+    if (maxDim > 0) {
+      logoExtentRef.current = Math.max(0.12, maxDim / cRect.height / 0.48);
+    }
+  };
+
+  useEffect(() => {
+    const svg = hasLogo ? logoWrapperRef.current?.querySelector("svg") ?? null : null;
+    const nextMarkup = svg ? svg.outerHTML : null;
+    if (nextMarkup === lastSvgMarkupRef.current) {
+      measureLogoExtent();
+      return;
+    }
+    lastSvgMarkupRef.current = nextMarkup;
+
+    if (!svg || !nextMarkup) {
+      logoSdfRef.current = null;
+      logoExtentRef.current = 0.36;
+      return;
+    }
+
+    measureLogoExtent();
+    buildSvgDistanceField(svg, 128).then((sdf) => {
+      if (mountedRef.current && lastSvgMarkupRef.current === nextMarkup) {
+        logoSdfRef.current = sdf;
+      }
+    });
+  });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => measureLogoExtent());
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, [hasLogo]);
 
   const presetMeta = SHADER_PRESETS[preset] ?? SHADER_PRESETS["logo-flare"];
   const resolvedColors = useMemo<[string, string, string]>(() => {
@@ -135,10 +212,17 @@ export function ShaderBackground({
     const canvas = canvasRef.current;
     if (!container || !canvas || typeof window === "undefined") return;
 
-    return mountShaderEngine(container, canvas, configRef, {
-      onFallback: () => setWebglFailed(true),
-      onRestored: () => setWebglFailed(false),
-    });
+    return mountShaderEngine(
+      container,
+      canvas,
+      configRef,
+      {
+        onFallback: () => setWebglFailed(true),
+        onRestored: () => setWebglFailed(false),
+      },
+      logoSdfRef,
+      logoExtentRef
+    );
   }, []);
 
   const fallbackBackground = useMemo(() => {
@@ -173,8 +257,11 @@ export function ShaderBackground({
 
       {logo ? (
         <div
+          ref={logoWrapperRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center"
+          className={`pointer-events-none absolute inset-0 z-[5] flex items-center justify-center transition-all duration-[1450ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            entered ? "opacity-100 scale-100 blur-0" : "opacity-0 scale-90 blur-[8px]"
+          }`}
         >
           {logo}
         </div>

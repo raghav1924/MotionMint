@@ -15,6 +15,10 @@ export interface ShaderUniformLocations {
   glowRadius: WebGLUniformLocation | null;
   lensStreak: WebGLUniformLocation | null;
   noiseAmount: WebGLUniformLocation | null;
+  entry: WebGLUniformLocation | null;
+  logoMap: WebGLUniformLocation | null;
+  hasLogo: WebGLUniformLocation | null;
+  logoExtent: WebGLUniformLocation | null;
   ripple0: WebGLUniformLocation | null;
   ripple1: WebGLUniformLocation | null;
   ripple2: WebGLUniformLocation | null;
@@ -42,6 +46,10 @@ export function resolveUniformLocations(
     glowRadius: gl.getUniformLocation(program, "u_glowRadius"),
     lensStreak: gl.getUniformLocation(program, "u_lensStreak"),
     noiseAmount: gl.getUniformLocation(program, "u_noiseAmount"),
+    entry: gl.getUniformLocation(program, "u_entry"),
+    logoMap: gl.getUniformLocation(program, "u_logoMap"),
+    hasLogo: gl.getUniformLocation(program, "u_hasLogo"),
+    logoExtent: gl.getUniformLocation(program, "u_logoExtent"),
     ripple0: gl.getUniformLocation(program, "u_ripple0"),
     ripple1: gl.getUniformLocation(program, "u_ripple1"),
     ripple2: gl.getUniformLocation(program, "u_ripple2"),
