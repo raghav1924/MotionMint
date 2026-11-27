@@ -12,7 +12,7 @@ import {
   computeEuclideanDistanceField,
 } from "@/lib/shaders/logo-sdf";
 import { getCatalogItem } from "@/lib/catalog";
-import { MotionMintProvider } from "@/components/site/providers";
+import { RenderJoyProvider } from "@/components/site/providers";
 import { ComponentStudio } from "@/components/studio/component-studio";
 
 vi.mock("next/navigation", () => ({
@@ -142,9 +142,9 @@ describe("ShaderBackground — Raw WebGL Generative Canvas", () => {
     expect(item?.category).toBe("Backgrounds");
 
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <ComponentStudio item={item!} sourceCode="export function ShaderBackground() {}" />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     expect(screen.getByRole("heading", { name: "Shader Background" })).toBeInTheDocument();

@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MotionMintProvider } from "@/components/site/providers";
+import { RenderJoyProvider } from "@/components/site/providers";
 import { AppShell } from "@/components/site/app-shell";
 import { CommandPalette } from "@/components/ui/command-palette";
 
@@ -19,11 +19,11 @@ beforeAll(() => {
 describe("Phase 2.11 — Unified Application Shell & Appearance Isolation", () => {
   it("keeps application appearance independent from the 29 component themes", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <AppShell>
           <div>Lab Content</div>
         </AppShell>
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     expect(document.documentElement.getAttribute("data-appearance")).toBe("light");
@@ -33,11 +33,11 @@ describe("Phase 2.11 — Unified Application Shell & Appearance Isolation", () =
   it("uses the unified EditorialSidebar and contextual FloatingToolbar on Motion & Sound Labs", () => {
     mockPathname = "/sounds";
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <AppShell>
           <div>Sound Studio Content</div>
         </AppShell>
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     // Sound Lab contextual FloatingToolbar shows Sound ON/OFF & Stop All (no device frame buttons)
@@ -53,11 +53,11 @@ describe("Phase 2.11 — Unified Application Shell & Appearance Isolation", () =
   it("omits component FloatingToolbar on /flow so the workflow canvas stays unobstructed", () => {
     mockPathname = "/flow";
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <AppShell>
           <div>Flow Canvas Content</div>
         </AppShell>
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     expect(screen.getByRole("button", { name: "Open navigation overlay" })).toBeInTheDocument();
@@ -67,9 +67,9 @@ describe("Phase 2.11 — Unified Application Shell & Appearance Isolation", () =
   it("opens CommandPalette with Cmd+K and filters entries", () => {
     mockPathname = "/motion";
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <CommandPalette />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     fireEvent.keyDown(window, { key: "k", metaKey: true });

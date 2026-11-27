@@ -1,10 +1,10 @@
-# COMPONENT_BUILD_PLAN.md — MotionMint Full Catalogue Roadmap
+# COMPONENT_BUILD_PLAN.md — RenderJoy Full Catalogue Roadmap
 
 *Last updated: 2026-11-25 (Phase 2.9 Component-Level Design System Rebuild complete; Wave 3+ paused)*
 
 ## Dependency Graph & Shared Foundations
 - **Theme Foundation:** `lib/themes/` (29 `--mm-*` token profiles, standalone fallbacks)
-- **Audio & Haptics:** `lib/audio/` (`@motionmint/sound-engine`, `useSound()`, `triggerHapticPreset`)
+- **Audio & Haptics:** `lib/audio/` (`@renderjoy/sound-engine`, `useSound()`, `triggerHapticPreset`)
 - **Motion Foundation:** `lib/motion/presets.ts` (`MOTION_SPRINGS`, `MotionReveal`)
 - **AI Foundation:** `lib/ai/types.ts` (`AIMessage`, `AIToolCall`, `AgentPlanStep`) + `ThinkingLoader`
 - **Carousel & Gesture Foundation *(Wave 4)*:** Shared horizontal/radial gesture & keyboard hook

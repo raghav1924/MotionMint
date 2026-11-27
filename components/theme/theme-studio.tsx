@@ -6,8 +6,8 @@ import { Search, Columns2, RotateCcw, Sun, Moon, Sparkles, ArrowUpRight } from "
 import { ALL_THEMES, DEFAULT_THEME_ID, getThemeById } from "@/lib/themes/registry";
 import type { ComponentThemeMode, ThemeCategory, ThemeId } from "@/lib/themes/types";
 import { CATALOG_ITEMS } from "@/lib/catalog";
-import { useMotionMint } from "@/components/site/providers";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { useRenderJoy } from "@/components/site/providers";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
 import { ComparisonWorkbench } from "@/components/studio/comparison-workbench";
 import {
@@ -45,7 +45,7 @@ export function ThemeStudio() {
     viewportMode,
     previewKey,
     setActiveComponentSlug,
-  } = useMotionMint();
+  } = useRenderJoy();
   const implemented = useMemo(
     () => CATALOG_ITEMS.filter((c) => c.status === "implemented"),
     []
@@ -94,7 +94,7 @@ export function ThemeStudio() {
         <p className="text-sm text-[var(--ws-text-secondary)]">
           Design themes apply strictly to components inside{" "}
           <code className="font-mono text-xs text-[var(--ws-text-primary)]">
-            &lt;MotionMintTheme&gt;
+            &lt;RenderJoyTheme&gt;
           </code>
           — never altering the website chrome.
         </p>
@@ -184,7 +184,7 @@ export function ThemeStudio() {
           <ComparisonWorkbench
             key={`${activeTheme.id}-${previewSlug}`}
             title={`Comparing "${previewSlug}" across Design Languages`}
-            subtitle="Each specimen renders inside an isolated <MotionMintTheme> scope. Customize themes, switch Light/Dark, and reset all."
+            subtitle="Each specimen renders inside an isolated <RenderJoyTheme> scope. Customize themes, switch Light/Dark, and reset all."
             initialSpecimens={[
               { id: "ts-1", themeId: activeTheme.id, mode: "light" },
               { id: "ts-2", themeId: activeTheme.id, mode: "dark" },
@@ -209,7 +209,7 @@ export function ThemeStudio() {
               </div>
               <div className="flex items-center gap-3">
                 <code className="hidden sm:inline font-mono text-[11px] text-[var(--ws-text-secondary)]">
-                  &lt;MotionMintTheme theme=&quot;{activeTheme.id}&quot; mode=&quot;{themeMode}&quot;&gt;
+                  &lt;RenderJoyTheme theme=&quot;{activeTheme.id}&quot; mode=&quot;{themeMode}&quot;&gt;
                 </code>
                 <Link
                   href={`/components/${previewSlug}`}
@@ -223,36 +223,36 @@ export function ThemeStudio() {
 
             {viewportMode === "mobile" ? (
               <MobileDeviceFrame key={`m-${previewSlug}-${previewKey}`} slug={previewSlug}>
-                <MotionMintTheme
+                <RenderJoyTheme
                   theme={activeTheme.id}
                   mode={themeMode}
                   padded
                   className="flex min-h-[380px] w-full items-center justify-center overflow-hidden"
                 >
                   <ComponentLivePreview slug={previewSlug} />
-                </MotionMintTheme>
+                </RenderJoyTheme>
               </MobileDeviceFrame>
             ) : viewportMode === "tablet" ? (
               <TabletPreviewFrame key={`t-${previewSlug}-${previewKey}`} slug={previewSlug}>
-                <MotionMintTheme
+                <RenderJoyTheme
                   theme={activeTheme.id}
                   mode={themeMode}
                   padded
                   className="flex min-h-[300px] w-full items-center justify-center overflow-hidden"
                 >
                   <ComponentLivePreview slug={previewSlug} />
-                </MotionMintTheme>
+                </RenderJoyTheme>
               </TabletPreviewFrame>
             ) : (
               <DesktopBrowserFrame key={`d-${previewSlug}-${previewKey}`} slug={previewSlug}>
-                <MotionMintTheme
+                <RenderJoyTheme
                   theme={activeTheme.id}
                   mode={themeMode}
                   padded
                   className="flex min-h-[260px] w-full items-center justify-center overflow-hidden"
                 >
                   <ComponentLivePreview slug={previewSlug} />
-                </MotionMintTheme>
+                </RenderJoyTheme>
               </DesktopBrowserFrame>
             )}
           </div>
@@ -331,14 +331,14 @@ export function ThemeStudio() {
               <div className="grid grid-cols-2 gap-2.5">
                 {(["light", "dark"] as ComponentThemeMode[]).map((m) => (
                   <div key={m} className="space-y-1.5">
-                    <MotionMintTheme
+                    <RenderJoyTheme
                       theme={t.id}
                       mode={m}
                       padded
                       className="flex min-h-[84px] items-center justify-center p-2.5 overflow-hidden"
                     >
                       <RippleButton size="sm">{m === "light" ? "Light" : "Dark"}</RippleButton>
-                    </MotionMintTheme>
+                    </RenderJoyTheme>
                     <button
                       type="button"
                       onClick={() => {

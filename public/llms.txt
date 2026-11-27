@@ -1,4 +1,4 @@
-# MotionMint — UI with Feel
+# RenderJoy — UI with Feel
 
 > Interaction-first React & Next.js UI toolkit with optional Web Audio & haptic feedback and a 29-theme design token system.
 
@@ -8,21 +8,21 @@
 - Themes: 29 complete token profiles
 
 ## Registry Installation
-Namespace: `@motionmint`
+Namespace: `@renderjoy`
 Local registry endpoint: `http://localhost:3000/r/{name}.json`
 
 Configure `components.json`:
 ```json
 {
   "registries": {
-    "@motionmint": "http://localhost:3000/r/{name}.json"
+    "@renderjoy": "http://localhost:3000/r/{name}.json"
   }
 }
 ```
 
 Install any available component:
 ```bash
-npx shadcn@latest add @motionmint/<slug>
+npx shadcn@latest add @renderjoy/<slug>
 ```
 
 ## Available Components (12)
@@ -46,5 +46,5 @@ npx shadcn@latest add @motionmint/<slug>
 - `/motion` — Motion Lab & shared presets
 - `/themes` — 29-Theme Studio (58 Light/Dark variants, Compare Mode)
 - `/sounds` — Web Audio & Haptics Sound Lab
-- `/flow` — Node Pipeline Orchestrator (built on MotionMint Flow UI Kit & `@xyflow/react`)
+- `/flow` — Node Pipeline Orchestrator (built on RenderJoy Flow UI Kit & `@xyflow/react`)
 - `/docs/installation` — Registry installation guide

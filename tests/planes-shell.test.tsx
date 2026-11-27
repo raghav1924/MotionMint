@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { MotionMintProvider } from "@/components/site/providers";
+import { RenderJoyProvider } from "@/components/site/providers";
 import { AnnouncementBar } from "@/components/shell/announcement-bar";
 import { NavigationToggle } from "@/components/shell/navigation-toggle";
 import { EditorialSidebar } from "@/components/shell/editorial-sidebar";
@@ -26,10 +26,10 @@ describe("Planes UI Design & Interaction Specification", () => {
 
   it("NavigationToggle opens EditorialSidebar and closes on Escape", async () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <NavigationToggle />
         <EditorialSidebar />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     fireEvent.click(screen.getByRole("button", { name: "Open navigation overlay" }));
@@ -45,9 +45,9 @@ describe("Planes UI Design & Interaction Specification", () => {
 
   it("BrandFloatingButton opens utility menu and toggles appearance", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <BrandFloatingButton />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     fireEvent.click(screen.getByRole("button", { name: /quick utilities/i }));
@@ -58,9 +58,9 @@ describe("Planes UI Design & Interaction Specification", () => {
 
   it("FloatingToolbar displays package id, opens PromptMenu, and switches viewports", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <FloatingToolbar />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     expect(screen.getByText("@renderjoy/card-stack")).toBeInTheDocument();

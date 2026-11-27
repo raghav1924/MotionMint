@@ -1,7 +1,7 @@
-# ARCHITECTURE.md — MotionMint
+# ARCHITECTURE.md — RenderJoy
 
 ## 1. Architectural Principle
-MotionMint is structured as a **modular monolithic Next.js App Router application**. No Turborepo, external database, or authentication layer is introduced until a concrete milestone (Phase 7) requires persistent licensing.
+RenderJoy is structured as a **modular monolithic Next.js App Router application**. No Turborepo, external database, or authentication layer is introduced until a concrete milestone (Phase 7) requires persistent licensing.
 
 ## 2. Confirmed Technology Stack
 | Layer | Choice | Notes |
@@ -17,7 +17,7 @@ MotionMint is structured as a **modular monolithic Next.js App Router applicatio
 
 ## 3. Repository Structure
 ```text
-MotionMint/
+RenderJoy/
 ├── app/                      # Next.js App Router pages & layouts (Server Components by default)
 │   ├── components/           # Catalogue & [slug] detail pages
 │   ├── motion/               # Motion primitives route

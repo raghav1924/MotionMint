@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ai-types",
   "type": "registry:lib",
-  "title": "MotionMint AI Component Types",
+  "title": "RenderJoy AI Component Types",
   "description": "Shared TypeScript interfaces for AIMessage, AIToolCall, and AgentPlanStep.",
   "dependencies": [],
   "files": [

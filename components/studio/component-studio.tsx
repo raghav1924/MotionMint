@@ -29,7 +29,7 @@ import {
   isProductionRegistryConfigured,
   type PackageManager,
 } from "@/lib/registry-config";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { Drawer, ContextMenu } from "@/components/ui/overlay";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { JellyButton } from "@/registry/components/jelly-button";
@@ -101,7 +101,7 @@ import {
   MobileDeviceFrame,
 } from "@/components/preview/device-frames";
 import { ComponentDocs } from "@/components/documentation/component-docs";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -135,7 +135,7 @@ export function ComponentStudio({
     fullscreenPreview,
     setFullscreenPreview,
     setActiveComponentSlug,
-  } = useMotionMint();
+  } = useRenderJoy();
   const [localResetKey, setLocalResetKey] = useState(0);
   const combinedResetKey = previewKey + localResetKey;
   const viewport = viewportMode;
@@ -229,7 +229,7 @@ export function ComponentStudio({
 
   const categories = Array.from(new Set(CATALOG_ITEMS.map((c) => c.category)));
 
-  const aiPrompt = `Install and integrate the MotionMint "${item.name}" component (${item.installCommand}). Respect prefers-reduced-motion and semantic --mm-* theme tokens.`;
+  const aiPrompt = `Install and integrate the RenderJoy "${item.name}" component (${item.installCommand}). Respect prefers-reduced-motion and semantic --mm-* theme tokens.`;
 
   const renderStage = () => {
     switch (item.slug) {
@@ -543,7 +543,7 @@ export function ComponentStudio({
       case "receipt-printer":
         return (
           <ReceiptPrinter
-            title="MotionMint Studio"
+            title="RenderJoy Studio"
             items={[
               { name: "Physical Knob", qty: 1, price: 0 },
               { name: "Card Stack", qty: 2, price: 12 },
@@ -1650,17 +1650,17 @@ export function ComponentStudio({
                   ) : viewport === "mobile" ? (
                     <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
                       <MobileDeviceFrame slug={item.slug}>
-                        <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
+                        <RenderJoyTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
                           {renderStage()}
-                        </MotionMintTheme>
+                        </RenderJoyTheme>
                       </MobileDeviceFrame>
                     </div>
                   ) : viewport === "tablet" ? (
                     <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
                       <TabletPreviewFrame slug={item.slug}>
-                        <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-lg flex justify-center">
+                        <RenderJoyTheme theme={skin} mode={themeMode} padded className="w-full max-w-lg flex justify-center">
                           {renderStage()}
-                        </MotionMintTheme>
+                        </RenderJoyTheme>
                       </TabletPreviewFrame>
                     </div>
                   ) : (
@@ -1668,9 +1668,9 @@ export function ComponentStudio({
                       data-testid="desktop-canvas-stage"
                       className="flex min-h-[72vh] sm:min-h-[660px] w-full items-center justify-center border-b border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] p-6 sm:p-12 overflow-x-auto"
                     >
-                      <MotionMintTheme theme={skin} mode={themeMode} padded className="w-full max-w-3xl flex justify-center">
+                      <RenderJoyTheme theme={skin} mode={themeMode} padded className="w-full max-w-3xl flex justify-center">
                         {renderStage()}
-                      </MotionMintTheme>
+                      </RenderJoyTheme>
                     </div>
                   )}
                 </MotionConfig>

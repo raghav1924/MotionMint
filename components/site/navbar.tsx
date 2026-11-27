@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search, Sun, Moon, Monitor, Menu, X, ArrowUpRight } from "lucide-react";
-import { MotionMintLogo } from "@/components/brand/motionmint-logo";
+import { RenderJoyLogo } from "@/components/brand/renderjoy-logo";
 import { BRAND } from "@/lib/brand";
-import { useMotionMint } from "./providers";
+import { useRenderJoy } from "./providers";
 import { cn } from "@/lib/utils";
 
 type AppearanceOption = "light" | "dark" | "system";
@@ -30,7 +30,7 @@ const APPEARANCE_OPTIONS: {
 
 export function Navbar() {
   const pathname = usePathname();
-  const { appearance, setAppearance } = useMotionMint();
+  const { appearance, setAppearance } = useRenderJoy();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -66,7 +66,7 @@ export function Navbar() {
           aria-label={`${BRAND.name} home`}
           className="flex shrink-0 items-center text-[var(--ws-text-primary)] transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-ring)] rounded-md"
         >
-          <MotionMintLogo markSize={22} />
+          <RenderJoyLogo markSize={22} />
         </Link>
 
         {/* Center-Right: Editorial Navigation */}

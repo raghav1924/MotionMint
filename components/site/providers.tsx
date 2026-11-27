@@ -12,10 +12,10 @@ import {
 export type AppearanceMode = "dark" | "light" | "system";
 export type PreviewViewport = "desktop" | "tablet" | "mobile";
 
-const THEME_STORAGE_KEY = "motionmint-theme";
-const APPEARANCE_STORAGE_KEY = "motionmint-appearance";
+const THEME_STORAGE_KEY = "renderjoy-theme";
+const APPEARANCE_STORAGE_KEY = "renderjoy-appearance";
 
-interface MotionMintContextValue {
+interface RenderJoyContextValue {
   appearance: AppearanceMode;
   resolvedAppearance: "dark" | "light";
   setAppearance: (mode: AppearanceMode) => void;
@@ -45,9 +45,9 @@ interface MotionMintContextValue {
   setActiveComponentSlug: (slug: string | null) => void;
 }
 
-const MotionMintContext = createContext<MotionMintContextValue | null>(null);
+const RenderJoyContext = createContext<RenderJoyContextValue | null>(null);
 
-export function MotionMintProvider({ children }: { children: React.ReactNode }) {
+export function RenderJoyProvider({ children }: { children: React.ReactNode }) {
   const [appearance, setAppearanceState] = useState<AppearanceMode>("light");
   const [resolvedAppearance, setResolvedAppearance] = useState<"dark" | "light">("light");
   const [themeId, setThemeId] = useState<ThemeId>(DEFAULT_THEME_ID);
@@ -182,7 +182,7 @@ export function MotionMintProvider({ children }: { children: React.ReactNode }) 
   const activeTheme = getThemeById(themeId);
 
   return (
-    <MotionMintContext.Provider
+    <RenderJoyContext.Provider
       value={{
         appearance,
         resolvedAppearance,
@@ -214,12 +214,12 @@ export function MotionMintProvider({ children }: { children: React.ReactNode }) 
       }}
     >
       {children}
-    </MotionMintContext.Provider>
+    </RenderJoyContext.Provider>
   );
 }
 
-export function useMotionMint(): MotionMintContextValue {
-  const ctx = useContext(MotionMintContext);
+export function useRenderJoy(): RenderJoyContextValue {
+  const ctx = useContext(RenderJoyContext);
   if (!ctx) {
     return {
       appearance: "light",

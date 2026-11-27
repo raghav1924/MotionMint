@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Volume2, Zap } from "lucide-react";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { JellyButton } from "@/registry/components/jelly-button";
 import { WiggleText } from "@/registry/components/wiggle-text";
 import { SoundToggle } from "@/registry/components/sound-toggle";
 import { playSoundEffect, triggerHapticPreset } from "@/lib/audio/sound-engine";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { cn } from "@/lib/utils";
 
 const SPRING_PRESETS = [
@@ -18,7 +18,7 @@ const SPRING_PRESETS = [
 ] as const;
 
 export function MotionSoundShowcase() {
-  const { soundEnabled } = useMotionMint();
+  const { soundEnabled } = useRenderJoy();
   const [preset, setPreset] = useState<(typeof SPRING_PRESETS)[number]["id"]>("bouncy");
   const [lastCue, setLastCue] = useState<string>("Off by default — opt-in on user gesture");
 
@@ -88,7 +88,7 @@ export function MotionSoundShowcase() {
             </div>
           </div>
 
-          <MotionMintTheme
+          <RenderJoyTheme
             theme="minimalism"
             mode="light"
             padded
@@ -100,7 +100,7 @@ export function MotionSoundShowcase() {
             >
               Spring {preset}
             </JellyButton>
-          </MotionMintTheme>
+          </RenderJoyTheme>
 
           <p className="font-mono text-[11px] text-[var(--ws-text-muted)]">
             {SPRING_PRESETS.find((p) => p.id === preset)?.note}
@@ -122,7 +122,7 @@ export function MotionSoundShowcase() {
             </Link>
           </div>
 
-          <MotionMintTheme
+          <RenderJoyTheme
             theme="minimalism"
             mode="light"
             padded
@@ -141,7 +141,7 @@ export function MotionSoundShowcase() {
                 </button>
               ))}
             </div>
-          </MotionMintTheme>
+          </RenderJoyTheme>
 
           <p className="font-mono text-[11px] text-[var(--ws-text-secondary)]">{lastCue}</p>
         </div>

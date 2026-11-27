@@ -9,11 +9,11 @@ import { ProgressRing } from "@/registry/components/progress-ring";
 import { BounceDotsLoader } from "@/registry/components/bounce-dots-loader";
 import { LAUNCH_SKINS } from "@/lib/themes/skins";
 import { themeToInlineStyle } from "@/lib/themes/theme-utils";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { cn } from "@/lib/utils";
 
 export function HomeHeroDemo() {
-  const { skin, theme, setSkin, soundEnabled, toggleSound } = useMotionMint();
+  const { skin, theme, setSkin, soundEnabled, toggleSound } = useRenderJoy();
   const [progress, setProgress] = useState(74);
   const [activeToggle, setActiveToggle] = useState(true);
 

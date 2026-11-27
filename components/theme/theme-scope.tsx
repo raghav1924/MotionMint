@@ -6,7 +6,7 @@ import { themeToInlineStyle } from "@/lib/themes/theme-utils";
 import type { ComponentThemeMode } from "@/lib/themes/types";
 import { cn } from "@/lib/utils";
 
-export interface MotionMintThemeProps {
+export interface RenderJoyThemeProps {
   theme?: string;
   mode?: ComponentThemeMode;
   children: React.ReactNode;
@@ -19,13 +19,13 @@ export interface MotionMintThemeProps {
  * Applies `--mm-*` design tokens, typography, geometry, surface, and recipe attributes
  * strictly to its descendants without mutating `document.documentElement`.
  */
-export function MotionMintTheme({
+export function RenderJoyTheme({
   theme = "minimalism",
   mode,
   children,
   className,
   padded = false,
-}: MotionMintThemeProps) {
+}: RenderJoyThemeProps) {
   const def = getThemeById(theme);
   const resolvedMode: ComponentThemeMode = mode ?? def.colorScheme;
   const style = themeToInlineStyle(def, resolvedMode);

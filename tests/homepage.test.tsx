@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MotionMintProvider } from "@/components/site/providers";
+import { RenderJoyProvider } from "@/components/site/providers";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import HomePage from "@/app/page";
@@ -25,11 +25,11 @@ beforeAll(() => {
 describe("Phase 2.12 — Editorial Brand Identity & Homepage Redesign", () => {
   it("renders the 6-beat editorial homepage with interactive scoped Themes+Flow split", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <Navbar />
         <HomePage />
         <Footer />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     // Editorial Navbar (no sound toggle or 29-theme dropdown in header)

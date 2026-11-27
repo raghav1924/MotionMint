@@ -13,7 +13,7 @@
 - **Component Studio (`/components/ripple-button`):** Verified default right-side contextual Inspector, live Label tuning (`"Play Experiment"` reflected immediately on stage), `Preview | Code | Compare` stage tabs, `Replay`, `Reset`, `Reduced Motion`, `Sound Feedback` toggle, and embedded `ComparisonWorkbench` (`Minimalism Light`, `Neo-Brutalism Light`, `Cyberpunk Dark`, `Victorian Dark`, `Reset All Specimens`).
 - **Motion Lab (`/motion`):** Verified interaction-first categories (`Hover`, `Drag`, `Press`, `Swipe`, `Scroll`, `Loading`, `Text`, `Transitions`) and live `"Loading"` stage.
 - **Sound Lab (`/sounds`):** Verified `UI Feedback`, `Status Feedback`, and `Transitions` grouping, Play/Stop, presets, volume, and default-off audio state.
-- **Theme Studio (`/themes`):** Verified `Compare Mode` renders shared `ComparisonWorkbench` inside isolated `<MotionMintTheme>` scopes.
+- **Theme Studio (`/themes`):** Verified `Compare Mode` renders shared `ComparisonWorkbench` inside isolated `<RenderJoyTheme>` scopes.
 - **Flow (`/flow`):** Verified `scrollWidth === innerWidth` (`1440px`), unobstructed canvas, and zero regression.
 
 ## 3. Responsive & Network Metrics

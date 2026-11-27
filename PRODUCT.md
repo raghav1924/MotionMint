@@ -1,7 +1,7 @@
-# PRODUCT.md — MotionMint
+# PRODUCT.md — RenderJoy
 
 ## 1. Vision & Positioning
-- **Working Name:** MotionMint *(provisional; centralised in `lib/brand.ts`)*
+- **Working Name:** RenderJoy *(provisional; centralised in `lib/brand.ts`)*
 - **Tagline:** UI with Feel
 - **Positioning:** Interaction-first UI toolkit for modern React & Next.js applications.
 - **Core Thesis:** **Components + Interaction + Motion + Sound + Haptics + Design Skins + Complete UI Flows.**
@@ -16,12 +16,12 @@ Modern developers don't just need static styled primitives—they need interface
 5. Design engineers seeking production-ready interactive flows.
 
 ## 3. Product Pillars
-1. **MotionMint Components** — Interactive UI elements (buttons, toggles, loaders, dropzones, progress, charts, toasts, cards).
-2. **MotionMint Motion** — CSS/WAAPI and `motion/react` primitives (magnetic, jelly, ripple, kinetic text, counters, scroll/3D effects).
-3. **MotionMint Sound & Haptics** — Opt-in Web Audio synthesis & `navigator.vibrate` abstraction with global/per-component controls and Sound Lab.
-4. **MotionMint Flow** — Reusable node-based workflow UI kit built on `@xyflow/react`, showcased via the Node Pipeline Orchestrator.
-5. **MotionMint Blocks** — Complete, composable application & marketing sections (heroes, bento dashboards, auth, checkout, AI interfaces).
-6. **MotionMint Themes** — Token-driven skin system (Launch skins: Dark Mode, Bento, Glassmorphism, Neo-Brutalism; 29-style catalogue roadmap).
+1. **RenderJoy Components** — Interactive UI elements (buttons, toggles, loaders, dropzones, progress, charts, toasts, cards).
+2. **RenderJoy Motion** — CSS/WAAPI and `motion/react` primitives (magnetic, jelly, ripple, kinetic text, counters, scroll/3D effects).
+3. **RenderJoy Sound & Haptics** — Opt-in Web Audio synthesis & `navigator.vibrate` abstraction with global/per-component controls and Sound Lab.
+4. **RenderJoy Flow** — Reusable node-based workflow UI kit built on `@xyflow/react`, showcased via the Node Pipeline Orchestrator.
+5. **RenderJoy Blocks** — Complete, composable application & marketing sections (heroes, bento dashboards, auth, checkout, AI interfaces).
+6. **RenderJoy Themes** — Token-driven skin system (Launch skins: Dark Mode, Bento, Glassmorphism, Neo-Brutalism; 29-style catalogue roadmap).
 
 ## 4. Business Model (Free + Pro)
 - **Free Tier:** Core interactive components (9 launch components), basic sound integration, 4 launch skins, public shadcn-compatible registry, full docs & playground.

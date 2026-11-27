@@ -1,10 +1,10 @@
-# AGENTS.md — MotionMint Engineering & Session Rules
+# AGENTS.md — RenderJoy Engineering & Session Rules
 
 > Persistent instructions for Antigravity and coding agents working in this repository.
 
 ## 1. Identity & Branding
-- **Working Name:** MotionMint ("UI with Feel")
-- **Centralised Branding:** Never hard-code "MotionMint" or URLs/scopes across components. Import from `lib/brand.ts` so the product can be renamed in one place.
+- **Working Name:** RenderJoy ("UI with Feel")
+- **Centralised Branding:** Never hard-code "RenderJoy" or URLs/scopes across components. Import from `lib/brand.ts` so the product can be renamed in one place.
 
 ## 2. Architecture Rules
 - **Modular Monolith First:** Single Next.js App Router application. Do not introduce Turborepo, microservices, or databases unless a concrete milestone requires them.

@@ -16,16 +16,16 @@ import { ThinkingLoader } from "@/registry/components/thinking-loader";
 import { PhysicalKnob } from "@/registry/components/physical-knob";
 import { ProgressRing } from "@/registry/components/progress-ring";
 import { RippleButton } from "@/registry/components/ripple-button";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { SculpturalSilk } from "@/components/home/sculptural-silk";
 import { BRAND } from "@/lib/brand";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 
 export function CinematicHero() {
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
-  const { resolvedAppearance } = useMotionMint();
+  const { resolvedAppearance } = useRenderJoy();
   const specimenMode = resolvedAppearance === "dark" ? "dark" : "light";
 
   const [knobVal, setKnobVal] = useState(68);
@@ -159,12 +159,12 @@ export function CinematicHero() {
                     Inspect →
                   </Link>
                 </div>
-                <MotionMintTheme theme="minimalism" mode={specimenMode} className="rounded-xl p-1.5">
+                <RenderJoyTheme theme="minimalism" mode={specimenMode} className="rounded-xl p-1.5">
                   <ThinkingLoader
                     stages={["Sculpting silk", "Composing spring", "Ready"]}
                     intervalMs={1800}
                   />
-                </MotionMintTheme>
+                </RenderJoyTheme>
               </motion.div>
             </motion.div>
 
@@ -186,9 +186,9 @@ export function CinematicHero() {
                     Inspect →
                   </Link>
                 </div>
-                <MotionMintTheme theme="minimalism" mode={specimenMode} className="flex justify-center py-0.5">
+                <RenderJoyTheme theme="minimalism" mode={specimenMode} className="flex justify-center py-0.5">
                   <PhysicalKnob value={knobVal} onValueChange={setKnobVal} label="Tension" />
-                </MotionMintTheme>
+                </RenderJoyTheme>
               </motion.div>
             </motion.div>
 
@@ -249,7 +249,7 @@ export function CinematicHero() {
                     Themes →
                   </Link>
                 </div>
-                <MotionMintTheme
+                <RenderJoyTheme
                   theme="neo-brutalism"
                   mode="light"
                   className="flex items-center justify-between gap-3 rounded-xl p-2"
@@ -261,7 +261,7 @@ export function CinematicHero() {
                   >
                     Pulse +25%
                   </RippleButton>
-                </MotionMintTheme>
+                </RenderJoyTheme>
               </motion.div>
             </motion.div>
           </div>
@@ -314,15 +314,15 @@ export function CinematicHero() {
           {/* Mobile / Tablet Compact Live Specimen Strip */}
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden">
             <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/90 p-3.5 flex items-center justify-between gap-3 backdrop-blur-md">
-              <MotionMintTheme theme="minimalism" mode={specimenMode} className="w-full">
+              <RenderJoyTheme theme="minimalism" mode={specimenMode} className="w-full">
                 <ThinkingLoader
                   stages={["Sculpting silk", "Composing spring", "Ready"]}
                   intervalMs={2000}
                 />
-              </MotionMintTheme>
+              </RenderJoyTheme>
             </div>
             <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)]/90 p-3.5 flex items-center justify-between gap-3 backdrop-blur-md">
-              <MotionMintTheme
+              <RenderJoyTheme
                 theme="neo-brutalism"
                 mode="light"
                 className="flex w-full items-center justify-between gap-3 rounded-xl p-2"
@@ -334,7 +334,7 @@ export function CinematicHero() {
                 >
                   Pulse +25%
                 </RippleButton>
-              </MotionMintTheme>
+              </RenderJoyTheme>
             </div>
           </div>
         </div>

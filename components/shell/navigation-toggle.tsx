@@ -2,11 +2,11 @@
 
 import React from "react";
 import { PanelLeft } from "lucide-react";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { cn } from "@/lib/utils";
 
 export function NavigationToggle({ className }: { className?: string }) {
-  const { sidebarOpen, setSidebarOpen } = useMotionMint();
+  const { sidebarOpen, setSidebarOpen } = useRenderJoy();
 
   return (
     <button

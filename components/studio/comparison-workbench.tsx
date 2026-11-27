@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { RotateCcw, Sun, Moon, Plus, X } from "lucide-react";
 import { ALL_THEMES, getThemeById } from "@/lib/themes/registry";
 import type { ComponentThemeMode, ThemeId } from "@/lib/themes/types";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { cn } from "@/lib/utils";
 
 export interface ComparisonSpecimen {
@@ -22,7 +22,7 @@ const DEFAULT_SPECIMENS: ComparisonSpecimen[] = [
 
 export function ComparisonWorkbench({
   title = "Side-by-Side Comparison Workbench",
-  subtitle = "Compare identical component props across isolated <MotionMintTheme> scopes without affecting the website chrome.",
+  subtitle = "Compare identical component props across isolated <RenderJoyTheme> scopes without affecting the website chrome.",
   initialSpecimens = DEFAULT_SPECIMENS,
   renderSpecimen,
 }: {
@@ -166,13 +166,13 @@ export function ComparisonWorkbench({
                 )}
               </div>
 
-              <MotionMintTheme
+              <RenderJoyTheme
                 theme={spec.themeId}
                 mode={spec.mode}
                 className="flex min-h-[190px] w-full items-center justify-center overflow-hidden rounded-lg border border-[var(--mm-border)] bg-[var(--mm-bg)] p-5"
               >
                 {renderSpecimen(spec)}
-              </MotionMintTheme>
+              </RenderJoyTheme>
             </div>
           );
         })}

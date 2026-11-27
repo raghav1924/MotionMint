@@ -37,7 +37,7 @@ export function FlowShowcase() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-2xl space-y-2">
           <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--ws-text-muted)]">
-            MotionMint Flow · Node Pipeline Orchestrator
+            RenderJoy Flow · Node Pipeline Orchestrator
           </p>
           <h2 className="text-3xl font-semibold tracking-tight text-[var(--ws-text-primary)] sm:text-4xl">
             From components to connected workflows.
@@ -54,7 +54,7 @@ export function FlowShowcase() {
           href="/flow"
           className="inline-flex h-10 items-center gap-2 rounded-full bg-[var(--ws-text-primary)] px-5 text-xs font-medium text-[var(--ws-bg)] hover:opacity-90"
         >
-          <span>Explore MotionMint Flow</span>
+          <span>Explore RenderJoy Flow</span>
           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
       </div>

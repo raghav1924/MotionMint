@@ -12,7 +12,7 @@ import {
 import { MotionReveal } from "@/registry/components/motion-reveal";
 import MotionLabPage from "@/app/motion/page";
 import SoundsPage from "@/app/sounds/page";
-import { MotionMintProvider } from "@/components/site/providers";
+import { RenderJoyProvider } from "@/components/site/providers";
 
 describe("Phase 4 — Motion Lab, Sound Lab & Interaction Engine", () => {
   afterEach(() => {
@@ -93,9 +93,9 @@ describe("Phase 4 — Motion Lab, Sound Lab & Interaction Engine", () => {
 
   it("MotionLabPage switches categories and toggles reduced-motion simulation", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <MotionLabPage />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
     expect(screen.getByText("Motion and interaction primitives")).toBeInTheDocument();
 
@@ -108,9 +108,9 @@ describe("Phase 4 — Motion Lab, Sound Lab & Interaction Engine", () => {
 
   it("SoundsPage switches sound groups and presets", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <SoundsPage />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
     fireEvent.click(screen.getByRole("button", { name: "Status Feedback" }));
     expect(screen.getByText("Notification")).toBeInTheDocument();

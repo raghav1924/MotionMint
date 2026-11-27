@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MotionMintProvider, useMotionMint } from "@/components/site/providers";
+import { RenderJoyProvider, useRenderJoy } from "@/components/site/providers";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { JellyButton } from "@/registry/components/jelly-button";
 import { CopyButton } from "@/registry/components/copy-button";
@@ -16,7 +16,7 @@ import { LAUNCH_SKINS } from "@/lib/themes/skins";
 import { getGlobalFeedbackConfig } from "@/lib/audio/feedback-store";
 
 function SoundStateProbe() {
-  const { soundEnabled, skin } = useMotionMint();
+  const { soundEnabled, skin } = useRenderJoy();
   return (
     <div>
       <span data-testid="sound-state">{String(soundEnabled)}</span>
@@ -25,7 +25,7 @@ function SoundStateProbe() {
   );
 }
 
-describe("MotionMint Phase 2 — 9 Free Components", () => {
+describe("RenderJoy Phase 2 — 9 Free Components", () => {
   beforeEach(() => {
     window.localStorage.clear();
     Object.assign(navigator, {
@@ -41,9 +41,9 @@ describe("MotionMint Phase 2 — 9 Free Components", () => {
 
   it("defaults global sound to OFF and skin to dark", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <SoundStateProbe />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
     expect(screen.getByTestId("sound-state")).toHaveTextContent("false");
     expect(screen.getByTestId("skin-state")).toHaveTextContent("minimalism");
@@ -233,12 +233,12 @@ describe("MotionMint Phase 2 — 9 Free Components", () => {
 
   it("ComponentDetailWorkbench switches package managers and skins", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <ComponentDetailWorkbench
           slug="ripple-button"
           installCommand="npx shadcn add @renderjoy/ripple-button"
         />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
     fireEvent.click(screen.getByRole("button", { name: "pnpm" }));
     expect(

@@ -49,12 +49,12 @@ export default function HomePage() {
           <ExhibitionGallery />
         </section>
 
-        {/* Beat 5: Combined Split Editorial — 29 Themes & MotionMint Flow */}
+        {/* Beat 5: Combined Split Editorial — 29 Themes & RenderJoy Flow */}
         <ThemesFlowSplit />
 
         {/* Beat 6: Compact Developer CTA */}
         <section
-          aria-label="Get started with MotionMint"
+          aria-label="Get started with RenderJoy"
           className="mx-auto max-w-[1400px] px-4 sm:px-8"
         >
           <div className="flex flex-col justify-between gap-8 rounded-[24px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-8 sm:p-12 lg:flex-row lg:items-center">

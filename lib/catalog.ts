@@ -107,7 +107,7 @@ const RAW_CATALOG_ITEMS: RawCatalogItem[] = [
         name: "sound",
         type: "boolean",
         defaultValue: "global",
-        description: "Overrides the global MotionMint sound setting.",
+        description: "Overrides the global RenderJoy sound setting.",
       },
       {
         name: "haptic",

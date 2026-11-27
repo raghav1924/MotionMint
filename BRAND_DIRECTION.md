@@ -1,10 +1,10 @@
-# BRAND_DIRECTION.md — MotionMint Phase 2.12
+# BRAND_DIRECTION.md — RenderJoy Phase 2.12
 
 *Last updated: 2026-11-25*
 
 ## 1. Live & Web Reference Research
 
-| Reference | URL | Observed Strengths & Characteristics | MotionMint Application |
+| Reference | URL | Observed Strengths & Characteristics | RenderJoy Application |
 |---|---|---|---|
 | **Metalab** | https://www.metalab.com/ | *"Metalab \| We make interfaces"* — Ultra-restrained header (single primary action), dramatic editorial typography, product-first minimalism, generous whitespace, curated work over feature lists. | Remove bloated SaaS sections; let selected live work and oversized typography carry the brand. |
 | **Marked.dev** | https://marked.dev/ | *"Give your coding agent your design taste"* — Crisp 3-link nav (`Explore`, `Collections`, `MCP`), direct developer positioning, calm editorial footer with closing statement. | Keep navigation focused (`Components`, `Themes`, `Flow`, `Docs`), emphasize source ownership & agent-ready discovery (`llms.txt` / CLI). |

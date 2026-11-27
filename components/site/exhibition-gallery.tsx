@@ -4,12 +4,12 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
 import { VisibilityPreview } from "@/components/shared/visibility-preview";
 import { getCatalogItem } from "@/lib/catalog";
 import { INTERACTION_LABELS } from "@/lib/catalog-interactions";
-import { useMotionMint } from "./providers";
+import { useRenderJoy } from "./providers";
 import type { ThemeId } from "@/lib/themes/types";
 import { cn } from "@/lib/utils";
 
@@ -72,7 +72,7 @@ const EXHIBITION_ITEMS: ExhibitionItem[] = [
 ];
 
 export function ExhibitionGallery() {
-  const { resolvedAppearance } = useMotionMint();
+  const { resolvedAppearance } = useRenderJoy();
   const prefersReduced = useReducedMotion();
   const previewMode = resolvedAppearance === "dark" ? "dark" : "light";
 
@@ -94,7 +94,7 @@ export function ExhibitionGallery() {
         >
           {/* Interactive Live Stage */}
           <div className="p-4 sm:p-5">
-            <MotionMintTheme
+            <RenderJoyTheme
               theme={item.theme}
               mode={previewMode}
               className={cn(
@@ -110,7 +110,7 @@ export function ExhibitionGallery() {
                   {meta.interactionHint}
                 </span>
               )}
-            </MotionMintTheme>
+            </RenderJoyTheme>
           </div>
 
           {/* Minimal Editorial Caption */}

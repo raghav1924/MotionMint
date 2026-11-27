@@ -2,7 +2,7 @@
 
 *Compiled: 2026-11-25*
 
-This document summarizes the 29 individual theme research studies in `docs/theme-research/`. Each pattern defines **two deliberately art-directed modes** (`light` and `dark`), producing **58 distinct visual variants** per component without altering MotionMint's global minimalist website chrome.
+This document summarizes the 29 individual theme research studies in `docs/theme-research/`. Each pattern defines **two deliberately art-directed modes** (`light` and `dark`), producing **58 distinct visual variants** per component without altering RenderJoy's global minimalist website chrome.
 
 ## Pattern Index
 
@@ -41,4 +41,4 @@ This document summarizes the 29 individual theme research studies in `docs/theme
 ## Research Constraints & Attribution
 - All external URLs (Dribbble, SiteInspire, Awwwards, Behance, Pinterest, Figma Resource Library) were used strictly as conceptual inspiration.
 - Zero proprietary assets, logos, or copyrighted illustrations are redistributed.
-- All CSS tokens, textures, and component recipes are original MotionMint implementations.
+- All CSS tokens, textures, and component recipes are original RenderJoy implementations.

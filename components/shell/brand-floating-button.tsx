@@ -4,12 +4,12 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Sun, Moon, Volume2, VolumeX, LayoutGrid, Play, Sparkles } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { MotionMintMark } from "@/components/brand/motionmint-logo";
-import { useMotionMint } from "@/components/site/providers";
+import { RenderJoyMark } from "@/components/brand/renderjoy-logo";
+import { useRenderJoy } from "@/components/site/providers";
 import { cn } from "@/lib/utils";
 
 export function BrandFloatingButton() {
-  const { resolvedAppearance, setAppearance, soundEnabled, toggleSound } = useMotionMint();
+  const { resolvedAppearance, setAppearance, soundEnabled, toggleSound } = useRenderJoy();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +45,7 @@ export function BrandFloatingButton() {
         )}
       >
         {/* Kinetic M brand mark */}
-        <MotionMintMark size={20} />
+        <RenderJoyMark size={20} />
       </button>
 
       {open && (

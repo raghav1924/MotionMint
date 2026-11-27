@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { LAUNCH_SKINS } from "@/lib/themes/skins";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { JellyButton } from "@/registry/components/jelly-button";
 import { CopyButton } from "@/registry/components/copy-button";
@@ -23,7 +23,7 @@ export function ComponentDetailWorkbench({
   slug: string;
   installCommand: string;
 }) {
-  const { skin, setSkin } = useMotionMint();
+  const { skin, setSkin } = useRenderJoy();
   const [pkg, setPkg] = useState<PackageManager>("npm");
 
   // Component-specific interactive control state

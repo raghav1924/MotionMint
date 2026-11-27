@@ -1,4 +1,4 @@
-# PHASE_2_12_BRAND_QA.md — MotionMint Brand Identity & Editorial Homepage QA
+# PHASE_2_12_BRAND_QA.md — RenderJoy Brand Identity & Editorial Homepage QA
 
 *Verified: 2026-11-25 against production build (`npx next build --webpack` + `npx next start -p 3005`) in headless Google Chrome.*
 
@@ -18,8 +18,8 @@
 - **Mobile (`390×844`):** `scrollWidth = 390` (`0` horizontal overflow).
 
 ## 3. Visual Inspection Checklist
-- **Editorial Header (`Navbar`):** Full-width hairline bar (`h-16`) with `Kinetic M` + `MotionMint` lockup, centered editorial links (`Components`, `Themes`, `Flow`, `Docs`), `Search ⌘K`, `Light`/`Dark`/`System` switcher, and `Explore` CTA. No sound toggle or 29-theme dropdown in homepage chrome.
+- **Editorial Header (`Navbar`):** Full-width hairline bar (`h-16`) with `Kinetic M` + `RenderJoy` lockup, centered editorial links (`Components`, `Themes`, `Flow`, `Docs`), `Search ⌘K`, `Light`/`Dark`/`System` switcher, and `Explore` CTA. No sound toggle or 29-theme dropdown in homepage chrome.
 - **Hybrid Sculptural Silk Hero (`CinematicHero`):** Balanced first-viewport composition in both Light and Dark appearances with 4 orbiting specimens (`Thinking Loader`, `Physical Knob`, `Flow · DAG`, `58 Theme Variants`).
-- **Curated Selected Work (`ExhibitionGallery`):** 5 interactive specimens (`Swipe Card Deck`, `Thinking Loader`, `Physical Knob`, `Reaction Arc`, `AI Prompt Composer`) with varied grid spans inside scoped `<MotionMintTheme>` cards.
+- **Curated Selected Work (`ExhibitionGallery`):** 5 interactive specimens (`Swipe Card Deck`, `Thinking Loader`, `Physical Knob`, `Reaction Arc`, `AI Prompt Composer`) with varied grid spans inside scoped `<RenderJoyTheme>` cards.
 - **Split Themes + Flow (`ThemesFlowSplit`):** Live 29-theme / 58-expression `RippleButton` switcher (`Cyberpunk` tested live) paired with the simulated `Document Verification Pipeline` DAG card (`DAG Valid (7 nodes)`, `Simulated Demo`).
-- **Editorial Footer (`Footer`):** `"Make something memorable."`, restrained link row, oversized `Kinetic M` + `MotionMint` signature, and fine bottom hairline.
+- **Editorial Footer (`Footer`):** `"Make something memorable."`, restrained link row, oversized `Kinetic M` + `RenderJoy` signature, and fine bottom hairline.

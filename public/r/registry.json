@@ -6,7 +6,7 @@
     {
       "name": "sound-engine",
       "type": "registry:lib",
-      "title": "MotionMint Sound & Haptic Engine",
+      "title": "RenderJoy Sound & Haptic Engine",
       "description": "Zero-asset Web Audio API synthesizer and navigator.vibrate feedback store (off by default).",
       "files": [
         {
@@ -311,7 +311,7 @@
     {
       "name": "ai-types",
       "type": "registry:lib",
-      "title": "MotionMint AI Component Types",
+      "title": "RenderJoy AI Component Types",
       "description": "Shared TypeScript interfaces for AIMessage, AIToolCall, and AgentPlanStep.",
       "files": [
         {

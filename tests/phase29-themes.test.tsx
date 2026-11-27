@@ -5,8 +5,8 @@ import { ALL_THEMES } from "@/lib/themes/registry";
 import { themeToCssVars } from "@/lib/themes/theme-utils";
 import { CATALOG_ITEMS } from "@/lib/catalog";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
-import { MotionMintProvider, useMotionMint } from "@/components/site/providers";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
+import { RenderJoyProvider, useRenderJoy } from "@/components/site/providers";
 import { ThemeStudio } from "@/components/theme/theme-studio";
 import { ComponentStudio } from "@/components/studio/component-studio";
 import { RippleButton } from "@/registry/components/ripple-button";
@@ -21,7 +21,7 @@ beforeAll(() => {
 });
 
 function ThemeIsolationProbe() {
-  const { setTheme, setThemeMode, skin, themeMode, resolvedAppearance } = useMotionMint();
+  const { setTheme, setThemeMode, skin, themeMode, resolvedAppearance } = useRenderJoy();
   return (
     <div>
       <span data-testid="probe-theme">{skin}</span>
@@ -57,22 +57,22 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
     expect(variantCount).toBe(58);
   });
 
-  it("isolates sibling and nested MotionMintTheme scopes and never mutates documentElement", () => {
+  it("isolates sibling and nested RenderJoyTheme scopes and never mutates documentElement", () => {
     document.documentElement.style.removeProperty("--mm-bg");
 
     const { container } = render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <ThemeIsolationProbe />
-        <MotionMintTheme theme="neo-brutalism" mode="light">
+        <RenderJoyTheme theme="neo-brutalism" mode="light">
           <RippleButton>Neo Light</RippleButton>
-          <MotionMintTheme theme="victorian" mode="dark">
+          <RenderJoyTheme theme="victorian" mode="dark">
             <RippleButton>Victorian Nested</RippleButton>
-          </MotionMintTheme>
-        </MotionMintTheme>
-        <MotionMintTheme theme="cyberpunk" mode="dark">
+          </RenderJoyTheme>
+        </RenderJoyTheme>
+        <RenderJoyTheme theme="cyberpunk" mode="dark">
           <RippleButton>Cyber Dark</RippleButton>
-        </MotionMintTheme>
-      </MotionMintProvider>
+        </RenderJoyTheme>
+      </RenderJoyProvider>
     );
 
     const scopes = container.querySelectorAll('[data-mm-scope="true"]');
@@ -100,11 +100,11 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
     for (const theme of ALL_THEMES) {
       for (const mode of ["light", "dark"] as const) {
         const { unmount } = render(
-          <MotionMintTheme theme={theme.id} mode={mode}>
+          <RenderJoyTheme theme={theme.id} mode={mode}>
             {implemented.map((item) => (
               <ComponentLivePreview key={item.slug} slug={item.slug} />
             ))}
-          </MotionMintTheme>
+          </RenderJoyTheme>
         );
         comboCount += implemented.length;
         unmount();
@@ -115,9 +115,9 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
 
   it("ThemeStudio supports search, category filtering, light/dark application, and Compare Mode", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <ThemeStudio />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     expect(screen.getByRole("heading", { name: "Component Theme Studio" })).toBeInTheDocument();
@@ -134,9 +134,9 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
   it("ComponentStudio renders scoped 58-variant theme preview and InfinityCanvas component remains accessible", () => {
     const ripple = CATALOG_ITEMS.find((c) => c.slug === "ripple-button")!;
     const { container } = render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <ComponentStudio item={ripple} sourceCode={null} />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     expect(screen.getByText(ripple.name)).toBeInTheDocument();

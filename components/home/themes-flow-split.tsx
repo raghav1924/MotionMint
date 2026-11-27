@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Play, CheckCircle2, Loader2, Sun, Moon, ShieldCheck } from "lucide-react";
 import { getThemeById } from "@/lib/themes/registry";
 import type { ComponentThemeMode, ThemeId } from "@/lib/themes/types";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { WORKFLOW_PRESETS } from "@/lib/flow/presets";
 import { validateWorkflowDAG } from "@/lib/flow/dag";
@@ -77,7 +77,7 @@ export function ThemesFlowSplit() {
             <p className="text-sm leading-relaxed text-[var(--ws-text-secondary)]">
               Each component reads scoped{" "}
               <code className="font-mono text-xs text-[var(--ws-text-primary)]">--mm-*</code>{" "}
-              tokens inside <code className="font-mono text-xs text-[var(--ws-text-primary)]">&lt;MotionMintTheme&gt;</code>, keeping the host website calm and untouched.
+              tokens inside <code className="font-mono text-xs text-[var(--ws-text-primary)]">&lt;RenderJoyTheme&gt;</code>, keeping the host website calm and untouched.
             </p>
           </div>
 
@@ -135,7 +135,7 @@ export function ThemesFlowSplit() {
               </div>
             </div>
 
-            <MotionMintTheme
+            <RenderJoyTheme
               theme={selectedTheme}
               mode={mode}
               className="flex min-h-[172px] flex-col items-center justify-center gap-3 rounded-[18px] border border-[var(--mm-border)] bg-[var(--mm-bg)] p-6 text-center transition-colors"
@@ -146,11 +146,11 @@ export function ThemesFlowSplit() {
               <RippleButton onClick={() => setClicks((c) => c + 1)}>
                 Trigger Expression{clicks > 0 ? ` (${clicks})` : ""}
               </RippleButton>
-            </MotionMintTheme>
+            </RenderJoyTheme>
           </div>
         </article>
 
-        {/* Right: MotionMint Flow Orchestrator */}
+        {/* Right: RenderJoy Flow Orchestrator */}
         <article className="flex flex-col justify-between rounded-[24px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-6 sm:p-8 space-y-6">
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-2">

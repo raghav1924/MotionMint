@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { MotionMintMark } from "@/components/brand/motionmint-logo";
+import { RenderJoyMark } from "@/components/brand/renderjoy-logo";
 
 const FOOTER_LINKS = [
   { href: "/components", label: "Components" },
@@ -64,7 +64,7 @@ export function Footer() {
         {/* Oversized Kinetic M + Brand Signature */}
         <div className="flex flex-col items-start justify-between gap-6 py-12 sm:flex-row sm:items-end sm:py-16">
           <div className="flex items-center gap-5 sm:gap-8 text-[var(--ws-text-primary)]">
-            <MotionMintMark
+            <RenderJoyMark
               size={84}
               className="h-14 w-14 shrink-0 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
             />

@@ -267,7 +267,7 @@ export function ComponentLivePreview({
     case "number-stepper":
       return <NumberStepper defaultValue={4} min={0} max={20} />;
     case "glow-input":
-      return <GlowInput label="Workspace Name" placeholder="motionmint-app" />;
+      return <GlowInput label="Workspace Name" placeholder="renderjoy-app" />;
     case "email-capture":
       return <EmailCapture />;
     case "date-picker":
@@ -322,7 +322,7 @@ export function ComponentLivePreview({
     case "receipt-printer":
       return (
         <ReceiptPrinter
-          title="MotionMint"
+          title="RenderJoy"
           items={[
             { name: "Physical Knob", qty: 1, price: 0 },
             { name: "Card Stack", qty: 2, price: 12 },

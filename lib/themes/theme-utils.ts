@@ -66,7 +66,7 @@ export function themeToInlineStyle(
 }
 
 /**
- * @deprecated Component themes must be applied via `<MotionMintTheme>` or
+ * @deprecated Component themes must be applied via `<RenderJoyTheme>` or
  * `themeToInlineStyle()` so they never mutate `document.documentElement`.
  */
 export function applyThemeToDocument(_theme: ThemeDefinition): void {

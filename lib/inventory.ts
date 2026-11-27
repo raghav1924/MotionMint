@@ -269,7 +269,7 @@ function buildFullInventory(): InventoryItem[] {
         name,
         category: group.category,
         subcategory: group.category,
-        description: `Planned MotionMint ${group.category.toLowerCase()} experience (${name}).`,
+        description: `Planned RenderJoy ${group.category.toLowerCase()} experience (${name}).`,
         tier: group.tier,
         status: "planned",
         featured: false,

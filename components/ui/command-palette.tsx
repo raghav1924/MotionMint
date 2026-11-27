@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search, Component, Palette, Volume2, BookOpen, Play, ArrowRight } from "lucide-react";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { ModalDialog } from "@/components/ui/overlay";
 import { CATALOG_ITEMS } from "@/lib/catalog";
 import { ALL_THEMES } from "@/lib/themes/registry";
@@ -20,7 +20,7 @@ interface CommandEntry {
 
 export function CommandPalette() {
   const router = useRouter();
-  const { commandOpen, setCommandOpen, setTheme } = useMotionMint();
+  const { commandOpen, setCommandOpen, setTheme } = useRenderJoy();
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
 

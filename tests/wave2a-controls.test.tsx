@@ -80,9 +80,9 @@ describe("Wave 2 — Batch 2A Essential Controls (9 Components)", () => {
     fireEvent.click(submit);
     expect(screen.getByRole("alert")).toHaveTextContent("valid email");
 
-    fireEvent.change(input, { target: { value: "dev@motionmint.dev" } });
+    fireEvent.change(input, { target: { value: "dev@renderjoy.dev" } });
     fireEvent.click(submit);
-    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith("dev@motionmint.dev"));
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith("dev@renderjoy.dev"));
     expect(await screen.findByRole("status")).toBeInTheDocument();
   });
 

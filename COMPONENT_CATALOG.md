@@ -1,4 +1,4 @@
-# COMPONENT_CATALOG.md — MotionMint
+# COMPONENT_CATALOG.md — RenderJoy
 
 *Last updated: 2026-11-25*
 

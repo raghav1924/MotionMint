@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { PanelLeftClose } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { MotionMintMark } from "@/components/brand/motionmint-logo";
+import { RenderJoyMark } from "@/components/brand/renderjoy-logo";
 import { CATALOG_ITEMS } from "@/lib/catalog";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
 import { cn } from "@/lib/utils";
 
@@ -91,7 +91,7 @@ const EASE_OUT_EXPO = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 
 export function EditorialSidebar() {
   const pathname = usePathname();
-  const { sidebarOpen, setSidebarOpen, resolvedAppearance } = useMotionMint();
+  const { sidebarOpen, setSidebarOpen, resolvedAppearance } = useRenderJoy();
   const prefersReduced = useReducedMotion();
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
 
@@ -147,7 +147,7 @@ export function EditorialSidebar() {
                 className="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-[var(--ws-text-primary)]"
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-[#111111] text-[var(--ws-accent,#dfff00)]">
-                  <MotionMintMark size={14} />
+                  <RenderJoyMark size={14} />
                 </span>
                 <span>{BRAND.name}</span>
               </Link>

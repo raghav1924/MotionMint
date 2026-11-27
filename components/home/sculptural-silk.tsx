@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 
 interface SculpturalSilkProps {
   /** Normalized scroll progress 0..1 */
@@ -30,7 +30,7 @@ const RIBBON_LAYERS: RibbonLayer[] = [
 ];
 
 /**
- * Original MotionMint Sculptural Silk Ribbon Layer.
+ * Original RenderJoy Sculptural Silk Ribbon Layer.
  * Renders continuous, seamless 3D-shaded metallic pearl / silver silk ribbons
  * using smooth filled top/bottom envelopes and layered specular highlights,
  * plus a rich SVG gradient sculpture for SSR and reduced-motion.
@@ -42,7 +42,7 @@ export function SculpturalSilk({
 }: SculpturalSilkProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReduced = useReducedMotion();
-  const { resolvedAppearance } = useMotionMint();
+  const { resolvedAppearance } = useRenderJoy();
   const stateRef = useRef({
     scrollProgress,
     pointerX,

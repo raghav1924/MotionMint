@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Sun, Moon } from "lucide-react";
 import { getThemeById } from "@/lib/themes/registry";
 import type { ComponentThemeMode, ThemeId } from "@/lib/themes/types";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { cn } from "@/lib/utils";
 
@@ -37,7 +37,7 @@ export function ThemeDifferentiator() {
             One component. Fifty-eight expressions.
           </h2>
           <p className="text-sm leading-relaxed text-[var(--ws-text-secondary)]">
-            Every MotionMint component consumes scoped{" "}
+            Every RenderJoy component consumes scoped{" "}
             <code className="font-mono text-xs text-[var(--ws-text-primary)]">--mm-*</code>{" "}
             tokens and theme recipes. Switch among 29 design languages in Light or Dark mode
             without changing your global website chrome.
@@ -125,7 +125,7 @@ export function ThemeDifferentiator() {
               {active.description}
             </p>
             <pre className="overflow-x-auto rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] px-3 py-2 font-mono text-[11px] text-[var(--ws-text-primary)]">
-              <code>{`<MotionMintTheme theme="${active.id}" mode="${mode}">\n  <RippleButton>Continue</RippleButton>\n</MotionMintTheme>`}</code>
+              <code>{`<RenderJoyTheme theme="${active.id}" mode="${mode}">\n  <RippleButton>Continue</RippleButton>\n</RenderJoyTheme>`}</code>
             </pre>
           </div>
         </div>
@@ -139,7 +139,7 @@ export function ThemeDifferentiator() {
             <span>Clicks: {clicks}</span>
           </div>
 
-          <MotionMintTheme
+          <RenderJoyTheme
             theme={active.id}
             mode={mode}
             padded
@@ -147,9 +147,9 @@ export function ThemeDifferentiator() {
           >
             <RippleButton onClick={() => setClicks((c) => c + 1)}>Continue</RippleButton>
             <span className="text-[11px] opacity-75">
-              Identical props &amp; state — styled purely via MotionMintTheme
+              Identical props &amp; state — styled purely via RenderJoyTheme
             </span>
-          </MotionMintTheme>
+          </RenderJoyTheme>
         </div>
       </div>
     </section>

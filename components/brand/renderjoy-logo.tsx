@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
  * sculptural single-silhouette mark subtly encoding R and J via
  * tangential canopy & nested pendulum separated by an intentional negative-space arch.
  */
-export function MotionMintMark({
+export function RenderJoyMark({
   className,
   size = 24,
 }: {
@@ -38,7 +38,7 @@ export function MotionMintMark({
 /**
  * Understated geometric sans-serif wordmark for RenderJoy.
  */
-export function MotionMintWordmark({ className }: { className?: string }) {
+export function RenderJoyWordmark({ className }: { className?: string }) {
   return (
     <span
       className={cn(
@@ -54,7 +54,7 @@ export function MotionMintWordmark({ className }: { className?: string }) {
 /**
  * Horizontal brand lockup: Tangential Wing symbol + RenderJoy wordmark.
  */
-export function MotionMintLogo({
+export function RenderJoyLogo({
   markSize = 22,
   className,
   wordmarkClassName,
@@ -65,8 +65,8 @@ export function MotionMintLogo({
 }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <MotionMintMark size={markSize} />
-      <MotionMintWordmark className={cn("text-[15px]", wordmarkClassName)} />
+      <RenderJoyMark size={markSize} />
+      <RenderJoyWordmark className={cn("text-[15px]", wordmarkClassName)} />
     </span>
   );
 }

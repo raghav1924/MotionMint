@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MotionMintProvider } from "@/components/site/providers";
+import { RenderJoyProvider } from "@/components/site/providers";
 import { CATALOG_ITEMS, getCatalogItem } from "@/lib/catalog";
 import { CatalogueBrowser } from "@/components/site/catalogue-browser";
 import { ComponentStudio } from "@/components/studio/component-studio";
@@ -36,9 +36,9 @@ describe("Phase 2.13 — Bencho-Inspired Interactive Component Experience", () =
 
   it("filters /components by interaction taxonomy pills", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <CatalogueBrowser />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     const swipeBtn = screen.getByRole("button", { name: "Swipe" });
@@ -52,9 +52,9 @@ describe("Phase 2.13 — Bencho-Inspired Interactive Component Experience", () =
     expect(ripple).toBeDefined();
 
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <ComponentStudio item={ripple!} sourceCode={"export function RippleButton() { return null; }"} />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     // Live property tuning updates preview
@@ -75,9 +75,9 @@ describe("Phase 2.13 — Bencho-Inspired Interactive Component Experience", () =
 
   it("renders ComparisonWorkbench inside ThemeStudio without leaking theme variables", () => {
     render(
-      <MotionMintProvider>
+      <RenderJoyProvider>
         <ThemeStudio />
-      </MotionMintProvider>
+      </RenderJoyProvider>
     );
 
     fireEvent.click(screen.getByRole("button", { name: /Compare Mode/i }));

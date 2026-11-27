@@ -8,7 +8,7 @@
 - **Unified Chrome Across All 5 Experiences:** `/components/[slug]`, `/themes`, `/motion`, `/sounds`, and `/flow` now share `AnnouncementBar`, `NavigationToggle`, `BrandFloatingButton`, `EditorialSidebar`, and `CommandPalette`.
 - **Contextual `FloatingToolbar`:**
   - `/sounds` renders `Sound: ON/OFF` + `Stop All` + Appearance (omits irrelevant device-frame and package-install controls).
-  - `/motion` renders `@motionmint/motion-reveal`, `PromptMenu`, `DeviceFrames` viewport switches, `Refresh`, `Fullscreen`, and Appearance.
+  - `/motion` renders `@renderjoy/motion-reveal`, `PromptMenu`, `DeviceFrames` viewport switches, `Refresh`, `Fullscreen`, and Appearance.
   - `/flow` omits the component `FloatingToolbar` so the Flow top toolbar, palette, `@xyflow/react` canvas, inspector, and execution console stay unobstructed.
 - **Redesigned Motion Lab & Sound Lab:** Replaced legacy dashboard grids with `WorkspacePage`/`WorkspaceHeader` and central interactive studio stages.
 

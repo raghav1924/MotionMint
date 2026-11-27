@@ -22,7 +22,7 @@ import {
   Square,
 } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { PromptMenu } from "@/components/shell/prompt-menu";
 import { stopAllSounds } from "@/lib/audio/sound-engine";
 import { cn } from "@/lib/utils";
@@ -45,7 +45,7 @@ export function FloatingToolbar() {
     activeComponentSlug,
     soundEnabled,
     toggleSound,
-  } = useMotionMint();
+  } = useRenderJoy();
 
   const [copiedPkg, setCopiedPkg] = useState(false);
   const [promptOpen, setPromptOpen] = useState(false);

@@ -1,4 +1,4 @@
-# VISUAL_HOMEPAGE_QA.md — MotionMint Phase 2.10.1
+# VISUAL_HOMEPAGE_QA.md — RenderJoy Phase 2.10.1
 
 *Last updated: 2026-11-25*
 

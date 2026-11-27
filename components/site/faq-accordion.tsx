@@ -11,7 +11,7 @@ export interface FaqItem {
 
 const DEFAULT_FAQS: FaqItem[] = [
   {
-    question: "How do I install MotionMint components?",
+    question: "How do I install RenderJoy components?",
     answer:
       "Install components via the shadcn-compatible registry (`pnpm dlx shadcn@latest add @renderjoy/<slug>`) or copy the TypeScript source from Component Studio.",
   },

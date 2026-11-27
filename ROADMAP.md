@@ -1,4 +1,4 @@
-# ROADMAP.md — MotionMint
+# ROADMAP.md — RenderJoy
 
 *Last updated: 2026-11-25*
 
@@ -31,7 +31,7 @@
 
 ## Phase 2.5 — Visual Reinvention & Signature Component System `[COMPLETE]`
 - [x] Visual & architecture audit of Phase 2 baseline
-- [x] **MotionMint Component Studio** (`/components/[slug]`): floating left category rail, spacious central viewport canvas, collapsible live inspector, floating bottom dock (CLI, Prompt, Code, Viewport, Reset, Fullscreen, 29-Theme selector, Sound)
+- [x] **RenderJoy Component Studio** (`/components/[slug]`): floating left category rail, spacious central viewport canvas, collapsible live inspector, floating bottom dock (CLI, Prompt, Code, Viewport, Reset, Fullscreen, 29-Theme selector, Sound)
 - [x] **Curated Visual Gallery** (`/components`): Bento-proportioned gallery grid highlighting Signature experiences
 - [x] **29-Theme Design System** (`lib/themes/`): all 29 named themes with colour, typography, geometry, surface depth, motion personality, and decorative textures + `/themes` live comparison gallery with shareable `?theme=` URLs
 - [x] Upgraded existing 9 components (`BounceDotsLoader` rhythm presets, `SoundToggle` waveform indicator, full 29-theme token consumption)
@@ -52,7 +52,7 @@
 
 ## Phase 3 — Registry & Developer Experience `[COMPLETE]`
 - [x] shadcn-compatible `registry.json` & `/public/r/*.json` build pipeline (`npm run registry:build` + `npm run registry:validate`)
-- [x] Fresh-app `npx shadcn@latest add` installation test in `/tmp/motionmint-consumer-test` (all 12 components + `@motionmint/sound-engine` + CSS keyframes + idempotency + `tsc` + `next build`)
+- [x] Fresh-app `npx shadcn@latest add` installation test in `/tmp/renderjoy-consumer-test` (all 12 components + `@renderjoy/sound-engine` + CSS keyframes + idempotency + `tsc` + `next build`)
 - [x] `public/llms.txt` & `public/llms-full.txt` agent-readable metadata + `/docs/installation`
 - [x] Interactive Playground (`/playground`)
 
@@ -64,7 +64,7 @@
 
 ## Full Catalogue Expansion — Wave 1: AI Component System `[COMPLETE — 12/12]`
 - [x] `COMPONENT_BUILD_PLAN.md` created for Waves 1–8 (`200+` items)
-- [x] Shared AI types (`lib/ai/types.ts` / `@motionmint/ai-types`) + `ThinkingLoader` reused
+- [x] Shared AI types (`lib/ai/types.ts` / `@renderjoy/ai-types`) + `ThinkingLoader` reused
 - [x] Implemented, tested, and registry-published all 11 new AI components (`ai-prompt-composer`, `streaming-message`, `tool-call-card`, `agent-plan`, `approval-card`, `inline-diff`, `reasoning-trace`, `ai-chat`, `image-generation`, `chat-orb`, `pixel-image-generation`)
 
 ## Full Catalogue Expansion — Wave 2A: Essential Controls `[COMPLETE — 9/9]`
@@ -85,10 +85,10 @@
 - [x] **Architectural isolation:** `applyThemeToDocument()` stubbed to no-op — component themes NEVER touch `document.documentElement`
 - [x] **Dual-mode palettes:** `lib/themes/definitions/mode-palettes.ts` — all 29 themes with art-directed `light` & `dark` `ThemeModeTokens` (distinct colors, shadows, gradients per mode)
 - [x] **Recipe system:** `lib/themes/recipes.ts` — `ComponentThemeRecipes` (buttonStyle, cardStyle, inputStyle, controlStyle, aiStyle, mediaStyle) for all 29 themes
-- [x] **Scope isolation:** `components/theme/theme-scope.tsx` — `<MotionMintTheme theme mode>` wrapper applies `--mm-*` vars as inline `style`, never to `documentElement`
+- [x] **Scope isolation:** `components/theme/theme-scope.tsx` — `<RenderJoyTheme theme mode>` wrapper applies `--mm-*` vars as inline `style`, never to `documentElement`
 - [x] **Rebuilt Theme Studio** (`/themes`): 29 theme cards each with live Light & Dark specimens, compare mode, search, 5-category filter
 - [x] **Rebuilt Playground** (`/playground`): collapsible left category nav, central `ComponentStudio`, mobile drawer
-- [x] **Provider update:** `themeMode` / `setThemeMode` exposed from `useMotionMint()`; `setTheme` alias preserved
+- [x] **Provider update:** `themeMode` / `setThemeMode` exposed from `useRenderJoy()`; `setTheme` alias preserved
 - [x] **Component-specific use cases:** `useCases` field added to `CatalogItem` interface; all 44 implemented components have 2 use cases each; `ComponentDocs` renders them with section heading
 - [x] **29 visual research docs** (`docs/theme-research/01-minimalism.md` → `29-wabi-sabi.md`) + `docs/THEME_DESIGN_RESEARCH.md` summary table
 - [x] **Automated smoke test:** 44 components × 29 themes × 2 modes = 2,552 combinations verified in `tests/phase29-themes.test.tsx`
@@ -96,12 +96,12 @@
 - [x] All 82 tests pass; `npm run typecheck` exit 0; `npm run registry:validate` ✅ 47 items; `npm run build` exit 0
 
 ## Phase 2.10 — Cinematic Homepage & Premium Brand Experience `[COMPLETE]`
-- [x] **Cinematic Hero** (`components/home/cinematic-hero.tsx`): Architectural dot-matrix stage, sculptural central MotionMint mark, pointer parallax, and spatial orbiting live specimens (`ThinkingLoader`, `PhysicalKnob`, `Flow` mini-pipeline, `ProgressRing` + `RippleButton`), with mobile & `prefers-reduced-motion` fallbacks
+- [x] **Cinematic Hero** (`components/home/cinematic-hero.tsx`): Architectural dot-matrix stage, sculptural central RenderJoy mark, pointer parallax, and spatial orbiting live specimens (`ThinkingLoader`, `PhysicalKnob`, `Flow` mini-pipeline, `ProgressRing` + `RippleButton`), with mobile & `prefers-reduced-motion` fallbacks
 - [x] **Verified Capability Strip** (`components/home/capability-strip.tsx`): React 19, TypeScript, Tailwind CSS v4, Motion, 50-item shadcn-compatible registry, `llms.txt` discovery, Web Audio API
 - [x] **Asymmetric Product Exhibition** (`components/site/exhibition-gallery.tsx`): 10 live implemented components across Signature, AI, and Controls collections
-- [x] **58-Variant Theme Differentiator** (`components/home/theme-differentiator.tsx`): Live `RippleButton` inside `<MotionMintTheme>` across 7 signature patterns × Light/Dark without touching global chrome
+- [x] **58-Variant Theme Differentiator** (`components/home/theme-differentiator.tsx`): Live `RippleButton` inside `<RenderJoyTheme>` across 7 signature patterns × Light/Dark without touching global chrome
 - [x] **Motion & Sound Showcase** (`components/home/motion-sound-showcase.tsx`): Spring preset switcher + opt-in `SoundToggle` & Web Audio / haptic audition (off by default)
-- [x] **MotionMint Flow Showcase** (`components/home/flow-showcase.tsx`): Live excerpt of `Document Verification Pipeline` with Kahn's DAG badge & clearly labelled simulated execution
+- [x] **RenderJoy Flow Showcase** (`components/home/flow-showcase.tsx`): Live excerpt of `Document Verification Pipeline` with Kahn's DAG badge & clearly labelled simulated execution
 - [x] **Developer DX, Pricing Preview & 2-Column FAQ** (`components/home/developer-dx.tsx`, `components/home/pricing-section.tsx`, `components/site/faq-accordion.tsx`, `components/site/footer.tsx`)
 - [x] Wave 3+ component waves remain paused per Phase 2.10
 
@@ -109,7 +109,7 @@
 - [x] **Removed Legacy `WorkspaceShell`:** Eliminated `isWorkspaceRoute()` branching and `components/workspace/workspace-shell.tsx`; all 5 experiences (`/components/[slug]`, `/themes`, `/motion`, `/sounds`, `/flow`) share one `AppShell` (`AnnouncementBar`, `NavigationToggle`, `BrandFloatingButton`, `EditorialSidebar`, `CommandPalette`).
 - [x] **Shared Workspace Primitives:** Created `WorkspacePage` & `WorkspaceHeader` (`components/workspace/workspace-page.tsx`) for consistent typography, spacing, and headers across `/motion`, `/sounds`, and `/flow`.
 - [x] **Contextual `FloatingToolbar` Modes:** Added route-aware modes (`component`, `themes`, `motion`, `sounds`, `default`) — Sound Lab displays `Sound: ON/OFF` & `Stop All`; `/flow` omits `FloatingToolbar` so its own node-editor toolbar & canvas remain unobstructed.
-- [x] **Redesigned Motion Lab & Sound Lab:** Replaced dashboard cards on `/motion` and `/sounds` with prominent central stages, waveform visualizer, `<MotionMintTheme>` scoped previews, and `DeviceFrames` viewport switching.
+- [x] **Redesigned Motion Lab & Sound Lab:** Replaced dashboard cards on `/motion` and `/sounds` with prominent central stages, waveform visualizer, `<RenderJoyTheme>` scoped previews, and `DeviceFrames` viewport switching.
 - [x] Wave 3+ component development remains paused.
 
 ## Backgrounds Category — Flagship Component `[COMPLETE]`
@@ -123,7 +123,7 @@
 - [x] Upgraded Motion Lab (`/motion`) to interaction-first categories, Theme Studio (`/themes`) to shared `ComparisonWorkbench`, and Homepage Exhibition (`ExhibitionGallery`) with verified interaction tags
 
 ## Phase 2.12 — Editorial Brand Identity & Homepage Redesign `[COMPLETE]`
-- [x] Created `BRAND_DIRECTION.md`, bespoke `Kinetic M` SVG logomark & tracked wordmark (`components/brand/motionmint-logo.tsx`), and SVG favicon (`app/icon.svg`)
+- [x] Created `BRAND_DIRECTION.md`, bespoke `Kinetic M` SVG logomark & tracked wordmark (`components/brand/renderjoy-logo.tsx`), and SVG favicon (`app/icon.svg`)
 - [x] Replaced generic starburst glyph across `Navbar`, `Footer`, `EditorialSidebar`, and `BrandFloatingButton`
 - [x] Redesigned `Navbar` into a full-width editorial hairline header (`Components`, `Themes`, `Flow`, `Docs`, `⌘K` search, `Light`/`Dark`/`System` switcher, `Explore`)
 - [x] Streamlined `app/page.tsx` to 6 editorial beats (`CinematicHero`, `CapabilityStrip`, 5-item `ExhibitionGallery`, split `ThemesFlowSplit`, compact Developer CTA, and oversized editorial `Footer`)
@@ -135,7 +135,7 @@
 - [ ] Animated charts (gauge, donut, bars)
 - [ ] Bento dashboard block
 
-## Phase 6 — MotionMint Flow & Node Pipeline Orchestrator `[COMPLETE — DEMO / SIMULATED ADAPTER]`
+## Phase 6 — RenderJoy Flow & Node Pipeline Orchestrator `[COMPLETE — DEMO / SIMULATED ADAPTER]`
 - [x] Inspected user-owned POC (`https://github.com/raghav1924/frontend_technical_assessment` — React Flow 11 + Zustand + 9 nodes + FastAPI Kahn's DAG `POST /pipelines/parse`)
 - [x] Evaluated & integrated `@xyflow/react` (MIT, React 19 compatible)
 - [x] Built portable Flow UI Kit (`registry/flow/`: `BaseNode`, 9 POC-derived `pipeline-nodes`, `FlowCanvas`) & registered `flow-base-node`, `flow-pipeline-nodes`, `flow-canvas` (`50` total registry items)
@@ -153,6 +153,6 @@
 
 ## Future Phase — Full Theme Demo Websites *(Planned, Not Implemented)*
 - [ ] Dynamic route architecture (`/themes/[themeId]/demo` with `generateStaticParams` for all 29 themes)
-- [ ] Initial flagship demos (Scrapbook, Cyberpunk, Blueprint) wrapped in `<MotionMintTheme>`
+- [ ] Initial flagship demos (Scrapbook, Cyberpunk, Blueprint) wrapped in `<RenderJoyTheme>`
 - [ ] Remaining 26 theme demo websites once Wave 3+ component collections are available
 - [ ] Shareable `?mode=light|dark` demo URLs and back-to-Theme-Studio navigation

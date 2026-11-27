@@ -15,11 +15,11 @@
 
 ## 2. Competitor & Reference Snapshot (2026-11-25)
 
-| Product | Positioning | Strengths | Gaps / MotionMint Opportunity |
+| Product | Positioning | Strengths | Gaps / RenderJoy Opportunity |
 |---|---|---|---|
 | **shadcn/ui** | Foundational accessible primitives & registry standard | Ecosystem standard, clean CLI & registry schema | Neutral/static by default; minimal motion/sound/flow |
 | **Magic UI** | Marketing & SaaS landing components | Strong bento grids, beams, marquees | Focused on marketing sections rather than full app flows + sound/haptics |
 | **Motion Primitives** | Composable micro-interaction primitives | Clean ergonomics, accessible motion | No skin system, no sound/haptics, no workflow builder |
 | **React Bits** | Large visual effects & background catalog | Huge variety of text/shader effects | Inconsistent motion curves; heavy effect focus over product flows |
-| **Planes (`useplanes.com`)** | Premium interaction layer + AI MCP + lifetime pricing | High polish, `llms.txt` + MCP, lifetime model | Commercial closed library; opportunity for MotionMint's open core + Sound Lab + Flow UI Kit |
+| **Planes (`useplanes.com`)** | Premium interaction layer + AI MCP + lifetime pricing | High polish, `llms.txt` + MCP, lifetime model | Commercial closed library; opportunity for RenderJoy's open core + Sound Lab + Flow UI Kit |
 | **21st.dev** | Community registry hub + AI agent MCP | Strong AI-agent discovery | Aggregator quality varies; lacks unified design-skin & audio-haptic system |

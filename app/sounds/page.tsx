@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { Play, Square, Smartphone, Volume2 } from "lucide-react";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { WorkspacePage, WorkspaceHeader } from "@/components/workspace/workspace-page";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import {
   getAudioCapabilities,
   playSoundEffect,
@@ -65,7 +65,7 @@ const HAPTICS: { id: HapticPreset; label: string; pattern: string }[] = [
 const WAVEFORM_BARS = [24, 48, 72, 38, 86, 60, 92, 54, 78, 42, 66, 30];
 
 export default function SoundsPage() {
-  const { soundEnabled, toggleSound, hapticsEnabled, setHapticsEnabled } = useMotionMint();
+  const { soundEnabled, toggleSound, hapticsEnabled, setHapticsEnabled } = useRenderJoy();
   const [group, setGroup] = useState<SoundGroup>("UI Feedback");
   const [preset, setPreset] = useState<SoundPreset>("minimal");
   const [volume, setVolume] = useState(0.8);
@@ -135,9 +135,9 @@ play("${selectedEffect}");`;
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <MotionMintTheme theme="minimalism" mode="light" className="rounded-full">
+            <RenderJoyTheme theme="minimalism" mode="light" className="rounded-full">
               <SoundToggle />
-            </MotionMintTheme>
+            </RenderJoyTheme>
             <button
               type="button"
               onClick={() => handleAudition(selectedEffect)}

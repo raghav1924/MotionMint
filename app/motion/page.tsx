@@ -6,9 +6,9 @@ import { motion } from "motion/react";
 import { RotateCcw, Sun, Moon } from "lucide-react";
 import { ALL_THEMES } from "@/lib/themes/registry";
 import { MOTION_SPRINGS } from "@/lib/motion/presets";
-import { useMotionMint } from "@/components/site/providers";
+import { useRenderJoy } from "@/components/site/providers";
 import { WorkspacePage, WorkspaceHeader } from "@/components/workspace/workspace-page";
-import { MotionMintTheme } from "@/components/theme/theme-scope";
+import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import {
   DesktopBrowserFrame,
   TabletPreviewFrame,
@@ -66,7 +66,7 @@ const DECK_ITEMS: DeckCardItem[] = [
 
 export default function MotionLabPage() {
   const { skin, setTheme, themeMode, setThemeMode, viewportMode, previewKey } =
-    useMotionMint();
+    useRenderJoy();
   const [category, setCategory] = useState<MotionCategory>("Hover");
   const [replayKey, setReplayKey] = useState(0);
   const [disableNonEssential, setDisableNonEssential] = useState(false);
@@ -79,7 +79,7 @@ import { MotionReveal } from "@/components/renderjoy/motion-reveal";
 </MotionReveal>`;
 
   const stageBody = (
-    <MotionMintTheme
+    <RenderJoyTheme
       theme={skin}
       mode={themeMode}
       padded
@@ -177,7 +177,7 @@ import { MotionReveal } from "@/components/renderjoy/motion-reveal";
           )}
         </div>
       )}
-    </MotionMintTheme>
+    </RenderJoyTheme>
   );
 
   return (
