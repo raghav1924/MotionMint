@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "announcement-bar",
+  "type": "registry:component",
+  "title": "Announcement Bar",
+  "description": "Dismissible release announcement bar with restore toggle.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/announcement-bar.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/announcement-bar.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nexport interface AnnouncementBarBlockProps {\n  badge?: string;\n  message?: string;\n  className?: string;\n}\n\n/**\n * Dismissible release announcement bar with restore toggle for previewing.\n */\nexport function AnnouncementBarBlock({\n  badge = \"NEW\",\n  message = \"Wave 7 Blocks & 58 Theme Variants now live\",\n  className = \"\",\n}: AnnouncementBarBlockProps) {\n  const [dismissed, setDismissed] = useState(false);\n\n  if (dismissed) {\n    return (\n      <div className={`inline-flex items-center gap-2 ${className}`.trim()}>\n        <button\n          type=\"button\"\n          onClick={() => setDismissed(false)}\n          className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-surface)] px-3 py-1 font-mono text-[11px] text-[var(--mm-fg)] cursor-pointer\"\n        >\n          Restore Announcement\n        </button>\n      </div>\n    );\n  }\n\n  return (\n    <div\n      role=\"region\"\n      aria-label=\"Release announcement\"\n      className={`flex w-full max-w-lg items-center justify-between gap-3 rounded-full border border-[var(--mm-border)] bg-[var(--mm-surface)] px-4 py-2 text-xs ${className}`.trim()}\n    >\n      <div className=\"flex items-center gap-2 truncate\">\n        <span className=\"rounded-full bg-[var(--mm-accent)] px-2 py-0.5 font-mono text-[10px] font-bold text-[var(--mm-accent-fg)]\">\n          {badge}\n        </span>\n        <span className=\"truncate font-medium text-[var(--mm-fg)]\">{message}</span>\n      </div>\n      <button\n        type=\"button\"\n        onClick={() => setDismissed(true)}\n        aria-label=\"Dismiss announcement\"\n        className=\"shrink-0 font-mono text-[11px] text-[var(--mm-fg-muted)] hover:text-[var(--mm-fg)] cursor-pointer\"\n      >\n        Dismiss\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

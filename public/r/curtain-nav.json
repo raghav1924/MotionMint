@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "curtain-nav",
+  "type": "registry:component",
+  "title": "Curtain Nav",
+  "description": "Minimal header with an expandable full-width curtain navigation drawer.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/curtain-nav.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/curtain-nav.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst NAV_ITEMS = [\"Components\", \"Themes\", \"Motion Lab\", \"Pricing\"];\n\nexport interface CurtainNavProps {\n  brand?: string;\n  className?: string;\n}\n\n/**\n * Minimal header with an expandable full-width curtain navigation drawer.\n */\nexport function CurtainNav({\n  brand = \"RENDERJOY\",\n  className = \"\",\n}: CurtainNavProps) {\n  const [open, setOpen] = useState(false);\n  const [selected, setSelected] = useState(NAV_ITEMS[0]);\n\n  return (\n    <div\n      className={`w-full max-w-md overflow-hidden rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] ${className}`.trim()}\n    >\n      <div className=\"flex items-center justify-between px-4 py-3\">\n        <span className=\"font-mono text-xs font-bold tracking-[0.18em] text-[var(--mm-fg)]\">\n          {brand}\n        </span>\n        <button\n          type=\"button\"\n          onClick={() => setOpen((o) => !o)}\n          aria-expanded={open}\n          className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[11px] font-medium text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n        >\n          {open ? \"Close Menu\" : \"Open Menu\"}\n        </button>\n      </div>\n\n      {open && (\n        <nav aria-label=\"Curtain navigation\" className=\"border-t border-[var(--mm-border)] bg-[var(--mm-bg)] p-3\">\n          <ul className=\"space-y-1\">\n            {NAV_ITEMS.map((item, idx) => (\n              <li key={item}>\n                <button\n                  type=\"button\"\n                  onClick={() => {\n                    setSelected(item);\n                    setOpen(false);\n                  }}\n                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs cursor-pointer ${\n                    selected === item\n                      ? \"bg-[var(--mm-surface)] font-semibold text-[var(--mm-accent)]\"\n                      : \"text-[var(--mm-fg)] hover:bg-[var(--mm-surface)]\"\n                  }`}\n                >\n                  <span>{item}</span>\n                  <span className=\"font-mono text-[10px] text-[var(--mm-fg-muted)]\">0{idx + 1}</span>\n                </button>\n              </li>\n            ))}\n          </ul>\n        </nav>\n      )}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

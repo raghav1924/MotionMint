@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "smooth-stagger-text",
+  "type": "registry:component",
+  "title": "Smooth Stagger Text",
+  "description": "Per-character staggered vertical reveal with replay control.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/smooth-stagger-text.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/smooth-stagger-text.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\n\nexport interface SmoothStaggerTextProps {\n  text?: string;\n  className?: string;\n}\n\n/**\n * Per-character staggered vertical reveal with replay control and reduced-motion support.\n */\nexport function SmoothStaggerText({\n  text = \"TACTILE MOTION\",\n  className = \"\",\n}: SmoothStaggerTextProps) {\n  const prefersReduced = useReducedMotion();\n  const [replayKey, setReplayKey] = useState(0);\n\n  return (\n    <div\n      className={`inline-flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-5 py-4 ${className}`.trim()}\n    >\n      <div key={replayKey} className=\"flex flex-wrap justify-center font-mono text-lg font-bold tracking-wider text-[var(--mm-fg)]\">\n        {text.split(\"\").map((char, idx) => (\n          <motion.span\n            key={idx}\n            initial={prefersReduced ? false : { opacity: 0, y: 10 }}\n            animate={{ opacity: 1, y: 0 }}\n            transition={{ duration: prefersReduced ? 0 : 0.28, delay: prefersReduced ? 0 : idx * 0.025 }}\n            className={char === \" \" ? \"w-2\" : undefined}\n          >\n            {char}\n          </motion.span>\n        ))}\n      </div>\n      <button\n        type=\"button\"\n        onClick={() => setReplayKey((k) => k + 1)}\n        className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[11px] text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n      >\n        Replay Stagger\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

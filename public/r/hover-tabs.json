@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-tabs",
+  "type": "registry:component",
+  "title": "Hover Tabs",
+  "description": "Pointer- and keyboard-activated tabs switching preview on hover, focus, or click.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/hover-tabs.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/hover-tabs.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst TABS = [\n  { id: \"design\", label: \"Design\", summary: \"58 isolated CSS variable theme variants.\" },\n  { id: \"motion\", label: \"Motion\", summary: \"Spring physics with reduced-motion fallbacks.\" },\n  { id: \"audio\", label: \"Audio\", summary: \"56 procedural Web Audio UI cues, off by default.\" },\n];\n\nexport interface HoverTabsProps {\n  className?: string;\n}\n\n/**\n * Pointer- and keyboard-activated tabs switching preview on hover, focus, or click.\n */\nexport function HoverTabs({ className = \"\" }: HoverTabsProps) {\n  const [activeId, setActiveId] = useState(TABS[0].id);\n  const active = TABS.find((t) => t.id === activeId) ?? TABS[0];\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 space-y-3 text-left ${className}`.trim()}\n    >\n      <div role=\"tablist\" aria-label=\"Hover tabs\" className=\"flex gap-1.5\">\n        {TABS.map((tab) => {\n          const isSelected = tab.id === active.id;\n          return (\n            <button\n              key={tab.id}\n              role=\"tab\"\n              type=\"button\"\n              aria-selected={isSelected}\n              onMouseEnter={() => setActiveId(tab.id)}\n              onFocus={() => setActiveId(tab.id)}\n              onClick={() => setActiveId(tab.id)}\n              className={`rounded-full px-3 py-1 font-mono text-[11px] cursor-pointer ${\n                isSelected\n                  ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-semibold\"\n                  : \"border border-[var(--mm-border)] bg-[var(--mm-bg)] text-[var(--mm-fg-muted)]\"\n              }`}\n            >\n              {tab.label}\n            </button>\n          );\n        })}\n      </div>\n      <div\n        role=\"tabpanel\"\n        className=\"rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-2.5 text-xs text-[var(--mm-fg)]\"\n      >\n        {active.summary}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

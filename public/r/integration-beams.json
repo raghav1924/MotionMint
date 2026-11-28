@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "integration-beams",
+  "type": "registry:component",
+  "title": "Integration Beams",
+  "description": "Bidirectional integration beam diagram linking sources to targets.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/integration-beams.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/integration-beams.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nexport interface IntegrationBeamsProps {\n  className?: string;\n}\n\n/**\n * Bidirectional integration beam diagram linking sources to targets.\n */\nexport function IntegrationBeams({ className = \"\" }: IntegrationBeamsProps) {\n  const prefersReduced = useReducedMotion();\n  const [pulsing, setPulsing] = useState(true);\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 space-y-3 ${className}`.trim()}\n    >\n      <div className=\"flex items-center justify-between gap-2 text-xs\">\n        <div className=\"space-y-2\">\n          <div className=\"rounded-lg border border-[var(--mm-border)] bg-[var(--mm-bg)] px-2.5 py-1.5 font-mono text-[11px]\">\n            Figma Tokens\n          </div>\n          <div className=\"rounded-lg border border-[var(--mm-border)] bg-[var(--mm-bg)] px-2.5 py-1.5 font-mono text-[11px]\">\n            GitHub Repo\n          </div>\n        </div>\n\n        <svg viewBox=\"0 0 80 60\" className=\"h-14 w-20 shrink-0\" aria-hidden=\"true\">\n          <path\n            d=\"M 4 14 Q 40 30 76 14\"\n            fill=\"none\"\n            stroke=\"var(--mm-accent)\"\n            strokeWidth=\"2\"\n            strokeDasharray={pulsing && !prefersReduced ? \"4 4\" : undefined}\n          />\n          <path\n            d=\"M 4 46 Q 40 30 76 46\"\n            fill=\"none\"\n            stroke=\"var(--mm-accent)\"\n            strokeWidth=\"2\"\n            strokeOpacity=\"0.6\"\n            strokeDasharray={pulsing && !prefersReduced ? \"4 4\" : undefined}\n          />\n          <circle cx=\"40\" cy=\"30\" r=\"6\" fill=\"var(--mm-accent)\" />\n        </svg>\n\n        <div className=\"space-y-2\">\n          <div className=\"rounded-lg border border-[var(--mm-border)] bg-[var(--mm-bg)] px-2.5 py-1.5 font-mono text-[11px]\">\n            Next.js App\n          </div>\n          <div className=\"rounded-lg border border-[var(--mm-border)] bg-[var(--mm-bg)] px-2.5 py-1.5 font-mono text-[11px]\">\n            shadcn CLI\n          </div>\n        </div>\n      </div>\n\n      <button\n        type=\"button\"\n        onClick={() => setPulsing((p) => !p)}\n        aria-pressed={pulsing}\n        className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[10px] text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n      >\n        {pulsing ? \"Pause Beams\" : \"Resume Beams\"}\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

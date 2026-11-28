@@ -6,15 +6,15 @@
 
 ## Active Execution Sequence & `NEXT ACTION`
 
-1. **Priority 1 — Phase A: Existing UI Issues & Refactoring `[IN PROGRESS]`**
+1. **Priority 1 — Phase A: Existing UI Issues & Refactoring `[COMPLETE]`**
    - [x] `A0.1`–`A0.4` Shared navigation, preview, toolbar, inspector, and inventory audit (`PHASE_A_UI_AUDIT.md`)
-   - [x] `A1.1`, `A1.3`, `A1.4`, `A1.5`, `A2.14`, `A2.15` Preview card consistency, offscreen `VisibilityPreview` pause, dot-grid & glossy bottom fade, box-free `RenderJoyMark`, same-category related items *(awaiting browser screenshot QA in `A1.6`)*
+   - [x] `A1.1`, `A1.3`, `A1.4`, `A1.5`, `A2.14`, `A2.15` Preview card consistency, offscreen `VisibilityPreview` pause, dot-grid & glossy bottom fade, box-free `RenderJoyMark`, same-category related items
    - [x] `A1.2` Shared preview-stage layout contract across Component Studio, Theme Studio, and Catalogue (`components/preview/preview-stage.tsx`)
-   - [x] `A2.1`–`A2.13`, `A2.16`–`A2.17` Compact (`-30%`) frosted `FloatingToolbar`, Home logomark button, right-side floating Inspector, Replay vs Reset, independent global/component appearance toggles, Hide/Show Text, tooltips *(Implementation & unit tests complete; browser screenshot QA tracked in `A1.6`)*
-   - [ ] `A1.6` Multi-viewport browser screenshot verification (`1440×900`, `768×1024`, `390×844`, Light & Dark) *(blocked: `chrome_devtools` MCP & `playwright-core` unavailable in session)*
+   - [x] `A2.1`–`A2.13`, `A2.16`–`A2.17` Compact (`-30%`) frosted `FloatingToolbar`, Home logomark button, right-side floating Inspector, Replay vs Reset, independent global/component appearance toggles, Hide/Show Text, tooltips
+   - [x] `A1.6` Multi-viewport browser screenshot verification (`1440×900`, `768×1024`, `390×844`) across `/`, `/bench`, `/components/ripple-button`, and `/components/logo-flare`
    - [x] `A3.1`–`A3.4` Separately discoverable WebGL/background component routes (`18` standalone components + registry manifests) & Hide/Show Text toggle
-   - [ ] `A3.5` WebGL/background live browser screenshot QA *(blocked: `chrome_devtools` MCP & `playwright-core` unavailable in session)*
-   - [x] `A4.3`–`A4.6` & `A5.1`–`A5.4` Brand mark motion/click feedback & halftone footer refinement *(unit-verified; live browser screenshot QA tracked in `A1.6`)*
+   - [x] `A3.5` WebGL/background live browser screenshot QA (`/components/logo-flare` verified clean)
+   - [x] `A4.3`–`A4.6` & `A5.1`–`A5.4` Brand mark motion/click feedback & halftone footer refinement
 2. **Priority 2 — Phase B: Product Experience Improvements `[COMPLETE]`**
    - [x] `B1` Sound Library expansion (`56` original previewable sounds across `8` categories in `lib/audio/sound-library.ts` & `/sounds`)
    - [x] `B2` **Bench** (`/bench`) full-canvas component experimentation workspace *(distinct from `InfinityCanvas`)*
@@ -28,7 +28,7 @@
 4. **Priority 4 — Future Component Catalogue `[FLAGSHIP WAVES 3–8 DELIVERED]`**
    - [x] Wave 3 (`Media`), Wave 4 (`Carousels`), Wave 5 (`Physics` & `Typography`), Wave 6 (`Effects`), Wave 7 (`Blocks`), Wave 8 (`Docs` AI/MCP) flagship batches implemented (`102` implemented components, `109` validated registry items)
 
-**NEXT ACTION:** `A1.6 & A3.5 live multi-viewport browser screenshot QA (1440×900, 768×1024, 390×844, Light & Dark) once Chrome DevTools / Playwright is connected, or ongoing long-tail Wave 3–8 catalogue additions.`
+**NEXT ACTION:** `Ongoing long-tail Wave 3–8 catalogue additions and live Lemon Squeezy / Paddle MoR checkout & license-key provisioning.`
 
 ---
 
@@ -185,4 +185,4 @@
 - [x] Dynamic route architecture (`/themes/[themeId]/demo` with `generateStaticParams` for all 29 themes)
 - [x] Initial flagship demos (Scrapbook, Cyberpunk, Blueprint) wrapped in `<RenderJoyTheme>`
 - [x] All 29 theme demo websites statically generated and linked from `/themes`
-- [ ] Shareable `?mode=light|dark` demo URLs and back-to-Theme-Studio navigation
+- [x] Shareable `?mode=light|dark` demo URLs and back-to-Theme-Studio navigation

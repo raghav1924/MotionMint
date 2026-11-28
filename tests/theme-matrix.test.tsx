@@ -15,6 +15,7 @@ import { Dropzone } from "@/registry/components/dropzone";
 import { SwipeCardDeck } from "@/registry/components/swipe-card-deck";
 import { ThinkingLoader } from "@/registry/components/thinking-loader";
 import { FlipCard } from "@/registry/components/flip-card";
+import { ThemeDemoWebsite } from "@/components/theme/theme-demo-website";
 
 describe("29-Theme Design System & 261-Combination Matrix", () => {
   it("contains all 29 unique themes with complete token profiles", () => {
@@ -102,5 +103,26 @@ describe("Signature Components", () => {
     expect(card).toHaveAttribute("aria-pressed", "false");
     fireEvent.click(card);
     expect(card).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("ThemeDemoWebsite syncs shareable ?mode=light|dark URLs and links back to Theme Studio", () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", {
+      value: { writeText },
+      configurable: true,
+    });
+    window.history.replaceState(null, "", "/themes/minimalism/demo?mode=dark");
+
+    render(<ThemeDemoWebsite theme={ALL_THEMES[0]} />);
+
+    expect(screen.getByText(/Minimalism · dark expression/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Back to Theme Studio/i })).toHaveAttribute("href", "/themes");
+
+    fireEvent.click(screen.getByRole("button", { name: "light" }));
+    expect(screen.getByText(/Minimalism · light expression/i)).toBeInTheDocument();
+    expect(window.location.search).toBe("?mode=light");
+
+    fireEvent.click(screen.getByRole("button", { name: /Copy shareable demo link/i }));
+    expect(writeText).toHaveBeenCalledWith(expect.stringContaining("/themes/minimalism/demo?mode=light"));
   });
 });

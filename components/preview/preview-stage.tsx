@@ -96,7 +96,7 @@ export function PreviewStage({
     <div
       data-testid="desktop-canvas-stage"
       className={cn(
-        "relative flex w-full items-center justify-center border-b border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] overflow-x-auto",
+        "relative flex w-full items-center justify-center border-b border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] overflow-x-hidden",
         DOT_GRID_CLASS,
         compactDesktop
           ? "min-h-[340px] rounded-[20px] border p-6 sm:p-10"
@@ -107,7 +107,7 @@ export function PreviewStage({
         theme={theme}
         mode={themeMode}
         padded
-        className="relative z-10 w-full max-w-3xl flex justify-center"
+        className="relative z-10 w-full max-w-3xl overflow-x-hidden flex justify-center"
       >
         {children}
       </RenderJoyTheme>

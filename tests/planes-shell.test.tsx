@@ -23,7 +23,7 @@ vi.mock("next/navigation", () => ({
 describe("Planes UI Design & Interaction Specification", () => {
   it("AnnouncementBar renders promotional ribbon with wavy SVG edge", () => {
     const { container } = render(<AnnouncementBar />);
-    expect(screen.getByText(/102\s+components/i)).toBeInTheDocument();
+    expect(screen.getByText(/146\s+components/i)).toBeInTheDocument();
     expect(container.querySelector("svg path")).not.toBeNull();
   });
 

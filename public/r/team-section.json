@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "team-section",
+  "type": "registry:component",
+  "title": "Team Section",
+  "description": "Studio team directory block with department filter pills.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/team-section.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/team-section.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst MEMBERS = [\n  { id: \"m1\", name: \"Maya Lin\", title: \"Design Systems\", dept: \"Design\" as const },\n  { id: \"m2\", name: \"Alex Rivera\", title: \"Motion Engineer\", dept: \"Engineering\" as const },\n  { id: \"m3\", name: \"Samira Patel\", title: \"WebGL Graphics\", dept: \"Engineering\" as const },\n];\n\nexport interface TeamSectionProps {\n  className?: string;\n}\n\n/**\n * Studio team directory block with department filter pills.\n */\nexport function TeamSection({ className = \"\" }: TeamSectionProps) {\n  const [dept, setDept] = useState<\"All\" | \"Design\" | \"Engineering\">(\"All\");\n  const visible = dept === \"All\" ? MEMBERS : MEMBERS.filter((m) => m.dept === dept);\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 space-y-3 text-left ${className}`.trim()}\n    >\n      <div className=\"flex items-center justify-between gap-2\">\n        <span className=\"text-xs font-semibold text-[var(--mm-fg)]\">Core Team</span>\n        <div role=\"group\" aria-label=\"Filter team\" className=\"flex gap-1\">\n          {([\"All\", \"Design\", \"Engineering\"] as const).map((d) => (\n            <button\n              key={d}\n              type=\"button\"\n              onClick={() => setDept(d)}\n              aria-pressed={dept === d}\n              className={`rounded-full px-2.5 py-0.5 font-mono text-[10px] cursor-pointer ${\n                dept === d\n                  ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-semibold\"\n                  : \"border border-[var(--mm-border)] text-[var(--mm-fg-muted)]\"\n              }`}\n            >\n              {d}\n            </button>\n          ))}\n        </div>\n      </div>\n\n      <div className=\"space-y-2\">\n        {visible.map((m) => (\n          <div\n            key={m.id}\n            className=\"flex items-center justify-between rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-2\"\n          >\n            <div>\n              <p className=\"text-xs font-semibold text-[var(--mm-fg)]\">{m.name}</p>\n              <p className=\"text-[11px] text-[var(--mm-fg-muted)]\">{m.title}</p>\n            </div>\n            <span className=\"font-mono text-[10px] text-[var(--mm-accent)]\">{m.dept}</span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

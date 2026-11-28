@@ -115,7 +115,7 @@ export function FloatingToolbar() {
       aria-label="Floating workspace controls"
       className="fixed bottom-2.5 sm:bottom-3.5 inset-x-0 z-50 flex justify-center px-2 pointer-events-none"
     >
-      <div className="relative pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-1 py-0.5">
+      <div className="relative pointer-events-auto flex max-w-[calc(100vw-16px)] flex-wrap items-center justify-center gap-1 py-0.5">
         {/* Group A: Home (logomark only), Sidebar, Search */}
         <div className={pillClass}>
           <Link

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "feature-1",
+  "type": "registry:component",
+  "title": "Feature Spotlight",
+  "description": "Interactive feature highlight card pairing capability chips with snippets.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/feature-1.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/feature-1.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst FEATURES = [\n  { id: \"cli\", label: \"Zero Lock-In\", snippet: \"npx shadcn@latest add @renderjoy/ripple-button\" },\n  { id: \"themes\", label: \"29 Themes\", snippet: '<RenderJoyTheme theme=\"cyberpunk\" mode=\"dark\">' },\n  { id: \"audio\", label: \"56 Audio Cues\", snippet: 'const { play } = useSound(\"click-soft\");' },\n];\n\nexport interface FeatureSpotlightProps {\n  className?: string;\n}\n\n/**\n * Interactive feature highlight card pairing capability chips with code snippets.\n */\nexport function FeatureSpotlight({ className = \"\" }: FeatureSpotlightProps) {\n  const [selectedId, setSelectedId] = useState(FEATURES[0].id);\n  const active = FEATURES.find((f) => f.id === selectedId) ?? FEATURES[0];\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 space-y-3 text-left ${className}`.trim()}\n    >\n      <div role=\"group\" aria-label=\"Feature highlights\" className=\"flex flex-wrap gap-1.5\">\n        {FEATURES.map((feat) => (\n          <button\n            key={feat.id}\n            type=\"button\"\n            onClick={() => setSelectedId(feat.id)}\n            aria-pressed={selectedId === feat.id}\n            className={`rounded-full px-3 py-1 font-mono text-[11px] cursor-pointer ${\n              selectedId === feat.id\n                ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-semibold\"\n                : \"border border-[var(--mm-border)] bg-[var(--mm-bg)] text-[var(--mm-fg-muted)]\"\n            }`}\n          >\n            {feat.label}\n          </button>\n        ))}\n      </div>\n      <pre className=\"overflow-x-auto rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] p-3 font-mono text-[11px] text-[var(--mm-fg)]\">\n        <code>{active.snippet}</code>\n      </pre>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

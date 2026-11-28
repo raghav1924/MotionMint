@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logo-cloud",
+  "type": "registry:component",
+  "title": "Logo Cloud",
+  "description": "Filterable partner logo cloud with semantic category pills.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/logo-cloud.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/logo-cloud.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst LOGOS = [\n  { id: \"acme\", name: \"Acme AI\", group: \"AI\" as const },\n  { id: \"vercel\", name: \"OrbitCloud\", group: \"DevTools\" as const },\n  { id: \"linear\", name: \"VectorLab\", group: \"AI\" as const },\n  { id: \"stripe\", name: \"PulseCLI\", group: \"DevTools\" as const },\n];\n\nexport interface LogoCloudProps {\n  className?: string;\n}\n\n/**\n * Filterable partner logo cloud with semantic category pills.\n */\nexport function LogoCloud({ className = \"\" }: LogoCloudProps) {\n  const [group, setGroup] = useState<\"All\" | \"AI\" | \"DevTools\">(\"All\");\n  const visible = group === \"All\" ? LOGOS : LOGOS.filter((l) => l.group === group);\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 space-y-3 ${className}`.trim()}\n    >\n      <div className=\"flex items-center justify-between gap-2\">\n        <span className=\"font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--mm-fg-muted)]\">\n          Trusted Teams\n        </span>\n        <div role=\"group\" aria-label=\"Filter logos\" className=\"flex gap-1\">\n          {([\"All\", \"AI\", \"DevTools\"] as const).map((g) => (\n            <button\n              key={g}\n              type=\"button\"\n              onClick={() => setGroup(g)}\n              aria-pressed={group === g}\n              className={`rounded-full px-2.5 py-0.5 font-mono text-[10px] cursor-pointer ${\n                group === g\n                  ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-semibold\"\n                  : \"border border-[var(--mm-border)] text-[var(--mm-fg-muted)]\"\n              }`}\n            >\n              {g}\n            </button>\n          ))}\n        </div>\n      </div>\n\n      <div className=\"grid grid-cols-2 gap-2\">\n        {visible.map((logo) => (\n          <div\n            key={logo.id}\n            className=\"flex items-center justify-center rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] py-3 font-mono text-xs font-bold tracking-wider text-[var(--mm-fg)]\"\n          >\n            {logo.name}\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

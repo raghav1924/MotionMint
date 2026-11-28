@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "glitch-reveal",
+  "type": "registry:component",
+  "title": "Glitch Reveal",
+  "description": "Kinetic chromatic aberration text reveal triggered on hover, focus, or click.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/glitch-reveal.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/glitch-reveal.tsx",
+      "content": "\"use client\";\n\nimport React, { useEffect, useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nexport interface GlitchRevealProps {\n  text?: string;\n  className?: string;\n}\n\n/**\n * Kinetic chromatic aberration text reveal triggered on hover, focus, or click.\n */\nexport function GlitchReveal({\n  text = \"SIGNAL LOCKED\",\n  className = \"\",\n}: GlitchRevealProps) {\n  const prefersReduced = useReducedMotion();\n  const [active, setActive] = useState(false);\n\n  useEffect(() => {\n    if (!active || prefersReduced) return;\n    const id = window.setTimeout(() => setActive(false), 360);\n    return () => window.clearTimeout(id);\n  }, [active, prefersReduced]);\n\n  const trigger = () => {\n    if (!prefersReduced) {\n      setActive(true);\n    }\n  };\n\n  return (\n    <button\n      type=\"button\"\n      onMouseEnter={trigger}\n      onFocus={trigger}\n      onClick={trigger}\n      aria-label={`Glitch reveal: ${text}`}\n      className={`relative inline-flex items-center justify-center overflow-hidden rounded-xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-5 py-3 font-mono text-base font-bold tracking-[0.12em] text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer ${className}`.trim()}\n    >\n      {active && !prefersReduced && (\n        <>\n          <span\n            aria-hidden=\"true\"\n            className=\"pointer-events-none absolute inset-0 flex items-center justify-center text-cyan-400 opacity-80 translate-x-[-2px] -translate-y-[1px]\"\n          >\n            {text}\n          </span>\n          <span\n            aria-hidden=\"true\"\n            className=\"pointer-events-none absolute inset-0 flex items-center justify-center text-rose-500 opacity-80 translate-x-[2px] translate-y-[1px]\"\n          >\n            {text}\n          </span>\n        </>\n      )}\n      <span className=\"relative z-10\">{text}</span>\n    </button>\n  );\n}\n"
+    }
+  ]
+}

@@ -2118,6 +2118,594 @@
           "target": "components/renderjoy/faq-accordion-block.tsx"
         }
       ]
+    },
+    {
+      "name": "split-flap-board",
+      "type": "registry:component",
+      "title": "Split-Flap Board",
+      "description": "Mechanical departure-board split-flap text display with cycling presets.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/split-flap-board.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/split-flap-board.tsx"
+        }
+      ]
+    },
+    {
+      "name": "odometer",
+      "type": "registry:component",
+      "title": "Odometer",
+      "description": "Rolling numeric odometer with vertical digit drums and reduced-motion fallback.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/odometer.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/odometer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "glitch-reveal",
+      "type": "registry:component",
+      "title": "Glitch Reveal",
+      "description": "Kinetic chromatic aberration text reveal triggered on hover, focus, or click.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/glitch-reveal.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/glitch-reveal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "neon-sign",
+      "type": "registry:component",
+      "title": "Neon Sign",
+      "description": "Luminous neon tube display sign with interactive power switch.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/neon-sign.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/neon-sign.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radar-sweep",
+      "type": "registry:component",
+      "title": "Radar Sweep",
+      "description": "Concentric SVG radar sweep with selectable telemetry nodes.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/radar-sweep.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/radar-sweep.tsx"
+        }
+      ]
+    },
+    {
+      "name": "activity-feed",
+      "type": "registry:component",
+      "title": "Activity Feed",
+      "description": "Filterable team and deployment activity feed with unread state.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/activity-feed.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/activity-feed.tsx"
+        }
+      ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:component",
+      "title": "Data Table",
+      "description": "Searchable, sortable operational data table with aria-sort column state.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/data-table.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/data-table.tsx"
+        }
+      ]
+    },
+    {
+      "name": "integration-wall",
+      "type": "registry:component",
+      "title": "Integration Wall",
+      "description": "Interactive ecosystem integration grid with connector activation toggles.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/integration-wall.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/integration-wall.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dither-donut",
+      "type": "registry:component",
+      "title": "Dither Donut",
+      "description": "Halftone dither-patterned SVG donut chart with selectable segments.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/dither-donut.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dither-donut.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dither-gauge",
+      "type": "registry:component",
+      "title": "Dither Gauge",
+      "description": "Semi-circular dithered SVG gauge with preset load steps.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dither-gauge.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dither-gauge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dither-line-chart",
+      "type": "registry:component",
+      "title": "Dither Line Chart",
+      "description": "SVG trend chart with halftone dither area fill and time range toggles.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/dither-line-chart.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dither-line-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dither-bar-list",
+      "type": "registry:component",
+      "title": "Dither Bar List",
+      "description": "Ranked horizontal bar list with dither-textured progress bars.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/dither-bar-list.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dither-bar-list.tsx"
+        }
+      ]
+    },
+    {
+      "name": "orbit-hero",
+      "type": "registry:component",
+      "title": "Orbit Hero",
+      "description": "Orbital hero section with interactive satellite highlight pills.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/orbit-hero.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/orbit-hero.tsx"
+        }
+      ]
+    },
+    {
+      "name": "curtain-nav",
+      "type": "registry:component",
+      "title": "Curtain Nav",
+      "description": "Minimal header with an expandable full-width curtain navigation drawer.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/curtain-nav.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/curtain-nav.tsx"
+        }
+      ]
+    },
+    {
+      "name": "terminal-login",
+      "type": "registry:component",
+      "title": "Terminal Login",
+      "description": "Command-line inspired authentication prompt with validation.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/terminal-login.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/terminal-login.tsx"
+        }
+      ]
+    },
+    {
+      "name": "horizon-footer",
+      "type": "registry:component",
+      "title": "Horizon Footer",
+      "description": "Editorial horizon footer with accent divider and release-notes opt-in.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/horizon-footer.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/horizon-footer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pricing-1",
+      "type": "registry:component",
+      "title": "Pricing Tier Card",
+      "description": "Interactive two-tier pricing comparison block with Monthly/Annual toggle.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/pricing-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/pricing-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "waitlist-1",
+      "type": "registry:component",
+      "title": "Waitlist Spotlight",
+      "description": "Early-access waitlist card with live queue counter and email validation.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/waitlist-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/waitlist-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "cta-1",
+      "type": "registry:component",
+      "title": "CTA Banner",
+      "description": "Editorial call-to-action banner with one-click CLI install trigger.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/cta-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/cta-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "contact-1",
+      "type": "registry:component",
+      "title": "Contact Card",
+      "description": "Studio contact card with topic selector pills and instant confirmation.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/contact-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/contact-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bento-1",
+      "type": "registry:component",
+      "title": "Bento Highlight Grid",
+      "description": "Interactive 3-tile bento showcase with selectable detail focus.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/bento-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/bento-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "testimonial-1",
+      "type": "registry:component",
+      "title": "Testimonial Deck",
+      "description": "Interactive customer quote spotlight with quote cycling controls.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/testimonial-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/testimonial-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "feature-1",
+      "type": "registry:component",
+      "title": "Feature Spotlight",
+      "description": "Interactive feature highlight card pairing capability chips with snippets.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/feature-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/feature-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "faq-1",
+      "type": "registry:component",
+      "title": "FAQ Quick List",
+      "description": "Compact expandable FAQ list with aria-expanded disclosure buttons.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/faq-1.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/faq-1.tsx"
+        }
+      ]
+    },
+    {
+      "name": "smooth-stagger-text",
+      "type": "registry:component",
+      "title": "Smooth Stagger Text",
+      "description": "Per-character staggered vertical reveal with replay control.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/smooth-stagger-text.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/smooth-stagger-text.tsx"
+        }
+      ]
+    },
+    {
+      "name": "cinematic-text",
+      "type": "registry:component",
+      "title": "Cinematic Text",
+      "description": "Widescreen letter-spacing collapse reveal with replay trigger.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/cinematic-text.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/cinematic-text.tsx"
+        }
+      ]
+    },
+    {
+      "name": "liquid-headline",
+      "type": "registry:component",
+      "title": "Liquid Headline",
+      "description": "Flowing gradient headline with pointer-reactive shimmer angle.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/liquid-headline.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/liquid-headline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "rainbow-text",
+      "type": "registry:component",
+      "title": "Rainbow Text",
+      "description": "Chromatic spectrum headline with interactive palette cycling.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/rainbow-text.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/rainbow-text.tsx"
+        }
+      ]
+    },
+    {
+      "name": "signature-reveal",
+      "type": "registry:component",
+      "title": "Signature Reveal",
+      "description": "Calligraphic SVG stroke-dashoffset signature animation with replay.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/signature-reveal.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/signature-reveal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dotted-sphere",
+      "type": "registry:component",
+      "title": "Dotted Sphere",
+      "description": "3D Fibonacci-projected dot-matrix SVG sphere with rotation toggle.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dotted-sphere.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dotted-sphere.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dot-monogram",
+      "type": "registry:component",
+      "title": "Dot Monogram",
+      "description": "Interactive LED dot-matrix monogram display with glyph cycling.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/dot-monogram.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dot-monogram.tsx"
+        }
+      ]
+    },
+    {
+      "name": "particle-reveal",
+      "type": "registry:component",
+      "title": "Particle Reveal",
+      "description": "Coalescing SVG particle field that converges into a geometric emblem.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/particle-reveal.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/particle-reveal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "logo-cloud",
+      "type": "registry:component",
+      "title": "Logo Cloud",
+      "description": "Filterable partner logo cloud with semantic category pills.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/logo-cloud.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/logo-cloud.tsx"
+        }
+      ]
+    },
+    {
+      "name": "announcement-bar",
+      "type": "registry:component",
+      "title": "Announcement Bar",
+      "description": "Dismissible release announcement bar with restore toggle.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/announcement-bar.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/announcement-bar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "mega-menu",
+      "type": "registry:component",
+      "title": "Mega Menu",
+      "description": "Multi-column dropdown mega menu with accessible expanded state.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/mega-menu.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/mega-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hover-tabs",
+      "type": "registry:component",
+      "title": "Hover Tabs",
+      "description": "Pointer- and keyboard-activated tabs switching preview on hover, focus, or click.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/hover-tabs.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/hover-tabs.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radial-hub-diagram",
+      "type": "registry:component",
+      "title": "Radial Hub Diagram",
+      "description": "Interactive hub-and-spoke SVG architecture diagram with selectable spokes.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/radial-hub-diagram.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/radial-hub-diagram.tsx"
+        }
+      ]
+    },
+    {
+      "name": "integration-beams",
+      "type": "registry:component",
+      "title": "Integration Beams",
+      "description": "Bidirectional integration beam diagram linking sources to targets.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/integration-beams.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/integration-beams.tsx"
+        }
+      ]
+    },
+    {
+      "name": "team-section",
+      "type": "registry:component",
+      "title": "Team Section",
+      "description": "Studio team directory block with department filter pills.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/team-section.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/team-section.tsx"
+        }
+      ]
+    },
+    {
+      "name": "blog-section",
+      "type": "registry:component",
+      "title": "Blog Section",
+      "description": "Editorial article list with category tag filter and read-time badges.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/components/blog-section.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/blog-section.tsx"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,61 @@
+"use client";
+
+import React, { useState } from "react";
+
+const PANELS = {
+  Product: ["Component Studio", "Theme Matrix", "Flow Kit"],
+  Resources: ["Registry Docs", "Sound Library", "Motion Lab"],
+} as const;
+
+type MenuKey = keyof typeof PANELS;
+
+export interface MegaMenuProps {
+  className?: string;
+}
+
+/**
+ * Multi-column dropdown mega menu with accessible expanded state.
+ */
+export function MegaMenu({ className = "" }: MegaMenuProps) {
+  const [openMenu, setOpenMenu] = useState<MenuKey | null>("Product");
+
+  return (
+    <div
+      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-3 space-y-2.5 text-left ${className}`.trim()}
+    >
+      <div className="flex items-center gap-2">
+        {(Object.keys(PANELS) as MenuKey[]).map((key) => {
+          const isOpen = openMenu === key;
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setOpenMenu(isOpen ? null : key)}
+              aria-expanded={isOpen}
+              className={`rounded-full px-3 py-1 font-mono text-[11px] cursor-pointer ${
+                isOpen
+                  ? "bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-semibold"
+                  : "border border-[var(--mm-border)] bg-[var(--mm-bg)] text-[var(--mm-fg)]"
+              }`}
+            >
+              {key}
+            </button>
+          );
+        })}
+      </div>
+
+      {openMenu && (
+        <div className="grid grid-cols-3 gap-2 rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] p-2.5">
+          {PANELS[openMenu].map((item) => (
+            <div
+              key={item}
+              className="rounded-lg border border-[var(--mm-border)] bg-[var(--mm-surface)] px-2.5 py-2 text-[11px] font-medium text-[var(--mm-fg)]"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

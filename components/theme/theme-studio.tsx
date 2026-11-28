@@ -331,7 +331,7 @@ export function ThemeStudio() {
               </div>
               <div className="flex justify-end border-t border-[var(--ws-border-subtle)] pt-2">
                 <Link
-                  href={`/themes/${t.id}/demo`}
+                  href={`/themes/${t.id}/demo?mode=${themeMode}`}
                   className="font-mono text-[11px] font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
                 >
                   Open {t.name} Demo →

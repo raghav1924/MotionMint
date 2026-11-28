@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "neon-sign",
+  "type": "registry:component",
+  "title": "Neon Sign",
+  "description": "Luminous neon tube display sign with interactive power switch.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/neon-sign.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/neon-sign.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nexport interface NeonSignProps {\n  text?: string;\n  defaultLit?: boolean;\n  className?: string;\n}\n\n/**\n * Luminous neon tube display sign with interactive power switch and reduced-motion support.\n */\nexport function NeonSign({\n  text = \"OPEN LATE\",\n  defaultLit = true,\n  className = \"\",\n}: NeonSignProps) {\n  const prefersReduced = useReducedMotion();\n  const [lit, setLit] = useState(defaultLit);\n\n  return (\n    <div\n      className={`inline-flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-6 py-5 ${className}`.trim()}\n    >\n      <span\n        style={{\n          textShadow: lit\n            ? \"0 0 8px var(--mm-accent), 0 0 22px var(--mm-accent)\"\n            : \"none\",\n          transition: prefersReduced ? \"none\" : \"text-shadow 240ms ease, color 240ms ease\",\n        }}\n        className={`font-mono text-xl font-bold tracking-[0.22em] uppercase ${\n          lit ? \"text-[var(--mm-accent)]\" : \"text-[var(--mm-fg-muted)] opacity-50\"\n        }`}\n      >\n        {text}\n      </span>\n      <button\n        type=\"button\"\n        onClick={() => setLit((v) => !v)}\n        aria-pressed={lit}\n        className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[11px] font-medium text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n      >\n        {lit ? \"Power: ON\" : \"Power: OFF\"}\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

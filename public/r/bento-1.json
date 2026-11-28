@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bento-1",
+  "type": "registry:component",
+  "title": "Bento Highlight Grid",
+  "description": "Interactive 3-tile bento showcase with selectable detail focus.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/bento-1.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/bento-1.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst TILES = [\n  { id: \"tokens\", title: \"Scoped Tokens\", metric: \"58 variants\", note: \"CSS vars isolated to preview\" },\n  { id: \"audio\", title: \"Sound Engine\", metric: \"56 cues\", note: \"Zero-dependency Web Audio\" },\n  { id: \"motion\", title: \"Spring Lab\", metric: \"6 presets\", note: \"Reduced-motion safe\" },\n];\n\nexport interface BentoHighlightGridProps {\n  className?: string;\n}\n\n/**\n * Interactive 3-tile bento showcase with selectable detail focus.\n */\nexport function BentoHighlightGrid({ className = \"\" }: BentoHighlightGridProps) {\n  const [activeId, setActiveId] = useState(TILES[0].id);\n  const active = TILES.find((t) => t.id === activeId) ?? TILES[0];\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 space-y-3 text-left ${className}`.trim()}\n    >\n      <div className=\"grid grid-cols-3 gap-2\">\n        {TILES.map((tile) => {\n          const isSelected = tile.id === active.id;\n          return (\n            <button\n              key={tile.id}\n              type=\"button\"\n              onClick={() => setActiveId(tile.id)}\n              aria-pressed={isSelected}\n              className={`rounded-xl border p-2.5 text-left cursor-pointer ${\n                isSelected\n                  ? \"border-[var(--mm-accent)] bg-[var(--mm-bg)]\"\n                  : \"border-[var(--mm-border)] bg-[var(--mm-bg)]/60\"\n              }`}\n            >\n              <p className=\"text-[11px] font-semibold text-[var(--mm-fg)]\">{tile.title}</p>\n              <p className=\"mt-1 font-mono text-[10px] text-[var(--mm-accent)]\">{tile.metric}</p>\n            </button>\n          );\n        })}\n      </div>\n      <p className=\"rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-2 font-mono text-[11px] text-[var(--mm-fg-muted)]\">\n        {active.title}: {active.note}\n      </p>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

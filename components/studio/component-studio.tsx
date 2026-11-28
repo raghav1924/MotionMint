@@ -121,6 +121,50 @@ import { AuthSplitBlock } from "@/registry/components/auth-split-block";
 import { ChangelogTimeline } from "@/registry/components/changelog-timeline";
 import { FeatureTabsBlock } from "@/registry/components/feature-tabs-block";
 import { FaqAccordionBlock } from "@/registry/components/faq-accordion-block";
+import { SplitFlapBoard } from "@/registry/components/split-flap-board";
+import { Odometer } from "@/registry/components/odometer";
+import { GlitchReveal } from "@/registry/components/glitch-reveal";
+import { NeonSign } from "@/registry/components/neon-sign";
+import { RadarSweep } from "@/registry/components/radar-sweep";
+import { ActivityFeed } from "@/registry/components/activity-feed";
+import { DataTable } from "@/registry/components/data-table";
+import { IntegrationWall } from "@/registry/components/integration-wall";
+import { DitherDonut } from "@/registry/components/dither-donut";
+import { DitherGauge } from "@/registry/components/dither-gauge";
+import { DitherLineChart } from "@/registry/components/dither-line-chart";
+import { DitherBarList } from "@/registry/components/dither-bar-list";
+import { OrbitHero } from "@/registry/components/orbit-hero";
+import { CurtainNav } from "@/registry/components/curtain-nav";
+import { TerminalLogin } from "@/registry/components/terminal-login";
+import { HorizonFooter } from "@/registry/components/horizon-footer";
+import { PricingTierCard } from "@/registry/components/pricing-1";
+import { WaitlistSpotlight } from "@/registry/components/waitlist-1";
+import { CtaBanner } from "@/registry/components/cta-1";
+import { ContactCard } from "@/registry/components/contact-1";
+import { BentoHighlightGrid } from "@/registry/components/bento-1";
+import { TestimonialDeck } from "@/registry/components/testimonial-1";
+import { FeatureSpotlight } from "@/registry/components/feature-1";
+import { FaqQuickList } from "@/registry/components/faq-1";
+import { SmoothStaggerText } from "@/registry/components/smooth-stagger-text";
+import { CinematicText } from "@/registry/components/cinematic-text";
+import { LiquidHeadline } from "@/registry/components/liquid-headline";
+import { RainbowText } from "@/registry/components/rainbow-text";
+import { SignatureReveal } from "@/registry/components/signature-reveal";
+import { DottedSphere } from "@/registry/components/dotted-sphere";
+import { DotMonogram } from "@/registry/components/dot-monogram";
+import { ParticleReveal } from "@/registry/components/particle-reveal";
+import { LogoCloud } from "@/registry/components/logo-cloud";
+import { AnnouncementBarBlock } from "@/registry/components/announcement-bar";
+import { MegaMenu } from "@/registry/components/mega-menu";
+import { HoverTabs } from "@/registry/components/hover-tabs";
+import { RadialHubDiagram } from "@/registry/components/radial-hub-diagram";
+import { IntegrationBeams } from "@/registry/components/integration-beams";
+import { TeamSection } from "@/registry/components/team-section";
+import { BlogSection } from "@/registry/components/blog-section";
+import { WordmarkFooter } from "@/registry/components/wordmark-footer";
+import { GradientFooter } from "@/registry/components/gradient-footer";
+import { EditorialHero } from "@/registry/components/editorial-hero";
+import { ScenicHero } from "@/registry/components/scenic-hero";
 import { ComponentDocs } from "@/components/documentation/component-docs";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { Lock } from "lucide-react";
@@ -721,10 +765,10 @@ export function ComponentStudio({
             {showPreviewText && (
               <div
                 className={cn(
-                  "flex h-full flex-col items-center gap-2.5",
+                  "flex w-full flex-col items-center gap-2.5",
                   shaderPreset === "logo-flare" && shaderShowLogo
-                    ? "justify-end pb-8"
-                    : "justify-center"
+                    ? "min-h-[540px] justify-end pb-6"
+                    : "h-full justify-center"
                 )}
               >
               <span
@@ -831,6 +875,94 @@ export function ComponentStudio({
         return <FeatureTabsBlock />;
       case "faq-accordion-block":
         return <FaqAccordionBlock />;
+      case "split-flap-board":
+        return <SplitFlapBoard />;
+      case "odometer":
+        return <Odometer />;
+      case "glitch-reveal":
+        return <GlitchReveal />;
+      case "neon-sign":
+        return <NeonSign />;
+      case "radar-sweep":
+        return <RadarSweep />;
+      case "activity-feed":
+        return <ActivityFeed />;
+      case "data-table":
+        return <DataTable />;
+      case "integration-wall":
+        return <IntegrationWall />;
+      case "dither-donut":
+        return <DitherDonut />;
+      case "dither-gauge":
+        return <DitherGauge />;
+      case "dither-line-chart":
+        return <DitherLineChart />;
+      case "dither-bar-list":
+        return <DitherBarList />;
+      case "orbit-hero":
+        return <OrbitHero />;
+      case "curtain-nav":
+        return <CurtainNav />;
+      case "terminal-login":
+        return <TerminalLogin />;
+      case "horizon-footer":
+        return <HorizonFooter />;
+      case "pricing-1":
+        return <PricingTierCard />;
+      case "waitlist-1":
+        return <WaitlistSpotlight />;
+      case "cta-1":
+        return <CtaBanner />;
+      case "contact-1":
+        return <ContactCard />;
+      case "bento-1":
+        return <BentoHighlightGrid />;
+      case "testimonial-1":
+        return <TestimonialDeck />;
+      case "feature-1":
+        return <FeatureSpotlight />;
+      case "faq-1":
+        return <FaqQuickList />;
+      case "smooth-stagger-text":
+        return <SmoothStaggerText />;
+      case "cinematic-text":
+        return <CinematicText />;
+      case "liquid-headline":
+        return <LiquidHeadline />;
+      case "rainbow-text":
+        return <RainbowText />;
+      case "signature-reveal":
+        return <SignatureReveal />;
+      case "dotted-sphere":
+        return <DottedSphere />;
+      case "dot-monogram":
+        return <DotMonogram />;
+      case "particle-reveal":
+        return <ParticleReveal />;
+      case "logo-cloud":
+        return <LogoCloud />;
+      case "announcement-bar":
+        return <AnnouncementBarBlock />;
+      case "mega-menu":
+        return <MegaMenu />;
+      case "hover-tabs":
+        return <HoverTabs />;
+      case "radial-hub-diagram":
+        return <RadialHubDiagram />;
+      case "integration-beams":
+        return <IntegrationBeams />;
+      case "team-section":
+        return <TeamSection />;
+      case "blog-section":
+        return <BlogSection />;
+      case "wordmark-footer":
+        return <WordmarkFooter />;
+      case "gradient-footer":
+        return <GradientFooter />;
+      case "editorial-hero":
+        return <EditorialHero />;
+      case "scenic-hero":
+        return <ScenicHero />;
       case "tactile-3d-button":
         return (
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -1440,7 +1572,7 @@ export function ComponentStudio({
       case "particle-helix":
       case "bio-terrain":
         return (
-          <div className={cn("grid gap-6 text-xs text-[var(--ws-text-secondary)]", !isStandaloneShader ? "md:grid-cols-3" : "md:grid-cols-2")}>
+          <div className="grid grid-cols-1 gap-4 text-xs text-[var(--ws-text-secondary)]">
             {!isStandaloneShader && (
             <div className="space-y-1.5">
               <p className="font-medium text-[var(--ws-text-primary)]">Shader Preset</p>

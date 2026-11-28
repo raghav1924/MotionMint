@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dither-gauge",
+  "type": "registry:component",
+  "title": "Dither Gauge",
+  "description": "Semi-circular dithered SVG gauge with preset load steps.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dither-gauge.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/dither-gauge.tsx",
+      "content": "\"use client\";\n\nimport React, { useId, useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nexport interface DitherGaugeProps {\n  initialValue?: number;\n  label?: string;\n  className?: string;\n}\n\n/**\n * Semi-circular dithered SVG gauge with preset load steps and meter semantics.\n */\nexport function DitherGauge({\n  initialValue = 76,\n  label = \"GPU Budget\",\n  className = \"\",\n}: DitherGaugeProps) {\n  const patternId = useId();\n  const prefersReduced = useReducedMotion();\n  const [value, setValue] = useState(initialValue);\n\n  const clamped = Math.max(0, Math.min(100, value));\n  const arcLen = 125.66; // pi * 40\n  const filled = (clamped / 100) * arcLen;\n\n  return (\n    <div\n      className={`inline-flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-5 py-4 ${className}`.trim()}\n    >\n      <div\n        role=\"meter\"\n        aria-label={label}\n        aria-valuemin={0}\n        aria-valuemax={100}\n        aria-valuenow={clamped}\n        className=\"relative flex flex-col items-center\"\n      >\n        <svg viewBox=\"0 0 100 58\" className=\"h-24 w-44\" aria-hidden=\"true\">\n          <defs>\n            <pattern id={patternId} width=\"3.5\" height=\"3.5\" patternUnits=\"userSpaceOnUse\">\n              <circle cx=\"1.4\" cy=\"1.4\" r=\"0.85\" fill=\"var(--mm-accent)\" />\n            </pattern>\n          </defs>\n          <path\n            d=\"M 10 50 A 40 40 0 0 1 90 50\"\n            fill=\"none\"\n            stroke=\"var(--mm-border)\"\n            strokeWidth=\"10\"\n            strokeLinecap=\"round\"\n          />\n          <path\n            d=\"M 10 50 A 40 40 0 0 1 90 50\"\n            fill=\"none\"\n            stroke={`url(#${patternId})`}\n            strokeWidth=\"10\"\n            strokeLinecap=\"round\"\n            strokeDasharray={`${filled} ${arcLen}`}\n            style={{\n              transition: prefersReduced ? \"none\" : \"stroke-dasharray 320ms ease\",\n            }}\n          />\n        </svg>\n        <div className=\"-mt-6 text-center\">\n          <p className=\"font-mono text-xl font-bold tabular-nums text-[var(--mm-fg)]\">\n            {clamped}%\n          </p>\n          <p className=\"font-mono text-[10px] uppercase tracking-wider text-[var(--mm-fg-muted)]\">\n            {label}\n          </p>\n        </div>\n      </div>\n\n      <div role=\"group\" aria-label=\"Gauge presets\" className=\"flex gap-1.5\">\n        {[42, 76, 94].map((preset) => (\n          <button\n            key={preset}\n            type=\"button\"\n            onClick={() => setValue(preset)}\n            aria-pressed={clamped === preset}\n            className={`rounded-full px-2.5 py-1 font-mono text-[11px] cursor-pointer ${\n              clamped === preset\n                ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-semibold\"\n                : \"border border-[var(--mm-border)] text-[var(--mm-fg-muted)]\"\n            }`}\n          >\n            {preset}%\n          </button>\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

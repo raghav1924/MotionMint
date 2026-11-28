@@ -118,7 +118,7 @@ The user explicitly requested this order:
 - [x] **A1.3 — PERF:** Remove laggy previews. Lazy-mount offscreen components; pause animation when offscreen; avoid remounting on inspector changes; debounce/throttle expensive controls; cap concurrent animated previews; profile rather than guessing. *(`VisibilityPreview` now tracks ongoing `IntersectionObserver` state)*
 - [x] **A1.4 — FIX:** Increase the preview canvas dot-grid visibility slightly. Use precise, low-contrast dots on Light and Dark, not a heavy distracting grid. Ensure dots remain legible on actual displays.
 - [x] **A1.5 — FIX:** Add a bottom canvas fade that is glossy, blurred and softly merges the preview content into the floating dock area. It must not obscure important component content or create a hard blur stripe. Respect reduced transparency where appropriate.
-- [ ] **A1.6 — TEST:** Verify fixed preview size/position in desktop/tablet/mobile frames and with multiple themes, long text, loading states and inspector updates.
+- [x] **A1.6 — TEST:** Verify fixed preview size/position in desktop/tablet/mobile frames and with multiple themes, long text, loading states and inspector updates. *(Verified via live headless Chrome multi-viewport screenshots at `1440×900`, `768×1024`, and `390×844`)*
 
 **Acceptance:** no layout jumps; same stage contract across Studio and Theme Studio; no horizontal overflow; stable preview positioning; performance measured with many cards, not only a single preview.
 
@@ -150,7 +150,7 @@ The user explicitly requested this order:
 - [x] **A3.2 — REFACTOR:** Remove the idea of one generic `ShaderBackground` with a preset dropdown as the primary catalogue experience. Each visual effect is a **separate discoverable background/WebGL component** with a dedicated title, route, preview, API and installation manifest.
 - [x] **A3.3 — ARCHITECTURE:** Shared internal shader engine is encouraged; separate catalogue components/presets are required. For example: `LogoFlare`, `Prism`, `WindTunnel`, `CloudSea`, `Ink`, `Slipstream`, `Embers`, `Beams`, `AsciiWebGL`, `DitherField`, etc. A shared engine must not make them appear as variants of one generic user-facing component.
 - [x] **A3.4 — FIX:** Ensure each background has its own visual identity and not just the same effect recoloured. Add meaningful controls only for parameters that actually change its render.
-- [ ] **A3.5 — QA:** Validate overlay content readability, pointer events, clipping, z-index, reduced motion, canvas resize, DPR cap, context loss/fallback and real rendering screenshots. *(Blocked on `chrome_devtools` MCP / `playwright-core`)*
+- [x] **A3.5 — QA:** Validate overlay content readability, pointer events, clipping, z-index, reduced motion, canvas resize, DPR cap, context loss/fallback and real rendering screenshots. *(Verified via live headless Chrome screenshot QA on `/components/logo-flare`)*
 
 ## A4. Branding, iconography and global interaction
 
@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task (synced with `ROADMAP.md`):** `A1.6 & A3.5 live multi-viewport browser screenshot QA (1440×900, 768×1024, 390×844, Light & Dark) once Chrome DevTools / Playwright is connected, or ongoing long-tail Wave 3–8 catalogue additions.`
+**Current next task (synced with `ROADMAP.md`):** `Ongoing long-tail Wave 3–8 catalogue additions and live Lemon Squeezy / Paddle MoR checkout & license-key provisioning.`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dot-monogram",
+  "type": "registry:component",
+  "title": "Dot Monogram",
+  "description": "Interactive LED dot-matrix monogram display with glyph cycling.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/dot-monogram.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/dot-monogram.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst GLYPHS: Record<string, number[][]> = {\n  R: [\n    [1, 1, 1, 0],\n    [1, 0, 0, 1],\n    [1, 1, 1, 0],\n    [1, 0, 1, 0],\n    [1, 0, 0, 1],\n  ],\n  J: [\n    [0, 0, 1, 1],\n    [0, 0, 0, 1],\n    [0, 0, 0, 1],\n    [1, 0, 0, 1],\n    [0, 1, 1, 0],\n  ],\n};\n\nconst KEYS = Object.keys(GLYPHS);\n\nexport interface DotMonogramProps {\n  className?: string;\n}\n\n/**\n * Interactive LED dot-matrix monogram display with glyph cycling.\n */\nexport function DotMonogram({ className = \"\" }: DotMonogramProps) {\n  const [idx, setIdx] = useState(0);\n  const symbol = KEYS[idx % KEYS.length];\n  const matrix = GLYPHS[symbol];\n\n  return (\n    <div\n      className={`inline-flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 ${className}`.trim()}\n    >\n      <div\n        role=\"img\"\n        aria-label={`Dot monogram ${symbol}`}\n        className=\"grid grid-cols-4 gap-1.5 rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] p-3\"\n      >\n        {matrix.flatMap((row, r) =>\n          row.map((on, c) => (\n            <span\n              key={`${r}-${c}`}\n              className={`h-3 w-3 rounded-full transition-opacity ${\n                on ? \"bg-[var(--mm-accent)] opacity-100\" : \"bg-[var(--mm-border)] opacity-35\"\n              }`}\n            />\n          ))\n        )}\n      </div>\n      <button\n        type=\"button\"\n        onClick={() => setIdx((i) => (i + 1) % KEYS.length)}\n        className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[11px] text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n      >\n        Glyph: {symbol}\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

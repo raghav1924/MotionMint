@@ -3,7 +3,7 @@
 > Interaction-first React & Next.js UI toolkit with optional Web Audio & haptic feedback, a 58-variant (29 themes × Light/Dark) scoped design token system, standalone WebGL backgrounds, Bench workspace, and Flow UI Kit.
 
 ## Status
-- Implemented Components: 102 (`109` validated registry items in `public/r/`)
+- Implemented Components: 146 (`153` validated registry items in `public/r/`)
 - WebGL Standalone Backgrounds: 18 distinct GPU shader effects (`logo-flare`, `silk`, `prism`, `kinetic-torus`, etc.)
 - Sound Library: 56 original procedural Web Audio cues across 8 categories
 - Themes: 29 complete token profiles × Light/Dark (58 variants) + 29 static demo websites (`/themes/[themeId]/demo`)

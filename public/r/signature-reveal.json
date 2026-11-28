@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "signature-reveal",
+  "type": "registry:component",
+  "title": "Signature Reveal",
+  "description": "Calligraphic SVG stroke-dashoffset signature animation with replay.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/signature-reveal.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/signature-reveal.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\n\nexport interface SignatureRevealProps {\n  label?: string;\n  className?: string;\n}\n\n/**\n * Calligraphic SVG stroke-dashoffset signature reveal with replay control.\n */\nexport function SignatureReveal({\n  label = \"Signed by Studio\",\n  className = \"\",\n}: SignatureRevealProps) {\n  const prefersReduced = useReducedMotion();\n  const [replayKey, setReplayKey] = useState(0);\n\n  return (\n    <div\n      className={`inline-flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-6 py-4 ${className}`.trim()}\n    >\n      <svg\n        key={replayKey}\n        viewBox=\"0 0 220 64\"\n        className=\"h-14 w-48\"\n        role=\"img\"\n        aria-label={label}\n      >\n        <motion.path\n          d=\"M16 44 C 36 12, 54 52, 76 26 C 92 8, 98 48, 122 30 C 138 18, 152 44, 174 28 C 188 18, 196 34, 206 24\"\n          fill=\"none\"\n          stroke=\"var(--mm-accent)\"\n          strokeWidth=\"3\"\n          strokeLinecap=\"round\"\n          strokeLinejoin=\"round\"\n          initial={prefersReduced ? false : { pathLength: 0, opacity: 0.4 }}\n          animate={{ pathLength: 1, opacity: 1 }}\n          transition={{ duration: prefersReduced ? 0 : 0.9, ease: \"easeInOut\" }}\n        />\n      </svg>\n      <button\n        type=\"button\"\n        onClick={() => setReplayKey((k) => k + 1)}\n        className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[11px] text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n      >\n        Replay Signature\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "odometer",
+  "type": "registry:component",
+  "title": "Odometer",
+  "description": "Rolling numeric odometer with vertical digit drums and reduced-motion fallback.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/odometer.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/odometer.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nexport interface OdometerProps {\n  initialValue?: number;\n  step?: number;\n  label?: string;\n  className?: string;\n}\n\n/**\n * Rolling numeric odometer with vertical digit drums and reduced-motion fallback.\n */\nexport function Odometer({\n  initialValue = 1248,\n  step = 137,\n  label = \"Active Installs\",\n  className = \"\",\n}: OdometerProps) {\n  const prefersReduced = useReducedMotion();\n  const [value, setValue] = useState(initialValue);\n  const digits = String(Math.max(0, Math.round(value))).padStart(4, \"0\").split(\"\");\n\n  return (\n    <div\n      className={`inline-flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-5 py-4 ${className}`.trim()}\n    >\n      <span className=\"font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--mm-fg-muted)]\">\n        {label}\n      </span>\n      <div\n        role=\"status\"\n        aria-live=\"polite\"\n        aria-label={`${label}: ${value}`}\n        className=\"flex items-center gap-1 tabular-nums\"\n      >\n        {digits.map((digit, idx) => {\n          const num = Number(digit);\n          return (\n            <div\n              key={idx}\n              className=\"relative h-10 w-7 overflow-hidden rounded-md border border-[var(--mm-border)] bg-[var(--mm-bg)] font-mono text-xl font-bold text-[var(--mm-fg)]\"\n            >\n              <div\n                style={{\n                  transform: `translateY(-${num * 10}%)`,\n                  transition: prefersReduced\n                    ? \"none\"\n                    : \"transform 420ms cubic-bezier(0.22, 1, 0.36, 1)\",\n                }}\n                className=\"flex flex-col\"\n              >\n                {Array.from({ length: 10 }, (_, n) => (\n                  <span key={n} className=\"flex h-10 items-center justify-center\">\n                    {n}\n                  </span>\n                ))}\n              </div>\n            </div>\n          );\n        })}\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <button\n          type=\"button\"\n          onClick={() => setValue((v) => v + step)}\n          className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[11px] font-medium text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n        >\n          +{step}\n        </button>\n        <button\n          type=\"button\"\n          onClick={() => setValue(initialValue)}\n          className=\"rounded-full border border-[var(--mm-border)] px-3 py-1 font-mono text-[11px] text-[var(--mm-fg-muted)] hover:text-[var(--mm-fg)] cursor-pointer\"\n        >\n          Reset\n        </button>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

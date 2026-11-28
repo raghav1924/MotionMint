@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Moon, Sun } from "lucide-react";
+import { ArrowLeft, Check, Moon, Share2, Sun } from "lucide-react";
 import type { ThemeDefinition } from "@/lib/themes/types";
 import { ALL_THEMES } from "@/lib/themes/registry";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
@@ -18,6 +18,35 @@ import { cn } from "@/lib/utils";
 export function ThemeDemoWebsite({ theme }: { theme: ThemeDefinition }) {
   const [mode, setMode] = useState<"light" | "dark">("light");
   const [segment, setSegment] = useState("overview");
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get("mode");
+    if (param === "light" || param === "dark") {
+      setMode(param);
+    }
+  }, []);
+
+  const handleModeChange = (nextMode: "light" | "dark") => {
+    setMode(nextMode);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("mode", nextMode);
+      window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    }
+  };
+
+  const handleCopyShareLink = async () => {
+    if (typeof window === "undefined") return;
+    const shareUrl = `${window.location.origin}/themes/${theme.id}/demo?mode=${mode}`;
+    try {
+      await navigator.clipboard?.writeText(shareUrl);
+    } catch {
+      // Clipboard API may be unavailable in restricted contexts
+    }
+    setCopiedLink(true);
+    window.setTimeout(() => setCopiedLink(false), 1800);
+  };
 
   return (
     <div className="mx-auto max-w-[1320px] px-4 pt-20 pb-24 sm:px-8 space-y-6">
@@ -29,7 +58,7 @@ export function ThemeDemoWebsite({ theme }: { theme: ThemeDefinition }) {
             className="inline-flex items-center gap-1.5 font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
           >
             <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
-            <span>All 29 Themes</span>
+            <span>Back to Theme Studio</span>
           </Link>
           <span className="text-[var(--ws-border-strong)]">/</span>
           <span className="font-semibold text-[var(--ws-text-primary)]">{theme.name}</span>
@@ -39,6 +68,25 @@ export function ThemeDemoWebsite({ theme }: { theme: ThemeDefinition }) {
         </div>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handleCopyShareLink}
+            aria-label="Copy shareable demo link"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-3 py-1 font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] cursor-pointer"
+          >
+            {copiedLink ? (
+              <>
+                <Check className="h-3 w-3 text-emerald-500" aria-hidden="true" />
+                <span>Copied</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="h-3 w-3" aria-hidden="true" />
+                <span>Share</span>
+              </>
+            )}
+          </button>
+
           <div
             role="group"
             aria-label="Demo theme mode"
@@ -48,7 +96,7 @@ export function ThemeDemoWebsite({ theme }: { theme: ThemeDefinition }) {
               <button
                 key={m}
                 type="button"
-                onClick={() => setMode(m)}
+                onClick={() => handleModeChange(m)}
                 aria-pressed={mode === m}
                 className={cn(
                   "inline-flex items-center gap-1 rounded-full px-2.5 py-1 capitalize cursor-pointer",
@@ -123,7 +171,7 @@ export function ThemeDemoWebsite({ theme }: { theme: ThemeDefinition }) {
                 {ALL_THEMES.slice(0, 10).map((t) => (
                   <Link
                     key={t.id}
-                    href={`/themes/${t.id}/demo`}
+                    href={`/themes/${t.id}/demo?mode=${mode}`}
                     className={cn(
                       "rounded-full border px-2.5 py-1 text-[11px] transition-opacity hover:opacity-80",
                       t.id === theme.id

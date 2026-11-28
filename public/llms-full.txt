@@ -8,7 +8,7 @@ RenderJoy is a Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 component ec
 - Generated shadcn-compatible manifests: `public/r/registry.json` and `public/r/<name>.json`
 - Shared audio library item: `@renderjoy/sound-engine` (`lib/audio/sound-engine.ts`, `lib/audio/feedback-store.ts`, `lib/audio/sound-library.ts`)
 - Authenticated Pro registry route: `GET /api/pro/registry/[slug]` (SHA-256 Bearer token verification via `lib/pro/license.ts`)
-- Currently `109` validated registry items (`102` implemented components across Core, Signature, AI, Controls, Backgrounds/WebGL, Media, Carousels, Physics, Typography, Flows, Data Viz, and Blocks + shared primitives). Planned items are never published as working code.
+- Currently `153` validated registry items (`146` implemented components across Core, Signature, AI, Controls, Backgrounds/WebGL, Media, Carousels, Physics, Typography, Flows, Data Viz, and Blocks + shared primitives). Planned items are never published as working code.
 
 ## Implemented Components & Dependencies
 1. `bounce-dots-loader` — Deps: `clsx`, `tailwind-merge`. Injects `@keyframes mm-bounce-dot`.

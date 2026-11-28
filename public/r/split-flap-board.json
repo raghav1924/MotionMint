@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "split-flap-board",
+  "type": "registry:component",
+  "title": "Split-Flap Board",
+  "description": "Mechanical departure-board split-flap text display with cycling presets.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/split-flap-board.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/split-flap-board.tsx",
+      "content": "\"use client\";\n\nimport React, { useEffect, useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nconst ALPHABET = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·- \";\n\nexport interface SplitFlapBoardProps {\n  phrases?: string[];\n  className?: string;\n}\n\n/**\n * Mechanical departure-board split-flap text display with cycling presets.\n */\nexport function SplitFlapBoard({\n  phrases = [\"RENDERJOY\", \"DEPARTURE\", \"NEXT WAVE\"],\n  className = \"\",\n}: SplitFlapBoardProps) {\n  const prefersReduced = useReducedMotion();\n  const safePhrases = phrases.length > 0 ? phrases : [\"RENDERJOY\"];\n  const [index, setIndex] = useState(0);\n  const target = safePhrases[index % safePhrases.length].toUpperCase();\n  const [displayed, setDisplayed] = useState(target);\n\n  useEffect(() => {\n    if (prefersReduced) {\n      setDisplayed(target);\n      return;\n    }\n\n    let step = 0;\n    const totalSteps = 10;\n    const padLen = Math.max(target.length, 9);\n    const id = window.setInterval(() => {\n      step++;\n      const next = Array.from({ length: padLen }, (_, col) => {\n        const goal = target[col] ?? \" \";\n        if (step >= totalSteps || col < Math.floor((step / totalSteps) * padLen)) {\n          return goal;\n        }\n        return ALPHABET[(col * 3 + step * 5) % ALPHABET.length];\n      }).join(\"\");\n      setDisplayed(next);\n      if (step >= totalSteps) {\n        window.clearInterval(id);\n      }\n    }, 36);\n\n    return () => window.clearInterval(id);\n  }, [target, prefersReduced]);\n\n  return (\n    <div\n      className={`inline-flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 ${className}`.trim()}\n    >\n      <div\n        role=\"status\"\n        aria-live=\"polite\"\n        aria-label={`Split-flap board reading ${target}`}\n        className=\"flex flex-wrap justify-center gap-1\"\n      >\n        {displayed.split(\"\").map((char, i) => (\n          <span\n            key={i}\n            className=\"relative flex h-10 w-8 items-center justify-center rounded-md border border-[var(--mm-border)] bg-[var(--mm-bg)] font-mono text-base font-bold text-[var(--mm-fg)] shadow-sm\"\n          >\n            <span\n              aria-hidden=\"true\"\n              className=\"pointer-events-none absolute inset-x-0 top-1/2 h-px bg-[var(--mm-border)] opacity-60\"\n            />\n            {char}\n          </span>\n        ))}\n      </div>\n      <button\n        type=\"button\"\n        onClick={() => setIndex((i) => (i + 1) % safePhrases.length)}\n        className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[11px] font-medium text-[var(--mm-fg-muted)] hover:border-[var(--mm-accent)] hover:text-[var(--mm-fg)] cursor-pointer\"\n      >\n        Cycle Flap ({(index % safePhrases.length) + 1}/{safePhrases.length})\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

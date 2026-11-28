@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "orbit-hero",
+  "type": "registry:component",
+  "title": "Orbit Hero",
+  "description": "Orbital hero section with interactive satellite highlight pills.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/orbit-hero.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/orbit-hero.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nconst ORBIT_NODES = [\n  { id: \"tokens\", label: \"58 Tokens\", detail: \"Isolated CSS var scopes\" },\n  { id: \"motion\", label: \"Spring Lab\", detail: \"Physics-first choreography\" },\n  { id: \"audio\", label: \"56 Cues\", detail: \"Opt-in Web Audio synthesis\" },\n];\n\nexport interface OrbitHeroProps {\n  heading?: string;\n  className?: string;\n}\n\n/**\n * Orbital hero section with interactive satellite badges and reduced-motion fallback.\n */\nexport function OrbitHero({\n  heading = \"Ship interfaces with physical feel.\",\n  className = \"\",\n}: OrbitHeroProps) {\n  const prefersReduced = useReducedMotion();\n  const [activeId, setActiveId] = useState(ORBIT_NODES[0].id);\n  const active = ORBIT_NODES.find((n) => n.id === activeId) ?? ORBIT_NODES[0];\n\n  return (\n    <section\n      className={`relative w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-6 text-center ${className}`.trim()}\n    >\n      <div\n        aria-hidden=\"true\"\n        className={`pointer-events-none mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full border border-dashed border-[var(--mm-accent)]/40 ${\n          prefersReduced ? \"\" : \"animate-spin\"\n        }`}\n        style={prefersReduced ? undefined : { animationDuration: \"18s\" }}\n      >\n        <span className=\"h-3 w-3 rounded-full bg-[var(--mm-accent)]\" />\n      </div>\n\n      <h3 className=\"text-xl font-bold tracking-tight text-[var(--mm-fg)]\">{heading}</h3>\n      <p className=\"mt-1.5 font-mono text-xs text-[var(--mm-accent)]\">{active.detail}</p>\n\n      <div role=\"group\" aria-label=\"Orbit highlights\" className=\"mt-4 flex flex-wrap justify-center gap-2\">\n        {ORBIT_NODES.map((node) => (\n          <button\n            key={node.id}\n            type=\"button\"\n            onClick={() => setActiveId(node.id)}\n            aria-pressed={activeId === node.id}\n            className={`rounded-full px-3 py-1 font-mono text-[11px] cursor-pointer ${\n              activeId === node.id\n                ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-semibold\"\n                : \"border border-[var(--mm-border)] bg-[var(--mm-bg)] text-[var(--mm-fg-muted)]\"\n            }`}\n          >\n            {node.label}\n          </button>\n        ))}\n      </div>\n    </section>\n  );\n}\n"
+    }
+  ]
+}

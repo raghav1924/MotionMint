@@ -85,6 +85,50 @@ import { AuthSplitBlock } from "@/registry/components/auth-split-block";
 import { ChangelogTimeline } from "@/registry/components/changelog-timeline";
 import { FeatureTabsBlock } from "@/registry/components/feature-tabs-block";
 import { FaqAccordionBlock } from "@/registry/components/faq-accordion-block";
+import { SplitFlapBoard } from "@/registry/components/split-flap-board";
+import { Odometer } from "@/registry/components/odometer";
+import { GlitchReveal } from "@/registry/components/glitch-reveal";
+import { NeonSign } from "@/registry/components/neon-sign";
+import { RadarSweep } from "@/registry/components/radar-sweep";
+import { ActivityFeed } from "@/registry/components/activity-feed";
+import { DataTable } from "@/registry/components/data-table";
+import { IntegrationWall } from "@/registry/components/integration-wall";
+import { DitherDonut } from "@/registry/components/dither-donut";
+import { DitherGauge } from "@/registry/components/dither-gauge";
+import { DitherLineChart } from "@/registry/components/dither-line-chart";
+import { DitherBarList } from "@/registry/components/dither-bar-list";
+import { OrbitHero } from "@/registry/components/orbit-hero";
+import { CurtainNav } from "@/registry/components/curtain-nav";
+import { TerminalLogin } from "@/registry/components/terminal-login";
+import { HorizonFooter } from "@/registry/components/horizon-footer";
+import { PricingTierCard } from "@/registry/components/pricing-1";
+import { WaitlistSpotlight } from "@/registry/components/waitlist-1";
+import { CtaBanner } from "@/registry/components/cta-1";
+import { ContactCard } from "@/registry/components/contact-1";
+import { BentoHighlightGrid } from "@/registry/components/bento-1";
+import { TestimonialDeck } from "@/registry/components/testimonial-1";
+import { FeatureSpotlight } from "@/registry/components/feature-1";
+import { FaqQuickList } from "@/registry/components/faq-1";
+import { SmoothStaggerText } from "@/registry/components/smooth-stagger-text";
+import { CinematicText } from "@/registry/components/cinematic-text";
+import { LiquidHeadline } from "@/registry/components/liquid-headline";
+import { RainbowText } from "@/registry/components/rainbow-text";
+import { SignatureReveal } from "@/registry/components/signature-reveal";
+import { DottedSphere } from "@/registry/components/dotted-sphere";
+import { DotMonogram } from "@/registry/components/dot-monogram";
+import { ParticleReveal } from "@/registry/components/particle-reveal";
+import { LogoCloud } from "@/registry/components/logo-cloud";
+import { AnnouncementBarBlock } from "@/registry/components/announcement-bar";
+import { MegaMenu } from "@/registry/components/mega-menu";
+import { HoverTabs } from "@/registry/components/hover-tabs";
+import { RadialHubDiagram } from "@/registry/components/radial-hub-diagram";
+import { IntegrationBeams } from "@/registry/components/integration-beams";
+import { TeamSection } from "@/registry/components/team-section";
+import { BlogSection } from "@/registry/components/blog-section";
+import { WordmarkFooter } from "@/registry/components/wordmark-footer";
+import { GradientFooter } from "@/registry/components/gradient-footer";
+import { EditorialHero } from "@/registry/components/editorial-hero";
+import { ScenicHero } from "@/registry/components/scenic-hero";
 
 const DEMO_CARDS: DeckCardItem[] = [
   {
@@ -535,6 +579,94 @@ export function ComponentLivePreview({
       return <FeatureTabsBlock className="scale-[0.82] -my-4" />;
     case "faq-accordion-block":
       return <FaqAccordionBlock className="scale-[0.82] -my-4" />;
+    case "split-flap-board":
+      return <SplitFlapBoard className="scale-[0.86]" />;
+    case "odometer":
+      return <Odometer className="scale-[0.9]" />;
+    case "glitch-reveal":
+      return <GlitchReveal />;
+    case "neon-sign":
+      return <NeonSign className="scale-[0.9]" />;
+    case "radar-sweep":
+      return <RadarSweep className="scale-[0.8]" />;
+    case "activity-feed":
+      return <ActivityFeed className="scale-[0.76] -my-6" />;
+    case "data-table":
+      return <DataTable className="scale-[0.78] -my-4" />;
+    case "integration-wall":
+      return <IntegrationWall className="scale-[0.82] -my-4" />;
+    case "dither-donut":
+      return <DitherDonut className="scale-[0.82] -my-4" />;
+    case "dither-gauge":
+      return <DitherGauge className="scale-[0.88]" />;
+    case "dither-line-chart":
+      return <DitherLineChart className="scale-[0.84] -my-2" />;
+    case "dither-bar-list":
+      return <DitherBarList className="scale-[0.84] -my-2" />;
+    case "orbit-hero":
+      return <OrbitHero className="scale-[0.76] -my-6" />;
+    case "curtain-nav":
+      return <CurtainNav className="scale-[0.86]" />;
+    case "terminal-login":
+      return <TerminalLogin className="scale-[0.84]" />;
+    case "horizon-footer":
+      return <HorizonFooter className="scale-[0.8]" />;
+    case "pricing-1":
+      return <PricingTierCard className="scale-[0.78] -my-6" />;
+    case "waitlist-1":
+      return <WaitlistSpotlight className="scale-[0.82] -my-4" />;
+    case "cta-1":
+      return <CtaBanner className="scale-[0.84]" />;
+    case "contact-1":
+      return <ContactCard className="scale-[0.8] -my-4" />;
+    case "bento-1":
+      return <BentoHighlightGrid className="scale-[0.8] -my-2" />;
+    case "testimonial-1":
+      return <TestimonialDeck className="scale-[0.82]" />;
+    case "feature-1":
+      return <FeatureSpotlight className="scale-[0.8]" />;
+    case "faq-1":
+      return <FaqQuickList className="scale-[0.82]" />;
+    case "smooth-stagger-text":
+      return <SmoothStaggerText className="scale-[0.86]" />;
+    case "cinematic-text":
+      return <CinematicText className="scale-[0.86]" />;
+    case "liquid-headline":
+      return <LiquidHeadline className="scale-[0.84]" />;
+    case "rainbow-text":
+      return <RainbowText className="scale-[0.86]" />;
+    case "signature-reveal":
+      return <SignatureReveal className="scale-[0.86]" />;
+    case "dotted-sphere":
+      return <DottedSphere className="scale-[0.84]" />;
+    case "dot-monogram":
+      return <DotMonogram className="scale-[0.86]" />;
+    case "particle-reveal":
+      return <ParticleReveal className="scale-[0.86]" />;
+    case "logo-cloud":
+      return <LogoCloud className="scale-[0.8] -my-2" />;
+    case "announcement-bar":
+      return <AnnouncementBarBlock className="scale-[0.82]" />;
+    case "mega-menu":
+      return <MegaMenu className="scale-[0.82]" />;
+    case "hover-tabs":
+      return <HoverTabs className="scale-[0.84]" />;
+    case "radial-hub-diagram":
+      return <RadialHubDiagram className="scale-[0.8] -my-2" />;
+    case "integration-beams":
+      return <IntegrationBeams className="scale-[0.8]" />;
+    case "team-section":
+      return <TeamSection className="scale-[0.8] -my-2" />;
+    case "blog-section":
+      return <BlogSection className="scale-[0.82]" />;
+    case "wordmark-footer":
+      return <WordmarkFooter className="scale-[0.8]" />;
+    case "gradient-footer":
+      return <GradientFooter className="scale-[0.82]" />;
+    case "editorial-hero":
+      return <EditorialHero className="scale-[0.8]" />;
+    case "scenic-hero":
+      return <ScenicHero className="scale-[0.8]" />;
     default:
       if (slug in SHADER_PRESETS) {
         const meta = SHADER_PRESETS[slug as ShaderPresetId];

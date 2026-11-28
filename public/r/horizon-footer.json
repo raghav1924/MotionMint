@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "horizon-footer",
+  "type": "registry:component",
+  "title": "Horizon Footer",
+  "description": "Editorial horizon footer with accent divider and release-notes opt-in.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/horizon-footer.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/horizon-footer.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nexport interface HorizonFooterProps {\n  brand?: string;\n  className?: string;\n}\n\n/**\n * Editorial horizon footer with accent horizon divider and release-notes opt-in.\n */\nexport function HorizonFooter({\n  brand = \"RenderJoy\",\n  className = \"\",\n}: HorizonFooterProps) {\n  const [email, setEmail] = useState(\"\");\n  const [subscribed, setSubscribed] = useState(false);\n\n  const handleSubscribe = (e: React.FormEvent) => {\n    e.preventDefault();\n    if (!email.includes(\"@\")) return;\n    setSubscribed(true);\n  };\n\n  return (\n    <footer\n      className={`w-full max-w-lg rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-5 text-left ${className}`.trim()}\n    >\n      <div\n        aria-hidden=\"true\"\n        className=\"mb-4 h-px w-full bg-gradient-to-r from-transparent via-[var(--mm-accent)] to-transparent\"\n      />\n      <div className=\"flex flex-wrap items-center justify-between gap-4\">\n        <div>\n          <p className=\"text-sm font-bold tracking-tight text-[var(--mm-fg)]\">{brand}</p>\n          <p className=\"font-mono text-[10px] text-[var(--mm-fg-muted)]\">\n            MIT · 118+ Registry Components\n          </p>\n        </div>\n\n        {subscribed ? (\n          <p role=\"status\" className=\"font-mono text-[11px] text-[var(--mm-accent)]\">\n            Subscribed to release notes\n          </p>\n        ) : (\n          <form onSubmit={handleSubscribe} className=\"flex gap-1.5\">\n            <input\n              type=\"email\"\n              value={email}\n              onChange={(e) => setEmail(e.target.value)}\n              placeholder=\"Release notes email\"\n              aria-label=\"Release notes email\"\n              className=\"rounded-lg border border-[var(--mm-border)] bg-[var(--mm-bg)] px-2.5 py-1 text-xs text-[var(--mm-fg)] placeholder:text-[var(--mm-fg-muted)]\"\n            />\n            <button\n              type=\"submit\"\n              className=\"rounded-lg bg-[var(--mm-accent)] px-3 py-1 font-mono text-[11px] font-semibold text-[var(--mm-accent-fg)] cursor-pointer\"\n            >\n              Join\n            </button>\n          </form>\n        )}\n      </div>\n    </footer>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta-1",
+  "type": "registry:component",
+  "title": "CTA Banner",
+  "description": "Editorial call-to-action banner with one-click CLI install trigger.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/cta-1.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/cta-1.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nexport interface CtaBannerProps {\n  heading?: string;\n  command?: string;\n  className?: string;\n}\n\n/**\n * Editorial call-to-action banner with one-click CLI install trigger.\n */\nexport function CtaBanner({\n  heading = \"Add tactile motion in seconds.\",\n  command = \"npx shadcn@latest add @renderjoy/ripple-button\",\n  className = \"\",\n}: CtaBannerProps) {\n  const [copied, setCopied] = useState(false);\n\n  const handleCopy = async () => {\n    setCopied(true);\n    try {\n      await navigator.clipboard?.writeText(command);\n    } catch {\n      // Clipboard API may be unavailable\n    }\n  };\n\n  return (\n    <section\n      className={`w-full max-w-lg rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-5 text-left ${className}`.trim()}\n    >\n      <div className=\"flex flex-wrap items-center justify-between gap-4\">\n        <div>\n          <p className=\"font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--mm-accent)]\">\n            Zero Lock-In\n          </p>\n          <h3 className=\"mt-1 text-base font-bold tracking-tight text-[var(--mm-fg)]\">\n            {heading}\n          </h3>\n        </div>\n        <button\n          type=\"button\"\n          onClick={handleCopy}\n          className=\"rounded-full bg-[var(--mm-accent)] px-4 py-2 font-mono text-xs font-semibold text-[var(--mm-accent-fg)] cursor-pointer\"\n        >\n          {copied ? \"CLI Copied\" : \"Copy Install CLI\"}\n        </button>\n      </div>\n    </section>\n  );\n}\n"
+    }
+  ]
+}

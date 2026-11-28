@@ -45,7 +45,7 @@ describe("Phase 2.12 — Editorial Brand Identity & Homepage Redesign", () => {
     ).toBeInTheDocument();
     const heroWrapper = document.querySelector("[data-hero-scroll-stage]");
     expect(heroWrapper).toHaveAttribute("data-hero-scroll-stage", "reveal");
-    expect(screen.getByText(/102 Components · 58 Theme Variants · Flow/i)).toBeInTheDocument();
+    expect(screen.getByText(/146 Components · 58 Theme Variants · Flow/i)).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /Explore Components/i }).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /Discover Themes/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Discover RenderJoy Flow/i })).toBeInTheDocument();
@@ -73,7 +73,7 @@ describe("Phase 2.12 — Editorial Brand Identity & Homepage Redesign", () => {
     expect(
       screen.getByRole("heading", { name: "Your next interface starts here." })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Browse 102 Components/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Browse 146 Components/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Read Installation Docs/i })).toBeInTheDocument();
 
     // Editorial Footer

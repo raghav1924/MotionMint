@@ -1,5 +1,161 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.47.0] — 2026-11-28 (Priority 4 — Wave 7 Heroes & Footers Batch 2)
+### Added
+- `registry/components/wordmark-footer.tsx`: Oversized editorial wordmark footer with interactive link highlights.
+- `registry/components/gradient-footer.tsx`: Ambient accent-gradient footer with interactive operational status pill.
+- `registry/components/editorial-hero.tsx`: Magazine-style split editorial hero with interactive edition switcher.
+- `registry/components/scenic-hero.tsx`: Layered SVG horizon hero with time-of-day atmospheric mood switcher.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 layout components (`153` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 layout components (`146` implemented components total) and wired live previews.
+- `public/llms.txt` & `public/llms-full.txt`: Synchronized counts (`146` implemented components, `153` validated registry items).
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new layout components and updated count assertions (`142` -> `146`, `8,468` theme/mode combinations).
+
+## [0.46.0] — 2026-11-28 (Priority 4 — Wave 7 Sections & Diagrams Batch 4)
+### Added
+- `registry/components/radial-hub-diagram.tsx`: Interactive hub-and-spoke SVG architecture diagram with selectable spokes.
+- `registry/components/integration-beams.tsx`: Bidirectional integration beam diagram linking sources to targets.
+- `registry/components/team-section.tsx`: Studio team directory block with department filter pills.
+- `registry/components/blog-section.tsx`: Editorial article list with category tag filter and read-time badges.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 Sections Batch 4 components (`149` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 Sections Batch 4 components (`142` implemented components total) and wired live previews.
+- `public/llms.txt` & `public/llms-full.txt`: Synchronized counts (`142` implemented components, `149` validated registry items).
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new Sections components and updated count assertions (`138` -> `142`, `8,236` theme/mode combinations).
+
+## [0.45.0] — 2026-11-28 (Priority 4 — Wave 7 Sections Batch 3)
+### Added
+- `registry/components/logo-cloud.tsx`: Filterable partner logo cloud with semantic category pills.
+- `registry/components/announcement-bar.tsx`: Dismissible release announcement bar with restore toggle.
+- `registry/components/mega-menu.tsx`: Multi-column dropdown mega menu with accessible `aria-expanded` state.
+- `registry/components/hover-tabs.tsx`: Pointer- and keyboard-activated tabs switching preview on hover, focus, or click.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 Sections Batch 3 components (`145` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 Sections Batch 3 components (`138` implemented components total) and wired live previews.
+- `public/llms.txt` & `public/llms-full.txt`: Synchronized counts (`138` implemented components, `145` validated registry items).
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new Sections components and updated count assertions (`134` -> `138`, `8,004` theme/mode combinations).
+
+## [0.44.0] — 2026-11-28 (Priority 4 — Wave 5 Physics & Text Batch 4)
+### Added
+- `registry/components/signature-reveal.tsx`: Calligraphic SVG stroke-dashoffset signature animation with replay control.
+- `registry/components/dotted-sphere.tsx`: 3D Fibonacci-projected dot-matrix SVG sphere with orbital play/pause toggle.
+- `registry/components/dot-monogram.tsx`: Interactive LED dot-matrix monogram display with glyph cycling.
+- `registry/components/particle-reveal.tsx`: Coalescing SVG particle field that converges into a geometric emblem.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 5 Physics & Text Batch 4 components (`141` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 5 Physics & Text Batch 4 components (`134` implemented components total) and wired live previews.
+- `public/llms.txt` & `public/llms-full.txt`: Synchronized counts (`134` implemented components, `141` validated registry items).
+- `tests/wave5-physics.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new Physics & Text components and updated count assertions (`130` -> `134`, `7,772` theme/mode combinations).
+
+## [0.43.0] — 2026-11-28 (Priority 4 — Wave 5 Text Batch 3)
+### Added
+- `registry/components/smooth-stagger-text.tsx`: Per-character staggered vertical reveal with replay control and reduced-motion support.
+- `registry/components/cinematic-text.tsx`: Widescreen letter-spacing collapse reveal with replay trigger.
+- `registry/components/liquid-headline.tsx`: Flowing gradient headline with pointer-reactive shimmer angle.
+- `registry/components/rainbow-text.tsx`: Chromatic spectrum headline with interactive palette cycling.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 5 Text Batch 3 components (`137` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 5 Text Batch 3 components (`130` implemented components total) and wired live previews.
+- `public/llms.txt` & `public/llms-full.txt`: Synchronized counts (`130` implemented components, `137` validated registry items).
+- `tests/wave5-physics.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new Typography components and updated count assertions (`126` -> `130`, `7,540` theme/mode combinations).
+
+## [0.42.0] — 2026-11-28 (Priority 4 — Wave 7 Bento, Testimonials, Features & FAQ + AI Discovery Sync)
+### Added
+- `registry/components/bento-1.tsx`: Interactive 3-tile bento showcase with selectable detail focus.
+- `registry/components/testimonial-1.tsx`: Interactive customer quote spotlight with quote cycling controls.
+- `registry/components/feature-1.tsx`: Interactive feature highlight card pairing capability chips with code snippets.
+- `registry/components/faq-1.tsx`: Compact expandable FAQ list with `aria-expanded` disclosure buttons.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 blocks (`133` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 blocks (`126` implemented components total) and wired live previews.
+- `public/llms.txt` & `public/llms-full.txt`: Synchronized counts (`126` implemented components, `133` validated registry items).
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new blocks and updated count assertions (`122` -> `126`, `7,308` theme/mode combinations).
+
+## [0.41.0] — 2026-11-28 (Priority 4 — Wave 7 Pricing, Waitlist, CTA & Contact)
+### Added
+- `registry/components/pricing-1.tsx`: Interactive two-tier pricing comparison block with Monthly/Annual billing toggle.
+- `registry/components/waitlist-1.tsx`: Early-access waitlist card with live queue position counter and email validation.
+- `registry/components/cta-1.tsx`: Editorial call-to-action banner with one-click CLI install trigger.
+- `registry/components/contact-1.tsx`: Studio contact card with topic selector pills and instant confirmation.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 conversion blocks (`129` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 conversion blocks (`122` implemented components total) and wired live previews.
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new conversion blocks and updated count assertions (`118` -> `122`, `7,076` theme/mode combinations).
+
+## [0.40.0] — 2026-11-28 (Priority 4 — Wave 7 Heroes, Navbars, Logins & Footers)
+### Added
+- `registry/components/orbit-hero.tsx`: Orbital hero section with interactive satellite highlight pills and reduced-motion fallback.
+- `registry/components/curtain-nav.tsx`: Minimal header with an expandable full-width curtain navigation drawer.
+- `registry/components/terminal-login.tsx`: Command-line inspired authentication prompt with validation and live session status.
+- `registry/components/horizon-footer.tsx`: Editorial horizon footer with accent divider and release-notes email opt-in.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 layout components (`125` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 layout components (`118` implemented components total) and wired live previews.
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new layout components and updated count assertions (`114` -> `118`, `6,844` theme/mode combinations).
+
+## [0.39.0] — 2026-11-28 (Priority 4 — Wave 7 Charts Batch 2)
+### Added
+- `registry/components/dither-donut.tsx`: Halftone dither-patterned SVG donut chart with interactive segment selection.
+- `registry/components/dither-gauge.tsx`: Semi-circular dithered SVG gauge with preset load steps and `role="meter"` semantics.
+- `registry/components/dither-line-chart.tsx`: SVG trend chart with halftone dither area fill and `7D`/`30D`/`90D` range toggles.
+- `registry/components/dither-bar-list.tsx`: Ranked horizontal bar list with dither-textured progress bars and sort order toggle.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 Charts Batch 2 components (`121` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 Charts Batch 2 components (`114` implemented components total) and wired live previews.
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new Dither Charts and updated count assertions (`110` -> `114`, `6,612` theme/mode combinations).
+
+## [0.38.0] — 2026-11-28 (Priority 4 — Wave 7 Sections Batch 2)
+### Added
+- `registry/components/radar-sweep.tsx`: Concentric SVG radar sweep with selectable telemetry nodes and play/pause scan toggle.
+- `registry/components/activity-feed.tsx`: Filterable team and deployment activity feed with unread indicators and mark-all-read control.
+- `registry/components/data-table.tsx`: Searchable, sortable operational data table with `aria-sort` column state and status pills.
+- `registry/components/integration-wall.tsx`: Interactive ecosystem integration grid with per-connector activation toggles (`aria-pressed`).
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 Sections Batch 2 components (`117` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 7 Sections Batch 2 components (`110` implemented components total) and wired live previews.
+- `tests/wave7-blocks.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new Sections components and updated count assertions (`106` -> `110`, `6,380` theme/mode combinations).
+
+## [0.37.0] — 2026-11-28 (Priority 4 — Wave 5 Text Batch 2)
+### Added
+- `registry/components/split-flap-board.tsx`: Mechanical departure-board split-flap display with cycling preset phrases and reduced-motion support.
+- `registry/components/odometer.tsx`: Rolling numeric odometer with vertical digit drums, `tabular-nums`, and increment/reset controls.
+- `registry/components/glitch-reveal.tsx`: Kinetic chromatic aberration text reveal triggered on hover, focus, or click.
+- `registry/components/neon-sign.tsx`: Luminous neon tube display sign with interactive power switch (`aria-pressed`).
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 5 Text Batch 2 components (`113` validated registry items total).
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `lib/inventory.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`: Added all 4 Wave 5 Text Batch 2 components (`106` implemented components total) and wired live previews.
+- `tests/wave5-physics.test.tsx`, `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Added unit tests for the 4 new Typography components and updated count assertions (`102` -> `106`, `6,148` theme/mode combinations).
+
+## [0.36.0] — 2026-11-28 (Future Phase — Shareable Theme Demo URLs)
+### Added
+- `components/theme/theme-demo-website.tsx`: Added `?mode=light|dark` URL synchronization on mount/toggle, one-click `Share` link copy button (`navigator.clipboard` with visual `Copied` state), `Back to Theme Studio` navigation link, and mode-preserving quick-switch links across all 29 theme demos.
+- `tests/theme-matrix.test.tsx`: Added unit test verifying `?mode=dark` hydration, URL updates on mode switch, clipboard share link copying, and `Back to Theme Studio` navigation.
+
+### Changed
+- `components/theme/theme-studio.tsx`: Updated `Open <Theme> Demo →` links to include `?mode=${themeMode}`.
+- `ROADMAP.md`: Marked `Shareable ?mode=light|dark demo URLs and back-to-Theme-Studio navigation` complete.
+
+## [0.35.0] — 2026-11-28 (Phase A1.6 & A3.5 — Live Multi-Viewport Browser Screenshot QA)
+### Fixed
+- `components/studio/component-studio.tsx`: Positioned `logo-flare` foreground overlay copy (`min-h-[540px] justify-end pb-6`) below the centered glowing mark to eliminate text-on-logo overlap, and changed the floating `272px` Inspector grid to `grid-cols-1 gap-4` so palette color hex labels and sliders stack without collision.
+- `components/shell/floating-toolbar.tsx`: Added `max-w-[calc(100vw-16px)]` to the floating dock wrapper so the toolbar fits within `390px` mobile viewports.
+- `components/preview/preview-stage.tsx`: Replaced `overflow-x-auto` with `overflow-x-hidden` on `desktop-canvas-stage` and `<RenderJoyTheme>` to prevent horizontal overflow on `390px` mobile previews.
+
+### Changed
+- `ROADMAP.md` & `RENDERJOY_AGENT_ROADMAP.md`: Marked `A1.6` and `A3.5` complete after live headless Chrome multi-viewport screenshot verification (`1440×900`, `768×1024`, `390×844`) across `/`, `/bench`, `/components/ripple-button`, and `/components/logo-flare`, and synced `NEXT ACTION`.
+
 ## [0.34.0] — 2026-11-28 (AI Discovery Sync & Browser QA Check)
 ### Changed
 - `public/llms.txt` & `public/llms-full.txt`: Synchronized AI/MCP discovery manifests with `102` implemented components, `109` registry items, `18` standalone WebGL backgrounds, `56` original UI sounds, `29` theme demo websites, `/bench`, and `/pricing`.

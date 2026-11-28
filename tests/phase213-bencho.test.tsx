@@ -23,9 +23,9 @@ beforeAll(() => {
 });
 
 describe("Phase 2.13 — Bencho-Inspired Interactive Component Experience", () => {
-  it("populates typed interaction metadata and capabilities across all 102 implemented components", () => {
+  it("populates typed interaction metadata and capabilities across all 146 implemented components", () => {
     const implemented = CATALOG_ITEMS.filter((c) => c.status === "implemented");
-    expect(implemented).toHaveLength(102);
+    expect(implemented).toHaveLength(146);
     for (const item of implemented) {
       expect(item.interactions.length).toBeGreaterThan(0);
       expect(item.interactionHint.length).toBeGreaterThan(0);

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radial-hub-diagram",
+  "type": "registry:component",
+  "title": "Radial Hub Diagram",
+  "description": "Interactive hub-and-spoke SVG architecture diagram with selectable spokes.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/radial-hub-diagram.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/radial-hub-diagram.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst SPOKES = [\n  { id: \"auth\", label: \"Auth\", x: 50, y: 14, detail: \"SHA-256 Pro token gate\" },\n  { id: \"registry\", label: \"Registry\", x: 86, y: 50, detail: \"145+ shadcn JSON manifests\" },\n  { id: \"studio\", label: \"Studio\", x: 50, y: 86, detail: \"58 isolated theme variants\" },\n  { id: \"edge\", label: \"Edge\", x: 14, y: 50, detail: \"Static SSG delivery\" },\n];\n\nexport interface RadialHubDiagramProps {\n  className?: string;\n}\n\n/**\n * Interactive hub-and-spoke SVG architecture diagram with selectable spokes.\n */\nexport function RadialHubDiagram({ className = \"\" }: RadialHubDiagramProps) {\n  const [activeId, setActiveId] = useState(SPOKES[0].id);\n  const active = SPOKES.find((s) => s.id === activeId) ?? SPOKES[0];\n\n  return (\n    <div\n      className={`flex flex-col sm:flex-row items-center gap-4 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 ${className}`.trim()}\n    >\n      <div className=\"relative h-40 w-40 shrink-0 rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)]\">\n        <svg viewBox=\"0 0 100 100\" className=\"h-full w-full\" aria-hidden=\"true\">\n          {SPOKES.map((s) => (\n            <line\n              key={s.id}\n              x1=\"50\"\n              y1=\"50\"\n              x2={s.x}\n              y2={s.y}\n              stroke={s.id === active.id ? \"var(--mm-accent)\" : \"var(--mm-border)\"}\n              strokeWidth={s.id === active.id ? \"2\" : \"1\"}\n            />\n          ))}\n          <circle cx=\"50\" cy=\"50\" r=\"10\" fill=\"var(--mm-accent)\" />\n        </svg>\n        {SPOKES.map((s) => (\n          <button\n            key={s.id}\n            type=\"button\"\n            onClick={() => setActiveId(s.id)}\n            aria-pressed={s.id === active.id}\n            style={{ left: `${s.x}%`, top: `${s.y}%` }}\n            className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-2 py-0.5 font-mono text-[9px] cursor-pointer ${\n              s.id === active.id\n                ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-bold\"\n                : \"border border-[var(--mm-border)] bg-[var(--mm-surface)] text-[var(--mm-fg)]\"\n            }`}\n          >\n            {s.label}\n          </button>\n        ))}\n      </div>\n      <div className=\"text-left min-w-[160px]\">\n        <p className=\"font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--mm-fg-muted)]\">\n          Hub Topology\n        </p>\n        <p className=\"mt-1 text-sm font-semibold text-[var(--mm-fg)]\">{active.label}</p>\n        <p className=\"mt-0.5 text-xs text-[var(--mm-accent)]\">{active.detail}</p>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "testimonial-1",
+  "type": "registry:component",
+  "title": "Testimonial Deck",
+  "description": "Interactive customer quote spotlight with quote cycling controls.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/components/testimonial-1.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/testimonial-1.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst QUOTES = [\n  { quote: \"The scoped 29-theme matrix saved our design system team weeks.\", author: \"Maya Lin\", role: \"Staff UI Engineer\" },\n  { quote: \"Opt-in Web Audio gives our flows tactile polish without bloat.\", author: \"Alex Rivera\", role: \"Design Technologist\" },\n];\n\nexport interface TestimonialDeckProps {\n  className?: string;\n}\n\n/**\n * Interactive customer quote spotlight with next/previous controls.\n */\nexport function TestimonialDeck({ className = \"\" }: TestimonialDeckProps) {\n  const [index, setIndex] = useState(0);\n  const current = QUOTES[index % QUOTES.length];\n\n  return (\n    <figure\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-5 text-left space-y-3 ${className}`.trim()}\n    >\n      <blockquote className=\"text-sm font-medium leading-relaxed text-[var(--mm-fg)]\">\n        &ldquo;{current.quote}&rdquo;\n      </blockquote>\n      <div className=\"flex items-center justify-between pt-1\">\n        <figcaption className=\"text-xs\">\n          <span className=\"font-semibold text-[var(--mm-fg)]\">{current.author}</span>\n          <span className=\"ml-2 font-mono text-[10px] text-[var(--mm-fg-muted)]\">{current.role}</span>\n        </figcaption>\n        <button\n          type=\"button\"\n          onClick={() => setIndex((i) => (i + 1) % QUOTES.length)}\n          className=\"rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 font-mono text-[10px] text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer\"\n        >\n          Next Quote\n        </button>\n      </div>\n    </figure>\n  );\n}\n"
+    }
+  ]
+}

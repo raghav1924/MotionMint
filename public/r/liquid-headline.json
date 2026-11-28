@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "liquid-headline",
+  "type": "registry:component",
+  "title": "Liquid Headline",
+  "description": "Flowing gradient headline with pointer-reactive shimmer angle.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/liquid-headline.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/liquid-headline.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nexport interface LiquidHeadlineProps {\n  text?: string;\n  className?: string;\n}\n\n/**\n * Flowing gradient headline with pointer-reactive shimmer angle.\n */\nexport function LiquidHeadline({\n  text = \"Fluid Typography\",\n  className = \"\",\n}: LiquidHeadlineProps) {\n  const prefersReduced = useReducedMotion();\n  const [angle, setAngle] = useState(115);\n\n  return (\n    <div\n      onMouseMove={(e) => {\n        if (prefersReduced) return;\n        const rect = e.currentTarget.getBoundingClientRect();\n        const ratio = (e.clientX - rect.left) / Math.max(rect.width, 1);\n        setAngle(Math.round(60 + ratio * 140));\n      }}\n      className={`inline-flex flex-col items-center gap-2 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-6 py-5 ${className}`.trim()}\n    >\n      <span\n        style={{\n          backgroundImage: `linear-gradient(${angle}deg, var(--mm-fg) 10%, var(--mm-accent) 55%, var(--mm-fg) 90%)`,\n          WebkitBackgroundClip: \"text\",\n          color: \"transparent\",\n        }}\n        className=\"text-2xl font-extrabold tracking-tight\"\n      >\n        {text}\n      </span>\n      <span className=\"font-mono text-[10px] text-[var(--mm-fg-muted)]\">\n        Gradient Angle: {angle}°\n      </span>\n    </div>\n  );\n}\n"
+    }
+  ]
+}
