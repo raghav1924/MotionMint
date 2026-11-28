@@ -1666,11 +1666,16 @@ export function ComponentStudio({
                   ) : (
                     <div
                       data-testid="desktop-canvas-stage"
-                      className="flex min-h-[72vh] sm:min-h-[660px] w-full items-center justify-center border-b border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] p-6 sm:p-12 overflow-x-auto"
+                      className="relative flex min-h-[72vh] sm:min-h-[660px] w-full items-center justify-center border-b border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] bg-[radial-gradient(var(--ws-border)_1.1px,transparent_1.1px)] [background-size:20px_20px] p-6 sm:p-12 overflow-x-auto"
                     >
-                      <RenderJoyTheme theme={skin} mode={themeMode} padded className="w-full max-w-3xl flex justify-center">
+                      <RenderJoyTheme theme={skin} mode={themeMode} padded className="relative z-10 w-full max-w-3xl flex justify-center">
                         {renderStage()}
                       </RenderJoyTheme>
+                      {/* Glossy blurred bottom canvas fade */}
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[var(--ws-bg)]/90 via-[var(--ws-bg)]/45 to-transparent backdrop-blur-[2px]"
+                      />
                     </div>
                   )}
                 </MotionConfig>

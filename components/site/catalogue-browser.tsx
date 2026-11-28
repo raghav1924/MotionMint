@@ -28,6 +28,11 @@ const LARGE_STAGE_SLUGS = new Set([
   "receipt-printer",
   "swipe-card-deck",
   "shader-background",
+  "cover-flow-carousel",
+  "spotlight-bento",
+  "aurora-hero",
+  "pricing-crown",
+  "founder-wall",
 ]);
 
 export function CatalogueBrowser() {

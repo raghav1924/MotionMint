@@ -16,23 +16,19 @@ export function VisibilityPreview({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [hasEntered, setHasEntered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof IntersectionObserver === "undefined") {
-      setHasEntered(true);
+      setIsVisible(true);
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setHasEntered(true);
-            observer.disconnect();
-            break;
-          }
+          setIsVisible(entry.isIntersecting);
         }
       },
       { rootMargin: "220px 0px" }
@@ -44,7 +40,7 @@ export function VisibilityPreview({
 
   return (
     <div ref={ref} className={className}>
-      {hasEntered
+      {isVisible
         ? children
         : fallback ?? (
             <div

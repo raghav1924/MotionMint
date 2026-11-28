@@ -38,14 +38,14 @@ export function BrandFloatingButton() {
         onClick={() => setOpen((o) => !o)}
         aria-label={`${BRAND.name} quick utilities`}
         aria-expanded={open}
+        title={`${BRAND.name} quick utilities`}
         className={cn(
-          "flex h-11 w-11 items-center justify-center rounded-[10px] bg-[#111111] text-[var(--ws-accent,#dfff00)]",
-          "shadow-[var(--ws-shadow-floating)] ring-1 ring-white/10 transition-transform duration-150 hover:scale-[1.03] active:scale-[0.97] cursor-pointer",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-accent)]"
+          "flex h-9 w-9 items-center justify-center rounded-full text-[var(--ws-text-primary)]",
+          "transition-transform duration-150 hover:scale-105 active:scale-95 cursor-pointer",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-ring)]"
         )}
       >
-        {/* Kinetic M brand mark */}
-        <RenderJoyMark size={20} />
+        <RenderJoyMark size={22} />
       </button>
 
       {open && (

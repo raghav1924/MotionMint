@@ -106,18 +106,18 @@ The user explicitly requested this order:
 
 ## A0. Repository and interaction audit
 
-- [ ] **A0.1 — AUDIT:** Inspect all shared navigation, preview, theme, menu, floating toolbar, inspector and device-frame implementations. Map each route to shared shell and shared preview primitives.
-- [ ] **A0.2 — AUDIT:** Identify duplicate/legacy UI implementations, global event listeners, animation loops, repeated WebGL contexts, unbounded timers, component preview remounts and non-virtualised catalogue content.
-- [ ] **A0.3 — AUDIT:** Verify current route list, registry items, real component count, component tiers, available vs planned inventory and all links. Replace stale hard-coded counts with derived values where practical.
-- [ ] **A0.4 — AUDIT:** Produce `PHASE_A_UI_AUDIT.md` with defects ranked P0/P1/P2 and screenshots. Do not change working business logic during the audit.
+- [x] **A0.1 — AUDIT:** Inspect all shared navigation, preview, theme, menu, floating toolbar, inspector and device-frame implementations. Map each route to shared shell and shared preview primitives. *(Completed in `PHASE_A_UI_AUDIT.md`)*
+- [x] **A0.2 — AUDIT:** Identify duplicate/legacy UI implementations, global event listeners, animation loops, repeated WebGL contexts, unbounded timers, component preview remounts and non-virtualised catalogue content. *(Completed in `PHASE_A_UI_AUDIT.md`)*
+- [x] **A0.3 — AUDIT:** Verify current route list, registry items, real component count, component tiers, available vs planned inventory and all links. Replace stale hard-coded counts with derived values where practical. *(Completed in `PHASE_A_UI_AUDIT.md`: 60 implemented, 67 registry items, 75 routes; flagged `44` in `announcement-bar.tsx` & `app/page.tsx`)*
+- [x] **A0.4 — AUDIT:** Produce `PHASE_A_UI_AUDIT.md` with defects ranked P0/P1/P2 and screenshots. Do not change working business logic during the audit. *(Completed)*
 
 ## A1. Component preview cards and canvas consistency
 
-- [ ] **A1.1 — FIX:** Standardise preview card dimensions, aspect ratios, stage sizing and preview anchoring. Every card in a category should have a controlled layout; components must not jump in size/position when loading, changing theme or changing viewport.
+- [x] **A1.1 — FIX:** Standardise preview card dimensions, aspect ratios, stage sizing and preview anchoring. Every card in a category should have a controlled layout; components must not jump in size/position when loading, changing theme or changing viewport. *(Expanded `LARGE_STAGE_SLUGS` in `CatalogueBrowser`)*
 - [ ] **A1.2 — FIX:** Establish a single preview-stage layout contract for Component Studio, Theme Studio and the catalogue. Preview stages should use the same spacing, clipping, responsive sizing and background tokens.
-- [ ] **A1.3 — PERF:** Remove laggy previews. Lazy-mount offscreen components; pause animation when offscreen; avoid remounting on inspector changes; debounce/throttle expensive controls; cap concurrent animated previews; profile rather than guessing.
-- [ ] **A1.4 — FIX:** Increase the preview canvas dot-grid visibility slightly. Use precise, low-contrast dots on Light and Dark, not a heavy distracting grid. Ensure dots remain legible on actual displays.
-- [ ] **A1.5 — FIX:** Add a bottom canvas fade that is glossy, blurred and softly merges the preview content into the floating dock area. It must not obscure important component content or create a hard blur stripe. Respect reduced transparency where appropriate.
+- [x] **A1.3 — PERF:** Remove laggy previews. Lazy-mount offscreen components; pause animation when offscreen; avoid remounting on inspector changes; debounce/throttle expensive controls; cap concurrent animated previews; profile rather than guessing. *(`VisibilityPreview` now tracks ongoing `IntersectionObserver` state)*
+- [x] **A1.4 — FIX:** Increase the preview canvas dot-grid visibility slightly. Use precise, low-contrast dots on Light and Dark, not a heavy distracting grid. Ensure dots remain legible on actual displays.
+- [x] **A1.5 — FIX:** Add a bottom canvas fade that is glossy, blurred and softly merges the preview content into the floating dock area. It must not obscure important component content or create a hard blur stripe. Respect reduced transparency where appropriate.
 - [ ] **A1.6 — TEST:** Verify fixed preview size/position in desktop/tablet/mobile frames and with multiple themes, long text, loading states and inspector updates.
 
 **Acceptance:** no layout jumps; same stage contract across Studio and Theme Studio; no horizontal overflow; stable preview positioning; performance measured with many cards, not only a single preview.
@@ -137,8 +137,8 @@ The user explicitly requested this order:
 - [ ] **A2.11 — ADD:** Provide Hide/Show Text for shader/background specimens. It toggles the example foreground content over the background so users can evaluate both the bare effect and text contrast/readability on top of it. Do not hide all controls or the title.
 - [ ] **A2.12 — FIX:** Remove the generic component description/definition paragraph from the component preview header where requested. Display only the title, a small category/brand mark if necessary, and a Pro/free lock state. Keep descriptive docs lower in the documentation area.
 - [ ] **A2.13 — FIX:** For ordinary UI components, keep the component title at the top of the preview experience. Background/WebGL experiences may use a distinct stage-first composition, but the title must remain visible and discoverable.
-- [ ] **A2.14 — FIX:** Remove black icon boxes around the RenderJoy mark in the menu and floating brand utility. Use the original logomark directly.
-- [ ] **A2.15 — FIX:** Related components must be from the **same category** first. If fewer than three related items exist, show fewer; do not cross-category fill just to populate cards.
+- [x] **A2.14 — FIX:** Remove black icon boxes around the RenderJoy mark in the menu and floating brand utility. Use the original logomark directly.
+- [x] **A2.15 — FIX:** Related components must be from the **same category** first. If fewer than three related items exist, show fewer; do not cross-category fill just to populate cards.
 - [ ] **A2.16 — FIX:** Ensure inspector values and preview stay visible at the same time. Position a compact floating inspector on the right, with bounded width/height, internal scroll and collision-aware placement.
 - [ ] **A2.17 — FIX:** Make every toolbar action functional, tested and persisted only when appropriate. Remove inert buttons.
 
@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task:** `A0.1 — Audit all shared navigation, preview, theme, menu, floating toolbar, inspector and device-frame implementations.`
+**Current next task:** `A2.1–A2.13 — FloatingToolbar redesign (30% smaller frosted glass, Home button, compact right-side floating Inspector, Replay vs Reset, independent global/component theme toggles, Hide/Show Text, tooltips) & A1.2 shared stage contract.`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

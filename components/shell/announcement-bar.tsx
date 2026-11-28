@@ -3,6 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import { BRAND } from "@/lib/brand";
+import { CATALOG_ITEMS } from "@/lib/catalog";
+
+const IMPLEMENTED_COUNT = CATALOG_ITEMS.filter((c) => c.status === "implemented").length;
 
 export function AnnouncementBar() {
   return (
@@ -16,7 +19,7 @@ export function AnnouncementBar() {
           aria-hidden="true"
         />
         <span className="truncate">
-          {BRAND.name} · 44 components · 58 theme variants · Flow Orchestrator live
+          {BRAND.name} · {IMPLEMENTED_COUNT} components · 58 theme variants · Flow Orchestrator live
         </span>
         <span
           className="inline-block transition-transform duration-150 group-hover:translate-x-0.5 text-white/75"

@@ -30,11 +30,6 @@ export function ComponentDocs({
     (c) => c.status === "implemented" && c.slug !== item.slug && c.category === item.category
   ).slice(0, 3);
 
-  const fallbackRelated =
-    related.length >= 3
-      ? related
-      : CATALOG_ITEMS.filter((c) => c.status === "implemented" && c.slug !== item.slug).slice(0, 3);
-
   const copyText = async (text: string, which: "cmd" | "usage") => {
     try {
       await navigator.clipboard?.writeText(text);
@@ -266,7 +261,7 @@ export function ComponentDocs({
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {fallbackRelated.map((rel) => (
+          {related.map((rel) => (
             <div
               key={rel.slug}
               className="group flex flex-col rounded-[20px] border border-[var(--ws-border)] bg-[var(--ws-surface)] p-2 transition-all hover:border-[var(--ws-border-strong)] hover:shadow-[var(--ws-shadow-floating)]"

@@ -5,6 +5,9 @@ import { CinematicHero } from "@/components/home/cinematic-hero";
 import { CapabilityStrip } from "@/components/home/capability-strip";
 import { ExhibitionGallery } from "@/components/site/exhibition-gallery";
 import { ThemesFlowSplit } from "@/components/home/themes-flow-split";
+import { CATALOG_ITEMS } from "@/lib/catalog";
+
+const IMPLEMENTED_COUNT = CATALOG_ITEMS.filter((c) => c.status === "implemented").length;
 
 export default function HomePage() {
   return (
@@ -75,7 +78,7 @@ export default function HomePage() {
                 href="/components"
                 className="inline-flex h-11 items-center gap-2 rounded-full bg-[var(--ws-text-primary)] px-6 text-sm font-medium text-[var(--ws-bg)] transition-opacity hover:opacity-90"
               >
-                <span>Browse 44 Components</span>
+                <span>Browse {IMPLEMENTED_COUNT} Components</span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
