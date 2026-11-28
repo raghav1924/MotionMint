@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "flow",
+  "type": "registry:component",
+  "title": "Flow",
+  "description": "Clean, calm fluid gradients for editorial surfaces.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/flow.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type FlowBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Flow WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function FlowBackground(props: FlowBackgroundProps) {\n  return <ShaderBackground preset=\"flow\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/flow.tsx"
+    }
+  ]
+}

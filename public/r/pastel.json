@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pastel",
+  "type": "registry:component",
+  "title": "Soft Pastel",
+  "description": "Airy directional sweep of rose, pure white, and violet.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/pastel.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type SoftPastelBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Soft Pastel WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function SoftPastelBackground(props: SoftPastelBackgroundProps) {\n  return <ShaderBackground preset=\"pastel\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/pastel.tsx"
+    }
+  ]
+}

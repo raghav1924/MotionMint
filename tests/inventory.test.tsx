@@ -7,10 +7,10 @@ import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ParticleWordmark } from "@/components/site/particle-wordmark";
 
 describe("Phase 2.6 — Complete Catalogue Inventory & Homepage Modules", () => {
-  it("builds a complete typed inventory with 60 available items and 200+ total items", () => {
+  it("builds a complete typed inventory with 78 available items and 200+ total items", () => {
     expect(FULL_INVENTORY.length).toBeGreaterThan(200);
     const available = FULL_INVENTORY.filter((i) => i.status === "available");
-    expect(available).toHaveLength(60);
+    expect(available).toHaveLength(78);
 
     const planned = FULL_INVENTORY.filter((i) => i.status === "planned");
     expect(planned.length).toBeGreaterThan(160);
@@ -22,7 +22,7 @@ describe("Phase 2.6 — Complete Catalogue Inventory & Homepage Modules", () => 
 
   it("CatalogueBrowser defaults to Available Now and switches to Full Inventory", () => {
     render(<CatalogueBrowser />);
-    expect(screen.getByRole("button", { name: /Available Now \(60\)/i })).toHaveAttribute(
+    expect(screen.getByRole("button", { name: /Available Now \(78\)/i })).toHaveAttribute(
       "aria-pressed",
       "true"
     );

@@ -1384,6 +1384,348 @@
           "target": "components/renderjoy/founder-wall.tsx"
         }
       ]
+    },
+    {
+      "name": "logo-flare",
+      "type": "registry:component",
+      "title": "Logo Flare",
+      "description": "Midnight navy canvas with polar volumetric blue light rays, Gaussian central bloom, and optical lens streaks.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/logo-flare.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/logo-flare.tsx"
+        }
+      ]
+    },
+    {
+      "name": "silk",
+      "type": "registry:component",
+      "title": "Silk",
+      "description": "Flowing organic WebGL ribbons with soft specular highlights.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/silk.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/silk.tsx"
+        }
+      ]
+    },
+    {
+      "name": "liquid-gold",
+      "type": "registry:component",
+      "title": "Liquid Satin",
+      "description": "Glossy royal-violet and amber-gold 3D liquid folds.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/liquid-gold.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/liquid-gold.tsx"
+        }
+      ]
+    },
+    {
+      "name": "contour",
+      "type": "registry:component",
+      "title": "Liquid Contour",
+      "description": "High-contrast cobalt and amber swirling topographic bands.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/contour.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/contour.tsx"
+        }
+      ]
+    },
+    {
+      "name": "mercury",
+      "type": "registry:component",
+      "title": "Mercury",
+      "description": "Chrome reflections and liquid metallic ridges.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/mercury.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/mercury.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pastel",
+      "type": "registry:component",
+      "title": "Soft Pastel",
+      "description": "Airy directional sweep of rose, pure white, and violet.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/pastel.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/pastel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "aurora",
+      "type": "registry:component",
+      "title": "Aurora",
+      "description": "Soft flowing northern-lights color fields with gentle drift.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/aurora.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/aurora.tsx"
+        }
+      ]
+    },
+    {
+      "name": "flow",
+      "type": "registry:component",
+      "title": "Flow",
+      "description": "Clean, calm fluid gradients for editorial surfaces.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/flow.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/flow.tsx"
+        }
+      ]
+    },
+    {
+      "name": "noise",
+      "type": "registry:component",
+      "title": "Noise",
+      "description": "Procedural FBM noise, subtle grain, and organic distortion.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/noise.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/noise.tsx"
+        }
+      ]
+    },
+    {
+      "name": "liquid-drops",
+      "type": "registry:component",
+      "title": "Liquid Drops",
+      "description": "Refractive surface-tension droplets with ambient drift and specular highlights.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/liquid-drops.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/liquid-drops.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ripple",
+      "type": "registry:component",
+      "title": "Ripple",
+      "description": "Pointer- and click-triggered concentric wave fields with organic decay.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/ripple.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/ripple.tsx"
+        }
+      ]
+    },
+    {
+      "name": "energy",
+      "type": "registry:component",
+      "title": "Energy",
+      "description": "Grid distortion, luminous interference fields, and pulse.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/energy.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/energy.tsx"
+        }
+      ]
+    },
+    {
+      "name": "fluted-glass",
+      "type": "registry:component",
+      "title": "Fluted Glass",
+      "description": "Vertical ribbed glass refraction with subtle chromatic edges.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/fluted-glass.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/fluted-glass.tsx"
+        }
+      ]
+    },
+    {
+      "name": "topography",
+      "type": "registry:component",
+      "title": "Topography",
+      "description": "Crisp flat vector-style organic contour bands in motion.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/topography.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/topography.tsx"
+        }
+      ]
+    },
+    {
+      "name": "prism",
+      "type": "registry:component",
+      "title": "Chromatic Prism",
+      "description": "Soft-focus optical glass caustics with spectral rainbow dispersion.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/prism.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/prism.tsx"
+        }
+      ]
+    },
+    {
+      "name": "kinetic-torus",
+      "type": "registry:component",
+      "title": "Kinetic Torus",
+      "description": "3D sculpted radial-ribbed torus rotating with studio rim lighting.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/kinetic-torus.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/kinetic-torus.tsx"
+        }
+      ]
+    },
+    {
+      "name": "particle-helix",
+      "type": "registry:component",
+      "title": "Particle Helix",
+      "description": "Dotted 3D double-helix particle strand with depth shading.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/particle-helix.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/particle-helix.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bio-terrain",
+      "type": "registry:component",
+      "title": "Bio Terrain",
+      "description": "Organic mossy terrain island with glowing veins and HUD reticles.",
+      "dependencies": [
+        "react"
+      ],
+      "registryDependencies": [
+        "@renderjoy/shader-background"
+      ],
+      "files": [
+        {
+          "path": "registry/components/backgrounds/bio-terrain.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/bio-terrain.tsx"
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,18 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.19.0] — 2026-11-28 (Priority 1 — Separate Discoverable WebGL Background Components A3.1–A3.4)
+### Added
+- `registry/components/backgrounds/*.tsx`: Added 18 standalone WebGL background components (`logo-flare`, `silk`, `liquid-gold`, `contour`, `mercury`, `pastel`, `aurora`, `flow`, `noise`, `liquid-drops`, `ripple`, `energy`, `fluted-glass`, `topography`, `prism`, `kinetic-torus`, `particle-helix`, `bio-terrain`) powered by the shared `@/lib/shaders` engine (`A3.2`, `A3.3`).
+- `registry.json` & `public/r/*.json`: Added individual installation manifests for all 18 WebGL background components (`85` validated registry items total).
+- `lib/catalog.ts` & `lib/catalog-interactions.ts`: Registered all 18 WebGL backgrounds as separate discoverable `Backgrounds` items with dedicated `/components/<slug>` routes, `useCases`, interaction tags, and effect-specific props (`78` implemented components total).
+- `tests/shader-background.test.tsx`: Added tests verifying all 18 standalone WebGL catalog entries, standalone component rendering, and `ComponentStudio` rendering without the generic 18-preset selector.
+
+### Changed
+- `components/site/catalogue-browser.tsx`: Removed the `shader-background` preset-expansion loop so each WebGL effect renders as its own first-class catalog card linking to `/components/<slug>`.
+- `components/studio/component-studio.tsx`: Wired all 18 standalone WebGL slugs to full-bleed `PreviewStage`, `showPreviewText` toggle (`A3.1`), and effect-specific inspector controls without the generic 18-preset dropdown (`A3.4`).
+- `components/shell/floating-toolbar.tsx` & `components/shared/component-preview-card.tsx`: Enabled Hide/Show Text (`A3.1`) and live preview rendering across all 18 standalone WebGL background slugs.
+- `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Updated implemented component count assertions from `60` to `78` (`4,524` theme/mode combinations).
+
 ## [0.18.2] — 2026-11-28 (Priority 1 — Shared PreviewStage, FloatingToolbar & Floating Inspector)
 ### Added
 - `components/preview/preview-stage.tsx`: Shared `PreviewStage` contract (`A1.2`) unifying dot-grid canvas, `MobileDeviceFrame`, `TabletPreviewFrame`, `<RenderJoyTheme>` scoping, and glossy bottom canvas fade across `ComponentStudio` and `ThemeStudio`.

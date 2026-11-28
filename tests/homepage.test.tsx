@@ -72,7 +72,7 @@ describe("Phase 2.12 — Editorial Brand Identity & Homepage Redesign", () => {
     expect(
       screen.getByRole("heading", { name: "Your next interface starts here." })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Browse 60 Components/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Browse 78 Components/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Read Installation Docs/i })).toBeInTheDocument();
 
     // Editorial Footer

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logo-flare",
+  "type": "registry:component",
+  "title": "Logo Flare",
+  "description": "Midnight navy canvas with polar volumetric blue light rays, Gaussian central bloom, and optical lens streaks.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/logo-flare.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type LogoFlareProps = Omit<ShaderBackgroundProps, \"preset\">;\n\n/**\n * Standalone Logo Flare WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function LogoFlare(props: LogoFlareProps) {\n  return <ShaderBackground preset=\"logo-flare\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/logo-flare.tsx"
+    }
+  ]
+}

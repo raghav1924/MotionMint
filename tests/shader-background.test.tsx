@@ -1,6 +1,8 @@
 import React from "react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
+import { LogoFlare } from "@/registry/components/backgrounds/logo-flare";
+import { ChromaticPrism } from "@/registry/components/backgrounds/prism";
 import {
   ShaderBackground,
   SHADER_PRESETS,
@@ -304,5 +306,47 @@ describe("ShaderBackground — Raw WebGL Generative Canvas", () => {
 
     unmount();
     expect(deleteTexture).toHaveBeenCalledTimes(1);
+  });
+
+  it("exposes all 18 WebGL effects as separate discoverable catalog items and standalone components", () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
+
+    const presetIds = Object.keys(SHADER_PRESETS) as ShaderPresetId[];
+    for (const id of presetIds) {
+      const item = getCatalogItem(id);
+      expect(item).toBeDefined();
+      expect(item?.category).toBe("Backgrounds");
+      expect(item?.status).toBe("implemented");
+      expect(item?.installCommand).toBe(`npx shadcn add @renderjoy/${id}`);
+      expect(item?.sourcePath).toBe(`registry/components/backgrounds/${id}.tsx`);
+    }
+
+    const { container: flareContainer, unmount: unmountFlare } = render(
+      <LogoFlare>
+        <span>Logo Flare Hero</span>
+      </LogoFlare>
+    );
+    expect(flareContainer.firstElementChild).toHaveAttribute("data-shader-preset", "logo-flare");
+    unmountFlare();
+
+    const { container: prismContainer, unmount: unmountPrism } = render(
+      <ChromaticPrism>
+        <span>Prism Hero</span>
+      </ChromaticPrism>
+    );
+    expect(prismContainer.firstElementChild).toHaveAttribute("data-shader-preset", "prism");
+    unmountPrism();
+  });
+
+  it("renders standalone background routes in ComponentStudio without the generic 18-preset selector", () => {
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
+    const prismItem = getCatalogItem("prism")!;
+    render(
+      <RenderJoyProvider>
+        <ComponentStudio item={prismItem} sourceCode="// prism" />
+      </RenderJoyProvider>
+    );
+    expect(screen.getByText("Chromatic Prism")).toBeInTheDocument();
+    expect(screen.queryByText("Shader Preset")).not.toBeInTheDocument();
   });
 });

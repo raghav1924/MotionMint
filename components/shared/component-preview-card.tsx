@@ -464,6 +464,27 @@ export function ComponentLivePreview({
     case "founder-wall":
       return <FounderWall className="scale-[0.72] -my-8" />;
     default:
+      if (slug in SHADER_PRESETS) {
+        const meta = SHADER_PRESETS[slug as ShaderPresetId];
+        return (
+          <ShaderBackground
+            preset={meta.id}
+            speed={0.7}
+            intensity={1}
+            interactive
+            className={`flex h-[180px] w-full items-center justify-center rounded-xl border border-white/10 p-4 text-center ${
+              meta.id === "pastel" ? "text-slate-900" : "text-white"
+            }`}
+          >
+            <div className="flex h-full flex-col items-center justify-center gap-1">
+              <span className="font-mono text-[10px] uppercase tracking-widest opacity-80">
+                {meta.look} · WebGL
+              </span>
+              <p className="text-sm font-semibold tracking-tight">{meta.label}</p>
+            </div>
+          </ShaderBackground>
+        );
+      }
       return (
         <span className="rounded-full border border-[var(--mm-border)] bg-[var(--mm-surface-subtle)] px-3 py-1 text-xs text-[var(--mm-fg-muted)]">
           Scheduled in Roadmap

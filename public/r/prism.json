@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "prism",
+  "type": "registry:component",
+  "title": "Chromatic Prism",
+  "description": "Soft-focus optical glass caustics with spectral rainbow dispersion.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/prism.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type ChromaticPrismProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Chromatic Prism WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function ChromaticPrism(props: ChromaticPrismProps) {\n  return <ShaderBackground preset=\"prism\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/prism.tsx"
+    }
+  ]
+}

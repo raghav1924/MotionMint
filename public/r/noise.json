@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "noise",
+  "type": "registry:component",
+  "title": "Noise",
+  "description": "Procedural FBM noise, subtle grain, and organic distortion.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/noise.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type NoiseBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Noise WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function NoiseBackground(props: NoiseBackgroundProps) {\n  return <ShaderBackground preset=\"noise\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/noise.tsx"
+    }
+  ]
+}

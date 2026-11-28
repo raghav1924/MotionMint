@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "particle-helix",
+  "type": "registry:component",
+  "title": "Particle Helix",
+  "description": "Dotted 3D double-helix particle strand with depth shading.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/particle-helix.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type ParticleHelixProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Particle Helix WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function ParticleHelix(props: ParticleHelixProps) {\n  return <ShaderBackground preset=\"particle-helix\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/particle-helix.tsx"
+    }
+  ]
+}

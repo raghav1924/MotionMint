@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ripple",
+  "type": "registry:component",
+  "title": "Ripple",
+  "description": "Pointer- and click-triggered concentric wave fields with organic decay.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/ripple.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type RippleBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Ripple WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function RippleBackground(props: RippleBackgroundProps) {\n  return <ShaderBackground preset=\"ripple\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/ripple.tsx"
+    }
+  ]
+}

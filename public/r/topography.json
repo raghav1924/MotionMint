@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "topography",
+  "type": "registry:component",
+  "title": "Topography",
+  "description": "Crisp flat vector-style organic contour bands in motion.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/topography.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type TopographyBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Topography WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function TopographyBackground(props: TopographyBackgroundProps) {\n  return <ShaderBackground preset=\"topography\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/topography.tsx"
+    }
+  ]
+}

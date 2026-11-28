@@ -174,7 +174,17 @@ export function ComponentStudio({
     return () => setActiveComponentSlug(null);
   }, [item.slug, setActiveComponentSlug]);
 
+  const isStandaloneShader = item.slug in SHADER_PRESETS;
+  const isShader = item.slug === "shader-background" || isStandaloneShader;
+
   React.useEffect(() => {
+    if (isStandaloneShader) {
+      const id = item.slug as ShaderPresetId;
+      setShaderPreset(id);
+      setShaderColors(SHADER_PRESETS[id].defaultColors);
+      setShaderBgColor(SHADER_PRESETS[id].defaultColors[2]);
+      return;
+    }
     if (item.slug !== "shader-background" || typeof window === "undefined") return;
     const presetParam = new URLSearchParams(window.location.search).get("preset") as ShaderPresetId | null;
     if (presetParam && SHADER_PRESETS[presetParam]) {
@@ -182,7 +192,7 @@ export function ComponentStudio({
       setShaderColors(SHADER_PRESETS[presetParam].defaultColors);
       setShaderBgColor(SHADER_PRESETS[presetParam].defaultColors[2]);
     }
-  }, [item.slug]);
+  }, [item.slug, isStandaloneShader]);
 
   const [mobileInspectorOpen, setMobileInspectorOpen] = useState(false);
   const [stageTab, setStageTab] = useState<"preview" | "code" | "compare">("preview");
@@ -224,9 +234,14 @@ export function ComponentStudio({
   const [orbState, setOrbState] = useState<"idle" | "listening" | "speaking">("listening");
   const [pixelProgress, setPixelProgress] = useState(72);
   const [imageGenStatus, setImageGenStatus] = useState<"idle" | "generating" | "complete" | "error">("complete");
-  const [shaderPreset, setShaderPreset] = useState<ShaderPresetId>("logo-flare");
+  const [shaderPreset, setShaderPreset] = useState<ShaderPresetId>(
+    item.slug in SHADER_PRESETS ? (item.slug as ShaderPresetId) : "logo-flare"
+  );
   const [shaderColors, setShaderColors] = useState<[string, string, string]>(
-    SHADER_PRESETS["logo-flare"].defaultColors
+    (item.slug in SHADER_PRESETS
+      ? SHADER_PRESETS[item.slug as ShaderPresetId]
+      : SHADER_PRESETS["logo-flare"]
+    ).defaultColors
   );
   const [shaderSpeed, setShaderSpeed] = useState(0.7);
   const [shaderIntensity, setShaderIntensity] = useState(1);
@@ -237,7 +252,10 @@ export function ComponentStudio({
   const [shaderScrollReactive, setShaderScrollReactive] = useState(false);
   const [shaderQuality, setShaderQuality] = useState<ShaderQuality>("medium");
   const [shaderBgColor, setShaderBgColor] = useState(
-    SHADER_PRESETS["logo-flare"].defaultColors[2]
+    (item.slug in SHADER_PRESETS
+      ? SHADER_PRESETS[item.slug as ShaderPresetId]
+      : SHADER_PRESETS["logo-flare"]
+    ).defaultColors[2]
   );
   const [shaderRayCount, setShaderRayCount] = useState(14);
   const [shaderGlowRadius, setShaderGlowRadius] = useState(1);
@@ -610,6 +628,24 @@ export function ComponentStudio({
           </HalftonePopover>
         );
       case "shader-background":
+      case "logo-flare":
+      case "silk":
+      case "liquid-gold":
+      case "contour":
+      case "mercury":
+      case "pastel":
+      case "aurora":
+      case "flow":
+      case "noise":
+      case "liquid-drops":
+      case "ripple":
+      case "energy":
+      case "fluted-glass":
+      case "topography":
+      case "prism":
+      case "kinetic-torus":
+      case "particle-helix":
+      case "bio-terrain":
         return (
           <ShaderBackground
             preset={shaderPreset}
@@ -1313,8 +1349,27 @@ export function ComponentStudio({
           </div>
         );
       case "shader-background":
+      case "logo-flare":
+      case "silk":
+      case "liquid-gold":
+      case "contour":
+      case "mercury":
+      case "pastel":
+      case "aurora":
+      case "flow":
+      case "noise":
+      case "liquid-drops":
+      case "ripple":
+      case "energy":
+      case "fluted-glass":
+      case "topography":
+      case "prism":
+      case "kinetic-torus":
+      case "particle-helix":
+      case "bio-terrain":
         return (
-          <div className="grid gap-6 md:grid-cols-3 text-xs text-[var(--ws-text-secondary)]">
+          <div className={cn("grid gap-6 text-xs text-[var(--ws-text-secondary)]", !isStandaloneShader ? "md:grid-cols-3" : "md:grid-cols-2")}>
+            {!isStandaloneShader && (
             <div className="space-y-1.5">
               <p className="font-medium text-[var(--ws-text-primary)]">Shader Preset</p>
               <div className="grid grid-cols-3 gap-1.5">
@@ -1339,6 +1394,7 @@ export function ComponentStudio({
                 ))}
               </div>
             </div>
+            )}
 
             <div className="space-y-4">
             <div className="space-y-1.5">
@@ -1654,7 +1710,7 @@ export function ComponentStudio({
                     viewport={viewport}
                     theme={skin}
                     themeMode={themeMode}
-                    fullBleed={item.slug === "shader-background"}
+                    fullBleed={isShader}
                   >
                     {renderStage()}
                   </PreviewStage>

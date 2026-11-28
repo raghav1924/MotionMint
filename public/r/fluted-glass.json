@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fluted-glass",
+  "type": "registry:component",
+  "title": "Fluted Glass",
+  "description": "Vertical ribbed glass refraction with subtle chromatic edges.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/fluted-glass.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type FlutedGlassBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Fluted Glass WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function FlutedGlassBackground(props: FlutedGlassBackgroundProps) {\n  return <ShaderBackground preset=\"fluted-glass\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/fluted-glass.tsx"
+    }
+  ]
+}

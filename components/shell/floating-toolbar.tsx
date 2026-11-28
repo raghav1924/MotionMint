@@ -27,6 +27,7 @@ import {
   Contrast,
 } from "lucide-react";
 import { BRAND } from "@/lib/brand";
+import { SHADER_PRESETS } from "@/registry/components/shader-background";
 import { ALL_THEMES } from "@/lib/themes/registry";
 import { RenderJoyMark } from "@/components/brand/renderjoy-logo";
 import { useRenderJoy } from "@/components/site/providers";
@@ -83,7 +84,9 @@ export function FloatingToolbar() {
         ? "motion-reveal"
         : activeComponentSlug;
 
-  const isBackgroundPreview = slugFromPath === "shader-background";
+  const isBackgroundPreview =
+    slugFromPath === "shader-background" ||
+    Boolean(slugFromPath && slugFromPath in SHADER_PRESETS);
 
   const packageId = slugFromPath
     ? `${BRAND.registryNamespace}/${slugFromPath}`

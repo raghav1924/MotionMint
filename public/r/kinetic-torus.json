@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kinetic-torus",
+  "type": "registry:component",
+  "title": "Kinetic Torus",
+  "description": "3D sculpted radial-ribbed torus rotating with studio rim lighting.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/kinetic-torus.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type KineticTorusProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Kinetic Torus WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function KineticTorus(props: KineticTorusProps) {\n  return <ShaderBackground preset=\"kinetic-torus\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/kinetic-torus.tsx"
+    }
+  ]
+}

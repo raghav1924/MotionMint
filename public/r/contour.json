@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "contour",
+  "type": "registry:component",
+  "title": "Liquid Contour",
+  "description": "High-contrast cobalt and amber swirling topographic bands.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/contour.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type LiquidContourBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Liquid Contour WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function LiquidContourBackground(props: LiquidContourBackgroundProps) {\n  return <ShaderBackground preset=\"contour\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/contour.tsx"
+    }
+  ]
+}

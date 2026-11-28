@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "energy",
+  "type": "registry:component",
+  "title": "Energy",
+  "description": "Grid distortion, luminous interference fields, and pulse.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/energy.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type EnergyBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Energy WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function EnergyBackground(props: EnergyBackgroundProps) {\n  return <ShaderBackground preset=\"energy\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/energy.tsx"
+    }
+  ]
+}

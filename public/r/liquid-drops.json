@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "liquid-drops",
+  "type": "registry:component",
+  "title": "Liquid Drops",
+  "description": "Refractive surface-tension droplets with ambient drift and specular highlights.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/liquid-drops.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type LiquidDropsProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Liquid Drops WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function LiquidDrops(props: LiquidDropsProps) {\n  return <ShaderBackground preset=\"liquid-drops\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/liquid-drops.tsx"
+    }
+  ]
+}

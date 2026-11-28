@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aurora",
+  "type": "registry:component",
+  "title": "Aurora",
+  "description": "Soft flowing northern-lights color fields with gentle drift.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/aurora.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type AuroraBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Aurora WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function AuroraBackground(props: AuroraBackgroundProps) {\n  return <ShaderBackground preset=\"aurora\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/aurora.tsx"
+    }
+  ]
+}

@@ -146,11 +146,11 @@ The user explicitly requested this order:
 
 ## A3. WebGL/background preview improvements
 
-- [ ] **A3.1 — FIX:** Hide/show foreground sample text with an explicit toolbar switch so developers can evaluate background effects with and without HTML content.
-- [ ] **A3.2 — REFACTOR:** Remove the idea of one generic `ShaderBackground` with a preset dropdown as the primary catalogue experience. Each visual effect is a **separate discoverable background/WebGL component** with a dedicated title, route, preview, API and installation manifest.
-- [ ] **A3.3 — ARCHITECTURE:** Shared internal shader engine is encouraged; separate catalogue components/presets are required. For example: `LogoFlare`, `Prism`, `WindTunnel`, `CloudSea`, `Ink`, `Slipstream`, `Embers`, `Beams`, `AsciiWebGL`, `DitherField`, etc. A shared engine must not make them appear as variants of one generic user-facing component.
-- [ ] **A3.4 — FIX:** Ensure each background has its own visual identity and not just the same effect recoloured. Add meaningful controls only for parameters that actually change its render.
-- [ ] **A3.5 — QA:** Validate overlay content readability, pointer events, clipping, z-index, reduced motion, canvas resize, DPR cap, context loss/fallback and real rendering screenshots.
+- [x] **A3.1 — FIX:** Hide/show foreground sample text with an explicit toolbar switch so developers can evaluate background effects with and without HTML content.
+- [x] **A3.2 — REFACTOR:** Remove the idea of one generic `ShaderBackground` with a preset dropdown as the primary catalogue experience. Each visual effect is a **separate discoverable background/WebGL component** with a dedicated title, route, preview, API and installation manifest.
+- [x] **A3.3 — ARCHITECTURE:** Shared internal shader engine is encouraged; separate catalogue components/presets are required. For example: `LogoFlare`, `Prism`, `WindTunnel`, `CloudSea`, `Ink`, `Slipstream`, `Embers`, `Beams`, `AsciiWebGL`, `DitherField`, etc. A shared engine must not make them appear as variants of one generic user-facing component.
+- [x] **A3.4 — FIX:** Ensure each background has its own visual identity and not just the same effect recoloured. Add meaningful controls only for parameters that actually change its render.
+- [ ] **A3.5 — QA:** Validate overlay content readability, pointer events, clipping, z-index, reduced motion, canvas resize, DPR cap, context loss/fallback and real rendering screenshots. *(Blocked on `chrome_devtools` MCP / `playwright-core`)*
 
 ## A4. Branding, iconography and global interaction
 
@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task (synced with `ROADMAP.md`):** `Priority 1 — A1.6 & A3.1–A3.5: Browser multi-viewport screenshot QA (1440×900, 768×1024, 390×844) and separate discoverable WebGL/background component routes.`
+**Current next task (synced with `ROADMAP.md`):** `Priority 1 — A4.3–A4.6 & A5.1–A5.4: Brand mark motion/click feedback & halftone footer refinement (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

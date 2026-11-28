@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "mercury",
+  "type": "registry:component",
+  "title": "Mercury",
+  "description": "Chrome reflections and liquid metallic ridges.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/mercury.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type MercuryBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Mercury WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function MercuryBackground(props: MercuryBackgroundProps) {\n  return <ShaderBackground preset=\"mercury\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/mercury.tsx"
+    }
+  ]
+}

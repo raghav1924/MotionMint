@@ -92,9 +92,9 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
     expect(document.documentElement.getAttribute("data-appearance")).toBe("light");
   });
 
-  it("renders all 60 implemented components across all 58 theme/mode variants (3,480 combinations)", () => {
+  it("renders all 78 implemented components across all 58 theme/mode variants (4,524 combinations)", () => {
     const implemented = CATALOG_ITEMS.filter((c) => c.status === "implemented");
-    expect(implemented).toHaveLength(60);
+    expect(implemented).toHaveLength(78);
 
     let comboCount = 0;
     for (const theme of ALL_THEMES) {
@@ -110,7 +110,7 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
         unmount();
       }
     }
-    expect(comboCount).toBe(3480);
+    expect(comboCount).toBe(4524);
   }, 20000);
 
   it("ThemeStudio supports search, category filtering, light/dark application, and Compare Mode", () => {

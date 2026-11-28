@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "silk",
+  "type": "registry:component",
+  "title": "Silk",
+  "description": "Flowing organic WebGL ribbons with soft specular highlights.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "@renderjoy/shader-background"
+  ],
+  "files": [
+    {
+      "path": "registry/components/backgrounds/silk.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport {\n  ShaderBackground,\n  type ShaderBackgroundProps,\n} from \"@/registry/components/shader-background\";\n\nexport type SilkBackgroundProps = Omit<ShaderBackgroundProps, \"preset\" | \"flareOrigin\" | \"rayCount\" | \"glowRadius\" | \"lensStreak\" | \"logo\">;\n\n/**\n * Standalone Silk WebGL background component powered by the shared RenderJoy shader engine.\n */\nexport function SilkBackground(props: SilkBackgroundProps) {\n  return <ShaderBackground preset=\"silk\" {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/renderjoy/silk.tsx"
+    }
+  ]
+}
