@@ -494,6 +494,54 @@ const CAPABILITY_MAP: Record<string, CapabilityOverride> = {
     adjustable: false,
     isNew: true,
   },
+  "ascii-webgl": {
+    interactions: ["hover"],
+    interactionHint: "Move pointer to bend ASCII interference",
+    adjustable: false,
+    isNew: true,
+  },
+  "dither-field": {
+    interactions: ["hover"],
+    interactionHint: "Move pointer to shift Bayer dither light",
+    adjustable: false,
+    isNew: true,
+  },
+  "pixel-trail": {
+    interactions: ["hover", "focus", "press"],
+    interactionHint: "Sweep pointer or focus across pixel grid",
+    adjustable: false,
+    isNew: true,
+  },
+  "retro-crt": {
+    interactions: ["press"],
+    interactionHint: "Toggle CRT scanline overlay",
+    adjustable: false,
+    isNew: true,
+  },
+  "auth-split-block": {
+    interactions: ["press", "type"],
+    interactionHint: "Toggle Magic Link or submit email",
+    adjustable: false,
+    isNew: true,
+  },
+  "changelog-timeline": {
+    interactions: ["press"],
+    interactionHint: "Filter Added, Changed, or Fixed releases",
+    adjustable: false,
+    isNew: true,
+  },
+  "feature-tabs-block": {
+    interactions: ["press"],
+    interactionHint: "Switch feature tabs",
+    adjustable: false,
+    isNew: true,
+  },
+  "faq-accordion-block": {
+    interactions: ["press"],
+    interactionHint: "Expand or collapse FAQ answers",
+    adjustable: false,
+    isNew: true,
+  },
 };
 
 export function resolveComponentCapabilities(params: {

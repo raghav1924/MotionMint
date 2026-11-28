@@ -77,6 +77,14 @@ import { RippleGrid } from "@/registry/components/ripple-grid";
 import { PendulumWave } from "@/registry/components/pendulum-wave";
 import { ScrambleText } from "@/registry/components/scramble-text";
 import { SplitTextReveal } from "@/registry/components/split-text-reveal";
+import { AsciiWebgl } from "@/registry/components/ascii-webgl";
+import { DitherField } from "@/registry/components/dither-field";
+import { PixelTrail } from "@/registry/components/pixel-trail";
+import { RetroCrt } from "@/registry/components/retro-crt";
+import { AuthSplitBlock } from "@/registry/components/auth-split-block";
+import { ChangelogTimeline } from "@/registry/components/changelog-timeline";
+import { FeatureTabsBlock } from "@/registry/components/feature-tabs-block";
+import { FaqAccordionBlock } from "@/registry/components/faq-accordion-block";
 
 const DEMO_CARDS: DeckCardItem[] = [
   {
@@ -511,6 +519,22 @@ export function ComponentLivePreview({
       return <ScrambleText />;
     case "split-text-reveal":
       return <SplitTextReveal className="scale-[0.86]" />;
+    case "ascii-webgl":
+      return <AsciiWebgl cols={22} rows={8} className="scale-[0.88]" />;
+    case "dither-field":
+      return <DitherField className="scale-[0.9]" />;
+    case "pixel-trail":
+      return <PixelTrail className="scale-[0.88]" />;
+    case "retro-crt":
+      return <RetroCrt className="scale-[0.88]" />;
+    case "auth-split-block":
+      return <AuthSplitBlock className="scale-[0.74] -my-8" />;
+    case "changelog-timeline":
+      return <ChangelogTimeline className="scale-[0.78] -my-6" />;
+    case "feature-tabs-block":
+      return <FeatureTabsBlock className="scale-[0.82] -my-4" />;
+    case "faq-accordion-block":
+      return <FaqAccordionBlock className="scale-[0.82] -my-4" />;
     default:
       if (slug in SHADER_PRESETS) {
         const meta = SHADER_PRESETS[slug as ShaderPresetId];

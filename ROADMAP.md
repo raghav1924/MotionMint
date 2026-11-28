@@ -25,10 +25,10 @@
    - [x] Phase 5 remaining items (`advanced-upload-flow`, `payment-success-flow`, `animated-charts`, `bento-dashboard-block`, `cover-flow-carousel`)
    - [x] Phase 7 (Pro Infrastructure & Launch: India MoR research, SHA-256 Pro registry gate `/api/pro/registry/[slug]`, `/pricing` & licence configurator)
    - [x] Phase 8 & Future 29 Theme Demo Websites (`/themes/[themeId]/demo` with `generateStaticParams` for all 29 themes)
-4. **Priority 4 — Future Component Catalogue `[IN PROGRESS]`**
-   - [~] Wave 3 (`Media`), Wave 4 (`Carousels`), Wave 5 (`Physics` & `Typography`: `ripple-grid`, `pendulum-wave`, `scramble-text`, `split-text-reveal`) implemented; remaining Wave 6–8 items in `COMPONENT_BUILD_PLAN.md` & `RENDERJOY_REFERENCE_RESEARCH.md`
+4. **Priority 4 — Future Component Catalogue `[FLAGSHIP WAVES 3–8 DELIVERED]`**
+   - [x] Wave 3 (`Media`), Wave 4 (`Carousels`), Wave 5 (`Physics` & `Typography`), Wave 6 (`Effects`), Wave 7 (`Blocks`), Wave 8 (`Docs` AI/MCP) flagship batches implemented (`102` implemented components, `109` validated registry items)
 
-**NEXT ACTION:** `Priority 4 — Wave 6 (WebGL & Visual Effects) & Wave 7–8 Future Component Catalogue expansion (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
+**NEXT ACTION:** `A1.6 & A3.5 live multi-viewport browser screenshot QA (1440×900, 768×1024, 390×844, Light & Dark) once Chrome DevTools / Playwright is connected, or ongoing long-tail Wave 3–8 catalogue additions.`
 
 ---
 

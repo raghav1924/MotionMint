@@ -113,6 +113,14 @@ import { RippleGrid } from "@/registry/components/ripple-grid";
 import { PendulumWave } from "@/registry/components/pendulum-wave";
 import { ScrambleText } from "@/registry/components/scramble-text";
 import { SplitTextReveal } from "@/registry/components/split-text-reveal";
+import { AsciiWebgl } from "@/registry/components/ascii-webgl";
+import { DitherField } from "@/registry/components/dither-field";
+import { PixelTrail } from "@/registry/components/pixel-trail";
+import { RetroCrt } from "@/registry/components/retro-crt";
+import { AuthSplitBlock } from "@/registry/components/auth-split-block";
+import { ChangelogTimeline } from "@/registry/components/changelog-timeline";
+import { FeatureTabsBlock } from "@/registry/components/feature-tabs-block";
+import { FaqAccordionBlock } from "@/registry/components/faq-accordion-block";
 import { ComponentDocs } from "@/components/documentation/component-docs";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { Lock } from "lucide-react";
@@ -807,6 +815,22 @@ export function ComponentStudio({
         return <ScrambleText />;
       case "split-text-reveal":
         return <SplitTextReveal />;
+      case "ascii-webgl":
+        return <AsciiWebgl />;
+      case "dither-field":
+        return <DitherField />;
+      case "pixel-trail":
+        return <PixelTrail />;
+      case "retro-crt":
+        return <RetroCrt />;
+      case "auth-split-block":
+        return <AuthSplitBlock />;
+      case "changelog-timeline":
+        return <ChangelogTimeline />;
+      case "feature-tabs-block":
+        return <FeatureTabsBlock />;
+      case "faq-accordion-block":
+        return <FaqAccordionBlock />;
       case "tactile-3d-button":
         return (
           <div className="flex flex-wrap items-center justify-center gap-4">

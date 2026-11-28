@@ -43,6 +43,12 @@ const LARGE_STAGE_SLUGS = new Set([
   "fan-carousel",
   "parallax-carousel",
   "pendulum-wave",
+  "ascii-webgl",
+  "retro-crt",
+  "auth-split-block",
+  "changelog-timeline",
+  "feature-tabs-block",
+  "faq-accordion-block",
 ]);
 
 export function CatalogueBrowser() {

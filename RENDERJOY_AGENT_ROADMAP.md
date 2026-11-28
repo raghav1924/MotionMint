@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task (synced with `ROADMAP.md`):** `Priority 4 — Wave 6 (WebGL & Visual Effects) & Wave 7–8 Future Component Catalogue expansion (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
+**Current next task (synced with `ROADMAP.md`):** `A1.6 & A3.5 live multi-viewport browser screenshot QA (1440×900, 768×1024, 390×844, Light & Dark) once Chrome DevTools / Playwright is connected, or ongoing long-tail Wave 3–8 catalogue additions.`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

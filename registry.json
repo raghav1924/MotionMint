@@ -1990,6 +1990,134 @@
           "target": "components/renderjoy/split-text-reveal.tsx"
         }
       ]
+    },
+    {
+      "name": "ascii-webgl",
+      "type": "registry:component",
+      "title": "ASCII Matrix Field",
+      "description": "Procedural ASCII interference field with pointer reactivity and reduced-motion fallback.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/ascii-webgl.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/ascii-webgl.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dither-field",
+      "type": "registry:component",
+      "title": "Ordered Dither Field",
+      "description": "Interactive 4x4 Bayer ordered-dither matrix reacting to pointer position.",
+      "dependencies": [
+        "react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dither-field.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/dither-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pixel-trail",
+      "type": "registry:component",
+      "title": "Pixel Trail",
+      "description": "Interactive quantized pixel trail surface lighting up cells on hover and focus.",
+      "dependencies": [
+        "react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/pixel-trail.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/pixel-trail.tsx"
+        }
+      ]
+    },
+    {
+      "name": "retro-crt",
+      "type": "registry:component",
+      "title": "Retro CRT Monitor",
+      "description": "Retro CRT phosphor display frame with toggleable scanlines.",
+      "dependencies": [
+        "react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/retro-crt.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/retro-crt.tsx"
+        }
+      ]
+    },
+    {
+      "name": "auth-split-block",
+      "type": "registry:component",
+      "title": "Split Auth Block",
+      "description": "Two-column editorial authentication block with magic-link toggle and validation.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/auth-split-block.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/auth-split-block.tsx"
+        }
+      ]
+    },
+    {
+      "name": "changelog-timeline",
+      "type": "registry:component",
+      "title": "Changelog Timeline",
+      "description": "Release notes timeline with category filter pills.",
+      "dependencies": [
+        "react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/changelog-timeline.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/changelog-timeline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "feature-tabs-block",
+      "type": "registry:component",
+      "title": "Feature Tabs Showcase",
+      "description": "Interactive 3-tab product feature showcase block.",
+      "dependencies": [
+        "react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/feature-tabs-block.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/feature-tabs-block.tsx"
+        }
+      ]
+    },
+    {
+      "name": "faq-accordion-block",
+      "type": "registry:component",
+      "title": "Interactive FAQ Block",
+      "description": "Accessible FAQ accordion block with aria-expanded controls.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/faq-accordion-block.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/faq-accordion-block.tsx"
+        }
+      ]
     }
   ]
 }

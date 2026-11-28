@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "faq-accordion-block",
+  "type": "registry:component",
+  "title": "Interactive FAQ Block",
+  "description": "Accessible FAQ accordion block with aria-expanded controls.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/faq-accordion-block.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/faq-accordion-block.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { ChevronDown } from \"lucide-react\";\n\nexport interface FaqItem {\n  id: string;\n  question: string;\n  answer: string;\n}\n\nexport interface FaqAccordionBlockProps {\n  items?: FaqItem[];\n  className?: string;\n}\n\nconst DEFAULT_FAQS: FaqItem[] = [\n  {\n    id: \"q1\",\n    question: \"Do components lock me into a runtime package?\",\n    answer: \"No. Every component installs directly as TypeScript source via shadcn CLI.\",\n  },\n  {\n    id: \"q2\",\n    question: \"How does sound feedback behave by default?\",\n    answer: \"Sound is strictly off by default and only triggers on explicit user gesture.\",\n  },\n  {\n    id: \"q3\",\n    question: \"Can I mix multiple themes on one page?\",\n    answer: \"Yes. Wrap any subtree in <RenderJoyTheme theme mode> with zero global leaks.\",\n  },\n];\n\n/**\n * Accessible FAQ accordion block with aria-expanded controls.\n */\nexport function FaqAccordionBlock({\n  items = DEFAULT_FAQS,\n  className = \"\",\n}: FaqAccordionBlockProps) {\n  const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);\n\n  return (\n    <div\n      className={`w-full max-w-md divide-y divide-[var(--mm-border)] rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-4 text-[var(--mm-fg)] shadow-sm ${className}`.trim()}\n    >\n      {items.map((item) => {\n        const isOpen = item.id === openId;\n        return (\n          <div key={item.id} className=\"py-3\">\n            <button\n              type=\"button\"\n              onClick={() => setOpenId(isOpen ? null : item.id)}\n              aria-expanded={isOpen}\n              className=\"flex w-full items-center justify-between gap-2 text-left text-xs font-semibold cursor-pointer\"\n            >\n              <span>{item.question}</span>\n              <ChevronDown\n                className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 ${\n                  isOpen ? \"rotate-180\" : \"\"\n                }`}\n                aria-hidden=\"true\"\n              />\n            </button>\n            {isOpen && (\n              <p className=\"mt-2 text-xs leading-relaxed text-[var(--mm-fg-muted)]\">\n                {item.answer}\n              </p>\n            )}\n          </div>\n        );\n      })}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "feature-tabs-block",
+  "type": "registry:component",
+  "title": "Feature Tabs Showcase",
+  "description": "Interactive 3-tab product feature showcase block.",
+  "dependencies": [
+    "react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/feature-tabs-block.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/feature-tabs-block.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nexport interface FeatureTab {\n  id: string;\n  label: string;\n  headline: string;\n  detail: string;\n}\n\nexport interface FeatureTabsBlockProps {\n  tabs?: FeatureTab[];\n  className?: string;\n}\n\nconst DEFAULT_TABS: FeatureTab[] = [\n  {\n    id: \"tokens\",\n    label: \"Scoped Tokens\",\n    headline: \"Zero global style leaks\",\n    detail: \"Each specimen receives inline --mm-* CSS custom properties.\",\n  },\n  {\n    id: \"motion\",\n    label: \"Spring Physics\",\n    headline: \"Interruptible GPU motion\",\n    detail: \"Shared spring presets with automatic prefers-reduced-motion fallback.\",\n  },\n  {\n    id: \"registry\",\n    label: \"CLI Registry\",\n    headline: \"Own every line of source\",\n    detail: \"Install directly into your repo with npx shadcn add @renderjoy/<slug>.\",\n  },\n];\n\n/**\n * Interactive 3-tab product feature showcase block.\n */\nexport function FeatureTabsBlock({\n  tabs = DEFAULT_TABS,\n  className = \"\",\n}: FeatureTabsBlockProps) {\n  const [activeId, setActiveId] = useState(tabs[0]?.id ?? \"tokens\");\n  const current = tabs.find((t) => t.id === activeId) ?? tabs[0];\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 text-[var(--mm-fg)] shadow-sm space-y-3 ${className}`.trim()}\n    >\n      <div role=\"tablist\" aria-label=\"Product features\" className=\"flex gap-1.5 border-b border-[var(--mm-border)] pb-2.5\">\n        {tabs.map((tab) => (\n          <button\n            key={tab.id}\n            type=\"button\"\n            role=\"tab\"\n            aria-selected={tab.id === current.id}\n            onClick={() => setActiveId(tab.id)}\n            className={`rounded-lg px-2.5 py-1 text-xs font-medium cursor-pointer transition-colors ${\n              tab.id === current.id\n                ? \"bg-[var(--mm-accent)] text-[var(--mm-accent-fg)]\"\n                : \"text-[var(--mm-fg-muted)] hover:bg-[var(--mm-bg)]\"\n            }`}\n          >\n            {tab.label}\n          </button>\n        ))}\n      </div>\n\n      <div role=\"tabpanel\" className=\"rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] p-4 space-y-1\">\n        <p className=\"text-sm font-semibold\">{current.headline}</p>\n        <p className=\"text-xs leading-relaxed text-[var(--mm-fg-muted)]\">{current.detail}</p>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pixel-trail",
+  "type": "registry:component",
+  "title": "Pixel Trail",
+  "description": "Interactive quantized pixel trail surface lighting up cells on hover and focus.",
+  "dependencies": [
+    "react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/pixel-trail.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/pixel-trail.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nexport interface PixelTrailProps {\n  cols?: number;\n  rows?: number;\n  className?: string;\n}\n\n/**\n * Interactive quantized pixel trail surface lighting up cells on hover/focus.\n */\nexport function PixelTrail({\n  cols = 10,\n  rows = 5,\n  className = \"\",\n}: PixelTrailProps) {\n  const [trail, setTrail] = useState<number[]>([24, 25]);\n\n  const activate = (idx: number) => {\n    setTrail((prev) => [...prev.slice(-7), idx]);\n  };\n\n  return (\n    <div\n      aria-label=\"Interactive pixel trail\"\n      className={`inline-grid gap-1.5 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 ${className}`.trim()}\n      style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}\n    >\n      {Array.from({ length: rows * cols }).map((_, idx) => {\n        const pos = trail.lastIndexOf(idx);\n        const active = pos !== -1;\n        const opacity = active ? 0.35 + ((pos + 1) / Math.max(trail.length, 1)) * 0.65 : 0.15;\n        return (\n          <button\n            key={idx}\n            type=\"button\"\n            onMouseEnter={() => activate(idx)}\n            onFocus={() => activate(idx)}\n            onClick={() => activate(idx)}\n            aria-label={`Pixel cell ${idx + 1}`}\n            style={{ opacity }}\n            className={`h-4 w-4 rounded-[3px] transition-all duration-200 cursor-pointer ${\n              active ? \"bg-[var(--mm-accent)] scale-105\" : \"bg-[var(--mm-border)]\"\n            }`}\n          />\n        );\n      })}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

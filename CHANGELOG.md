@@ -1,5 +1,36 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.34.0] — 2026-11-28 (AI Discovery Sync & Browser QA Check)
+### Changed
+- `public/llms.txt` & `public/llms-full.txt`: Synchronized AI/MCP discovery manifests with `102` implemented components, `109` registry items, `18` standalone WebGL backgrounds, `56` original UI sounds, `29` theme demo websites, `/bench`, and `/pricing`.
+
+## [0.33.0] — 2026-11-28 (Priority 4 — Wave 7 Blocks Batch 1 & Wave 8 AI/MCP Docs)
+### Added
+- `registry/components/auth-split-block.tsx`: Two-column editorial authentication block with magic-link toggle and validation.
+- `registry/components/changelog-timeline.tsx`: Release notes timeline block with Added/Changed/Fixed filter pills.
+- `registry/components/feature-tabs-block.tsx`: Interactive 3-tab product feature showcase block.
+- `registry/components/faq-accordion-block.tsx`: Accessible FAQ accordion block with `aria-expanded` controls.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 7 Blocks (`109` validated registry items total).
+- `tests/wave7-blocks.test.tsx`: Added unit tests for all 4 Wave 7 Blocks and Wave 8 AI/MCP documentation.
+
+### Changed
+- `app/docs/page.tsx`: Added Section 4 (`AI Agent & MCP Discovery`) documenting `/llms.txt`, `/llms-full.txt`, `/r/registry.json`, and `@renderjoy-pro` CLI integration.
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`, `components/site/catalogue-browser.tsx`: Added all 4 Wave 7 Blocks (`102` implemented components total) and wired live previews.
+- `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Updated implemented component count assertions (`98` -> `102`, `5,916` theme/mode combinations).
+
+## [0.32.0] — 2026-11-28 (Priority 4 — Wave 6 Visual Effects Batch 1)
+### Added
+- `registry/components/ascii-webgl.tsx`: Procedural ASCII interference field with pointer reactivity and reduced-motion static frame.
+- `registry/components/dither-field.tsx`: Interactive 4x4 Bayer ordered-dither matrix reacting to pointer luminance.
+- `registry/components/pixel-trail.tsx`: Quantized pixel trail grid lighting up cells on hover, focus, or click.
+- `registry/components/retro-crt.tsx`: Retro CRT phosphor display frame with toggleable scanline overlay.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 6 Visual Effects (`105` validated registry items total).
+- `tests/wave6-effects.test.tsx`: Added unit tests for all 4 Wave 6 Visual Effects.
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`, `components/site/catalogue-browser.tsx`: Added all 4 Wave 6 Visual Effects (`98` implemented components total) and wired live previews.
+- `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Updated implemented component count assertions (`94` -> `98`, `5,684` theme/mode combinations).
+
 ## [0.31.0] — 2026-11-28 (Priority 4 — Wave 5 Physics & Text Batch 1)
 ### Added
 - `registry/components/ripple-grid.tsx`: Interactive tactile grid propagating radial spring waves from any clicked cell.

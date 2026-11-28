@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "changelog-timeline",
+  "type": "registry:component",
+  "title": "Changelog Timeline",
+  "description": "Release notes timeline with category filter pills.",
+  "dependencies": [
+    "react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/changelog-timeline.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/changelog-timeline.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nexport type ReleaseKind = \"All\" | \"Added\" | \"Changed\" | \"Fixed\";\n\nexport interface ReleaseEntry {\n  version: string;\n  date: string;\n  kind: Exclude<ReleaseKind, \"All\">;\n  summary: string;\n}\n\nexport interface ChangelogTimelineProps {\n  entries?: ReleaseEntry[];\n  className?: string;\n}\n\nconst DEFAULT_ENTRIES: ReleaseEntry[] = [\n  { version: \"v1.4.0\", date: \"Nov 28\", kind: \"Added\", summary: \"Launched 29 Theme Demo Websites & Bench workspace.\" },\n  { version: \"v1.3.2\", date: \"Nov 24\", kind: \"Changed\", summary: \"Unified PreviewStage across Studio and Theme Studio.\" },\n  { version: \"v1.3.1\", date: \"Nov 20\", kind: \"Fixed\", summary: \"Improved WebGL context loss fallback and DPR capping.\" },\n];\n\n/**\n * Release notes timeline with category filter pills.\n */\nexport function ChangelogTimeline({\n  entries = DEFAULT_ENTRIES,\n  className = \"\",\n}: ChangelogTimelineProps) {\n  const [filter, setFilter] = useState<ReleaseKind>(\"All\");\n  const visible = filter === \"All\" ? entries : entries.filter((e) => e.kind === filter);\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 text-[var(--mm-fg)] shadow-sm space-y-3 ${className}`.trim()}\n    >\n      <div className=\"flex flex-wrap items-center justify-between gap-2\">\n        <span className=\"text-sm font-semibold\">Release History</span>\n        <div role=\"group\" aria-label=\"Filter release kind\" className=\"flex gap-1 text-[10px]\">\n          {([\"All\", \"Added\", \"Changed\", \"Fixed\"] as const).map((k) => (\n            <button\n              key={k}\n              type=\"button\"\n              onClick={() => setFilter(k)}\n              aria-pressed={filter === k}\n              className={`rounded-full border px-2 py-0.5 cursor-pointer ${\n                filter === k\n                  ? \"border-[var(--mm-accent)] bg-[var(--mm-accent)] text-[var(--mm-accent-fg)] font-medium\"\n                  : \"border-[var(--mm-border)] text-[var(--mm-fg-muted)]\"\n              }`}\n            >\n              {k}\n            </button>\n          ))}\n        </div>\n      </div>\n\n      <ol className=\"space-y-2.5 border-l border-[var(--mm-border)] pl-3\">\n        {visible.map((entry) => (\n          <li key={entry.version} className=\"space-y-0.5 text-xs\">\n            <div className=\"flex items-center gap-2 font-mono text-[10px]\">\n              <span className=\"font-semibold text-[var(--mm-fg)]\">{entry.version}</span>\n              <span className=\"text-[var(--mm-fg-muted)]\">{entry.date}</span>\n              <span className=\"rounded bg-[var(--mm-bg)] px-1.5 py-0.5 text-[var(--mm-accent)]\">\n                {entry.kind}\n              </span>\n            </div>\n            <p className=\"text-[var(--mm-fg-muted)]\">{entry.summary}</p>\n          </li>\n        ))}\n      </ol>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

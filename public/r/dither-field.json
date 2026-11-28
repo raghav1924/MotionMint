@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dither-field",
+  "type": "registry:component",
+  "title": "Ordered Dither Field",
+  "description": "Interactive 4x4 Bayer ordered-dither matrix reacting to pointer position.",
+  "dependencies": [
+    "react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dither-field.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/dither-field.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nconst BAYER_4X4 = [\n  [0, 8, 2, 10],\n  [12, 4, 14, 6],\n  [3, 11, 1, 9],\n  [15, 7, 13, 5],\n];\n\nexport interface DitherFieldProps {\n  cols?: number;\n  rows?: number;\n  className?: string;\n}\n\n/**\n * Interactive 4x4 Bayer ordered-dither matrix reacting to pointer position.\n */\nexport function DitherField({\n  cols = 16,\n  rows = 8,\n  className = \"\",\n}: DitherFieldProps) {\n  const [focus, setFocus] = useState({ x: 0.5, y: 0.5 });\n\n  return (\n    <div\n      aria-label=\"Ordered dither field\"\n      onPointerMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        if (rect.width > 0 && rect.height > 0) {\n          setFocus({\n            x: (e.clientX - rect.left) / rect.width,\n            y: (e.clientY - rect.top) / rect.height,\n          });\n        }\n      }}\n      className={`inline-grid gap-1 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 ${className}`.trim()}\n      style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}\n    >\n      {Array.from({ length: rows * cols }).map((_, idx) => {\n        const r = Math.floor(idx / cols);\n        const c = idx % cols;\n        const dist = Math.hypot(c / cols - focus.x, r / rows - focus.y);\n        const luma = Math.max(0, 1 - dist * 1.45);\n        const threshold = (BAYER_4X4[r % 4][c % 4] + 0.5) / 16;\n        const lit = luma > threshold;\n        return (\n          <span\n            key={idx}\n            className={`h-2.5 w-2.5 rounded-[2px] transition-colors duration-150 ${\n              lit ? \"bg-[var(--mm-accent)]\" : \"bg-[var(--mm-border)]/40\"\n            }`}\n          />\n        );\n      })}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -40,6 +40,18 @@ export default function DocsPage() {
           All motion respects <code className="font-mono text-xs">prefers-reduced-motion: reduce</code>.
         </p>
       </section>
+
+      <section className="mm-card p-6 space-y-3">
+        <h2 className="text-lg font-semibold text-[var(--mm-fg)]">4. AI Agent &amp; MCP Discovery</h2>
+        <p className="text-sm text-[var(--mm-fg-muted)] leading-relaxed">
+          Machine-readable manifests are served at <code className="font-mono text-xs">/llms.txt</code>,{" "}
+          <code className="font-mono text-xs">/llms-full.txt</code>, and{" "}
+          <code className="font-mono text-xs">/r/registry.json</code>. Configure{" "}
+          <code className="font-mono text-xs">@renderjoy</code> and{" "}
+          <code className="font-mono text-xs">@renderjoy-pro</code> in{" "}
+          <code className="font-mono text-xs">components.json</code> for automated CLI and MCP installs.
+        </p>
+      </section>
     </div>
   );
 }

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ascii-webgl",
+  "type": "registry:component",
+  "title": "ASCII Matrix Field",
+  "description": "Procedural ASCII interference field with pointer reactivity and reduced-motion fallback.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/ascii-webgl.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/ascii-webgl.tsx",
+      "content": "\"use client\";\n\nimport React, { useEffect, useRef, useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nconst RAMP = \" .:-=+*#%@\";\n\nexport interface AsciiWebglProps {\n  cols?: number;\n  rows?: number;\n  className?: string;\n  children?: React.ReactNode;\n}\n\n/**\n * Procedural ASCII interference field with pointer reactivity and reduced-motion fallback.\n */\nexport function AsciiWebgl({\n  cols = 28,\n  rows = 10,\n  className = \"\",\n  children,\n}: AsciiWebglProps) {\n  const prefersReduced = useReducedMotion();\n  const [frame, setFrame] = useState(0);\n  const pointerRef = useRef({ x: 0.5, y: 0.5 });\n\n  useEffect(() => {\n    if (prefersReduced) return;\n    const id = window.setInterval(() => setFrame((f) => f + 1), 90);\n    return () => window.clearInterval(id);\n  }, [prefersReduced]);\n\n  const lines: string[] = [];\n  for (let r = 0; r < rows; r++) {\n    let row = \"\";\n    for (let c = 0; c < cols; c++) {\n      const nx = c / cols;\n      const ny = r / rows;\n      const dist = Math.hypot(nx - pointerRef.current.x, ny - pointerRef.current.y);\n      const val =\n        (Math.sin(nx * 8 + frame * 0.18) +\n          Math.cos(ny * 6 - frame * 0.14) +\n          Math.sin(dist * 14 - frame * 0.25)) /\n          6 +\n        0.5;\n      const idx = Math.max(0, Math.min(RAMP.length - 1, Math.floor(val * RAMP.length)));\n      row += RAMP[idx];\n    }\n    lines.push(row);\n  }\n\n  return (\n    <div\n      onPointerMove={(e) => {\n        const rect = e.currentTarget.getBoundingClientRect();\n        if (rect.width > 0 && rect.height > 0) {\n          pointerRef.current = {\n            x: (e.clientX - rect.left) / rect.width,\n            y: (e.clientY - rect.top) / rect.height,\n          };\n        }\n      }}\n      className={`relative overflow-hidden rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 text-[var(--mm-fg)] ${className}`.trim()}\n    >\n      <pre\n        aria-hidden=\"true\"\n        className=\"pointer-events-none select-none font-mono text-[10px] leading-[1.15] text-[var(--mm-accent)] opacity-75\"\n      >\n        {lines.join(\"\\n\")}\n      </pre>\n      {children ? <div className=\"relative z-10 mt-2\">{children}</div> : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

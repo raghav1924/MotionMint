@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "retro-crt",
+  "type": "registry:component",
+  "title": "Retro CRT Monitor",
+  "description": "Retro CRT phosphor display frame with toggleable scanlines.",
+  "dependencies": [
+    "react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/retro-crt.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/retro-crt.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\n\nexport interface RetroCrtProps {\n  label?: string;\n  className?: string;\n  children?: React.ReactNode;\n}\n\n/**\n * Retro CRT phosphor display frame with toggleable scanlines.\n */\nexport function RetroCrt({\n  label = \"SIGNAL // CH-03\",\n  className = \"\",\n  children,\n}: RetroCrtProps) {\n  const [scanlines, setScanlines] = useState(true);\n\n  return (\n    <div\n      className={`relative w-full max-w-sm overflow-hidden rounded-2xl border-2 border-[var(--mm-border)] bg-neutral-950 p-4 text-emerald-400 shadow-inner ${className}`.trim()}\n    >\n      {scanlines && (\n        <div\n          aria-hidden=\"true\"\n          data-crt-scanlines=\"true\"\n          className=\"pointer-events-none absolute inset-0 opacity-25\"\n          style={{\n            backgroundImage:\n              \"repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.8) 3px, rgba(0,0,0,0.8) 4px)\",\n          }}\n        />\n      )}\n\n      <div className=\"relative z-10 space-y-3\">\n        <div className=\"flex items-center justify-between font-mono text-[10px]\">\n          <span>{label}</span>\n          <button\n            type=\"button\"\n            onClick={() => setScanlines((s) => !s)}\n            aria-pressed={scanlines}\n            className=\"rounded border border-emerald-500/40 px-2 py-0.5 hover:bg-emerald-500/10 cursor-pointer\"\n          >\n            Scanlines: {scanlines ? \"ON\" : \"OFF\"}\n          </button>\n        </div>\n\n        <div className=\"rounded-xl border border-emerald-500/25 bg-black/50 p-3 font-mono text-xs\">\n          {children ?? \"PHOSPHOR READY · 60HZ SYNC\"}\n        </div>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

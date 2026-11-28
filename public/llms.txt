@@ -1,50 +1,46 @@
 # RenderJoy — UI with Feel
 
-> Interaction-first React & Next.js UI toolkit with optional Web Audio & haptic feedback and a 29-theme design token system.
+> Interaction-first React & Next.js UI toolkit with optional Web Audio & haptic feedback, a 58-variant (29 themes × Light/Dark) scoped design token system, standalone WebGL backgrounds, Bench workspace, and Flow UI Kit.
 
 ## Status
-- Implemented Free Components: 44 (+ `motion-reveal`, `sound-engine`, `ai-types` = 47 registry items)
-- Planned Roadmap Inventory: 160+ items across 22 categories
-- Themes: 29 complete token profiles
+- Implemented Components: 102 (`109` validated registry items in `public/r/`)
+- WebGL Standalone Backgrounds: 18 distinct GPU shader effects (`logo-flare`, `silk`, `prism`, `kinetic-torus`, etc.)
+- Sound Library: 56 original procedural Web Audio cues across 8 categories
+- Themes: 29 complete token profiles × Light/Dark (58 variants) + 29 static demo websites (`/themes/[themeId]/demo`)
 
 ## Registry Installation
-Namespace: `@renderjoy`
-Local registry endpoint: `http://localhost:3000/r/{name}.json`
+Public Namespace: `@renderjoy` (`http://localhost:3000/r/{name}.json`)
+Pro Namespace: `@renderjoy-pro` (`/api/pro/registry/{name}` with `Authorization: Bearer ${RENDERJOY_PRO_TOKEN}`)
 
 Configure `components.json`:
 ```json
 {
   "registries": {
-    "@renderjoy": "http://localhost:3000/r/{name}.json"
+    "@renderjoy": "http://localhost:3000/r/{name}.json",
+    "@renderjoy-pro": {
+      "url": "http://localhost:3000/api/pro/registry/{name}",
+      "headers": {
+        "Authorization": "Bearer ${RENDERJOY_PRO_TOKEN}"
+      }
+    }
   }
 }
 ```
 
-Install any available component:
+Install any component:
 ```bash
 npx shadcn@latest add @renderjoy/<slug>
 ```
 
-## Available Components (12)
-- `bounce-dots-loader` — CSS-keyframe three-dot loader (`/components/bounce-dots-loader`)
-- `wiggle-text` — Character/word wiggle typography (`/components/wiggle-text`)
-- `jelly-button` — Magnetic spring button (`/components/jelly-button`)
-- `ripple-button` — Pointer-origin ripple button (`/components/ripple-button`)
-- `copy-button` — Clipboard copy button with error fallback (`/components/copy-button`)
-- `sound-toggle` — Accessible switch with waveform & audio cues (`/components/sound-toggle`)
-- `progress-ring` — SVG progress ring & linear bar (`/components/progress-ring`)
-- `skeleton-shimmer` — Composable CSS shimmer placeholders (`/components/skeleton-shimmer`)
-- `dropzone` — Click & drag-and-drop file selector (`/components/dropzone`)
-- `swipe-card-deck` — Layered spring swipe card stack (`/components/swipe-card-deck`)
-- `thinking-loader` — Multi-stage async status indicator (`/components/thinking-loader`)
-- `flip-card` — Direction-aware 3D flip card (`/components/flip-card`)
-- `motion-reveal` — Accessible scroll & entrance reveal wrapper (`/motion`)
-
 ## Key Routes
-- `/components` — Catalogue (defaults to Available Now, plus Full Inventory tab)
-- `/components/[slug]` — Component Studio (58-variant theme preview, DeviceFrames, docs, install CLI)
-- `/motion` — Motion Lab & shared presets
+- `/` — 6-beat editorial homepage with Sculptural Silk Hero & Kinetic Brand Mark
+- `/components` — Component Catalogue (102 implemented + Full Inventory)
+- `/components/[slug]` — Component Studio (shared `PreviewStage`, DeviceFrames, floating Inspector, docs, CLI)
+- `/bench` — Full-canvas side-by-side experimentation workspace
 - `/themes` — 29-Theme Studio (58 Light/Dark variants, Compare Mode)
-- `/sounds` — Web Audio & Haptics Sound Lab
-- `/flow` — Node Pipeline Orchestrator (built on RenderJoy Flow UI Kit & `@xyflow/react`)
-- `/docs/installation` — Registry installation guide
+- `/themes/[themeId]/demo` — 29 statically generated full-page theme demo websites
+- `/motion` — Motion Lab with live spring & stagger tuner + recipe export
+- `/sounds` — Web Audio & Haptics Sound Lab + 56-cue Sound Library
+- `/flow` — Node Pipeline Orchestrator (9 typed nodes, Kahn's DAG validation, simulated execution adapter)
+- `/pricing` — Open Core & Pro Ecosystem tiers + licence token configurator
+- `/docs` & `/docs/installation` — Architecture, AI/MCP discovery, and installation guide
