@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Sun, Moon, Volume2, VolumeX, LayoutGrid, Play, Sparkles } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { RenderJoyMark } from "@/components/brand/renderjoy-logo";
+import { KineticBrandMark } from "@/components/brand/kinetic-brand-mark";
 import { useRenderJoy } from "@/components/site/providers";
 import { cn } from "@/lib/utils";
 
@@ -45,7 +45,7 @@ export function BrandFloatingButton() {
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-ring)]"
         )}
       >
-        <RenderJoyMark size={22} />
+        <KineticBrandMark size={22} />
       </button>
 
       {open && (

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { PanelLeftClose } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { RenderJoyMark } from "@/components/brand/renderjoy-logo";
+import { KineticBrandMark } from "@/components/brand/kinetic-brand-mark";
 import { CATALOG_ITEMS } from "@/lib/catalog";
 import { useRenderJoy } from "@/components/site/providers";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
@@ -146,9 +146,7 @@ export function EditorialSidebar() {
                 onClick={() => setSidebarOpen(false)}
                 className="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-[var(--ws-text-primary)]"
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-[#111111] text-[var(--ws-accent,#dfff00)]">
-                  <RenderJoyMark size={14} />
-                </span>
+                <KineticBrandMark size={16} />
                 <span>{BRAND.name}</span>
               </Link>
               <button

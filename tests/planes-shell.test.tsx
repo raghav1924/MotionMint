@@ -10,6 +10,9 @@ import { FloatingToolbar } from "@/components/shell/floating-toolbar";
 import { DesktopBrowserFrame, TabletPreviewFrame, MobileDeviceFrame } from "@/components/preview/device-frames";
 import { ComponentDocs } from "@/components/documentation/component-docs";
 import { CatalogueBrowser } from "@/components/site/catalogue-browser";
+import { Footer } from "@/components/site/footer";
+import { KineticBrandMark } from "@/components/brand/kinetic-brand-mark";
+import * as soundEngine from "@/lib/audio/sound-engine";
 import { CATALOG_ITEMS } from "@/lib/catalog";
 
 vi.mock("next/navigation", () => ({
@@ -114,5 +117,38 @@ describe("Planes UI Design & Interaction Specification", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "props" }));
     expect(screen.getByText("maxVisibleDepth")).toBeInTheDocument();
+  });
+
+  it("KineticBrandMark emits click impact wave and only plays sound when globally enabled", () => {
+    const playSpy = vi.spyOn(soundEngine, "playSoundEffect").mockImplementation(() => {});
+    const { container } = render(
+      <RenderJoyProvider>
+        <KineticBrandMark size={24} />
+      </RenderJoyProvider>
+    );
+
+    const mark = container.querySelector("span")!;
+    fireEvent.click(mark);
+    expect(container.querySelector('[data-brand-impact-wave="true"]')).toBeInTheDocument();
+    expect(playSpy).not.toHaveBeenCalled();
+
+    playSpy.mockRestore();
+  });
+
+  it("Footer renders grouped navigation columns, contact link, and halftone dot-field", () => {
+    const { container } = render(
+      <RenderJoyProvider>
+        <Footer />
+      </RenderJoyProvider>
+    );
+
+    expect(screen.getByText("Explore")).toBeInTheDocument();
+    expect(screen.getByText("Labs")).toBeInTheDocument();
+    expect(screen.getByText("Connect")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "hello@renderjoy.dev" })).toHaveAttribute(
+      "href",
+      "mailto:hello@renderjoy.dev"
+    );
+    expect(container.querySelector('[data-footer-halftone="true"]')).toBeInTheDocument();
   });
 });

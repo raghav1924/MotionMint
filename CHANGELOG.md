@@ -1,5 +1,15 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.20.0] — 2026-11-28 (Priority 1 — Kinetic Brand Mark & Halftone Editorial Footer A4.1–A4.6, A5.1–A5.4)
+### Added
+- `components/brand/kinetic-brand-mark.tsx`: Added `KineticBrandMark` wrapping the single-source `RenderJoyMark` SVG with bounded cursor-responsive parallax, click pulse + lightweight radial impact wave, `prefers-reduced-motion` gating, and opt-in Web Audio feedback via `playSoundEffect` (`A4.3`–`A4.6`).
+- `tests/planes-shell.test.tsx`: Added unit tests for `KineticBrandMark` click impact wave / sound gating and `Footer` grouped columns, contact link, and halftone dot-field artwork.
+
+### Changed
+- `components/shell/editorial-sidebar.tsx`: Removed the remaining black icon container around `RenderJoyMark` and wired `KineticBrandMark` directly (`A4.1`, `A4.2`).
+- `components/shell/brand-floating-button.tsx`, `components/shell/floating-toolbar.tsx`, `components/site/navbar.tsx`: Wired `KineticBrandMark` across all interactive navigation and floating brand controls (`A4.3`–`A4.6`).
+- `components/site/footer.tsx`: Refined editorial footer with left-aligned RenderJoy identity, grouped 3-column navigation (`Explore`, `Labs`, `Connect`), `hello@renderjoy.dev` contact link, Light/Dark `--ws-*` adaptation, focus-visible rings, and a lower-edge halftone dot-field artwork (`A5.1`–`A5.4`).
+
 ## [0.19.0] — 2026-11-28 (Priority 1 — Separate Discoverable WebGL Background Components A3.1–A3.4)
 ### Added
 - `registry/components/backgrounds/*.tsx`: Added 18 standalone WebGL background components (`logo-flare`, `silk`, `liquid-gold`, `contour`, `mercury`, `pastel`, `aurora`, `flow`, `noise`, `liquid-drops`, `ripple`, `energy`, `fluted-glass`, `topography`, `prism`, `kinetic-torus`, `particle-helix`, `bio-terrain`) powered by the shared `@/lib/shaders` engine (`A3.2`, `A3.3`).

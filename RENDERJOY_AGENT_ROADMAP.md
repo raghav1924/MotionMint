@@ -154,19 +154,19 @@ The user explicitly requested this order:
 
 ## A4. Branding, iconography and global interaction
 
-- [ ] **A4.1 — AUDIT/FIX:** The current roadmap reports a bespoke Kinetic M mark and replacement of the old starburst. Verify every route and compact control uses the approved RenderJoy asset; remove any remaining legacy starburst or black icon container. Do not design a second competing logo.
-- [ ] **A4.2 — FIX:** Use the **logo mark only** in compact floating/home controls, with no black icon box. Use horizontal wordmark only where the full brand name is appropriate.
-- [ ] **A4.3 — ADD:** Add tasteful cursor-responsive logo movement/parallax. It should feel responsive but not wobble constantly or impair navigation.
-- [ ] **A4.4 — ADD:** Add click response on the brand mark and an optional site-wide ripple/impact wave effect. It must be lightweight, respect reduced motion, avoid interfering with buttons/links, and be disabled when reduced motion is requested.
-- [ ] **A4.5 — SOUND:** Logo/click sound only plays after explicit user interaction and only when the global sound preference is enabled. Never autoplay.
-- [ ] **A4.6 — FIX:** Maintain one source of truth for logo assets, favicons, menu icon, floating icon and footer identity.
+- [x] **A4.1 — AUDIT/FIX:** The current roadmap reports a bespoke Kinetic M mark and replacement of the old starburst. Verify every route and compact control uses the approved RenderJoy asset; remove any remaining legacy starburst or black icon container. Do not design a second competing logo.
+- [x] **A4.2 — FIX:** Use the **logo mark only** in compact floating/home controls, with no black icon box. Use horizontal wordmark only where the full brand name is appropriate.
+- [x] **A4.3 — ADD:** Add tasteful cursor-responsive logo movement/parallax. It should feel responsive but not wobble constantly or impair navigation.
+- [x] **A4.4 — ADD:** Add click response on the brand mark and an optional site-wide ripple/impact wave effect. It must be lightweight, respect reduced motion, avoid interfering with buttons/links, and be disabled when reduced motion is requested.
+- [x] **A4.5 — SOUND:** Logo/click sound only plays after explicit user interaction and only when the global sound preference is enabled. Never autoplay.
+- [x] **A4.6 — FIX:** Maintain one source of truth for logo assets, favicons, menu icon, floating icon and footer identity.
 
 ## A5. Footer and global shell
 
-- [ ] **A5.1 — AUDIT/REFINE:** The current roadmap reports an oversized editorial footer. Inspect it against the supplied Bencho footer reference; refine the existing implementation into a premium footer with: near-black surface, carefully spaced contact line, left-aligned RenderJoy identity and description, right-side grouped navigation columns, social/contact row, thin separators and a broad halftone/dot-field artwork along the lower edge.
-- [ ] **A5.2 — ORIGINALITY:** The footer must be recognisably RenderJoy, not a copied Bencho footer. Use RenderJoy's own logo, type and dot/kinetic motif.
-- [ ] **A5.3 — FIX:** Footer adapts to Light/Dark application appearance without changing component theme scope.
-- [ ] **A5.4 — QA:** Test long labels, narrow viewport, legal links, social links, reduced motion and focus behaviour.
+- [x] **A5.1 — AUDIT/REFINE:** The current roadmap reports an oversized editorial footer. Inspect it against the supplied Bencho footer reference; refine the existing implementation into a premium footer with: near-black surface, carefully spaced contact line, left-aligned RenderJoy identity and description, right-side grouped navigation columns, social/contact row, thin separators and a broad halftone/dot-field artwork along the lower edge.
+- [x] **A5.2 — ORIGINALITY:** The footer must be recognisably RenderJoy, not a copied Bencho footer. Use RenderJoy's own logo, type and dot/kinetic motif.
+- [x] **A5.3 — FIX:** Footer adapts to Light/Dark application appearance without changing component theme scope.
+- [x] **A5.4 — QA:** Test long labels, narrow viewport, legal links, social links, reduced motion and focus behaviour. *(unit-verified; live browser screenshot QA tracked in `A1.6`)*
 
 **Phase A overall acceptance:** all preview defects fixed, shared toolbar meets requirements, component theme scoping remains correct, global shell consistency tests pass, real browser screenshot evidence captured, and no new future component wave has started.
 
@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task (synced with `ROADMAP.md`):** `Priority 1 — A4.3–A4.6 & A5.1–A5.4: Brand mark motion/click feedback & halftone footer refinement (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
+**Current next task (synced with `ROADMAP.md`):** `Priority 2 — B1: Sound Library expansion (50+ original previewable sounds across 8 categories) (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

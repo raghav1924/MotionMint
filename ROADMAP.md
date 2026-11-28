@@ -14,7 +14,7 @@
    - [ ] `A1.6` Multi-viewport browser screenshot verification (`1440×900`, `768×1024`, `390×844`, Light & Dark) *(blocked: `chrome_devtools` MCP & `playwright-core` unavailable in session)*
    - [x] `A3.1`–`A3.4` Separately discoverable WebGL/background component routes (`18` standalone components + registry manifests) & Hide/Show Text toggle
    - [ ] `A3.5` WebGL/background live browser screenshot QA *(blocked: `chrome_devtools` MCP & `playwright-core` unavailable in session)*
-   - [ ] `A4.3`–`A4.6` & `A5.1`–`A5.4` Brand mark motion/click feedback & halftone footer refinement
+   - [x] `A4.3`–`A4.6` & `A5.1`–`A5.4` Brand mark motion/click feedback & halftone footer refinement *(unit-verified; live browser screenshot QA tracked in `A1.6`)*
 2. **Priority 2 — Phase B: Product Experience Improvements `[NOT STARTED]`**
    - [ ] `B1` Sound Library expansion (`50+` original previewable sounds across 8 categories)
    - [ ] `B2` **Bench** (`/bench`) full-canvas component experimentation workspace *(distinct from `InfinityCanvas`)*
@@ -28,7 +28,7 @@
 4. **Priority 4 — Future Component Catalogue `[DEFERRED UNTIL PRIORITIES 1–3 PASS]`**
    - [ ] Wave 3–8 expansion (`COMPONENT_BUILD_PLAN.md` & `RENDERJOY_REFERENCE_RESEARCH.md`)
 
-**NEXT ACTION:** `Priority 1 — A4.3–A4.6 & A5.1–A5.4: Brand mark motion/click feedback & halftone footer refinement (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
+**NEXT ACTION:** `Priority 2 — B1: Sound Library expansion (50+ original previewable sounds across 8 categories) (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
 
 ---
 

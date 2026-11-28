@@ -29,7 +29,7 @@ import {
 import { BRAND } from "@/lib/brand";
 import { SHADER_PRESETS } from "@/registry/components/shader-background";
 import { ALL_THEMES } from "@/lib/themes/registry";
-import { RenderJoyMark } from "@/components/brand/renderjoy-logo";
+import { KineticBrandMark } from "@/components/brand/kinetic-brand-mark";
 import { useRenderJoy } from "@/components/site/providers";
 import { PromptMenu } from "@/components/shell/prompt-menu";
 import { stopAllSounds } from "@/lib/audio/sound-engine";
@@ -124,7 +124,7 @@ export function FloatingToolbar() {
             title="Home"
             className={cn(iconBtnClass, "text-[var(--ws-text-primary)]")}
           >
-            <RenderJoyMark size={14} />
+            <KineticBrandMark size={14} />
           </Link>
           <button
             type="button"

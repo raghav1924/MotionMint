@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search, Sun, Moon, Monitor, Menu, X, ArrowUpRight } from "lucide-react";
-import { RenderJoyLogo } from "@/components/brand/renderjoy-logo";
+import { RenderJoyWordmark } from "@/components/brand/renderjoy-logo";
+import { KineticBrandMark } from "@/components/brand/kinetic-brand-mark";
 import { BRAND } from "@/lib/brand";
 import { useRenderJoy } from "./providers";
 import { cn } from "@/lib/utils";
@@ -66,7 +67,10 @@ export function Navbar() {
           aria-label={`${BRAND.name} home`}
           className="flex shrink-0 items-center text-[var(--ws-text-primary)] transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-ring)] rounded-md"
         >
-          <RenderJoyLogo markSize={22} />
+          <span className="inline-flex items-center gap-2.5">
+            <KineticBrandMark size={22} />
+            <RenderJoyWordmark className="text-[15px]" />
+          </span>
         </Link>
 
         {/* Center-Right: Editorial Navigation */}
