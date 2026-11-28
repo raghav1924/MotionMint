@@ -23,4 +23,5 @@
 - **TypeScript Strictness:** Strict TypeScript; no `any` escapes without justification.
 - **Accessibility (WCAG 2.2 AA):** Keyboard navigation, visible focus rings, ARIA labels, `prefers-reduced-motion` support, and non-colour/non-audio fallbacks for all state changes.
 - **Honest Verification:** Never mark a component or milestone complete until its unit/component tests pass (`npm test`), TypeScript/build succeeds, and UI changes are visually verified.
-- **Documentation Sync:** Update `ROADMAP.md`, `COMPONENT_CATALOG.md`, `DECISIONS.md`, and `CHANGELOG.md` whenever architecture, scope, or implementation status changes.
+- **Documentation Sync:** Update `ROADMAP.md`, `COMPONENT_CATALOG.md`, `DECISIONS.md` whenever architecture, scope, or implementation status changes.
+- **Mandatory Changelog Discipline:** Update `CHANGELOG.md` on **every** change (Added, Changed, Refactored, Fixed, or Removed) with exact file paths and a concise summary of what changed.

@@ -1,5 +1,9 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.18.1] — 2026-11-28 (Mandatory Changelog Rule)
+### Added
+- `AGENTS.md`: Added mandatory rule requiring `CHANGELOG.md` to be updated on every change (Added, Changed, Refactored, Fixed, or Removed).
+
 ## [0.18.0] — 2026-11-28 (Roadmap Reconciliation & Phase A0/A1 Foundation)
 ### Added
 - `ROADMAP_RECONCILIATION.md`: Full reconciliation between root `ROADMAP.md`, `RENDERJOY_AGENT_ROADMAP.md`, and `RENDERJOY_REFERENCE_RESEARCH.md` with Priority 1–4 execution hierarchy (`ADR-014`).
