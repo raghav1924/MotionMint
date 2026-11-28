@@ -1,5 +1,15 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.18.0] — 2026-11-28 (Roadmap Reconciliation & Phase A0/A1 Foundation)
+### Added
+- `ROADMAP_RECONCILIATION.md`: Full reconciliation between root `ROADMAP.md`, `RENDERJOY_AGENT_ROADMAP.md`, and `RENDERJOY_REFERENCE_RESEARCH.md` with Priority 1–4 execution hierarchy (`ADR-014`).
+- `PHASE_A_UI_AUDIT.md`: Complete `A0.1`–`A0.4` route, shell, preview, performance, and inventory audit (`60` implemented components, `67` registry items, `75` static routes).
+
+### Changed
+- Reconciled `ROADMAP.md` as the single source of truth and synchronized `RENDERJOY_AGENT_ROADMAP.md` as the implementation playbook.
+- Fixed stale hardcoded `44` counts in `components/shell/announcement-bar.tsx` and `app/page.tsx` to derive from `CATALOG_ITEMS`.
+- Updated `VisibilityPreview`, `CatalogueBrowser`, `BrandFloatingButton`, `ComponentDocs`, and `ComponentStudio` (`A1.1`, `A1.3`–`A1.5`, `A2.14`–`A2.15`).
+
 ## [0.17.0] — 2026-11-26 (Shader Background — Raw WebGL Flagship Component)
 ### Added
 - `registry/components/shader-background.tsx`: Raw WebGL generative canvas component (`ShaderBackground`, `SHADER_PRESETS`) with 6 presets (`silk`, `aurora`, `mercury`, `flow`, `noise`, `energy`), pointer/scroll uniforms, DPR capping (`quality` + `maxDpr`), `IntersectionObserver` offscreen pause, `visibilitychange` hidden-tab pause, `prefers-reduced-motion` static frame mode, WebGL resource cleanup, and CSS radial-gradient fallback.

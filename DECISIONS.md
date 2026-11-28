@@ -79,6 +79,13 @@
 - **Decision:** Stub `applyThemeToDocument()` to a no-op. Introduce `<RenderJoyTheme theme mode>` scope wrapper (`components/theme/theme-scope.tsx`) that applies `--mm-*` vars exclusively via inline `style` attribute on a wrapping `<div>`. All component preview stages (ComponentStudio, ThemeStudio, PlaygroundShell) wrap their previews in this scope. The `themeId` in providers is now only the "currently selected theme for preview" state.
 - **Consequences:** Global workspace chrome (navbar, sidebar, toolbar, backgrounds) is 100% isolated from component theme switches. 29 themes + 2 modes = 58 variants are exclusively component-scoped. Future `RenderJoyTheme` nesting is supported — inner scopes override outer scope `--mm-*` vars via CSS cascade.
 
+## ADR-014: Root `ROADMAP.md` as Single Source of Truth
+- **Date:** 2026-11-28
+- **Status:** Accepted
+- **Context:** `RENDERJOY_AGENT_ROADMAP.md` introduced detailed Phase A–D engineering subtasks alongside the root `ROADMAP.md`, creating a risk of diverging execution sequences.
+- **Decision:** Establish root `ROADMAP.md` as the single authoritative source of truth for phases, priorities, completion status, and `NEXT ACTION`. `RENDERJOY_AGENT_ROADMAP.md` serves strictly as the implementation playbook, reconciled in `ROADMAP_RECONCILIATION.md`.
+- **Consequences:** All new user requests are logged in `ROADMAP.md` first with unique IDs and acceptance criteria; both roadmap files stay synchronized.
+
 ## ADR-011: Future Theme Demo Websites (Planned, Not Implemented in Phase 2.9)
 - **Date:** 2026-11-25
 - **Status:** Accepted (pending implementation — Wave 3+ prerequisite)

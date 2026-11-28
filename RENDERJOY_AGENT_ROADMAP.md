@@ -1,8 +1,8 @@
 # RenderJoy — Autonomous Product Roadmap & Agent Work Queue
 
-> **Purpose:** This is the execution source of truth for Antigravity (and any future coding agent) working in the RenderJoy repository. Read this file at the start of every session, then read `RENDERJOY_REFERENCE_RESEARCH.md` before research-driven design or component work.
+> **Purpose:** Implementation playbook and detailed subtask checklist supplementing the authoritative root `ROADMAP.md`. If this playbook and `ROADMAP.md` ever disagree, **`ROADMAP.md` wins**. See `ROADMAP_RECONCILIATION.md` for the complete task mapping.
 >
-> **Last prepared:** 2026-11-27  
+> **Last prepared:** 2026-11-28  
 > **Operating principle:** Perfection and realistic, working behaviour take priority over speed, component count or a completion claim. There is no compromise on visual quality, functional fidelity, accessibility or installation reliability.
 
 ---
@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task:** `A2.1–A2.13 — FloatingToolbar redesign (30% smaller frosted glass, Home button, compact right-side floating Inspector, Replay vs Reset, independent global/component theme toggles, Hide/Show Text, tooltips) & A1.2 shared stage contract.`
+**Current next task (synced with `ROADMAP.md`):** `Priority 1 — A1.2 & A2.1–A2.13: Establish shared preview-stage contract and redesign FloatingToolbar + compact right-side floating Inspector.`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

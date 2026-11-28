@@ -1,10 +1,38 @@
-# ROADMAP.md — RenderJoy
+# ROADMAP.md — RenderJoy (Master Development Roadmap)
 
-*Last updated: 2026-11-25*
+> **Single Source of Truth:** This file is authoritative for all project phases, priorities, execution sequence, completion status, and `NEXT ACTION`. `RENDERJOY_AGENT_ROADMAP.md` serves as the detailed engineering playbook beneath this roadmap, and `ROADMAP_RECONCILIATION.md` tracks the full task mapping.
 
-## Phase 0 — Audit & Foundation `[IN PROGRESS]`
+*Last updated: 2026-11-28*
+
+## Active Execution Sequence & `NEXT ACTION`
+
+1. **Priority 1 — Phase A: Existing UI Issues & Refactoring `[IN PROGRESS]`**
+   - [x] `A0.1`–`A0.4` Shared navigation, preview, toolbar, inspector, and inventory audit (`PHASE_A_UI_AUDIT.md`)
+   - [x] `A1.1`, `A1.3`, `A1.4`, `A1.5`, `A2.14`, `A2.15` Preview card consistency, offscreen `VisibilityPreview` pause, dot-grid & glossy bottom fade, box-free `RenderJoyMark`, same-category related items *(awaiting browser screenshot QA in `A1.6`)*
+   - [ ] `A1.2` & `A1.6` Shared preview-stage layout contract across Component Studio, Theme Studio, and Catalogue + multi-viewport verification
+   - [ ] `A2.1`–`A2.13`, `A2.16`–`A2.17` Compact (`-30%`) frosted `FloatingToolbar`, Home logomark button, right-side floating Inspector, Replay vs Reset, independent global/component appearance toggles, Hide/Show Text, tooltips
+   - [ ] `A3.1`–`A3.5` Separately discoverable WebGL/background effects & overlay readability QA
+   - [ ] `A4.3`–`A4.6` & `A5.1`–`A5.4` Brand mark motion/click feedback & halftone footer refinement
+2. **Priority 2 — Phase B: Product Experience Improvements `[NOT STARTED]`**
+   - [ ] `B1` Sound Library expansion (`50+` original previewable sounds across 8 categories)
+   - [ ] `B2` **Bench** (`/bench`) full-canvas component experimentation workspace *(distinct from `InfinityCanvas`)*
+   - [ ] `B3` Motion Lab purpose, tuning recipes & code export
+   - [ ] `B4` RenderJoy Flow (`/flow`) UI optimisation *(preserving simulated execution labelling)*
+   - [ ] `B5` Homepage & progressive brand entrance refinement
+3. **Priority 3 — Remaining Master Roadmap Tasks `[NOT STARTED]`**
+   - [ ] Phase 5 remaining items (`advanced-upload-flow`, `payment-success-flow`, `animated-charts`, `bento-dashboard-block`; `cover-flow-carousel` implemented & awaiting browser QA)
+   - [ ] Phase 7 (Pro Infrastructure & Launch)
+   - [ ] Phase 8 (Continuous Growth) & Future 29 Theme Demo Websites
+4. **Priority 4 — Future Component Catalogue `[DEFERRED UNTIL PRIORITIES 1–3 PASS]`**
+   - [ ] Wave 3–8 expansion (`COMPONENT_BUILD_PLAN.md` & `RENDERJOY_REFERENCE_RESEARCH.md`)
+
+**NEXT ACTION:** `Priority 1 — A1.2 & A2.1–A2.13: Establish shared preview-stage contract and redesign FloatingToolbar + compact right-side floating Inspector.`
+
+---
+
+## Phase 0 — Audit & Foundation `[COMPLETE — RECONCILED]`
 - [x] Workspace audit (confirmed clean greenfield directory)
-- [~] Node Pipeline Orchestrator prototype audit *(Google Drive link inaccessible from sandbox; awaiting local archive/folder from user for Phase 6)*
+- [x] Node Pipeline Orchestrator prototype audit *(Reconciled: initially deferred in `ADR-004`, then completed in Phase 6 via user-supplied POC `https://github.com/raghav1924/frontend_technical_assessment` per `ADR-012`)*
 - [x] Current stack & competitor research (`TREND_RADAR.md`)
 - [x] Core project documentation (`AGENTS.md`, `PRODUCT.md`, `ROADMAP.md`, `ARCHITECTURE.md`, `COMPONENT_CATALOG.md`, `DESIGN_SYSTEM.md`, `TREND_RADAR.md`, `DECISIONS.md`, `CHANGELOG.md`)
 
@@ -54,7 +82,7 @@
 - [x] shadcn-compatible `registry.json` & `/public/r/*.json` build pipeline (`npm run registry:build` + `npm run registry:validate`)
 - [x] Fresh-app `npx shadcn@latest add` installation test in `/tmp/renderjoy-consumer-test` (all 12 components + `@renderjoy/sound-engine` + CSS keyframes + idempotency + `tsc` + `next build`)
 - [x] `public/llms.txt` & `public/llms-full.txt` agent-readable metadata + `/docs/installation`
-- [x] Interactive Playground (`/playground`)
+- [x] Interactive Playground (`/playground`) *(Historical — superseded & removed in Phase 6 / `ADR-012`; consolidated into Component Studio)*
 
 ## Phase 4 — Motion & Sound Lab `[COMPLETE]`
 - [x] `/motion` primitives showcase (6 interactive categories, 29-theme preview, reduced-motion simulator) & `lib/motion/presets.ts` + `MotionReveal`
@@ -77,9 +105,9 @@
 - [x] Light-first (`#FFFFFF`) & inverted Dark (`#050506`) `--ws-*` appearance tokens independent from the 29 `--mm-*` component themes (`--ws-preview-bg` preserved crisp for legibility)
 - [x] Persistent `AnnouncementBar` (wavy SVG lower edge), `NavigationToggle`, `BrandFloatingButton`, `EditorialSidebar` (horizontal-line markers + hover preview), `FloatingToolbar`, `PromptMenu`, and `CommandPalette`
 - [x] Shared `DesktopBrowserFrame`, `TabletPreviewFrame`, `MobileDeviceFrame`, and `ComponentDocs` across both `/components/[slug]` and `/playground`
-- [x] `/canvas` Infinity Canvas spatial gallery & Category Folder view in `/components`
+- [x] `/canvas` Infinity Canvas spatial gallery & Category Folder view in `/components` *(Historical — `/canvas` route removed in Phase 6 / `ADR-012`; `InfinityCanvas` retained at `/components/infinity-canvas`; future full-canvas workspace is **Bench** at `/bench`)*
 - [x] Verified in headless Google Chrome via `playwright-core` at `1440×900`, `1280×800`, `768×1024`, and `390×844` (Wave 3+ remains paused per Phase 2.8)
-- [ ] Wave 3 (Media), Wave 4 (Carousels), Wave 5 (Physics & Text), Wave 6 (WebGL & Voxel), Wave 7 (Sections & Blocks), Wave 8 (Docs)
+- [ ] Wave 3 (Media), Wave 4 (Carousels), Wave 5 (Physics & Text), Wave 6 (WebGL & Voxel), Wave 7 (Sections & Blocks), Wave 8 (Docs) *(Scheduled in Priority 4)*
 
 ## Phase 2.9 — Component-Level Design System Rebuild `[COMPLETE]`
 - [x] **Architectural isolation:** `applyThemeToDocument()` stubbed to no-op — component themes NEVER touch `document.documentElement`
@@ -128,10 +156,10 @@
 - [x] Redesigned `Navbar` into a full-width editorial hairline header (`Components`, `Themes`, `Flow`, `Docs`, `⌘K` search, `Light`/`Dark`/`System` switcher, `Explore`)
 - [x] Streamlined `app/page.tsx` to 6 editorial beats (`CinematicHero`, `CapabilityStrip`, 5-item `ExhibitionGallery`, split `ThemesFlowSplit`, compact Developer CTA, and oversized editorial `Footer`)
 
-## Phase 5 — Premium Experiences (Pro Validation)
+## Phase 5 — Premium Experiences (Pro Validation) `[IN PROGRESS — PRIORITY 3]`
 - [ ] Advanced upload flow (previews, progress, retry)
 - [ ] Payment-success flow
-- [ ] Cover-flow carousel
+- [~] Cover-flow carousel *(Implemented in `registry/components/cover-flow-carousel.tsx`; awaiting browser visual QA)*
 - [ ] Animated charts (gauge, donut, bars)
 - [ ] Bento dashboard block
 
