@@ -67,16 +67,61 @@ const DECK_ITEMS: DeckCardItem[] = [
 export default function MotionLabPage() {
   const { skin, setTheme, themeMode, setThemeMode, viewportMode, previewKey } =
     useRenderJoy();
-  const [category, setCategory] = useState<MotionCategory>("Hover");
+  const [category, setCategory] = useState<MotionCategory>("Transitions");
   const [replayKey, setReplayKey] = useState(0);
   const [disableNonEssential, setDisableNonEssential] = useState(false);
 
-  const springCode = `import { MOTION_SPRINGS } from "@/lib/motion/presets";
-import { MotionReveal } from "@/components/renderjoy/motion-reveal";
+  // Real spring & stagger tuning state (B3.4, B3.5)
+  const [activePreset, setActivePreset] = useState<keyof typeof MOTION_SPRINGS>("elastic");
+  const [stiffness, setStiffness] = useState<number>(380);
+  const [damping, setDamping] = useState<number>(16);
+  const [mass, setMass] = useState<number>(0.65);
+  const [staggerMs, setStaggerMs] = useState<number>(60);
 
-<MotionReveal variant="fadeUp">
-  <YourComponent />
-</MotionReveal>`;
+  const applySpringPreset = (name: keyof typeof MOTION_SPRINGS) => {
+    const cfg = MOTION_SPRINGS[name];
+    setActivePreset(name);
+    if ("stiffness" in cfg && typeof cfg.stiffness === "number") setStiffness(cfg.stiffness);
+    if ("damping" in cfg && typeof cfg.damping === "number") setDamping(cfg.damping);
+    setMass("mass" in cfg && typeof cfg.mass === "number" ? cfg.mass : 1);
+    setReplayKey((k) => k + 1);
+  };
+
+  const liveSpring = disableNonEssential
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness, damping, mass };
+
+  const springCode = `import { motion } from "motion/react";
+
+// Tuned RenderJoy Motion Recipe (${activePreset})
+export const tunedSpring = {
+  type: "spring" as const,
+  stiffness: ${stiffness},
+  damping: ${damping},
+  mass: ${mass.toFixed(2)},
+};
+
+export function StaggeredRecipe({ items }: { items: string[] }) {
+  return (
+    <motion.ul
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { staggerChildren: ${(staggerMs / 1000).toFixed(3)} } },
+      }}
+    >
+      {items.map((item) => (
+        <motion.li
+          key={item}
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: tunedSpring } }}
+        >
+          {item}
+        </motion.li>
+      ))}
+    </motion.ul>
+  );
+}`;
 
   const stageBody = (
     <RenderJoyTheme
@@ -164,15 +209,32 @@ import { MotionReveal } from "@/components/renderjoy/motion-reveal";
           )}
           {category === "Transitions" && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={MOTION_SPRINGS.elastic}
-              className="rounded-2xl border border-current/20 p-6 text-center space-y-2"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: disableNonEssential ? 0 : staggerMs / 1000 },
+                },
+              }}
+              className="grid w-full max-w-lg gap-3 sm:grid-cols-3"
             >
-              <p className="text-sm font-semibold">MOTION_SPRINGS.elastic</p>
-              <p className="text-xs opacity-75">
-                Shared spring presets across Component Studio, drawers, and cards.
-              </p>
+              {["Enter", "Spring", "Settle"].map((stepLabel) => (
+                <motion.div
+                  key={stepLabel}
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9, y: 14 },
+                    visible: { opacity: 1, scale: 1, y: 0, transition: liveSpring },
+                  }}
+                  className="rounded-2xl border border-current/20 p-4 text-center space-y-1"
+                >
+                  <p className="text-sm font-semibold">{stepLabel}</p>
+                  <p className="font-mono text-[10px] opacity-75">
+                    k={stiffness} · c={damping}
+                  </p>
+                </motion.div>
+              ))}
             </motion.div>
           )}
         </div>
@@ -285,40 +347,132 @@ import { MotionReveal } from "@/components/renderjoy/motion-reveal";
         )}
       </section>
 
-      {/* Spring Reference & Install Code */}
+      {/* Live Physics & Timing Tuner + Recipe Export */}
       <section className="grid gap-6 md:grid-cols-2">
         <div className="rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6 space-y-4">
-          <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
-            Shared Spring Presets
-          </h2>
-          <dl className="grid grid-cols-2 gap-3 text-xs">
-            {Object.entries(MOTION_SPRINGS).map(([name, cfg]) => (
-              <div
-                key={name}
-                className="rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] p-3"
-              >
-                <dt className="font-mono font-semibold text-[var(--ws-text-primary)]">{name}</dt>
-                <dd className="mt-1 font-mono text-[11px] text-[var(--ws-text-secondary)]">
-                  {`stiffness: ${cfg.stiffness}, damping: ${cfg.damping}`}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
+              Spring & Stagger Tuner
+            </h2>
+            <div className="flex flex-wrap gap-1">
+              {(Object.keys(MOTION_SPRINGS) as Array<keyof typeof MOTION_SPRINGS>).map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => applySpringPreset(name)}
+                  aria-pressed={activePreset === name}
+                  className={cn(
+                    "rounded-full border px-2.5 py-0.5 font-mono text-[11px] capitalize cursor-pointer",
+                    activePreset === name
+                      ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                      : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)]"
+                  )}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2 text-xs text-[var(--ws-text-secondary)]">
+            <label className="space-y-1">
+              <span className="flex justify-between">
+                <span>Stiffness</span>
+                <span className="font-mono text-[var(--ws-text-primary)]">{stiffness}</span>
+              </span>
+              <input
+                type="range"
+                aria-label="Spring stiffness"
+                min={100}
+                max={600}
+                step={10}
+                value={stiffness}
+                onChange={(e) => {
+                  setStiffness(Number(e.target.value));
+                  setReplayKey((k) => k + 1);
+                }}
+                className="w-full accent-[var(--ws-text-primary)]"
+              />
+            </label>
+
+            <label className="space-y-1">
+              <span className="flex justify-between">
+                <span>Damping</span>
+                <span className="font-mono text-[var(--ws-text-primary)]">{damping}</span>
+              </span>
+              <input
+                type="range"
+                aria-label="Spring damping"
+                min={8}
+                max={50}
+                step={1}
+                value={damping}
+                onChange={(e) => {
+                  setDamping(Number(e.target.value));
+                  setReplayKey((k) => k + 1);
+                }}
+                className="w-full accent-[var(--ws-text-primary)]"
+              />
+            </label>
+
+            <label className="space-y-1">
+              <span className="flex justify-between">
+                <span>Mass</span>
+                <span className="font-mono text-[var(--ws-text-primary)]">{mass.toFixed(2)}</span>
+              </span>
+              <input
+                type="range"
+                aria-label="Spring mass"
+                min={0.3}
+                max={2}
+                step={0.05}
+                value={mass}
+                onChange={(e) => {
+                  setMass(Number(e.target.value));
+                  setReplayKey((k) => k + 1);
+                }}
+                className="w-full accent-[var(--ws-text-primary)]"
+              />
+            </label>
+
+            <label className="space-y-1">
+              <span className="flex justify-between">
+                <span>Stagger</span>
+                <span className="font-mono text-[var(--ws-text-primary)]">{staggerMs}ms</span>
+              </span>
+              <input
+                type="range"
+                aria-label="Stagger delay"
+                min={0}
+                max={150}
+                step={10}
+                value={staggerMs}
+                onChange={(e) => {
+                  setStaggerMs(Number(e.target.value));
+                  setReplayKey((k) => k + 1);
+                }}
+                className="w-full accent-[var(--ws-text-primary)]"
+              />
+            </label>
+          </div>
         </div>
 
         <div className="rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6 space-y-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <h2 className="text-sm font-semibold text-[var(--ws-text-primary)]">
-              Portable Usage (`@renderjoy/motion-reveal`)
+              Live Motion Recipe Export
             </h2>
-            <Link
-              href="/docs/installation"
-              className="text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
-            >
-              Install CLI →
-            </Link>
+            <div className="flex items-center gap-2">
+              <CopyButton value={springCode} />
+              <Link
+                href="/docs/installation"
+                className="text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+              >
+                Install CLI →
+              </Link>
+            </div>
           </div>
-          <pre className="overflow-x-auto rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] p-4 font-mono text-xs text-[var(--ws-text-primary)]">
+          <pre className="max-h-56 overflow-auto rounded-xl border border-[var(--ws-border-subtle)] bg-[var(--ws-surface)] p-4 font-mono text-xs text-[var(--ws-text-primary)]">
             <code>{springCode}</code>
           </pre>
         </div>

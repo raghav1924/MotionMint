@@ -83,4 +83,26 @@ describe("Flow UI Kit & Node Pipeline Orchestrator (POC Integration)", () => {
       { timeout: 4000 }
     );
   }, 15000);
+
+  it("supports collapsible palette/inspector panels, clear canvas with undo, and empty-state quick start", () => {
+    render(<PipelineOrchestrator />);
+
+    const paletteToggle = screen.getByRole("button", { name: "Toggle node palette" });
+    const inspectorToggle = screen.getByRole("button", { name: "Toggle node inspector" });
+    expect(paletteToggle).toHaveAttribute("aria-pressed", "true");
+    expect(inspectorToggle).toHaveAttribute("aria-pressed", "true");
+
+    fireEvent.click(paletteToggle);
+    expect(paletteToggle).toHaveAttribute("aria-pressed", "false");
+    fireEvent.click(inspectorToggle);
+    expect(inspectorToggle).toHaveAttribute("aria-pressed", "false");
+
+    // Clear canvas shows empty state & Undo restores nodes
+    fireEvent.click(screen.getByRole("button", { name: "Clear canvas" }));
+    expect(screen.getByText("Empty Pipeline Canvas")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Load Document Pipeline" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Undo" }));
+    expect(screen.getByText(/Valid DAG \(7 nodes · 6 edges\)/i)).toBeInTheDocument();
+  });
 });

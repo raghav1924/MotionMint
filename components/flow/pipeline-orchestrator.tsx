@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ReactFlowProvider,
   addEdge,
@@ -21,6 +21,9 @@ import {
   Plus,
   Check,
   Workflow,
+  PanelLeft,
+  PanelRight,
+  Trash2,
 } from "lucide-react";
 import { validateWorkflowDAG } from "@/lib/flow/dag";
 import { WORKFLOW_PRESETS, getFlowNodeDefinition } from "@/lib/flow/presets";
@@ -69,6 +72,8 @@ function OrchestratorWorkspaceInner() {
   const [logs, setLogs] = useState<ExecutionLogEntry[]>([]);
   const [exported, setExported] = useState(false);
   const [mobileTab, setMobileTab] = useState<MobileTab>("canvas");
+  const [paletteOpen, setPaletteOpen] = useState(true);
+  const [inspectorOpen, setInspectorOpen] = useState(true);
 
   const runCancelledRef = useRef(false);
   const nodeCounterRef = useRef(10);
@@ -102,6 +107,34 @@ function OrchestratorWorkspaceInner() {
     setNodes(next.nodes);
     setEdges(next.edges);
   };
+
+  const handleClearCanvas = () => {
+    if (isLocked || isRunning || nodes.length === 0) return;
+    pushHistory(nodes, edges);
+    setNodes([]);
+    setEdges([]);
+    setSelectedNodeId(null);
+  };
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement | null)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z") {
+        e.preventDefault();
+        if (e.shiftKey) {
+          handleRedo();
+        } else {
+          handleUndo();
+        }
+      } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "y") {
+        e.preventDefault();
+        handleRedo();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  });
 
   const handleSelectPreset = (nextPresetId: string) => {
     const preset = WORKFLOW_PRESETS.find((p) => p.id === nextPresetId);
@@ -393,6 +426,36 @@ function OrchestratorWorkspaceInner() {
         <div className="flex flex-wrap items-center gap-1.5">
           <button
             type="button"
+            onClick={() => setPaletteOpen((v) => !v)}
+            aria-pressed={paletteOpen}
+            aria-label="Toggle node palette"
+            title="Toggle node palette"
+            className={cn(
+              "hidden lg:inline-flex h-8 w-8 items-center justify-center rounded-lg border cursor-pointer",
+              paletteOpen
+                ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                : "border-[var(--ws-border)] bg-[var(--ws-floating)] text-[var(--ws-text-secondary)]"
+            )}
+          >
+            <PanelLeft className="h-3.5 w-3.5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setInspectorOpen((v) => !v)}
+            aria-pressed={inspectorOpen}
+            aria-label="Toggle node inspector"
+            title="Toggle node inspector"
+            className={cn(
+              "hidden lg:inline-flex h-8 w-8 items-center justify-center rounded-lg border cursor-pointer",
+              inspectorOpen
+                ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                : "border-[var(--ws-border)] bg-[var(--ws-floating)] text-[var(--ws-text-secondary)]"
+            )}
+          >
+            <PanelRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
             onClick={handleUndo}
             disabled={past.length === 0 || isRunning}
             aria-label="Undo"
@@ -449,6 +512,16 @@ function OrchestratorWorkspaceInner() {
           )}
           <button
             type="button"
+            onClick={handleClearCanvas}
+            disabled={isLocked || isRunning || nodes.length === 0}
+            aria-label="Clear canvas"
+            title="Clear canvas"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--ws-border)] bg-[var(--ws-floating)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] disabled:opacity-40 cursor-pointer"
+          >
+            <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
             onClick={() => void handleExport()}
             aria-label="Export workflow JSON"
             className="inline-flex h-8 items-center gap-1 rounded-lg border border-[var(--ws-border)] bg-[var(--ws-floating)] px-2.5 text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] cursor-pointer"
@@ -488,9 +561,25 @@ function OrchestratorWorkspaceInner() {
         ))}
       </div>
 
-      {/* Main 3-Column Body */}
-      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[260px_1fr_290px]">
-        <div className={cn("min-h-0", mobileTab !== "palette" && "hidden lg:block")}>
+      {/* Main Collapsible 3-Column Body */}
+      <div
+        className={cn(
+          "grid min-h-0 flex-1 grid-cols-1",
+          paletteOpen && inspectorOpen
+            ? "lg:grid-cols-[260px_1fr_290px]"
+            : paletteOpen
+              ? "lg:grid-cols-[260px_1fr]"
+              : inspectorOpen
+                ? "lg:grid-cols-[1fr_290px]"
+                : "lg:grid-cols-1"
+        )}
+      >
+        <div
+          className={cn(
+            "min-h-0",
+            mobileTab !== "palette" && (paletteOpen ? "hidden lg:block" : "hidden")
+          )}
+        >
           <NodePalette onAddNode={(t) => addNodeAt(t)} isLocked={isLocked} />
         </div>
 
@@ -509,19 +598,33 @@ function OrchestratorWorkspaceInner() {
             isLocked={isLocked}
             onToggleLock={() => setIsLocked((v) => !v)}
             emptyState={
-              <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)] p-5 text-center shadow-sm max-w-xs">
-                <p className="text-xs font-semibold text-[var(--ws-text-primary)]">
-                  Empty Pipeline Canvas
-                </p>
-                <p className="mt-1 text-[11px] text-[var(--ws-text-secondary)]">
-                  Drag nodes from the left library or click + to start building your workflow.
-                </p>
+              <div className="rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-floating)] p-5 text-center shadow-sm max-w-xs space-y-3">
+                <div>
+                  <p className="text-xs font-semibold text-[var(--ws-text-primary)]">
+                    Empty Pipeline Canvas
+                  </p>
+                  <p className="mt-1 text-[11px] text-[var(--ws-text-secondary)]">
+                    Drag nodes from the left library, click + to add, or load a starter preset.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleSelectPreset(WORKFLOW_PRESETS[0].id)}
+                  className="inline-flex h-7 items-center rounded-full bg-[var(--ws-text-primary)] px-3 text-[11px] font-medium text-[var(--ws-bg)] cursor-pointer"
+                >
+                  Load Document Pipeline
+                </button>
               </div>
             }
           />
         </div>
 
-        <div className={cn("min-h-0", mobileTab !== "inspector" && "hidden lg:block")}>
+        <div
+          className={cn(
+            "min-h-0",
+            mobileTab !== "inspector" && (inspectorOpen ? "hidden lg:block" : "hidden")
+          )}
+        >
           <NodeInspector
             selectedNode={selectedNode}
             validation={validation}

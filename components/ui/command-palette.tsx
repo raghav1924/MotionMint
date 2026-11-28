@@ -29,9 +29,11 @@ export function CommandPalette() {
       { id: "nav-home", group: "Navigation", label: "Home", hint: "/", href: "/" },
       { id: "nav-comp", group: "Navigation", label: "Components", hint: "/components", href: "/components" },
       { id: "nav-themes", group: "Navigation", label: "Themes (29)", hint: "/themes", href: "/themes" },
+      { id: "nav-bench", group: "Navigation", label: "Bench", hint: "/bench", href: "/bench" },
       { id: "nav-motion", group: "Navigation", label: "Motion Lab", hint: "/motion", href: "/motion" },
       { id: "nav-sounds", group: "Navigation", label: "Sound Lab", hint: "/sounds", href: "/sounds" },
       { id: "nav-flow", group: "Navigation", label: "Flow Orchestrator", hint: "/flow", href: "/flow" },
+      { id: "nav-pricing", group: "Navigation", label: "Pricing & Pro", hint: "/pricing", href: "/pricing" },
       { id: "nav-install", group: "Navigation", label: "Installation", hint: "/docs/installation", href: "/docs/installation" },
     ];
 

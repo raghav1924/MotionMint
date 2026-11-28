@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scramble-text",
+  "type": "registry:component",
+  "title": "Scramble Text",
+  "description": "Kinetic cipher text decoding into target copy on hover, focus, or click.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/scramble-text.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/scramble-text.tsx",
+      "content": "\"use client\";\n\nimport React, { useEffect, useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\n\nconst GLYPHS = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%*\";\n\nexport interface ScrambleTextProps {\n  text?: string;\n  className?: string;\n}\n\n/**\n * Kinetic cipher text that decodes into target copy on hover, focus, or click.\n */\nexport function ScrambleText({\n  text = \"RENDERJOY PHYSICS\",\n  className = \"\",\n}: ScrambleTextProps) {\n  const prefersReduced = useReducedMotion();\n  const [display, setDisplay] = useState(text);\n  const [nonce, setNonce] = useState(0);\n\n  useEffect(() => {\n    if (nonce === 0 || prefersReduced) {\n      setDisplay(text);\n      return;\n    }\n    let frame = 0;\n    const total = Math.max(text.length * 2, 12);\n    const id = window.setInterval(() => {\n      frame++;\n      const resolvedCount = Math.floor((frame / total) * text.length);\n      const next = text\n        .split(\"\")\n        .map((ch, i) => {\n          if (ch === \" \") return \" \";\n          if (i < resolvedCount) return ch;\n          return GLYPHS[(i + frame) % GLYPHS.length];\n        })\n        .join(\"\");\n      setDisplay(next);\n      if (frame >= total) {\n        setDisplay(text);\n        window.clearInterval(id);\n      }\n    }, 28);\n    return () => window.clearInterval(id);\n  }, [nonce, prefersReduced, text]);\n\n  return (\n    <button\n      type=\"button\"\n      onMouseEnter={() => setNonce((n) => n + 1)}\n      onFocus={() => setNonce((n) => n + 1)}\n      onClick={() => setNonce((n) => n + 1)}\n      aria-label={`Scramble text: ${text}`}\n      className={`rounded-xl border border-[var(--mm-border)] bg-[var(--mm-surface)] px-4 py-2.5 font-mono text-sm font-bold tracking-wider text-[var(--mm-fg)] hover:border-[var(--mm-accent)] cursor-pointer ${className}`.trim()}\n    >\n      {display}\n    </button>\n  );\n}\n"
+    }
+  ]
+}

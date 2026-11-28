@@ -41,6 +41,7 @@ const SECTIONS: NavSection[] = [
     href: "/themes",
     items: [
       { label: "Themes (29)", href: "/themes" },
+      { label: "Bench", href: "/bench" },
       { label: "Motion Lab", href: "/motion" },
       { label: "Sound Lab", href: "/sounds" },
       { label: "Flow Orchestrator", href: "/flow" },

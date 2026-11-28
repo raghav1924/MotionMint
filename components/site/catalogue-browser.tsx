@@ -33,6 +33,16 @@ const LARGE_STAGE_SLUGS = new Set([
   "aurora-hero",
   "pricing-crown",
   "founder-wall",
+  "advanced-upload-flow",
+  "animated-charts",
+  "bento-dashboard-block",
+  "retro-music-player",
+  "photo-stack",
+  "hover-reveal",
+  "focus-scale-carousel",
+  "fan-carousel",
+  "parallax-carousel",
+  "pendulum-wave",
 ]);
 
 export function CatalogueBrowser() {

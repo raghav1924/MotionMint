@@ -15,11 +15,13 @@ const FOOTER_GROUPS: Array<{
       { href: "/components", label: "Components" },
       { href: "/themes", label: "Themes" },
       { href: "/flow", label: "Flow Orchestrator" },
+      { href: "/pricing", label: "Pricing & Pro" },
     ],
   },
   {
     heading: "Labs",
     links: [
+      { href: "/bench", label: "Bench" },
       { href: "/motion", label: "Motion Lab" },
       { href: "/sounds", label: "Sound Lab" },
       { href: "/docs/installation", label: "Documentation" },

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Play, Square, Smartphone, Volume2 } from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { Play, Search, Square, Smartphone, Volume2 } from "lucide-react";
 import { useRenderJoy } from "@/components/site/providers";
 import { WorkspacePage, WorkspaceHeader } from "@/components/workspace/workspace-page";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
@@ -14,6 +14,13 @@ import {
   type SoundEffect,
   type SoundPreset,
 } from "@/lib/audio/sound-engine";
+import {
+  getLibrarySnippet,
+  playLibrarySound,
+  SOUND_LIBRARY,
+  SOUND_LIBRARY_CATEGORIES,
+  type SoundLibraryCategory,
+} from "@/lib/audio/sound-library";
 import { SoundToggle } from "@/registry/components/sound-toggle";
 import { CopyButton } from "@/registry/components/copy-button";
 import { cn } from "@/lib/utils";
@@ -69,6 +76,9 @@ export default function SoundsPage() {
   const [group, setGroup] = useState<SoundGroup>("UI Feedback");
   const [preset, setPreset] = useState<SoundPreset>("minimal");
   const [volume, setVolume] = useState(0.8);
+  const [pitchShift, setPitchShift] = useState(1);
+  const [libraryCategory, setLibraryCategory] = useState<"All" | SoundLibraryCategory>("All");
+  const [libraryQuery, setLibraryQuery] = useState("");
   const [selectedEffect, setSelectedEffect] = useState<SoundEffect>("click");
   const [lastPlayed, setLastPlayed] = useState<string | null>(null);
 
@@ -83,7 +93,32 @@ export default function SoundsPage() {
     }
   };
 
+  const handleLibraryAudition = (id: string) => {
+    playLibrarySound(id, { volume, pitchShift, preset });
+    setLastPlayed(id);
+    if (hapticsEnabled) {
+      triggerHapticPreset("tap");
+    }
+  };
+
   const visibleEffects = SOUND_CATALOG.filter((item) => item.group === group);
+
+  const visibleLibrary = useMemo(() => {
+    const q = libraryQuery.trim().toLowerCase();
+    return SOUND_LIBRARY.filter((item) => {
+      if (libraryCategory !== "All" && item.category !== libraryCategory) return false;
+      if (
+        q &&
+        !item.name.toLowerCase().includes(q) &&
+        !item.description.toLowerCase().includes(q) &&
+        !item.category.toLowerCase().includes(q) &&
+        !item.tags.some((t) => t.includes(q))
+      ) {
+        return false;
+      }
+      return true;
+    });
+  }, [libraryCategory, libraryQuery]);
 
   const hookSnippet = `import { useSound } from "@/lib/audio/use-sound";
 
@@ -272,6 +307,136 @@ play("${selectedEffect}");`;
                 <Play className="h-3.5 w-3.5 text-[var(--ws-text-primary)]" aria-hidden="true" />
               </span>
             </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Original Sound Library (56 Sounds across 8 Categories) */}
+      <section className="space-y-4 rounded-[22px] border border-[var(--ws-border)] bg-[var(--ws-floating)] p-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="space-y-1">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ws-text-muted)]">
+              ORIGINAL SYNTHESIS LIBRARY
+            </p>
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--ws-text-primary)]">
+              {SOUND_LIBRARY.length} Original UI Sounds
+            </h2>
+            <p className="text-xs text-[var(--ws-text-secondary)]">
+              Multi-step Web Audio synthesis across 8 interaction categories. Click any cue to audition.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="flex items-center gap-2 text-xs text-[var(--ws-text-secondary)]">
+              <span>Pitch {pitchShift.toFixed(2)}×</span>
+              <input
+                type="range"
+                aria-label="Library pitch multiplier"
+                min="0.75"
+                max="1.35"
+                step="0.05"
+                value={pitchShift}
+                onChange={(e) => setPitchShift(Number(e.target.value))}
+                className="w-24 accent-[var(--ws-text-primary)]"
+              />
+            </label>
+
+            <div className="relative">
+              <Search className="pointer-events-none absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2 text-[var(--ws-text-muted)]" aria-hidden="true" />
+              <input
+                type="search"
+                aria-label="Search sound library"
+                value={libraryQuery}
+                onChange={(e) => setLibraryQuery(e.target.value)}
+                placeholder="Search 56 sounds…"
+                className="h-8 w-48 rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] pl-8 pr-3 text-xs text-[var(--ws-text-primary)] placeholder:text-[var(--ws-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-ring)]"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div role="group" aria-label="Sound library categories" className="flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            onClick={() => setLibraryCategory("All")}
+            aria-pressed={libraryCategory === "All"}
+            className={cn(
+              "rounded-full border px-3 py-1 text-xs font-medium cursor-pointer transition-colors",
+              libraryCategory === "All"
+                ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+            )}
+          >
+            All ({SOUND_LIBRARY.length})
+          </button>
+          {SOUND_LIBRARY_CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setLibraryCategory(cat)}
+              aria-pressed={libraryCategory === cat}
+              className={cn(
+                "rounded-full border px-3 py-1 text-xs font-medium cursor-pointer transition-colors",
+                libraryCategory === cat
+                  ? "border-[var(--ws-text-primary)] bg-[var(--ws-text-primary)] text-[var(--ws-bg)]"
+                  : "border-[var(--ws-border)] bg-[var(--ws-surface)] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)]"
+              )}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {visibleLibrary.map((item) => (
+            <div
+              key={item.id}
+              className={cn(
+                "flex flex-col justify-between gap-3 rounded-2xl border p-4 transition-all",
+                lastPlayed === item.id
+                  ? "border-[var(--ws-text-primary)] bg-[var(--ws-surface)]"
+                  : "border-[var(--ws-border)] bg-[var(--ws-surface)]/70 hover:border-[var(--ws-border-strong)]"
+              )}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <p className="truncate text-sm font-semibold text-[var(--ws-text-primary)]">
+                      {item.name}
+                    </p>
+                    <span className="rounded bg-[var(--ws-bg)] px-1.5 py-0.5 font-mono text-[9px] text-[var(--ws-text-muted)]">
+                      {item.durationMs}ms
+                    </span>
+                  </div>
+                  <p className="text-xs text-[var(--ws-text-secondary)]">{item.description}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleLibraryAudition(item.id)}
+                  aria-label={`Play ${item.name}`}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--ws-border)] bg-[var(--ws-bg)] text-[var(--ws-text-primary)] hover:border-[var(--ws-border-strong)] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ws-ring)]"
+                >
+                  <Play className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between gap-2 border-t border-[var(--ws-border-subtle)] pt-2.5">
+                <div className="flex flex-wrap items-center gap-1">
+                  <span className="rounded-md bg-[var(--ws-bg)] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[var(--ws-text-secondary)]">
+                    {item.category}
+                  </span>
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md bg-[var(--ws-bg)] px-1.5 py-0.5 font-mono text-[9px] text-[var(--ws-text-muted)]"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                <CopyButton value={getLibrarySnippet(item.id)} />
+              </div>
+            </div>
           ))}
         </div>
       </section>

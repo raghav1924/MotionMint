@@ -18,8 +18,12 @@ import { ProgressRing } from "@/registry/components/progress-ring";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { SculpturalSilk } from "@/components/home/sculptural-silk";
+import { KineticBrandMark } from "@/components/brand/kinetic-brand-mark";
+import { CATALOG_ITEMS } from "@/lib/catalog";
 import { BRAND } from "@/lib/brand";
 import { useRenderJoy } from "@/components/site/providers";
+
+const IMPLEMENTED_COUNT = CATALOG_ITEMS.filter((c) => c.status === "implemented").length;
 
 export function CinematicHero() {
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
@@ -266,25 +270,48 @@ export function CinematicHero() {
             </motion.div>
           </div>
 
-          {/* Center Editorial Headline & CTAs */}
+          {/* Center Editorial Headline & CTAs with Non-Blocking Progressive Entrance */}
           <motion.div
             style={prefersReduced ? undefined : { y: headlineY, opacity: headlineOpacity }}
             className="relative z-10 mx-auto max-w-2xl py-8 text-center space-y-6"
           >
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ws-text-secondary)]">
-              {BRAND.name} · 45 Components · 58 Theme Variants · Flow
-            </p>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center gap-3"
+            >
+              <KineticBrandMark size={22} className="text-[var(--ws-text-primary)]" />
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ws-text-secondary)]">
+                {BRAND.name} · {IMPLEMENTED_COUNT} Components · 58 Theme Variants · Flow
+              </p>
+            </motion.div>
 
-            <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[var(--ws-text-primary)] sm:text-6xl lg:text-[72px] lg:leading-[1.03]">
+            <motion.h1
+              initial={prefersReduced ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl font-semibold tracking-[-0.04em] text-[var(--ws-text-primary)] sm:text-6xl lg:text-[72px] lg:leading-[1.03]"
+            >
               Interfaces should feel alive.
-            </h1>
+            </motion.h1>
 
-            <p className="mx-auto max-w-xl text-base leading-relaxed text-[var(--ws-text-secondary)] sm:text-lg">
+            <motion.p
+              initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="mx-auto max-w-xl text-base leading-relaxed text-[var(--ws-text-secondary)] sm:text-lg"
+            >
               An expressive collection of React components, motion and interactions
               for the modern web.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.38, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
               <Link
                 href="/components"
                 className="inline-flex h-11 items-center gap-2 rounded-full bg-[var(--ws-text-primary)] px-6 text-sm font-medium text-[var(--ws-bg)] shadow-sm transition-opacity hover:opacity-90"
@@ -298,9 +325,14 @@ export function CinematicHero() {
               >
                 Discover Themes
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="pt-1">
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.35, delay: 0.2 }}
+              className="pt-1"
+            >
               <Link
                 href="/flow"
                 className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] transition-colors"
@@ -308,7 +340,7 @@ export function CinematicHero() {
                 <Workflow className="h-3.5 w-3.5" aria-hidden="true" />
                 <span>Discover RenderJoy Flow →</span>
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Mobile / Tablet Compact Live Specimen Strip */}

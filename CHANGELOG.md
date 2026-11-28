@@ -1,5 +1,108 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.31.0] — 2026-11-28 (Priority 4 — Wave 5 Physics & Text Batch 1)
+### Added
+- `registry/components/ripple-grid.tsx`: Interactive tactile grid propagating radial spring waves from any clicked cell.
+- `registry/components/pendulum-wave.tsx`: Harmonic multi-bob pendulum wave with play/pause, reset, and reduced-motion equilibrium.
+- `registry/components/scramble-text.tsx`: Kinetic cipher text decoding into target copy on hover, focus, or click.
+- `registry/components/split-text-reveal.tsx`: Word-by-word staggered spring text reveal with replay control.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 5 Physics & Text components (`101` validated registry items total).
+- `tests/wave5-physics.test.tsx`: Added unit tests for all 4 Wave 5 Physics & Text components.
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`, `components/site/catalogue-browser.tsx`: Added `"Physics"` category and all 4 Wave 5 components (`94` implemented components total) and wired live previews.
+- `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Updated implemented component count assertions (`90` -> `94`, `5,452` theme/mode combinations).
+
+## [0.30.0] — 2026-11-28 (Priority 4 — Wave 4 Carousels Batch 1)
+### Added
+- `registry/components/focus-scale-carousel.tsx`: Center-focused carousel scaling the active slide with arrow-key navigation.
+- `registry/components/fan-carousel.tsx`: Radial-fanning card carousel rotating around a bottom pivot.
+- `registry/components/ring-gallery.tsx`: Orbital circular gallery rotating selected nodes to the focal slot.
+- `registry/components/parallax-carousel.tsx`: Multi-layer carousel offsetting foreground and backdrop layers per slide.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 4 Carousels (`97` validated registry items total).
+- `tests/wave4-carousels.test.tsx`: Added unit tests for all 4 Wave 4 Carousels.
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`, `components/site/catalogue-browser.tsx`: Added `"Carousels"` category and all 4 Carousel components (`90` implemented components total) and wired live previews.
+- `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Updated implemented component count assertions (`86` -> `90`, `5,220` theme/mode combinations).
+
+## [0.29.0] — 2026-11-28 (Priority 4 — Wave 3 Media Batch 1)
+### Added
+- `registry/components/retro-music-player.tsx`: Tactile cassette-inspired player with track switching, spinning disc state, and visual level meters.
+- `registry/components/album-cover.tsx`: Interactive vinyl sleeve with hover/focus/click disc slide-out.
+- `registry/components/photo-stack.tsx`: Stacked photo deck with spring depth and click/arrow-key cycling.
+- `registry/components/hover-reveal.tsx`: Editorial showcase list revealing contextual preview summaries on hover/focus.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Wave 3 Media components (`93` validated registry items total).
+- `tests/wave3-media.test.tsx`: Added unit tests for all 4 Wave 3 Media components.
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`, `components/site/catalogue-browser.tsx`: Added all 4 Media components (`86` implemented components total) and wired live previews.
+- `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Updated implemented component count assertions (`82` -> `86`, `4,988` theme/mode combinations).
+
+## [0.28.0] — 2026-11-28 (Priority 3 — 29 Theme Demo Websites at /themes/[themeId]/demo)
+### Added
+- `components/theme/theme-demo-website.tsx` & `app/themes/[themeId]/demo/page.tsx`: Created statically generated full-page theme demo websites for all 29 themes (`generateStaticParams` -> `29` routes), each wrapped in `<RenderJoyTheme>` with Light/Dark mode switching and live interactive specimens.
+
+### Changed
+- `components/theme/theme-studio.tsx`: Added `Open <Theme> Demo →` links on every theme card.
+
+## [0.27.0] — 2026-11-28 (Priority 3 — Phase 7 Pro Infrastructure & Launch)
+### Added
+- `lib/pro/license.ts`: SHA-256 licence token hashing (`hashLicenseToken`), format validation (`rj_pro_<16-64>`), and `crypto.timingSafeEqual` verification (`verifyLicenseToken`) for `PRO_REGISTRY_SLUGS`.
+- `app/api/pro/registry/[slug]/route.ts`: Authenticated `GET` route handler serving `@renderjoy-pro` manifests only with a valid Bearer token matching `RENDERJOY_PRO_TOKEN_HASHES`.
+- `app/pricing/page.tsx` & `components/pro/license-manager.tsx`: Created `/pricing` page with Open Core / Pro Ecosystem tiers and interactive Pro licence token & `components.json` configurator.
+- `docs/PRO_INFRASTRUCTURE_AND_MOR.md`: Documented India Merchant-of-Record onboarding & payouts (Paddle, Lemon Squeezy, Dodo Payments) and webhook provisioning architecture.
+- `tests/phase7-pro.test.tsx`: Added tests for SHA-256 licence verification, `/api/pro/registry/[slug]` auth responses (`401`, `404`, `200`), and `PricingPage`.
+
+### Changed
+- `lib/pricing.ts`, `components/site/footer.tsx`, `components/ui/command-palette.tsx`: Updated tier counts/status (`89` registry items, `$149 / once` Pro Ecosystem) and linked `/pricing`.
+
+## [0.26.0] — 2026-11-28 (Priority 3 — Phase 5 Remaining Pro Components Complete)
+### Added
+- `registry/components/advanced-upload-flow.tsx`: Multi-file upload queue with per-file SVG progress rings, retry recovery, and live-region status announcements.
+- `registry/components/payment-success-flow.tsx`: Animated payment receipt reveal with replay control and copyable invoice ID.
+- `registry/components/animated-charts.tsx`: Animated Bar, Donut, and Gauge SVG charts with accessible tabular view toggle.
+- `registry/components/bento-dashboard-block.tsx`: Responsive SaaS telemetry bento block with 7D/30D/90D timeframe switching.
+- `registry.json` & `public/r/*.json`: Added manifests for all 4 Phase 5 Pro components (`89` validated registry items total).
+- `tests/phase5.test.tsx`: Added component tests for all 4 Phase 5 Pro components.
+
+### Changed
+- `lib/catalog.ts`, `lib/catalog-interactions.ts`, `components/shared/component-preview-card.tsx`, `components/studio/component-studio.tsx`, `components/site/catalogue-browser.tsx`: Marked all 4 Phase 5 items as `implemented` (`82` implemented components total) and wired live previews.
+- `tests/homepage.test.tsx`, `tests/inventory.test.tsx`, `tests/phase213-bencho.test.tsx`, `tests/phase29-themes.test.tsx`, `tests/planes-shell.test.tsx`: Updated implemented component count assertions (`78` -> `82`, `4,756` theme/mode combinations).
+
+## [0.25.0] — 2026-11-28 (Priority 2 — B5 Homepage & Progressive Brand Entrance)
+### Changed
+- `components/home/cinematic-hero.tsx`: Added non-blocking progressive staggered entrance (`0s`–`0.2s`, disabled under `prefers-reduced-motion`), wired `KineticBrandMark` into the hero centerpiece (`B5.4`, `B5.5`), and replaced the stale `45 Components` hero eyebrow count with derived `CATALOG_ITEMS` count (`78 Components`).
+- `tests/homepage.test.tsx`: Added assertion verifying the derived `78 Components · 58 Theme Variants · Flow` hero eyebrow.
+
+## [0.24.0] — 2026-11-28 (Priority 2 — B4 RenderJoy Flow UI Optimisation)
+### Changed
+- `components/flow/pipeline-orchestrator.tsx`: Added collapsible `NodePalette` (`PanelLeft`) and `NodeInspector` (`PanelRight`) toggles (`B4.5`), `Cmd/Ctrl+Z` & `Cmd/Ctrl+Shift+Z` / `Ctrl+Y` undo/redo shortcuts, reversible `Clear canvas` action, and quick-start `Load Document Pipeline` CTA in the empty canvas state while preserving `Simulated Execution Adapter` labelling (`B4.8`, `B4.9`).
+- `tests/flow-orchestrator.test.tsx`: Added test verifying collapsible panel toggles, clear-canvas empty state, and undo restoration.
+
+## [0.23.0] — 2026-11-28 (Priority 2 — B3 Motion Lab Physics Tuner & Recipe Export)
+### Changed
+- `app/motion/page.tsx`: Upgraded `/motion` with a real **Spring & Stagger Tuner** (`stiffness`, `damping`, `mass`, `staggerMs`, plus `snappy`/`smooth`/`elastic`/`gentle` presets from `MOTION_SPRINGS`) that drives the live `Transitions` stagger specimen, paired with a dynamic **Live Motion Recipe Export** (`motion/react` + `CopyButton`) and `Reduced Motion` fallback (`B3.1`–`B3.5`).
+- `tests/phase4.test.tsx`: Added test verifying spring preset switching, live `stiffness` tuning, and dynamic recipe code export updates.
+
+## [0.22.0] — 2026-11-28 (Priority 2 — B2 Bench Full-Canvas Experimentation Workspace)
+### Added
+- `components/bench/bench-workspace.tsx` & `app/bench/page.tsx`: Created the full-viewport **Bench** (`/bench`) experimentation workspace (distinct from `InfinityCanvas`) with dot-grid pan/zoom/fit/reset, keyboard shortcuts (`+`/`-`/`0`/arrows/`Delete`), grid snap, minimap overview, live specimen drag/resize, searchable 78-component Add Specimen picker, per-specimen `<RenderJoyTheme>` Light/Dark + 29-theme Inspector, `Duplicate`/`Remove`/`Replay All`/`Export JSON`, `localStorage` persistence (`renderjoy-bench-board-v1`), and a clean mobile stack fallback.
+- `tests/bench.test.tsx`: Added tests for Bench specimen rendering, zoom/fit, add/duplicate/remove, per-specimen theme/mode scoping, and `localStorage` persistence.
+
+### Changed
+- `components/site/app-shell.tsx`: Treated `/bench` as a full-canvas workspace omitting `Footer` and `FloatingToolbar` (while preserving `NavigationToggle`, `BrandFloatingButton`, `EditorialSidebar`, and `CommandPalette`).
+- `components/shell/editorial-sidebar.tsx`, `components/ui/command-palette.tsx`, `components/site/footer.tsx`: Added `/bench` navigation entries.
+
+## [0.21.0] — 2026-11-28 (Priority 2 — B1 Sound Library Expansion: 56 Original UI Sounds)
+### Added
+- `lib/audio/sound-library.ts`: Created original 56-cue procedural Web Audio synthesis library across 8 categories (`Actions`, `Feedback`, `Navigation`, `Notifications`, `Selection`, `Movement`, `Progress`, `System`) with multi-step acoustic recipes, `playLibrarySound()`, and `getLibrarySnippet()`.
+- `tests/phase4.test.tsx`: Added tests verifying all 56 library sounds across 8 categories synthesize and stop cleanly, category/search filtering works, and no autoplay occurs on mount.
+
+### Changed
+- `lib/audio/sound-engine.ts`: Exported `getSharedAudioContext()` and `registerActiveOscillator()` so `playLibrarySound()` shares the global `AudioContext` and `stopAllSounds()` lifecycle.
+- `app/sounds/page.tsx`: Added the `56 Original UI Sounds` library section with category pills, search input, pitch multiplier slider (`0.75×`–`1.35×`), audition buttons, and `CopyButton` API snippets.
+
 ## [0.20.0] — 2026-11-28 (Priority 1 — Kinetic Brand Mark & Halftone Editorial Footer A4.1–A4.6, A5.1–A5.4)
 ### Added
 - `components/brand/kinetic-brand-mark.tsx`: Added `KineticBrandMark` wrapping the single-source `RenderJoyMark` SVG with bounded cursor-responsive parallax, click pulse + lightweight radial impact wave, `prefers-reduced-motion` gating, and opt-in Web Audio feedback via `playSoundEffect` (`A4.3`–`A4.6`).

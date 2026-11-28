@@ -1726,6 +1726,270 @@
           "target": "components/renderjoy/bio-terrain.tsx"
         }
       ]
+    },
+    {
+      "name": "advanced-upload-flow",
+      "type": "registry:component",
+      "title": "Advanced Upload Flow",
+      "description": "Multi-file upload experience with previews, progress rings, and retry.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/advanced-upload-flow.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/advanced-upload-flow.tsx"
+        }
+      ]
+    },
+    {
+      "name": "payment-success-flow",
+      "type": "registry:component",
+      "title": "Payment Success Flow",
+      "description": "Animated receipt reveal, confirmation summary, and copyable invoice ID.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/payment-success-flow.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/payment-success-flow.tsx"
+        }
+      ]
+    },
+    {
+      "name": "animated-charts",
+      "type": "registry:component",
+      "title": "Animated Charts",
+      "description": "Gauge, donut, and bar visualisations with accessible data tables.",
+      "dependencies": [
+        "motion",
+        "react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/animated-charts.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/animated-charts.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bento-dashboard-block",
+      "type": "registry:component",
+      "title": "Bento Dashboard Block",
+      "description": "Complete responsive SaaS analytics bento layout.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/bento-dashboard-block.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/bento-dashboard-block.tsx"
+        }
+      ]
+    },
+    {
+      "name": "retro-music-player",
+      "type": "registry:component",
+      "title": "Retro Music Player",
+      "description": "Tactile cassette-inspired player with track switching and visual level meters.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/retro-music-player.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/retro-music-player.tsx"
+        }
+      ]
+    },
+    {
+      "name": "album-cover",
+      "type": "registry:component",
+      "title": "Album Cover",
+      "description": "Interactive vinyl sleeve that reveals a sliding disc on hover, focus, or click.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/album-cover.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/album-cover.tsx"
+        }
+      ]
+    },
+    {
+      "name": "photo-stack",
+      "type": "registry:component",
+      "title": "Photo Stack",
+      "description": "Interactive stacked photo deck with click and keyboard arrow navigation.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/photo-stack.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/photo-stack.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hover-reveal",
+      "type": "registry:component",
+      "title": "Hover Reveal",
+      "description": "Editorial list that reveals a floating preview card on hover or keyboard focus.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/hover-reveal.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/hover-reveal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "focus-scale-carousel",
+      "type": "registry:component",
+      "title": "Focus Scale Carousel",
+      "description": "Center-focused carousel scaling the active slide while receding neighbors.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/focus-scale-carousel.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/focus-scale-carousel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "fan-carousel",
+      "type": "registry:component",
+      "title": "Fan Carousel",
+      "description": "Radial-fanning card carousel rotating around a bottom pivot.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/fan-carousel.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/fan-carousel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ring-gallery",
+      "type": "registry:component",
+      "title": "Ring Gallery",
+      "description": "Orbital circular gallery rotating selected items to the focal top slot.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/ring-gallery.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/ring-gallery.tsx"
+        }
+      ]
+    },
+    {
+      "name": "parallax-carousel",
+      "type": "registry:component",
+      "title": "Parallax Carousel",
+      "description": "Multi-layer carousel offsetting foreground and backdrop layers per slide.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/parallax-carousel.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/parallax-carousel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ripple-grid",
+      "type": "registry:component",
+      "title": "Ripple Grid",
+      "description": "Interactive tactile grid propagating radial spring waves from any clicked cell.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/ripple-grid.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/ripple-grid.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pendulum-wave",
+      "type": "registry:component",
+      "title": "Pendulum Wave",
+      "description": "Harmonic multi-bob pendulum wave with play/pause and reduced-motion fallback.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/pendulum-wave.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/pendulum-wave.tsx"
+        }
+      ]
+    },
+    {
+      "name": "scramble-text",
+      "type": "registry:component",
+      "title": "Scramble Text",
+      "description": "Kinetic cipher text decoding into target copy on hover, focus, or click.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/scramble-text.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/scramble-text.tsx"
+        }
+      ]
+    },
+    {
+      "name": "split-text-reveal",
+      "type": "registry:component",
+      "title": "Split Text Reveal",
+      "description": "Word-by-word kinetic text reveal with replay control and reduced-motion fallback.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/components/split-text-reveal.tsx",
+          "type": "registry:component",
+          "target": "components/renderjoy/split-text-reveal.tsx"
+        }
+      ]
     }
   ]
 }

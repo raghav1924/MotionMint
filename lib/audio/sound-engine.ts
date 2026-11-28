@@ -59,6 +59,31 @@ function getAudioContext(): AudioContext | null {
   return sharedAudioCtx;
 }
 
+export function getSharedAudioContext(): AudioContext | null {
+  return getAudioContext();
+}
+
+export function resetAudioContextForTesting(): void {
+  stopAllSounds();
+  sharedAudioCtx = null;
+}
+
+export function registerActiveOscillator(
+  osc: OscillatorNode,
+  gain?: GainNode
+): void {
+  activeOscillators.add(osc);
+  osc.onended = () => {
+    activeOscillators.delete(osc);
+    try {
+      osc.disconnect();
+      gain?.disconnect();
+    } catch {
+      // Ignore already disconnected nodes
+    }
+  };
+}
+
 export function getAudioCapabilities(): AudioCapabilities {
   const supportsWebAudio =
     typeof window !== "undefined" &&

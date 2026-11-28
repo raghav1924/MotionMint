@@ -398,6 +398,102 @@ const CAPABILITY_MAP: Record<string, CapabilityOverride> = {
     adjustable: true,
     isNew: true,
   },
+  "advanced-upload-flow": {
+    interactions: ["press"],
+    interactionHint: "Queue, upload, or retry files",
+    adjustable: true,
+    isNew: true,
+  },
+  "payment-success-flow": {
+    interactions: ["press"],
+    interactionHint: "Replay receipt or copy invoice ID",
+    adjustable: true,
+    isNew: true,
+  },
+  "animated-charts": {
+    interactions: ["press", "hover"],
+    interactionHint: "Switch Bar, Donut, Gauge, or Table view",
+    adjustable: true,
+    isNew: true,
+  },
+  "bento-dashboard-block": {
+    interactions: ["press"],
+    interactionHint: "Switch 7D, 30D, and 90D metrics",
+    adjustable: true,
+    isNew: true,
+  },
+  "retro-music-player": {
+    interactions: ["press"],
+    interactionHint: "Toggle playback or skip tracks",
+    adjustable: false,
+    isNew: true,
+  },
+  "album-cover": {
+    interactions: ["hover", "press", "focus"],
+    interactionHint: "Hover or click to slide vinyl disc",
+    adjustable: false,
+    isNew: true,
+  },
+  "photo-stack": {
+    interactions: ["press", "focus"],
+    interactionHint: "Click or press arrow keys to cycle photos",
+    adjustable: false,
+    isNew: true,
+  },
+  "hover-reveal": {
+    interactions: ["hover", "focus"],
+    interactionHint: "Hover or focus rows to reveal preview",
+    adjustable: false,
+    isNew: true,
+  },
+  "focus-scale-carousel": {
+    interactions: ["press", "focus"],
+    interactionHint: "Click slides or press arrow keys",
+    adjustable: false,
+    isNew: true,
+  },
+  "fan-carousel": {
+    interactions: ["press"],
+    interactionHint: "Click any fanned card to bring forward",
+    adjustable: false,
+    isNew: true,
+  },
+  "ring-gallery": {
+    interactions: ["press"],
+    interactionHint: "Click ring nodes or center rotate button",
+    adjustable: false,
+    isNew: true,
+  },
+  "parallax-carousel": {
+    interactions: ["press"],
+    interactionHint: "Step through multi-layer parallax slides",
+    adjustable: false,
+    isNew: true,
+  },
+  "ripple-grid": {
+    interactions: ["press"],
+    interactionHint: "Click any cell to propagate a radial wave",
+    adjustable: false,
+    isNew: true,
+  },
+  "pendulum-wave": {
+    interactions: ["press"],
+    interactionHint: "Press Play to start harmonic oscillation",
+    adjustable: false,
+    isNew: true,
+  },
+  "scramble-text": {
+    interactions: ["hover", "focus", "press"],
+    interactionHint: "Hover, focus, or click to decode cipher",
+    adjustable: false,
+    isNew: true,
+  },
+  "split-text-reveal": {
+    interactions: ["press"],
+    interactionHint: "Click Replay to trigger word-by-word spring",
+    adjustable: false,
+    isNew: true,
+  },
 };
 
 export function resolveComponentCapabilities(params: {

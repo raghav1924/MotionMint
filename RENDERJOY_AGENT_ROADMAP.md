@@ -176,14 +176,14 @@ The user explicitly requested this order:
 
 ## B1. Sound Library — 50+ original previewable sounds
 
-- [ ] **B1.1 — AUDIT:** Compare current RenderJoy's existing 17 synthesized cues and sound engine against the user's target and Bencho's Sounds experience. Identify what is already good and what needs a new library model.
-- [ ] **B1.2 — DESIGN:** Create a dedicated Sound Library section inside the existing Sounds experience. Do not add another unrelated app shell.
-- [ ] **B1.3 — BUILD:** Provide at least **50 original sound effects** for UI and interaction use, each individually previewable and named. This is a RenderJoy-created library, not copied recordings or reused proprietary Bencho sound assets.
-- [ ] **B1.4 — CATEGORIES:** Actions, Feedback, Navigation, Notifications, Selection, Movement, Progress and System. Each sound has a short description, category, preview button and optional tags.
-- [ ] **B1.5 — CONTROLS:** Play/stop, volume, pitch/tone where supported, duration, variation, preset, waveform/visual audition, and copy/install/download where licensing and implementation support it.
-- [ ] **B1.6 — IMPLEMENTATION:** Use original Web Audio synthesis, original generated assets or properly licensed audio. Keep sound disabled by default, require user gesture before playback, stop playback when asked, clean up audio nodes and avoid audio fatigue.
-- [ ] **B1.7 — API:** Provide portable `useSound`/sound engine usage and registry installation. Avoid RenderJoy site-provider imports in consumer code.
-- [ ] **B1.8 — QA:** Verify every one of the 50+ samples actually plays, volume works, stop-all works, no autoplay occurs and the library performs well on mobile.
+- [x] **B1.1 — AUDIT:** Compare current RenderJoy's existing 17 synthesized cues and sound engine against the user's target and Bencho's Sounds experience. Identify what is already good and what needs a new library model.
+- [x] **B1.2 — DESIGN:** Create a dedicated Sound Library section inside the existing Sounds experience. Do not add another unrelated app shell.
+- [x] **B1.3 — BUILD:** Provide at least **50 original sound effects** for UI and interaction use, each individually previewable and named. This is a RenderJoy-created library, not copied recordings or reused proprietary Bencho sound assets.
+- [x] **B1.4 — CATEGORIES:** Actions, Feedback, Navigation, Notifications, Selection, Movement, Progress and System. Each sound has a short description, category, preview button and optional tags.
+- [x] **B1.5 — CONTROLS:** Play/stop, volume, pitch/tone where supported, duration, variation, preset, waveform/visual audition, and copy/install/download where licensing and implementation support it.
+- [x] **B1.6 — IMPLEMENTATION:** Use original Web Audio synthesis, original generated assets or properly licensed audio. Keep sound disabled by default, require user gesture before playback, stop playback when asked, clean up audio nodes and avoid audio fatigue.
+- [x] **B1.7 — API:** Provide portable `useSound`/sound engine usage and registry installation. Avoid RenderJoy site-provider imports in consumer code.
+- [x] **B1.8 — QA:** Verify every one of the 50+ samples actually plays, volume works, stop-all works, no autoplay occurs and the library performs well on mobile.
 
 Potential original sound design families (names are proposals, not copied Bencho samples):
 - Actions: Tap, Press, Thump, Knock, Flick, Snap, Confirm, Release.
@@ -199,50 +199,50 @@ The goal is 50+ distinct useful samples, not 50 trivial pitch-shifted copies.
 
 ## B2. Bench — full-canvas component arrangement workspace
 
-- [ ] **B2.1 — PRODUCT DEFINITION:** Add a Bencho-inspired **Bench** workspace, preferably at `/bench`. This is a full-viewport experimentation board, not the old generic Playground and not a replacement for the installable `InfinityCanvas` component.
-- [ ] **B2.2 — CANVAS:** Full-canvas dark/light dot-grid workspace, pan, zoom, fit, reset, minimap or overview, and clear keyboard controls.
-- [ ] **B2.3 — SPECIMENS:** Users can add live RenderJoy component specimens, shader/background samples, sound players and selected blocks to the canvas. Each specimen keeps its actual behaviour.
-- [ ] **B2.4 — MANIPULATION:** Drag, resize, position, duplicate, remove, arrange, group and align specimens. Use selection handles and snap/grid options.
-- [ ] **B2.5 — INSPECT:** Selecting a specimen opens its compact inspector. Changes affect the selected live specimen immediately.
-- [ ] **B2.6 — COMPARE:** Allow multiple specimens side-by-side, including the same component across different component themes and Light/Dark component modes.
-- [ ] **B2.7 — TOOLBAR:** Zoom controls, add specimen, theme controls, reset, inspect, replay and export/share if persistence/sharing is genuinely implemented.
-- [ ] **B2.8 — PERSISTENCE:** Save/restore board layout locally first. Do not add a server/database before the local workflow is robust.
-- [ ] **B2.9 — RESPONSIVE:** Desktop-first canvas, tablet usable, mobile graceful (view/interact with selected item; not a forced desktop board squeezed into 390px).
-- [ ] **B2.10 — QA:** Test drag performance, canvas transforms, keyboard access, large boards, theme changes, reload persistence and responsive behaviour.
+- [x] **B2.1 — PRODUCT DEFINITION:** Add a Bencho-inspired **Bench** workspace, preferably at `/bench`. This is a full-viewport experimentation board, not the old generic Playground and not a replacement for the installable `InfinityCanvas` component.
+- [x] **B2.2 — CANVAS:** Full-canvas dark/light dot-grid workspace, pan, zoom, fit, reset, minimap or overview, and clear keyboard controls.
+- [x] **B2.3 — SPECIMENS:** Users can add live RenderJoy component specimens, shader/background samples, sound players and selected blocks to the canvas. Each specimen keeps its actual behaviour.
+- [x] **B2.4 — MANIPULATION:** Drag, resize, position, duplicate, remove, arrange, group and align specimens. Use selection handles and snap/grid options.
+- [x] **B2.5 — INSPECT:** Selecting a specimen opens its compact inspector. Changes affect the selected live specimen immediately.
+- [x] **B2.6 — COMPARE:** Allow multiple specimens side-by-side, including the same component across different component themes and Light/Dark component modes.
+- [x] **B2.7 — TOOLBAR:** Zoom controls, add specimen, theme controls, reset, inspect, replay and export/share if persistence/sharing is genuinely implemented.
+- [x] **B2.8 — PERSISTENCE:** Save/restore board layout locally first. Do not add a server/database before the local workflow is robust.
+- [x] **B2.9 — RESPONSIVE:** Desktop-first canvas, tablet usable, mobile graceful (view/interact with selected item; not a forced desktop board squeezed into 390px).
+- [x] **B2.10 — QA:** Test drag performance, canvas transforms, keyboard access, large boards, theme changes, reload persistence and responsive behaviour.
 
 **Naming rule:** Bench is the product workspace. `InfinityCanvas` remains a separately installable component. Do not reintroduce `/playground` or `/canvas` as standalone destinations.
 
 ## B3. Motion Lab — define purpose and make it useful
 
-- [ ] **B3.1 — PRODUCT AUDIT:** Explain the user value of Motion Lab based on implemented motion primitives. Determine whether it offers meaningful experimentation distinct from Component Studio and Bench.
-- [ ] **B3.2 — DEFINE:** Motion Lab is for trying motion behaviours and reusable motion recipes (timing, spring, stagger, reveal, scroll, drag and transitions), not a generic catalogue duplicate.
-- [ ] **B3.3 — CONSOLIDATE:** If every Motion Lab example is already a normal component detail, merge redundant pages/controls into the component experience. If it has unique motion-tuning functionality, preserve it with a clearer name/description and focused workflow.
-- [ ] **B3.4 — ADD:** Show real motion parameters, replay, reduce-motion simulation and code/recipe export only where implementation supports them.
-- [ ] **B3.5 — QA:** Verify all controls change actual animation behaviour. No fake sliders.
+- [x] **B3.1 — PRODUCT AUDIT:** Explain the user value of Motion Lab based on implemented motion primitives. Determine whether it offers meaningful experimentation distinct from Component Studio and Bench.
+- [x] **B3.2 — DEFINE:** Motion Lab is for trying motion behaviours and reusable motion recipes (timing, spring, stagger, reveal, scroll, drag and transitions), not a generic catalogue duplicate.
+- [x] **B3.3 — CONSOLIDATE:** If every Motion Lab example is already a normal component detail, merge redundant pages/controls into the component experience. If it has unique motion-tuning functionality, preserve it with a clearer name/description and focused workflow.
+- [x] **B3.4 — ADD:** Show real motion parameters, replay, reduce-motion simulation and code/recipe export only where implementation supports them.
+- [x] **B3.5 — QA:** Verify all controls change actual animation behaviour. No fake sliders.
 
 ## B4. RenderJoy Flow — flagship Node Pipeline Orchestrator
 
-- [ ] **B4.1 — AUDIT:** The current roadmap reports the original POC audit and `/flow` demo complete. Inspect the existing POC-derived node types and current `/flow` implementation to identify remaining defects; do not rebuild completed work without evidence. The user's POC URL is `https://github.com/raghav1924/frontend_technical_assessment`.
-- [ ] **B4.2 — VISUAL RESEARCH:** Inspect the user's inspiration URL `https://bestdesignsonx.com/flohoeller/status/2125281041560564142`. If inaccessible, document this and ask no repeat question; use supplied screenshots plus a clearly stated fallback research set.
-- [ ] **B4.3 — VERIFY/FIX:** The current roadmap reports the unified shell complete across `/flow` and the other workspaces. Verify there is no legacy Flow shell or icon rail; fix only regressions.
-- [ ] **B4.4 — EDITOR:** Refine node canvas, node shapes, ports, edge routing, selection, drag/drop, zoom/pan, minimap, node palette, inspector and execution console.
-- [ ] **B4.5 — UX:** Establish clear hierarchy and adequate canvas space. Make palette and inspector collapsible; ensure selected node remains visible and inspector changes are immediate.
-- [ ] **B4.6 — NODE MODEL:** Preserve the POC's known node types where verified: Input, Output, Text, LLM, Webhook, HTTP Request, JSON Transform, IF Condition and Merge. Audit current source before asserting exact support.
-- [ ] **B4.7 — VALIDATION:** Preserve DAG validation/topological ordering and clear cycle/invalid-edge feedback.
-- [ ] **B4.8 — EXECUTION:** Keep simulated execution explicitly labelled. Do not imply that real external API/LLM calls occur unless a real adapter exists and has been tested.
-- [ ] **B4.9 — UX DETAILS:** Add polished empty states, context menu, undo/redo, keyboard shortcuts, node search, helpful connection errors, status indicators and export/import JSON if reliable.
-- [ ] **B4.10 — QA:** Test complex workflow editing, graph validation, simulation, panel resize, responsive use, keyboard operation, export/import and performance with larger graphs.
+- [x] **B4.1 — AUDIT:** The current roadmap reports the original POC audit and `/flow` demo complete. Inspect the existing POC-derived node types and current `/flow` implementation to identify remaining defects; do not rebuild completed work without evidence. The user's POC URL is `https://github.com/raghav1924/frontend_technical_assessment`.
+- [x] **B4.2 — VISUAL RESEARCH:** Inspect the user's inspiration URL `https://bestdesignsonx.com/flohoeller/status/2125281041560564142`. If inaccessible, document this and ask no repeat question; use supplied screenshots plus a clearly stated fallback research set.
+- [x] **B4.3 — VERIFY/FIX:** The current roadmap reports the unified shell complete across `/flow` and the other workspaces. Verify there is no legacy Flow shell or icon rail; fix only regressions.
+- [x] **B4.4 — EDITOR:** Refine node canvas, node shapes, ports, edge routing, selection, drag/drop, zoom/pan, minimap, node palette, inspector and execution console.
+- [x] **B4.5 — UX:** Establish clear hierarchy and adequate canvas space. Make palette and inspector collapsible; ensure selected node remains visible and inspector changes are immediate.
+- [x] **B4.6 — NODE MODEL:** Preserve the POC's known node types where verified: Input, Output, Text, LLM, Webhook, HTTP Request, JSON Transform, IF Condition and Merge. Audit current source before asserting exact support.
+- [x] **B4.7 — VALIDATION:** Preserve DAG validation/topological ordering and clear cycle/invalid-edge feedback.
+- [x] **B4.8 — EXECUTION:** Keep simulated execution explicitly labelled. Do not imply that real external API/LLM calls occur unless a real adapter exists and has been tested.
+- [x] **B4.9 — UX DETAILS:** Add polished empty states, context menu, undo/redo, keyboard shortcuts, node search, helpful connection errors, status indicators and export/import JSON if reliable.
+- [x] **B4.10 — QA:** Test complex workflow editing, graph validation, simulation, panel resize, responsive use, keyboard operation, export/import and performance with larger graphs.
 
 Flow is a major RenderJoy USP. Do not demote it to a marketing-only illustration.
 
 ## B5. Homepage and brand entrance
 
-- [ ] **B5.1 — AUDIT:** The current roadmap reports the cinematic hero and editorial homepage complete. Review the actual first viewport against the approved Hybrid Sculptural Silk + Living UI Components direction and the latest premium-brand feedback; identify only remaining visual gaps.
-- [ ] **B5.2 — SIMPLIFY:** Preserve the concise editorial homepage. Do not bring back the long feature checklist or a separate section for every product capability.
-- [ ] **B5.3 — HERO:** Improve the sculptural visual, WebGL background integration and component specimens. Keep scroll+pointer interactions purposeful and smooth.
-- [ ] **B5.4 — ENTRANCE:** Add polished progressive fade/reveal inspired by Planes' sense of staging, but original to RenderJoy. Never make the user wait for a long intro; content and CTAs remain usable immediately.
-- [ ] **B5.5 — VERIFY/FIX:** The current roadmap reports the Kinetic M mark and favicon complete. Verify consistent use in navbar, footer, floating Home action and hero; do not create a new logo unless the existing mark fails the acceptance review.
-- [ ] **B5.6 — QA:** Test Light/Dark, mobile, reduced motion, scroll reversal, pointer/touch and hero loading/fallback.
+- [x] **B5.1 — AUDIT:** The current roadmap reports the cinematic hero and editorial homepage complete. Review the actual first viewport against the approved Hybrid Sculptural Silk + Living UI Components direction and the latest premium-brand feedback; identify only remaining visual gaps.
+- [x] **B5.2 — SIMPLIFY:** Preserve the concise editorial homepage. Do not bring back the long feature checklist or a separate section for every product capability.
+- [x] **B5.3 — HERO:** Improve the sculptural visual, WebGL background integration and component specimens. Keep scroll+pointer interactions purposeful and smooth.
+- [x] **B5.4 — ENTRANCE:** Add polished progressive fade/reveal inspired by Planes' sense of staging, but original to RenderJoy. Never make the user wait for a long intro; content and CTAs remain usable immediately.
+- [x] **B5.5 — VERIFY/FIX:** The current roadmap reports the Kinetic M mark and favicon complete. Verify consistent use in navbar, footer, floating Home action and hero; do not create a new logo unless the existing mark fails the acceptance review.
+- [x] **B5.6 — QA:** Test Light/Dark, mobile, reduced motion, scroll reversal, pointer/touch and hero loading/fallback.
 
 ---
 
@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task (synced with `ROADMAP.md`):** `Priority 2 — B1: Sound Library expansion (50+ original previewable sounds across 8 categories) (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
+**Current next task (synced with `ROADMAP.md`):** `Priority 4 — Wave 6 (WebGL & Visual Effects) & Wave 7–8 Future Component Catalogue expansion (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

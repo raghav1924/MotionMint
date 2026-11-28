@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-reveal",
+  "type": "registry:component",
+  "title": "Hover Reveal",
+  "description": "Editorial list that reveals a floating preview card on hover or keyboard focus.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/hover-reveal.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/hover-reveal.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { ArrowUpRight } from \"lucide-react\";\n\nexport interface HoverRevealItem {\n  id: string;\n  title: string;\n  tag: string;\n  previewSummary: string;\n  accent: string;\n}\n\nexport interface HoverRevealProps {\n  items?: HoverRevealItem[];\n  className?: string;\n}\n\nconst DEFAULT_ITEMS: HoverRevealItem[] = [\n  {\n    id: \"hr1\",\n    title: \"Logo Flare Shader\",\n    tag: \"WebGL\",\n    previewSummary: \"Volumetric polar light rays & Gaussian central bloom.\",\n    accent: \"#38BDF8\",\n  },\n  {\n    id: \"hr2\",\n    title: \"Cover-Flow Carousel\",\n    tag: \"3D Motion\",\n    previewSummary: \"Spring-interpolated perspective stack with floor reflection.\",\n    accent: \"#A855F7\",\n  },\n  {\n    id: \"hr3\",\n    title: \"Physical Knob\",\n    tag: \"Controls\",\n    previewSummary: \"Rotary dial with detent ticks and keyboard increments.\",\n    accent: \"#10B981\",\n  },\n];\n\n/**\n * Editorial list that reveals a floating preview card on hover or keyboard focus.\n */\nexport function HoverReveal({\n  items = DEFAULT_ITEMS,\n  className = \"\",\n}: HoverRevealProps) {\n  const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);\n  const activeItem = items.find((i) => i.id === activeId) ?? null;\n\n  return (\n    <div\n      className={`w-full max-w-md rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 text-[var(--mm-fg)] shadow-sm space-y-3 ${className}`.trim()}\n    >\n      <ul className=\"divide-y divide-[var(--mm-border)]\" aria-label=\"Interactive showcase list\">\n        {items.map((item) => {\n          const isActive = item.id === activeId;\n          return (\n            <li key={item.id}>\n              <button\n                type=\"button\"\n                onMouseEnter={() => setActiveId(item.id)}\n                onFocus={() => setActiveId(item.id)}\n                onClick={() => setActiveId(item.id)}\n                className=\"flex w-full items-center justify-between gap-2 py-2.5 text-left text-xs transition-opacity hover:opacity-85 cursor-pointer\"\n              >\n                <span className={isActive ? \"font-semibold\" : \"font-medium\"}>{item.title}</span>\n                <span className=\"inline-flex items-center gap-1 font-mono text-[10px] text-[var(--mm-fg-muted)]\">\n                  {item.tag}\n                  <ArrowUpRight className=\"h-3 w-3\" aria-hidden=\"true\" />\n                </span>\n              </button>\n            </li>\n          );\n        })}\n      </ul>\n\n      {activeItem && (\n        <div\n          aria-live=\"polite\"\n          className=\"rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] p-3 text-xs space-y-1\"\n        >\n          <div className=\"flex items-center gap-2\">\n            <span\n              className=\"h-2.5 w-2.5 rounded-full\"\n              style={{ backgroundColor: activeItem.accent }}\n              aria-hidden=\"true\"\n            />\n            <span className=\"font-semibold\">{activeItem.title}</span>\n          </div>\n          <p className=\"text-[11px] text-[var(--mm-fg-muted)]\">{activeItem.previewSummary}</p>\n        </div>\n      )}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

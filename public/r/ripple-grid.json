@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ripple-grid",
+  "type": "registry:component",
+  "title": "Ripple Grid",
+  "description": "Interactive tactile grid propagating radial spring waves from any clicked cell.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/ripple-grid.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/ripple-grid.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\n\nexport interface RippleGridProps {\n  rows?: number;\n  cols?: number;\n  className?: string;\n}\n\n/**\n * Interactive tactile grid propagating radial spring waves from any clicked cell.\n */\nexport function RippleGrid({\n  rows = 4,\n  cols = 6,\n  className = \"\",\n}: RippleGridProps) {\n  const prefersReduced = useReducedMotion();\n  const [origin, setOrigin] = useState<{ r: number; c: number; nonce: number }>({\n    r: 1,\n    c: 2,\n    nonce: 0,\n  });\n\n  return (\n    <div\n      role=\"grid\"\n      aria-label=\"Interactive ripple grid\"\n      className={`inline-grid gap-2 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 ${className}`.trim()}\n      style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}\n    >\n      {Array.from({ length: rows * cols }).map((_, idx) => {\n        const r = Math.floor(idx / cols);\n        const c = idx % cols;\n        const dist = Math.hypot(r - origin.r, c - origin.c);\n        const isOrigin = origin.nonce > 0 && r === origin.r && c === origin.c;\n\n        return (\n          <motion.button\n            key={`${r}-${c}-${origin.nonce}`}\n            type=\"button\"\n            onClick={() => setOrigin({ r, c, nonce: origin.nonce + 1 })}\n            aria-label={`Ripple cell row ${r + 1} column ${c + 1}`}\n            initial={prefersReduced || origin.nonce === 0 ? false : { scale: 0.72 }}\n            animate={{ scale: 1 }}\n            transition={{\n              type: \"spring\",\n              stiffness: 360,\n              damping: 20,\n              delay: prefersReduced ? 0 : dist * 0.045,\n            }}\n            className={`h-7 w-7 rounded-lg border transition-colors cursor-pointer ${\n              isOrigin\n                ? \"border-[var(--mm-accent)] bg-[var(--mm-accent)]\"\n                : \"border-[var(--mm-border)] bg-[var(--mm-bg)] hover:border-[var(--mm-accent)]\"\n            }`}\n          />\n        );\n      })}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

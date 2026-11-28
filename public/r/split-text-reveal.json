@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "split-text-reveal",
+  "type": "registry:component",
+  "title": "Split Text Reveal",
+  "description": "Word-by-word kinetic text reveal with replay control and reduced-motion fallback.",
+  "dependencies": [
+    "motion",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/split-text-reveal.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/split-text-reveal.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\nimport { RotateCcw } from \"lucide-react\";\n\nexport interface SplitTextRevealProps {\n  text?: string;\n  className?: string;\n}\n\n/**\n * Word-by-word kinetic text reveal with replay control and reduced-motion fallback.\n */\nexport function SplitTextReveal({\n  text = \"Interfaces should feel alive.\",\n  className = \"\",\n}: SplitTextRevealProps) {\n  const prefersReduced = useReducedMotion();\n  const [replayKey, setReplayKey] = useState(0);\n  const words = text.split(\" \");\n\n  return (\n    <div\n      className={`flex flex-col items-center gap-3 rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-5 text-[var(--mm-fg)] ${className}`.trim()}\n    >\n      <p key={replayKey} className=\"flex flex-wrap justify-center gap-x-2 gap-y-1 text-xl font-bold tracking-tight\">\n        {words.map((word, idx) => (\n          <motion.span\n            key={`${word}-${idx}`}\n            initial={prefersReduced ? false : { opacity: 0, y: 12 }}\n            animate={{ opacity: 1, y: 0 }}\n            transition={{\n              type: \"spring\",\n              stiffness: 340,\n              damping: 26,\n              delay: prefersReduced ? 0 : idx * 0.06,\n            }}\n          >\n            {word}\n          </motion.span>\n        ))}\n      </p>\n\n      <button\n        type=\"button\"\n        onClick={() => setReplayKey((k) => k + 1)}\n        aria-label=\"Replay split text reveal\"\n        className=\"inline-flex items-center gap-1.5 rounded-full border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 py-1 text-[11px] font-medium text-[var(--mm-fg-muted)] hover:text-[var(--mm-fg)] cursor-pointer\"\n      >\n        <RotateCcw className=\"h-3 w-3\" aria-hidden=\"true\" />\n        <span>Replay</span>\n      </button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

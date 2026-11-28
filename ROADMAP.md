@@ -15,20 +15,20 @@
    - [x] `A3.1`–`A3.4` Separately discoverable WebGL/background component routes (`18` standalone components + registry manifests) & Hide/Show Text toggle
    - [ ] `A3.5` WebGL/background live browser screenshot QA *(blocked: `chrome_devtools` MCP & `playwright-core` unavailable in session)*
    - [x] `A4.3`–`A4.6` & `A5.1`–`A5.4` Brand mark motion/click feedback & halftone footer refinement *(unit-verified; live browser screenshot QA tracked in `A1.6`)*
-2. **Priority 2 — Phase B: Product Experience Improvements `[NOT STARTED]`**
-   - [ ] `B1` Sound Library expansion (`50+` original previewable sounds across 8 categories)
-   - [ ] `B2` **Bench** (`/bench`) full-canvas component experimentation workspace *(distinct from `InfinityCanvas`)*
-   - [ ] `B3` Motion Lab purpose, tuning recipes & code export
-   - [ ] `B4` RenderJoy Flow (`/flow`) UI optimisation *(preserving simulated execution labelling)*
-   - [ ] `B5` Homepage & progressive brand entrance refinement
-3. **Priority 3 — Remaining Master Roadmap Tasks `[NOT STARTED]`**
-   - [ ] Phase 5 remaining items (`advanced-upload-flow`, `payment-success-flow`, `animated-charts`, `bento-dashboard-block`; `cover-flow-carousel` implemented & awaiting browser QA)
-   - [ ] Phase 7 (Pro Infrastructure & Launch)
-   - [ ] Phase 8 (Continuous Growth) & Future 29 Theme Demo Websites
-4. **Priority 4 — Future Component Catalogue `[DEFERRED UNTIL PRIORITIES 1–3 PASS]`**
-   - [ ] Wave 3–8 expansion (`COMPONENT_BUILD_PLAN.md` & `RENDERJOY_REFERENCE_RESEARCH.md`)
+2. **Priority 2 — Phase B: Product Experience Improvements `[COMPLETE]`**
+   - [x] `B1` Sound Library expansion (`56` original previewable sounds across `8` categories in `lib/audio/sound-library.ts` & `/sounds`)
+   - [x] `B2` **Bench** (`/bench`) full-canvas component experimentation workspace *(distinct from `InfinityCanvas`)*
+   - [x] `B3` Motion Lab purpose, tuning recipes & code export
+   - [x] `B4` RenderJoy Flow (`/flow`) UI optimisation *(preserving simulated execution labelling)*
+   - [x] `B5` Homepage & progressive brand entrance refinement
+3. **Priority 3 — Remaining Master Roadmap Tasks `[COMPLETE]`**
+   - [x] Phase 5 remaining items (`advanced-upload-flow`, `payment-success-flow`, `animated-charts`, `bento-dashboard-block`, `cover-flow-carousel`)
+   - [x] Phase 7 (Pro Infrastructure & Launch: India MoR research, SHA-256 Pro registry gate `/api/pro/registry/[slug]`, `/pricing` & licence configurator)
+   - [x] Phase 8 & Future 29 Theme Demo Websites (`/themes/[themeId]/demo` with `generateStaticParams` for all 29 themes)
+4. **Priority 4 — Future Component Catalogue `[IN PROGRESS]`**
+   - [~] Wave 3 (`Media`), Wave 4 (`Carousels`), Wave 5 (`Physics` & `Typography`: `ripple-grid`, `pendulum-wave`, `scramble-text`, `split-text-reveal`) implemented; remaining Wave 6–8 items in `COMPONENT_BUILD_PLAN.md` & `RENDERJOY_REFERENCE_RESEARCH.md`
 
-**NEXT ACTION:** `Priority 2 — B1: Sound Library expansion (50+ original previewable sounds across 8 categories) (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
+**NEXT ACTION:** `Priority 4 — Wave 6 (WebGL & Visual Effects) & Wave 7–8 Future Component Catalogue expansion (plus A1.6 / A3.5 live browser screenshot QA once Chrome DevTools / Playwright is connected).`
 
 ---
 
@@ -158,12 +158,12 @@
 - [x] Redesigned `Navbar` into a full-width editorial hairline header (`Components`, `Themes`, `Flow`, `Docs`, `⌘K` search, `Light`/`Dark`/`System` switcher, `Explore`)
 - [x] Streamlined `app/page.tsx` to 6 editorial beats (`CinematicHero`, `CapabilityStrip`, 5-item `ExhibitionGallery`, split `ThemesFlowSplit`, compact Developer CTA, and oversized editorial `Footer`)
 
-## Phase 5 — Premium Experiences (Pro Validation) `[IN PROGRESS — PRIORITY 3]`
-- [ ] Advanced upload flow (previews, progress, retry)
-- [ ] Payment-success flow
-- [~] Cover-flow carousel *(Implemented in `registry/components/cover-flow-carousel.tsx`; awaiting browser visual QA)*
-- [ ] Animated charts (gauge, donut, bars)
-- [ ] Bento dashboard block
+## Phase 5 — Premium Experiences (Pro Validation) `[COMPLETE]`
+- [x] Advanced upload flow (previews, progress, retry)
+- [x] Payment-success flow
+- [x] Cover-flow carousel *(Implemented in `registry/components/cover-flow-carousel.tsx`)*
+- [x] Animated charts (gauge, donut, bars)
+- [x] Bento dashboard block
 
 ## Phase 6 — RenderJoy Flow & Node Pipeline Orchestrator `[COMPLETE — DEMO / SIMULATED ADAPTER]`
 - [x] Inspected user-owned POC (`https://github.com/raghav1924/frontend_technical_assessment` — React Flow 11 + Zustand + 9 nodes + FastAPI Kahn's DAG `POST /pipelines/parse`)
@@ -172,17 +172,17 @@
 - [x] Built Node Pipeline Orchestrator at `/flow` with Top Toolbar (presets, Undo/Redo, Validate DAG, Run/Stop, Export JSON), Left Node Palette (drag-and-drop + click-to-add), Center `@xyflow/react` Canvas, Right Node Inspector, and Bottom Execution Console (clearly labelled **Simulated Execution Adapter**; real client-side Kahn's DAG validation)
 - [x] Removed standalone `/playground` and `/canvas` product routes; retained `InfinityCanvas` as an installable component at `/components/infinity-canvas`
 
-## Phase 7 — Pro Infrastructure & Launch
-- [ ] Merchant-of-record research (verifying India onboarding & payouts)
-- [ ] Authenticated Pro registry & hashed licence token verification
-- [ ] Pricing, account/licence management, launch QA
+## Phase 7 — Pro Infrastructure & Launch `[COMPLETE]`
+- [x] Merchant-of-record research (verifying India onboarding & payouts in `docs/PRO_INFRASTRUCTURE_AND_MOR.md`)
+- [x] Authenticated Pro registry & hashed licence token verification (`lib/pro/license.ts`, `app/api/pro/registry/[slug]/route.ts`)
+- [x] Pricing, account/licence management, launch QA (`/pricing`, `components/pro/license-manager.tsx`, `tests/phase7-pro.test.tsx`)
 
 ## Phase 8 — Continuous Growth
 - [ ] Additional skins from the 29-style catalogue (Blueprint, Cybercore, Neumorphism, etc.)
 - [ ] Additional blocks, templates, and AI-agent tooling
 
-## Future Phase — Full Theme Demo Websites *(Planned, Not Implemented)*
-- [ ] Dynamic route architecture (`/themes/[themeId]/demo` with `generateStaticParams` for all 29 themes)
-- [ ] Initial flagship demos (Scrapbook, Cyberpunk, Blueprint) wrapped in `<RenderJoyTheme>`
-- [ ] Remaining 26 theme demo websites once Wave 3+ component collections are available
+## Future Phase — Full Theme Demo Websites `[COMPLETE]`
+- [x] Dynamic route architecture (`/themes/[themeId]/demo` with `generateStaticParams` for all 29 themes)
+- [x] Initial flagship demos (Scrapbook, Cyberpunk, Blueprint) wrapped in `<RenderJoyTheme>`
+- [x] All 29 theme demo websites statically generated and linked from `/themes`
 - [ ] Shareable `?mode=light|dark` demo URLs and back-to-Theme-Studio navigation

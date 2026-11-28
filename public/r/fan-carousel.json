@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fan-carousel",
+  "type": "registry:component",
+  "title": "Fan Carousel",
+  "description": "Radial-fanning card carousel rotating around a bottom pivot.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/components/fan-carousel.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/fan-carousel.tsx",
+      "content": "\"use client\";\n\nimport React, { useState } from \"react\";\nimport { motion, useReducedMotion } from \"motion/react\";\n\nexport interface FanCard {\n  id: string;\n  title: string;\n  accent: string;\n}\n\nexport interface FanCarouselProps {\n  cards?: FanCard[];\n  className?: string;\n}\n\nconst DEFAULT_CARDS: FanCard[] = [\n  { id: \"fc1\", title: \"Minimalism\", accent: \"#64748B\" },\n  { id: \"fc2\", title: \"Cyberpunk\", accent: \"#EC4899\" },\n  { id: \"fc3\", title: \"Blueprint\", accent: \"#38BDF8\" },\n  { id: \"fc4\", title: \"Wabi Sabi\", accent: \"#84CC16\" },\n];\n\n/**\n * Radial-fanning card carousel rotating around a bottom pivot.\n */\nexport function FanCarousel({\n  cards = DEFAULT_CARDS,\n  className = \"\",\n}: FanCarouselProps) {\n  const prefersReduced = useReducedMotion();\n  const [active, setActive] = useState(1);\n\n  return (\n    <div className={`w-full max-w-sm space-y-3 text-[var(--mm-fg)] ${className}`.trim()}>\n      <div className=\"relative flex h-44 items-center justify-center\">\n        {cards.map((card, idx) => {\n          const delta = idx - active;\n          const isCenter = delta === 0;\n          return (\n            <motion.button\n              key={card.id}\n              type=\"button\"\n              onClick={() => setActive(idx)}\n              animate={\n                prefersReduced\n                  ? undefined\n                  : {\n                      rotate: delta * 11,\n                      x: delta * 34,\n                      y: Math.abs(delta) * 8,\n                      scale: isCenter ? 1 : 0.92,\n                    }\n              }\n              transition={{ type: \"spring\", stiffness: 300, damping: 24 }}\n              style={{ zIndex: cards.length - Math.abs(delta), transformOrigin: \"50% 110%\" }}\n              aria-pressed={isCenter}\n              className=\"absolute flex h-36 w-28 flex-col justify-between rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-3 text-left shadow-md cursor-pointer\"\n            >\n              <span\n                className=\"h-14 w-full rounded-xl opacity-85\"\n                style={{ backgroundColor: card.accent }}\n              />\n              <span className=\"text-xs font-semibold\">{card.title}</span>\n            </motion.button>\n          );\n        })}\n      </div>\n      <p className=\"text-center font-mono text-[10px] text-[var(--mm-fg-muted)]\">\n        Active: {cards[active]?.title}\n      </p>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

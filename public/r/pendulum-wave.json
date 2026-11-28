@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pendulum-wave",
+  "type": "registry:component",
+  "title": "Pendulum Wave",
+  "description": "Harmonic multi-bob pendulum wave with play/pause and reduced-motion fallback.",
+  "dependencies": [
+    "motion",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/components/pendulum-wave.tsx",
+      "type": "registry:component",
+      "target": "components/renderjoy/pendulum-wave.tsx",
+      "content": "\"use client\";\n\nimport React, { useEffect, useState } from \"react\";\nimport { useReducedMotion } from \"motion/react\";\nimport { Pause, Play, RotateCcw } from \"lucide-react\";\n\nexport interface PendulumWaveProps {\n  count?: number;\n  className?: string;\n}\n\n/**\n * Harmonic multi-bob pendulum wave with play/pause and reduced-motion fallback.\n */\nexport function PendulumWave({ count = 9, className = \"\" }: PendulumWaveProps) {\n  const prefersReduced = useReducedMotion();\n  const [running, setRunning] = useState(false);\n  const [phase, setPhase] = useState(0);\n\n  useEffect(() => {\n    if (!running || prefersReduced) return;\n    let raf = 0;\n    const start = performance.now() - phase * 1000;\n    const tick = (now: number) => {\n      setPhase((now - start) / 1000);\n      raf = requestAnimationFrame(tick);\n    };\n    raf = requestAnimationFrame(tick);\n    return () => cancelAnimationFrame(raf);\n  }, [running, prefersReduced]);\n\n  return (\n    <div\n      className={`w-full max-w-sm rounded-2xl border border-[var(--mm-border)] bg-[var(--mm-surface)] p-4 text-[var(--mm-fg)] space-y-3 ${className}`.trim()}\n    >\n      <div className=\"flex h-28 items-start justify-around rounded-xl border border-[var(--mm-border)] bg-[var(--mm-bg)] px-3 pt-2\">\n        {Array.from({ length: count }).map((_, i) => {\n          const freq = 1.4 + i * 0.14;\n          const angle = running && !prefersReduced ? Math.sin(phase * freq) * 26 : (i - (count - 1) / 2) * 3;\n          const length = 46 + i * 4;\n          return (\n            <div\n              key={i}\n              style={{\n                height: length,\n                transform: `rotate(${angle.toFixed(2)}deg)`,\n                transformOrigin: \"top center\",\n              }}\n              className=\"flex flex-col items-center\"\n            >\n              <span className=\"h-full w-px bg-[var(--mm-border)]\" />\n              <span className=\"h-3 w-3 shrink-0 rounded-full bg-[var(--mm-accent)] shadow-sm\" />\n            </div>\n          );\n        })}\n      </div>\n\n      <div className=\"flex items-center justify-between text-xs\">\n        <span className=\"font-mono text-[10px] uppercase tracking-wider text-[var(--mm-fg-muted)]\">\n          Harmonic Wave · {count} bobs\n        </span>\n        <div className=\"flex items-center gap-1.5\">\n          <button\n            type=\"button\"\n            onClick={() => setPhase(0)}\n            aria-label=\"Reset pendulum wave\"\n            className=\"rounded-lg border border-[var(--mm-border)] bg-[var(--mm-bg)] p-1.5 hover:opacity-80 cursor-pointer\"\n          >\n            <RotateCcw className=\"h-3.5 w-3.5\" aria-hidden=\"true\" />\n          </button>\n          <button\n            type=\"button\"\n            onClick={() => setRunning((r) => !r)}\n            aria-label={running ? \"Pause pendulum wave\" : \"Play pendulum wave\"}\n            aria-pressed={running}\n            className=\"inline-flex items-center gap-1 rounded-lg bg-[var(--mm-accent)] px-2.5 py-1 text-xs font-medium text-[var(--mm-accent-fg)] cursor-pointer\"\n          >\n            {running ? <Pause className=\"h-3 w-3\" aria-hidden=\"true\" /> : <Play className=\"h-3 w-3\" aria-hidden=\"true\" />}\n            <span>{running ? \"Pause\" : \"Play\"}</span>\n          </button>\n        </div>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

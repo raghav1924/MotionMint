@@ -16,6 +16,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isFlow = pathname.startsWith("/flow");
+  const isBench = pathname.startsWith("/bench");
+  const isCanvasWorkspace = isFlow || isBench;
 
   return (
     <>
@@ -24,9 +26,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {!isHome && <NavigationToggle />}
         {!isHome && <BrandFloatingButton />}
         {isHome && <Navbar />}
-        <main className={cn("flex-1", isFlow || isHome ? "pb-6" : "pb-24")}>{children}</main>
-        {!isFlow && <Footer />}
-        {!isHome && !isFlow && <FloatingToolbar />}
+        <main className={cn("flex-1", isCanvasWorkspace || isHome ? "pb-6" : "pb-24")}>{children}</main>
+        {!isCanvasWorkspace && <Footer />}
+        {!isHome && !isCanvasWorkspace && <FloatingToolbar />}
       </div>
       <EditorialSidebar />
       <CommandPalette />

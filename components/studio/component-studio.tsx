@@ -97,6 +97,22 @@ import {
   type ShaderQuality,
 } from "@/registry/components/shader-background";
 import { PreviewStage } from "@/components/preview/preview-stage";
+import { AdvancedUploadFlow } from "@/registry/components/advanced-upload-flow";
+import { PaymentSuccessFlow } from "@/registry/components/payment-success-flow";
+import { AnimatedCharts } from "@/registry/components/animated-charts";
+import { BentoDashboardBlock } from "@/registry/components/bento-dashboard-block";
+import { RetroMusicPlayer } from "@/registry/components/retro-music-player";
+import { AlbumCover } from "@/registry/components/album-cover";
+import { PhotoStack } from "@/registry/components/photo-stack";
+import { HoverReveal } from "@/registry/components/hover-reveal";
+import { FocusScaleCarousel } from "@/registry/components/focus-scale-carousel";
+import { FanCarousel } from "@/registry/components/fan-carousel";
+import { RingGallery } from "@/registry/components/ring-gallery";
+import { ParallaxCarousel } from "@/registry/components/parallax-carousel";
+import { RippleGrid } from "@/registry/components/ripple-grid";
+import { PendulumWave } from "@/registry/components/pendulum-wave";
+import { ScrambleText } from "@/registry/components/scramble-text";
+import { SplitTextReveal } from "@/registry/components/split-text-reveal";
 import { ComponentDocs } from "@/components/documentation/component-docs";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { Lock } from "lucide-react";
@@ -759,6 +775,38 @@ export function ComponentStudio({
         );
       case "cover-flow-carousel":
         return <CoverFlowCarousel showReflections={coverReflections} />;
+      case "advanced-upload-flow":
+        return <AdvancedUploadFlow />;
+      case "payment-success-flow":
+        return <PaymentSuccessFlow />;
+      case "animated-charts":
+        return <AnimatedCharts />;
+      case "bento-dashboard-block":
+        return <BentoDashboardBlock />;
+      case "retro-music-player":
+        return <RetroMusicPlayer />;
+      case "album-cover":
+        return <AlbumCover />;
+      case "photo-stack":
+        return <PhotoStack />;
+      case "hover-reveal":
+        return <HoverReveal />;
+      case "focus-scale-carousel":
+        return <FocusScaleCarousel />;
+      case "fan-carousel":
+        return <FanCarousel />;
+      case "ring-gallery":
+        return <RingGallery />;
+      case "parallax-carousel":
+        return <ParallaxCarousel />;
+      case "ripple-grid":
+        return <RippleGrid />;
+      case "pendulum-wave":
+        return <PendulumWave />;
+      case "scramble-text":
+        return <ScrambleText />;
+      case "split-text-reveal":
+        return <SplitTextReveal />;
       case "tactile-3d-button":
         return (
           <div className="flex flex-wrap items-center justify-center gap-4">

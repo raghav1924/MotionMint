@@ -9,6 +9,8 @@ import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { RenderJoyProvider, useRenderJoy } from "@/components/site/providers";
 import { ThemeStudio } from "@/components/theme/theme-studio";
 import { ComponentStudio } from "@/components/studio/component-studio";
+import { ThemeDemoWebsite } from "@/components/theme/theme-demo-website";
+import { generateStaticParams as generateThemeDemoParams } from "@/app/themes/[themeId]/demo/page";
 import { RippleButton } from "@/registry/components/ripple-button";
 
 vi.mock("next/navigation", () => ({
@@ -92,9 +94,9 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
     expect(document.documentElement.getAttribute("data-appearance")).toBe("light");
   });
 
-  it("renders all 78 implemented components across all 58 theme/mode variants (4,524 combinations)", () => {
+  it("renders all 94 implemented components across all 58 theme/mode variants (5,452 combinations)", () => {
     const implemented = CATALOG_ITEMS.filter((c) => c.status === "implemented");
-    expect(implemented).toHaveLength(78);
+    expect(implemented).toHaveLength(94);
 
     let comboCount = 0;
     for (const theme of ALL_THEMES) {
@@ -110,7 +112,7 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
         unmount();
       }
     }
-    expect(comboCount).toBe(4524);
+    expect(comboCount).toBe(5452);
   }, 20000);
 
   it("ThemeStudio supports search, category filtering, light/dark application, and Compare Mode", () => {
@@ -142,5 +144,18 @@ describe("Phase 2.9 — 58-Variant Component Theme System & Isolation", () => {
     expect(screen.getByText(ripple.name)).toBeInTheDocument();
     expect(container.querySelector('[data-mm-scope="true"]')).not.toBeNull();
     expect(CATALOG_ITEMS.find((c) => c.slug === "infinity-canvas")?.status).toBe("implemented");
+  });
+
+  it("generates static params for all 29 theme demo websites and renders scoped demo", () => {
+    const params = generateThemeDemoParams();
+    expect(params).toHaveLength(29);
+
+    const cyberpunk = ALL_THEMES.find((t) => t.id === "cyberpunk")!;
+    const { container } = render(<ThemeDemoWebsite theme={cyberpunk} />);
+    expect(container.querySelector('[data-mm-scope="true"]')).toHaveAttribute(
+      "data-theme",
+      "cyberpunk"
+    );
+    expect(document.documentElement.style.getPropertyValue("--mm-bg")).toBe("");
   });
 });

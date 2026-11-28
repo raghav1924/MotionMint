@@ -61,6 +61,22 @@ import { KineticMarquee } from "@/registry/components/kinetic-marquee";
 import { MetricSparkline } from "@/registry/components/metric-sparkline";
 import { SplitCompare } from "@/registry/components/split-compare";
 import { FounderWall } from "@/registry/components/founder-wall";
+import { AdvancedUploadFlow } from "@/registry/components/advanced-upload-flow";
+import { PaymentSuccessFlow } from "@/registry/components/payment-success-flow";
+import { AnimatedCharts } from "@/registry/components/animated-charts";
+import { BentoDashboardBlock } from "@/registry/components/bento-dashboard-block";
+import { RetroMusicPlayer } from "@/registry/components/retro-music-player";
+import { AlbumCover } from "@/registry/components/album-cover";
+import { PhotoStack } from "@/registry/components/photo-stack";
+import { HoverReveal } from "@/registry/components/hover-reveal";
+import { FocusScaleCarousel } from "@/registry/components/focus-scale-carousel";
+import { FanCarousel } from "@/registry/components/fan-carousel";
+import { RingGallery } from "@/registry/components/ring-gallery";
+import { ParallaxCarousel } from "@/registry/components/parallax-carousel";
+import { RippleGrid } from "@/registry/components/ripple-grid";
+import { PendulumWave } from "@/registry/components/pendulum-wave";
+import { ScrambleText } from "@/registry/components/scramble-text";
+import { SplitTextReveal } from "@/registry/components/split-text-reveal";
 
 const DEMO_CARDS: DeckCardItem[] = [
   {
@@ -463,6 +479,38 @@ export function ComponentLivePreview({
       return <SplitCompare className="scale-[0.82]" />;
     case "founder-wall":
       return <FounderWall className="scale-[0.72] -my-8" />;
+    case "advanced-upload-flow":
+      return <AdvancedUploadFlow className="scale-[0.78] -my-6" />;
+    case "payment-success-flow":
+      return <PaymentSuccessFlow className="scale-[0.82] -my-4" />;
+    case "animated-charts":
+      return <AnimatedCharts className="scale-[0.8] -my-4" />;
+    case "bento-dashboard-block":
+      return <BentoDashboardBlock className="scale-[0.72] -my-8" />;
+    case "retro-music-player":
+      return <RetroMusicPlayer className="scale-[0.84]" />;
+    case "album-cover":
+      return <AlbumCover className="scale-[0.9]" />;
+    case "photo-stack":
+      return <PhotoStack className="scale-[0.82]" />;
+    case "hover-reveal":
+      return <HoverReveal className="scale-[0.84] -my-4" />;
+    case "focus-scale-carousel":
+      return <FocusScaleCarousel className="scale-[0.82]" />;
+    case "fan-carousel":
+      return <FanCarousel className="scale-[0.84]" />;
+    case "ring-gallery":
+      return <RingGallery className="scale-[0.88]" />;
+    case "parallax-carousel":
+      return <ParallaxCarousel className="scale-[0.86]" />;
+    case "ripple-grid":
+      return <RippleGrid className="scale-[0.86]" />;
+    case "pendulum-wave":
+      return <PendulumWave className="scale-[0.84]" />;
+    case "scramble-text":
+      return <ScrambleText />;
+    case "split-text-reveal":
+      return <SplitTextReveal className="scale-[0.86]" />;
     default:
       if (slug in SHADER_PRESETS) {
         const meta = SHADER_PRESETS[slug as ShaderPresetId];
