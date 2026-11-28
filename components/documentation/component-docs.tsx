@@ -47,6 +47,10 @@ export function ComponentDocs({
 
   return (
     <div className="mx-auto max-w-[760px] space-y-12 pt-8">
+      <p className="text-sm leading-relaxed text-[var(--ws-text-secondary)]">
+        {item.description}
+      </p>
+
       {/* 10.1 Installation Section */}
       <section className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">

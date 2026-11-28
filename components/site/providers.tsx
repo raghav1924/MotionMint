@@ -43,6 +43,14 @@ interface RenderJoyContextValue {
   setFullscreenPreview: (open: boolean) => void;
   activeComponentSlug: string | null;
   setActiveComponentSlug: (slug: string | null) => void;
+  inspectorOpen: boolean;
+  setInspectorOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
+  replayKey: number;
+  triggerReplay: () => void;
+  resetKey: number;
+  triggerReset: () => void;
+  showPreviewText: boolean;
+  setShowPreviewText: (show: boolean | ((prev: boolean) => boolean)) => void;
 }
 
 const RenderJoyContext = createContext<RenderJoyContextValue | null>(null);
@@ -61,6 +69,10 @@ export function RenderJoyProvider({ children }: { children: React.ReactNode }) {
   const [previewKey, setPreviewKey] = useState<number>(0);
   const [fullscreenPreview, setFullscreenPreview] = useState<boolean>(false);
   const [activeComponentSlug, setActiveComponentSlug] = useState<string | null>(null);
+  const [inspectorOpen, setInspectorOpen] = useState<boolean>(true);
+  const [replayKey, setReplayKey] = useState<number>(0);
+  const [resetKey, setResetKey] = useState<number>(0);
+  const [showPreviewText, setShowPreviewText] = useState<boolean>(true);
 
   // Hydrate appearance + theme from URL / localStorage
   useEffect(() => {
@@ -179,6 +191,14 @@ export function RenderJoyProvider({ children }: { children: React.ReactNode }) {
     setPreviewKey((k) => k + 1);
   }, []);
 
+  const triggerReplay = useCallback(() => {
+    setReplayKey((k) => k + 1);
+  }, []);
+
+  const triggerReset = useCallback(() => {
+    setResetKey((k) => k + 1);
+  }, []);
+
   const activeTheme = getThemeById(themeId);
 
   return (
@@ -211,6 +231,14 @@ export function RenderJoyProvider({ children }: { children: React.ReactNode }) {
         setFullscreenPreview,
         activeComponentSlug,
         setActiveComponentSlug,
+        inspectorOpen,
+        setInspectorOpen,
+        replayKey,
+        triggerReplay,
+        resetKey,
+        triggerReset,
+        showPreviewText,
+        setShowPreviewText,
       }}
     >
       {children}
@@ -249,6 +277,14 @@ export function useRenderJoy(): RenderJoyContextValue {
       setFullscreenPreview: () => {},
       activeComponentSlug: null,
       setActiveComponentSlug: () => {},
+      inspectorOpen: true,
+      setInspectorOpen: () => {},
+      replayKey: 0,
+      triggerReplay: () => {},
+      resetKey: 0,
+      triggerReset: () => {},
+      showPreviewText: true,
+      setShowPreviewText: () => {},
     };
   }
   return ctx;

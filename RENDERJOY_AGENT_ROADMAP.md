@@ -561,7 +561,7 @@ For each completed task, report:
 
 ## NEXT ACTION — agent must maintain this field
 
-**Current next task (synced with `ROADMAP.md`):** `Priority 1 — A1.2 & A2.1–A2.13: Establish shared preview-stage contract and redesign FloatingToolbar + compact right-side floating Inspector.`
+**Current next task (synced with `ROADMAP.md`):** `Priority 1 — A1.6 & A3.1–A3.5: Browser multi-viewport screenshot QA (1440×900, 768×1024, 390×844) and separate discoverable WebGL/background component routes.`
 
 **Do not start Phase B or Phase C until Phase A is complete and visually accepted.**
 

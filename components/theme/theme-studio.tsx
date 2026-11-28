@@ -10,11 +10,7 @@ import { useRenderJoy } from "@/components/site/providers";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { ComponentLivePreview } from "@/components/shared/component-preview-card";
 import { ComparisonWorkbench } from "@/components/studio/comparison-workbench";
-import {
-  DesktopBrowserFrame,
-  TabletPreviewFrame,
-  MobileDeviceFrame,
-} from "@/components/preview/device-frames";
+import { PreviewStage } from "@/components/preview/preview-stage";
 import { RippleButton } from "@/registry/components/ripple-button";
 import { cn } from "@/lib/utils";
 
@@ -221,40 +217,16 @@ export function ThemeStudio() {
               </div>
             </div>
 
-            {viewportMode === "mobile" ? (
-              <MobileDeviceFrame key={`m-${previewSlug}-${previewKey}`} slug={previewSlug}>
-                <RenderJoyTheme
-                  theme={activeTheme.id}
-                  mode={themeMode}
-                  padded
-                  className="flex min-h-[380px] w-full items-center justify-center overflow-hidden"
-                >
-                  <ComponentLivePreview slug={previewSlug} />
-                </RenderJoyTheme>
-              </MobileDeviceFrame>
-            ) : viewportMode === "tablet" ? (
-              <TabletPreviewFrame key={`t-${previewSlug}-${previewKey}`} slug={previewSlug}>
-                <RenderJoyTheme
-                  theme={activeTheme.id}
-                  mode={themeMode}
-                  padded
-                  className="flex min-h-[300px] w-full items-center justify-center overflow-hidden"
-                >
-                  <ComponentLivePreview slug={previewSlug} />
-                </RenderJoyTheme>
-              </TabletPreviewFrame>
-            ) : (
-              <DesktopBrowserFrame key={`d-${previewSlug}-${previewKey}`} slug={previewSlug}>
-                <RenderJoyTheme
-                  theme={activeTheme.id}
-                  mode={themeMode}
-                  padded
-                  className="flex min-h-[260px] w-full items-center justify-center overflow-hidden"
-                >
-                  <ComponentLivePreview slug={previewSlug} />
-                </RenderJoyTheme>
-              </DesktopBrowserFrame>
-            )}
+            <PreviewStage
+              key={`${viewportMode}-${previewSlug}-${previewKey}`}
+              slug={previewSlug}
+              viewport={viewportMode}
+              theme={activeTheme.id}
+              themeMode={themeMode}
+              compactDesktop
+            >
+              <ComponentLivePreview slug={previewSlug} />
+            </PreviewStage>
           </div>
         )}
       </section>

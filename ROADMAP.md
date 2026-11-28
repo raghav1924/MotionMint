@@ -9,8 +9,9 @@
 1. **Priority 1 — Phase A: Existing UI Issues & Refactoring `[IN PROGRESS]`**
    - [x] `A0.1`–`A0.4` Shared navigation, preview, toolbar, inspector, and inventory audit (`PHASE_A_UI_AUDIT.md`)
    - [x] `A1.1`, `A1.3`, `A1.4`, `A1.5`, `A2.14`, `A2.15` Preview card consistency, offscreen `VisibilityPreview` pause, dot-grid & glossy bottom fade, box-free `RenderJoyMark`, same-category related items *(awaiting browser screenshot QA in `A1.6`)*
-   - [ ] `A1.2` & `A1.6` Shared preview-stage layout contract across Component Studio, Theme Studio, and Catalogue + multi-viewport verification
-   - [ ] `A2.1`–`A2.13`, `A2.16`–`A2.17` Compact (`-30%`) frosted `FloatingToolbar`, Home logomark button, right-side floating Inspector, Replay vs Reset, independent global/component appearance toggles, Hide/Show Text, tooltips
+   - [x] `A1.2` Shared preview-stage layout contract across Component Studio, Theme Studio, and Catalogue (`components/preview/preview-stage.tsx`)
+   - [x] `A2.1`–`A2.13`, `A2.16`–`A2.17` Compact (`-30%`) frosted `FloatingToolbar`, Home logomark button, right-side floating Inspector, Replay vs Reset, independent global/component appearance toggles, Hide/Show Text, tooltips *(Implementation & unit tests complete; browser screenshot QA tracked in `A1.6`)*
+   - [ ] `A1.6` Multi-viewport browser screenshot verification (`1440×900`, `768×1024`, `390×844`, Light & Dark)
    - [ ] `A3.1`–`A3.5` Separately discoverable WebGL/background effects & overlay readability QA
    - [ ] `A4.3`–`A4.6` & `A5.1`–`A5.4` Brand mark motion/click feedback & halftone footer refinement
 2. **Priority 2 — Phase B: Product Experience Improvements `[NOT STARTED]`**
@@ -26,7 +27,7 @@
 4. **Priority 4 — Future Component Catalogue `[DEFERRED UNTIL PRIORITIES 1–3 PASS]`**
    - [ ] Wave 3–8 expansion (`COMPONENT_BUILD_PLAN.md` & `RENDERJOY_REFERENCE_RESEARCH.md`)
 
-**NEXT ACTION:** `Priority 1 — A1.2 & A2.1–A2.13: Establish shared preview-stage contract and redesign FloatingToolbar + compact right-side floating Inspector.`
+**NEXT ACTION:** `Priority 1 — A1.6 & A3.1–A3.5: Browser multi-viewport screenshot QA (1440×900, 768×1024, 390×844) and separate discoverable WebGL/background component routes.`
 
 ---
 

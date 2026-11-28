@@ -1,5 +1,16 @@
 # CHANGELOG.md — RenderJoy
 
+## [0.18.2] — 2026-11-28 (Priority 1 — Shared PreviewStage, FloatingToolbar & Floating Inspector)
+### Added
+- `components/preview/preview-stage.tsx`: Shared `PreviewStage` contract (`A1.2`) unifying dot-grid canvas, `MobileDeviceFrame`, `TabletPreviewFrame`, `<RenderJoyTheme>` scoping, and glossy bottom canvas fade across `ComponentStudio` and `ThemeStudio`.
+- `components/site/providers.tsx`: Added `inspectorOpen`, `replayKey`/`triggerReplay`, `resetKey`/`triggerReset`, and `showPreviewText` state.
+
+### Changed
+- `components/shell/floating-toolbar.tsx`: Compact (~30% reduced) frosted-glass toolbar with Home logomark button (`RenderJoyMark` only), tooltips on all actions, Inspect toggle, distinct Replay vs Reset controls, Hide/Show Text toggle for background previews, and independent Global Website Appearance vs Component Preview Mode/Theme controls (`A2.1`–`A2.11`).
+- `components/studio/component-studio.tsx`: Switched stage to `PreviewStage`, moved Inspector to a compact floating right-side panel (`xl:fixed xl:top-24 xl:right-5`) so controls stay visible alongside the preview (`A2.5`, `A2.16`), moved `item.description` from the preview header down to `ComponentDocs` (`A2.12`), and wired `showPreviewText` (`A2.11`).
+- `components/theme/theme-studio.tsx`: Migrated Theme Studio preview stage to shared `PreviewStage` (`A1.2`).
+- `components/documentation/component-docs.tsx`: Added `item.description` at top of docs (`A2.12`).
+
 ## [0.18.1] — 2026-11-28 (Mandatory Changelog Rule)
 ### Added
 - `AGENTS.md`: Added mandatory rule requiring `CHANGELOG.md` to be updated on every change (Added, Changed, Refactored, Fixed, or Removed).

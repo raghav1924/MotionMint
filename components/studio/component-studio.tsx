@@ -96,10 +96,7 @@ import {
   type ShaderPresetId,
   type ShaderQuality,
 } from "@/registry/components/shader-background";
-import {
-  TabletPreviewFrame,
-  MobileDeviceFrame,
-} from "@/components/preview/device-frames";
+import { PreviewStage } from "@/components/preview/preview-stage";
 import { ComponentDocs } from "@/components/documentation/component-docs";
 import { RenderJoyTheme } from "@/components/theme/theme-scope";
 import { Lock } from "lucide-react";
@@ -135,11 +132,17 @@ export function ComponentStudio({
     fullscreenPreview,
     setFullscreenPreview,
     setActiveComponentSlug,
+    inspectorOpen,
+    setInspectorOpen,
+    replayKey,
+    triggerReplay,
+    resetKey,
+    triggerReset,
+    showPreviewText,
   } = useRenderJoy();
   const [localResetKey, setLocalResetKey] = useState(0);
-  const combinedResetKey = previewKey + localResetKey;
+  const combinedResetKey = previewKey + replayKey + localResetKey;
   const viewport = viewportMode;
-  const setViewport = setViewportMode;
   const fullscreen = fullscreenPreview;
   const setFullscreen = (val: boolean | ((prev: boolean) => boolean)) => {
     const next = typeof val === "function" ? val(fullscreenPreview) : val;
@@ -149,6 +152,22 @@ export function ComponentStudio({
     setLocalResetKey(val);
     refreshPreview();
   };
+
+  // Reset editable component state when global Reset is triggered (separate from Replay)
+  React.useEffect(() => {
+    if (resetKey === 0) return;
+    setVariant("primary");
+    setJellyVariant("primary");
+    setTactileTone("obsidian");
+    setGlassFinish("obsidian");
+    setCoverReflections(true);
+    setSize("md");
+    setButtonLabel("Primary Action");
+    setButtonDisabled(false);
+    setMagneticStrength(0.25);
+    setCopyText(item.installCommand);
+    setLocalResetKey((k) => k + 1);
+  }, [resetKey, item.installCommand]);
 
   React.useEffect(() => {
     setActiveComponentSlug(item.slug);
@@ -165,7 +184,6 @@ export function ComponentStudio({
     }
   }, [item.slug]);
 
-  const [inspectorOpen, setInspectorOpen] = useState(true);
   const [mobileInspectorOpen, setMobileInspectorOpen] = useState(false);
   const [stageTab, setStageTab] = useState<"preview" | "code" | "compare">("preview");
   const [simReducedMotion, setSimReducedMotion] = useState(false);
@@ -640,14 +658,15 @@ export function ComponentStudio({
               shaderPreset === "pastel" ? "text-slate-900" : "text-white"
             )}
           >
-            <div
-              className={cn(
-                "flex h-full flex-col items-center gap-2.5",
-                shaderPreset === "logo-flare" && shaderShowLogo
-                  ? "justify-end pb-8"
-                  : "justify-center"
-              )}
-            >
+            {showPreviewText && (
+              <div
+                className={cn(
+                  "flex h-full flex-col items-center gap-2.5",
+                  shaderPreset === "logo-flare" && shaderShowLogo
+                    ? "justify-end pb-8"
+                    : "justify-center"
+                )}
+              >
               <span
                 className={cn(
                   "rounded-full border px-3 py-0.5 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm",
@@ -670,6 +689,7 @@ export function ComponentStudio({
                 Your content, surrounded by generative motion.
               </p>
             </div>
+            )}
           </ShaderBackground>
         );
       case "flip-card":
@@ -1629,55 +1649,15 @@ export function ComponentStudio({
             >
               <div key={combinedResetKey} className="w-full flex flex-col items-center">
                 <MotionConfig reducedMotion={simReducedMotion ? "always" : "user"}>
-                  {item.slug === "shader-background" ? (
-                    viewport === "mobile" ? (
-                      <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
-                        <MobileDeviceFrame slug={item.slug} fullBleed>
-                          {renderStage()}
-                        </MobileDeviceFrame>
-                      </div>
-                    ) : viewport === "tablet" ? (
-                      <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
-                        <TabletPreviewFrame slug={item.slug} fullBleed>
-                          {renderStage()}
-                        </TabletPreviewFrame>
-                      </div>
-                    ) : (
-                      <div className="w-full border-b border-[var(--ws-border-subtle)]">
-                        {renderStage()}
-                      </div>
-                    )
-                  ) : viewport === "mobile" ? (
-                    <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
-                      <MobileDeviceFrame slug={item.slug}>
-                        <RenderJoyTheme theme={skin} mode={themeMode} padded className="w-full flex justify-center">
-                          {renderStage()}
-                        </RenderJoyTheme>
-                      </MobileDeviceFrame>
-                    </div>
-                  ) : viewport === "tablet" ? (
-                    <div className="w-full py-8 sm:py-12 px-4 flex justify-center border-b border-[var(--ws-border-subtle)] bg-[radial-gradient(var(--ws-border)_1px,transparent_1px)] [background-size:20px_20px]">
-                      <TabletPreviewFrame slug={item.slug}>
-                        <RenderJoyTheme theme={skin} mode={themeMode} padded className="w-full max-w-lg flex justify-center">
-                          {renderStage()}
-                        </RenderJoyTheme>
-                      </TabletPreviewFrame>
-                    </div>
-                  ) : (
-                    <div
-                      data-testid="desktop-canvas-stage"
-                      className="relative flex min-h-[72vh] sm:min-h-[660px] w-full items-center justify-center border-b border-[var(--ws-border-subtle)] bg-[var(--ws-preview-bg)] bg-[radial-gradient(var(--ws-border)_1.1px,transparent_1.1px)] [background-size:20px_20px] p-6 sm:p-12 overflow-x-auto"
-                    >
-                      <RenderJoyTheme theme={skin} mode={themeMode} padded className="relative z-10 w-full max-w-3xl flex justify-center">
-                        {renderStage()}
-                      </RenderJoyTheme>
-                      {/* Glossy blurred bottom canvas fade */}
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[var(--ws-bg)]/90 via-[var(--ws-bg)]/45 to-transparent backdrop-blur-[2px]"
-                      />
-                    </div>
-                  )}
+                  <PreviewStage
+                    slug={item.slug}
+                    viewport={viewport}
+                    theme={skin}
+                    themeMode={themeMode}
+                    fullBleed={item.slug === "shader-background"}
+                  >
+                    {renderStage()}
+                  </PreviewStage>
                 </MotionConfig>
               </div>
             </ContextMenu>
@@ -1693,28 +1673,15 @@ export function ComponentStudio({
               <h1 className="text-[28px] sm:text-[34px] font-semibold tracking-tight text-[var(--ws-text-primary)]">
                 {item.name}
               </h1>
+              <span className="rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--ws-text-secondary)]">
+                {item.category}
+              </span>
               {item.tier === "pro" && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-0.5 text-xs font-medium text-[var(--ws-text-secondary)]">
                   <Lock className="h-3 w-3" aria-hidden="true" />
                   Pro
                 </span>
               )}
-            </div>
-            <p className="text-sm text-[var(--ws-text-secondary)] max-w-xl">
-              {item.description}
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-0.5">
-              <span className="rounded-full border border-[var(--ws-border)] bg-[var(--ws-surface)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--ws-text-secondary)]">
-                {item.category}
-              </span>
-              {item.interactions.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-[var(--ws-border-subtle)] bg-[var(--ws-bg)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--ws-text-muted)]"
-                >
-                  {INTERACTION_LABELS[tag]}
-                </span>
-              ))}
             </div>
 
             <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
@@ -1772,7 +1739,8 @@ export function ComponentStudio({
 
               <button
                 type="button"
-                onClick={() => setResetKey((k) => k + 1)}
+                onClick={triggerReplay}
+                title="Replay animation"
                 className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[var(--ws-border)] bg-[var(--ws-floating)] px-3 text-xs font-medium text-[var(--ws-text-primary)] hover:bg-[var(--ws-surface-hover)] cursor-pointer"
               >
                 <Play className="h-3 w-3" aria-hidden="true" />
@@ -1834,11 +1802,11 @@ export function ComponentStudio({
 
           <div className="grid grid-cols-1 gap-5 items-start">
 
-            {/* Collapsible Bottom Inspector */}
+            {/* Compact Floating Inspector at Right (Desktop) / Inline Card (Mobile/Tablet) */}
             {inspectorOpen && stageTab === "preview" && (
               <aside
                 aria-label="Component Inspector"
-                className="block w-full rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-5 space-y-4"
+                className="block w-full rounded-2xl border border-[var(--ws-border)] bg-[var(--ws-surface)] p-4 space-y-4 xl:fixed xl:top-24 xl:right-5 xl:z-30 xl:w-[272px] xl:max-h-[calc(100vh-176px)] xl:overflow-y-auto xl:bg-[var(--ws-floating)]/90 xl:backdrop-blur-xl xl:shadow-[var(--ws-shadow-floating)]"
               >
                 <div className="flex items-center justify-between border-b border-[var(--ws-border)] pb-2.5">
                   <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ws-text-secondary)]">
@@ -1846,7 +1814,8 @@ export function ComponentStudio({
                   </span>
                   <button
                     type="button"
-                    onClick={() => setResetKey((k) => k + 1)}
+                    onClick={triggerReset}
+                    title="Reset editable component state"
                     className="inline-flex items-center gap-1 text-[11px] text-[var(--ws-text-secondary)] hover:text-[var(--ws-text-primary)] cursor-pointer"
                   >
                     <RotateCcw className="h-3 w-3" aria-hidden="true" />
